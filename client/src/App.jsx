@@ -58,13 +58,12 @@ function App() {
 
   return (
     <div style={{ padding: '50px' }} className="topFive">
-      <Navbar />
+      <Navbar></Navbar>
       <h1>Top 5 Movies</h1>
       <table>
         <thead>
           <tr>
             <th>Title</th>
-            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -102,7 +101,6 @@ function App() {
               </tr>
             </tbody>
           </table>
-          <button onClick={() => setSelectedFilm(null)}>Close</button>
         </div>
       )}
 
@@ -112,7 +110,6 @@ function App() {
           <tr>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -124,7 +121,7 @@ function App() {
                 <button onClick={() => {
                   setSelectedActor(actor);
                   setSelectedFilms(actor.films);
-                }}>View Actor Details</button>
+                }}>View Details</button>
               </td>
             </tr>
           ))}
@@ -134,20 +131,6 @@ function App() {
       {selectedActor && (
         <div>
           <h2>Actor Details</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{selectedActor.first_name}</td>
-                <td>{selectedActor.last_name}</td>
-              </tr>
-            </tbody>
-          </table>
           <h3>Top 5 Films</h3>
           <table>
             <thead>
