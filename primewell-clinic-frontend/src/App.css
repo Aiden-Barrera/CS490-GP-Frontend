@@ -1,0 +1,41 @@
+body{
+  overflow-x: hidden;
+  background-color: #a2c3a4;
+}
+
+.ant-layout-header {
+  background-color: #a2c3a4 !important; 
+}
+
+/* Menu background color */
+.ant-menu {
+  background-color: #a2c3a4 !important; 
+}
+
+/* Menu item text color */
+.ant-menu-item {
+  color: white !important; 
+}
+
+/* Menu item hover color */
+.ant-menu-item:hover {
+  background-color: #373b41 !important; 
+}
+
+/* Active menu item color */
+.ant-menu-item-active {
+   background-color: #373b41 !important; 
+}
+
+.ant-menu-item-selected {
+  background-color: #373b41 !important; /* Desired active item color */
+  color: white !important; 
+}
+
+.title {
+  font-size: 100px !important; 
+  line-height: 1.1 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, 
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  text-align: center;
+}
