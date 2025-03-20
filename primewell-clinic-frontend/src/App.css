@@ -47,3 +47,7 @@ body{
   padding: 18px 22px 18px 22px !important;
   box-shadow: 3px 3px 0 #2e2f35;
 }
+
+.text-container {
+  max-width: 950px;
+}

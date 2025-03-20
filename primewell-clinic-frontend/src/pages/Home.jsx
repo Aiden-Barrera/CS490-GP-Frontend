@@ -7,7 +7,9 @@ const Home = () => {
     return (
         <>
             <Flex justify="center" align="center" style={{height: "100vh"}}>
-                <h1 className="title" style={{color: "#373b41"}}>Welcome to PrimeWell Clinic</h1>
+                <div className="text-container">
+                    <h1 className="title" style={{color: "#ffffff"}}>Empowering healthier lives with expercare and proven results. Your wellness starts here.</h1>
+                </div>
             </Flex>
         </>
     )
