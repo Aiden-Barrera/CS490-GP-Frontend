@@ -9,7 +9,7 @@ const Navbar = () => {
     return (    
         <Header style={{display: "flex", alignItems: "center", width: "100vw", padding: "0"}}>
             <div>
-                <Title style={{color: "#ffffff", margin: "0 35px", textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}><strong>PrimeWell Clinic</strong></Title>
+                <Title style={{color: "#ffffff", margin: "0 35px", fontWeight: "900", fontSize: "48px", textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}>PrimeWell Clinic</Title>
             </div>
 
             <Menu theme="dark" mode="horizontal" style={{marginLeft: "auto"}}>
