@@ -39,3 +39,11 @@ body{
   "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   text-align: center;
 }
+
+.custom-btn {
+  border-color: #2e2f35 !important;
+  border-width: 2px;
+  border-radius: 12px;
+  padding: 18px 22px 18px 22px !important;
+  box-shadow: 3px 3px 0 #2e2f35;
+}

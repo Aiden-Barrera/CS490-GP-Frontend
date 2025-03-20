@@ -9,7 +9,7 @@ const Navbar = () => {
     return (    
         <Header style={{display: "flex", alignItems: "center", width: "100vw", padding: "0"}}>
             <div>
-                <Title style={{color: "#ffffff", margin: "0 20px", textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}><strong>PrimeWell Clinic</strong></Title>
+                <Title style={{color: "#ffffff", margin: "0 35px", textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}><strong>PrimeWell Clinic</strong></Title>
             </div>
 
             <Menu theme="dark" mode="horizontal" style={{marginLeft: "auto"}}>
@@ -23,8 +23,8 @@ const Navbar = () => {
                     <Link to="/Reviews" style={{color: "#ffffff"}}><strong>REVIEWS</strong></Link>
                 </Menu.Item>
             </Menu>
-            <Button style={{marginLeft: "10px"}}>Login</Button>
-            <Button style={{margin: "0 10px"}}>Create Account</Button>
+            <Button className="custom-btn" style={{marginLeft: "5px"}}>Login</Button>
+            <Button className="custom-btn" style={{margin: "0 25px 0 10px", backgroundColor: "#f09c96"}}>Create Account</Button>
         </Header>
     )
 }
