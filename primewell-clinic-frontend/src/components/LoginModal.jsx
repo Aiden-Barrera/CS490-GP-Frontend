@@ -35,7 +35,12 @@ const LoginModal = (props) => {
                                 required: true,
                                 message: "Please input your Email!"
                             },
+                            {
+                                pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
+                                message: "Please input a valid Email!"
+                            },
                         ]}
+                        validateTrigger="onSubmit"
                         >
                             <Input placeholder="example@gmail.com" style={{height: "45px"}}/>
                         </Form.Item>
@@ -49,6 +54,7 @@ const LoginModal = (props) => {
                                 message: "Password must be at least 5 characters"
                             }
                         ]}
+                        validateTrigger="onSubmit"
                         >
                             <Input.Password placeholder="Enter your password" style={{height: "45px"}}/>
                         </Form.Item>
