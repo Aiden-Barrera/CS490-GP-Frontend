@@ -16,6 +16,7 @@ const Home = () => {
                     </h1>
                 </div>
             </Flex>
+            {/* This is Section for Top 3 Doctors */}
             <Flex vertical className="topDoctor-container" justify="center" align="center" style={{ width: "100vw"}}>
                 <Flex vertical gap="150px" justify="center" align="center" style={{margin: "140px"}}>
                     <TopDoctorCard name="Doctor 1" side="left" />
