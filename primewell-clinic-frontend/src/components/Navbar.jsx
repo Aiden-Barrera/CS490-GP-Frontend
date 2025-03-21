@@ -7,7 +7,7 @@ const {Header} = Layout
 const Navbar = () => {
 
     return (    
-        <Header style={{display: "flex", alignItems: "center", width: "100vw", padding: "0"}}>
+        <Header style={{display: "flex", alignItems: "center", width: "100vw", padding: "0", position: "fixed", top: "0", zIndex: "1000"}}>
             <div>
                 <Title style={{color: "#ffffff", margin: "0 35px", fontWeight: "900", fontSize: "48px", textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}>PrimeWell Clinic</Title>
             </div>
