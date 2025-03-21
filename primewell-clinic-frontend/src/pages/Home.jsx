@@ -2,6 +2,7 @@ import { useState } from "react";
 import {Flex} from "antd"
 import "./../App.css"
 import TopDoctorCard from "../components/TopDoctorCard";
+import Footer from "../components/Footer";
 
 const Home = () => {
 
@@ -21,6 +22,9 @@ const Home = () => {
                     <TopDoctorCard name="Doctor 2" side="right" />
                     <TopDoctorCard name="Doctor 3" side="left" />
                 </Flex>
+            </Flex>
+            <Flex justify="center" align="center" style={{width: "100vw", margin: "25px"}}>
+                <Footer />
             </Flex>
         </>
     )
