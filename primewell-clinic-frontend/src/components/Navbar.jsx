@@ -3,31 +3,40 @@ import "./../App.css";
 import { Layout, Menu, Typography, Button } from "antd";
 import { useState } from "react";
 import LoginModal from "./LoginModal";
-import CreateAccountModal from "./CreateAccountModal";
+import SignUpModal from "./SignUpModal";
 const { Title } = Typography;
 const { Header } = Layout;
 
 const Navbar = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
 
-  const showModal = () => {
-    setIsModalOpen(true);
+  const showModal = (choice) => {
+    if (choice === "Login") {
+      setIsLoginModalOpen(true);
+    } else if (choice === "SignUp") {
+      setSignUpModalOpen(true);
+    }
   };
 
-  const handleClose = () => {
-    setIsModalOpen(false);
+  const handleClose = (choice) => {
+    if (choice === "Login") {
+      setIsLoginModalOpen(false);
+    } else if (choice === "SignUp") {
+      setSignUpModalOpen(false);
+    }
   };
 
-  const [isCreateAccountModalOpen, setIsCreateAccountModalOpen] =
-    useState(false);
+  // const [isCreateAccountModalOpen, setIsCreateAccountModalOpen] =
+  //   useState(false);
 
-  const showCreateAccountModal = () => {
-    setIsCreateAccountModalOpen(true);
-  };
+  // const showCreateAccountModal = () => {
+  //   setIsCreateAccountModalOpen(true);
+  // };
 
-  const handleCreateAccountClose = () => {
-    setIsCreateAccountModalOpen(false);
-  };
+  // const handleCreateAccountClose = () => {
+  //   setIsCreateAccountModalOpen(false);
+  // };
 
   return (
     <>
@@ -77,7 +86,7 @@ const Navbar = () => {
           className="custom-btn"
           style={{ marginLeft: "5px" }}
           onClick={() => {
-            showModal();
+            showModal("Login");
           }}
         >
           Login
@@ -86,17 +95,21 @@ const Navbar = () => {
           className="custom-btn"
           style={{ margin: "0 25px 0 10px", backgroundColor: "#f09c96" }}
           onClick={() => {
-            showCreateAccountModal();
+            // showSignUpModal();
+            showModal("SignUp");
           }}
         >
           Create Account
         </Button>
       </Header>
 
-      <LoginModal open={isModalOpen} handleClose={handleClose} />
-      <CreateAccountModal
-        open={isCreateAccountModalOpen}
-        handleClose={handleCreateAccountClose}
+      <LoginModal
+        open={isLoginModalOpen}
+        handleClose={() => handleClose("Login")}
+      />
+      <SignUpModal
+        open={isSignUpModalOpen}
+        handleClose={() => handleClose("SignUp")}
       />
     </>
   );

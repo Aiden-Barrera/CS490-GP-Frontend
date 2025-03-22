@@ -1,7 +1,7 @@
 import { Flex, Modal, Form, message, Button, Input, Divider } from "antd";
 import { useEffect, useState } from "react";
 
-const CreateAccountModal = (props) => {
+const SignUpModal = (props) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -51,40 +51,6 @@ const CreateAccountModal = (props) => {
             onFinishFailed={onFail}
             autoComplete="off"
           >
-            {/* <Form.Item
-              name="email"
-              label="Email"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your Email!",
-                },
-              ]}
-            >
-              <Input
-                placeholder="example@gmail.com"
-                style={{ height: "45px" }}
-              />
-            </Form.Item>
-            <Form.Item
-              name="password"
-              label="Password"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your Password!",
-                },
-                {
-                  min: 5,
-                  message: "Password must be at least 5 characters",
-                },
-              ]}
-            >
-              <Input.Password
-                placeholder="Enter your password"
-                style={{ height: "45px" }}
-              />
-            </Form.Item> */}
             <Flex
               vertical
               align="center"
@@ -149,4 +115,4 @@ const CreateAccountModal = (props) => {
   );
 };
 
-export default CreateAccountModal;
+export default SignUpModal;
