@@ -42,8 +42,8 @@ const SignUpModal = (props) => {
           padding: "25px",
         }}
       >
-        <h1 style={{ fontSize: "64px", color: "#333333" }}>Sign up</h1>
-        <Flex vertical style={{ width: "100%" }}>
+        <h1 style={{ fontSize: "64px", color: "#333333" }}>{props.name}</h1>
+        <Flex vertical style={{ width: "100%", marginBottom: "32px" }}>
           <Form
             form={form}
             layout="vertical"

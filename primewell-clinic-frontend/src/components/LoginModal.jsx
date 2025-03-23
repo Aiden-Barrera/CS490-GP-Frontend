@@ -67,7 +67,7 @@ const LoginModal = (props) => {
             </Flex>
             <Divider><span style={{color: "#666666"}}>New to our Clinic</span></Divider>
             <Button type="primary" htmlType="submit" 
-                style={{width: "100%", border: "1px solid #999999", borderRadius: "18px", padding: "22px 0px", backgroundColor: "#ffe6e2", color: "#000000"}}>Create an account</Button>
+                style={{width: "100%", border: "1px solid #999999", borderRadius: "18px", padding: "22px 0px", backgroundColor: "#ffe6e2", color: "#000000", marginBottom: "10px"}}>Create an account</Button>
         </Modal>
     )
 }
