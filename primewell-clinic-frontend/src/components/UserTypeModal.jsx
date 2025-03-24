@@ -6,16 +6,15 @@ import PatientSignUpModal from "./PatientSignUpModal";
 const UserTypeModal = (props) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
   const [isPatientSignUpModalOpen, setIsPatientSignUpModalOpen] = useState(false)
-  const [userType, setUserType] = useState("")
 
   const handlePatientClick = () => {
     handleClose()
     if (props.name === "Login"){
-      setUserType("Patient")
+      props.setUserType("Patient")
       setIsLoginModalOpen(true)
     }
     else if(props.name === "Sign up"){
-      setUserType("Patient")
+      props.setUserType("Patient")
       setIsPatientSignUpModalOpen(true)
     }
   }
@@ -23,7 +22,7 @@ const UserTypeModal = (props) => {
   const handleDoctorClick = () => {
     handleClose()
     if (props.name === "Login"){
-      setUserType("Doctor")
+      props.setUserType("Doctor")
       setIsLoginModalOpen(true)
     }
   }
@@ -31,7 +30,7 @@ const UserTypeModal = (props) => {
   const handlePharmClick = () => {
     handleClose()
     if (props.name === "Login"){
-      setUserType("Pharmacist")
+      props.setUserType("Pharmacist")
       setIsLoginModalOpen(true)
     }
   }
@@ -120,8 +119,8 @@ const UserTypeModal = (props) => {
       </Modal>
       
       {/* Based on userType, that's what they're log in for */}
-      <LoginModal open={isLoginModalOpen} userType={userType} handleClose={() => setIsLoginModalOpen(false)}/> 
-      <PatientSignUpModal open={isPatientSignUpModalOpen} userType={userType} handleClose={() => setIsPatientSignUpModalOpen(false)}/> 
+      <LoginModal open={isLoginModalOpen} userType={props.userType} auth={props.auth} info={props.info} handleClose={() => setIsLoginModalOpen(false)}/> 
+      <PatientSignUpModal open={isPatientSignUpModalOpen} userType={props.userType} handleClose={() => setIsPatientSignUpModalOpen(false)}/> 
     </>
   );
 };
