@@ -1,8 +1,10 @@
 import { Flex, Modal, Form, message, Button, Input, Divider } from "antd"
+import axios from "axios"
 import { useEffect, useState } from "react"
 
 const LoginModal = (props) => {
     const [form] = Form.useForm()
+    const [auth, setAuth] = useState([])
 
     useEffect(() => {
         if (props.open) {
@@ -11,8 +13,19 @@ const LoginModal = (props) => {
         }
     }, [props.open])
 
-    const onFinish = () => {
-        message.success("Submit Success!")
+    const filterPW = (pw) => {
+        return pw.replace(/"/g, '\\"')
+    }
+
+    const onFinish = async (value) => {
+        const res = await axios.post("http://localhost:3000/passAuthPatient", value)
+        setAuth(res.data)
+        console.log(auth)
+        if (res.data.length === 0){
+            console.log("Couldn't log in")
+        } else {
+            console.log("Logged In")
+        }
     }
 
     const onFail = () => {
@@ -44,7 +57,7 @@ const LoginModal = (props) => {
                         >
                             <Input placeholder="example@gmail.com" style={{height: "45px"}}/>
                         </Form.Item>
-                        <Form.Item name="password" label="Password" rules={[
+                        <Form.Item name="pw" label="Password" rules={[
                             {
                                 required: true,
                                 message: "Please input your Password!"

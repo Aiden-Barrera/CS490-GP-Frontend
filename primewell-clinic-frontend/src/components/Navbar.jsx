@@ -1,42 +1,23 @@
 import { Link } from "react-router-dom";
 import "./../App.css";
 import { Layout, Menu, Typography, Button } from "antd";
-import { useState } from "react";
-import LoginModal from "./LoginModal";
-import SignUpModal from "./SignUpModal";
+import { useEffect, useState } from "react";
+import UserTypeModal from "./UserTypeModal";
 const { Title } = Typography;
 const { Header } = Layout;
 
 const Navbar = () => {
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
+  const [isUserTypeModalOpen, setIsUserTypeModalOpen] = useState(false);
+  const [name, setName] = useState("")
 
-  const showModal = (choice) => {
-    if (choice === "Login") {
-      setIsLoginModalOpen(true);
-    } else if (choice === "SignUp") {
-      setSignUpModalOpen(true);
-    }
+  const showModal = (name) => {
+    setName(name)
+    setIsUserTypeModalOpen(true)
   };
 
-  const handleClose = (choice) => {
-    if (choice === "Login") {
-      setIsLoginModalOpen(false);
-    } else if (choice === "SignUp") {
-      setSignUpModalOpen(false);
-    }
+  const handleClose = () => {
+   setIsUserTypeModalOpen(false)
   };
-
-  // const [isCreateAccountModalOpen, setIsCreateAccountModalOpen] =
-  //   useState(false);
-
-  // const showCreateAccountModal = () => {
-  //   setIsCreateAccountModalOpen(true);
-  // };
-
-  // const handleCreateAccountClose = () => {
-  //   setIsCreateAccountModalOpen(false);
-  // };
 
     return (    
         <>
@@ -96,19 +77,16 @@ const Navbar = () => {
                 style={{ margin: "0 25px 0 10px", backgroundColor: "#f09c96" }}
                 onClick={() => {
                     // showSignUpModal();
-                    showModal("SignUp");
+                    showModal("Sign up");
                 }}
                 >
                 Create Account
                 </Button>
             </Header>
 
-            <LoginModal
-                open={isLoginModalOpen}
-                handleClose={() => handleClose("Login")}
-            />
-            <SignUpModal
-                open={isSignUpModalOpen}
+            <UserTypeModal
+                open={isUserTypeModalOpen}
+                name={name}
                 handleClose={() => handleClose("SignUp")}
             />
         </>
