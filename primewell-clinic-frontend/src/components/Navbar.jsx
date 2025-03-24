@@ -76,7 +76,6 @@ const Navbar = () => {
                 className="custom-btn"
                 style={{ margin: "0 25px 0 10px", backgroundColor: "#f09c96" }}
                 onClick={() => {
-                    // showSignUpModal();
                     showModal("Sign up");
                 }}
                 >

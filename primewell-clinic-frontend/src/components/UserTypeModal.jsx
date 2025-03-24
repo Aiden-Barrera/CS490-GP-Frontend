@@ -1,9 +1,11 @@
 import { Flex, Modal, message, Button } from "antd";
 import { useEffect, useState } from "react";
 import LoginModal from "./LoginModal";
+import PatientSignUpModal from "./PatientSignUpModal";
 
 const UserTypeModal = (props) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+  const [isPatientSignUpModalOpen, setIsPatientSignUpModalOpen] = useState(false)
   const [userType, setUserType] = useState("")
 
   const handlePatientClick = () => {
@@ -11,6 +13,10 @@ const UserTypeModal = (props) => {
     if (props.name === "Login"){
       setUserType("Patient")
       setIsLoginModalOpen(true)
+    }
+    else if(props.name === "Sign up"){
+      setUserType("Patient")
+      setIsPatientSignUpModalOpen(true)
     }
   }
 
@@ -115,6 +121,7 @@ const UserTypeModal = (props) => {
       
       {/* Based on userType, that's what they're log in for */}
       <LoginModal open={isLoginModalOpen} userType={userType} handleClose={() => setIsLoginModalOpen(false)}/> 
+      <PatientSignUpModal open={isPatientSignUpModalOpen} userType={userType} handleClose={() => setIsPatientSignUpModalOpen(false)}/> 
     </>
   );
 };
