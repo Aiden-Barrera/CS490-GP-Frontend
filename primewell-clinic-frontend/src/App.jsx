@@ -6,6 +6,8 @@ import Posts from './pages/Posts'
 import Reviews from './pages/Reviews'
 import Navbar from './components/Navbar'
 import PatientPortal from './pages/PatientPortal'
+import DoctorPortal from './pages/DoctorPortal'
+import PharmacistPortal from './pages/PharmacistPortal'
 
 function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
@@ -26,6 +28,8 @@ function App() {
           <Route path='/Posts' element={<Posts />}/>
           <Route path='/Reviews' element={<Reviews />}/>
           <Route path='/PatientPortal' element={<PatientPortal />}/>
+          <Route path='/DoctorPortal' element={<DoctorPortal />}/>
+          <Route path='/PharmacistPortal' element={<PharmacistPortal />}/>
         </Routes>
       </div>
     </>

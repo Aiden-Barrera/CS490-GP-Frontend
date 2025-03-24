@@ -73,11 +73,25 @@ const Navbar = (props) => {
                     </Menu.Item>
                     {auth ? (
                       <>
-                      <Menu.Item key="4">
-                        <Link to="/PatientPortal" style={{ color: "#ffffff" }}>
-                        <strong>{userType === "Patient" ? "PATIENT PORTAL" : userType === "Doctor" ? "DOCTOR PORTAL" : "PHARMACIST PORTAL"}</strong>
-                        </Link>
-                      </Menu.Item>
+                      {userType === "Patient" ? (
+                        <Menu.Item key="4">
+                          <Link to="/PatientPortal" style={{ color: "#ffffff" }}>
+                          <strong>PATIENT PORTAL</strong>
+                          </Link>
+                        </Menu.Item>
+                      ) : userType === "Doctor" ? (
+                        <Menu.Item key="4">
+                          <Link to="/DoctorPortal" style={{ color: "#ffffff" }}>
+                          <strong>DOCTOR PORTAL</strong>
+                          </Link>
+                        </Menu.Item>
+                      ) : (
+                        <Menu.Item key="4">
+                          <Link to="/PharmacistPortal" style={{ color: "#ffffff" }}>
+                          <strong>PHARMACIST PORTAL</strong>
+                          </Link>
+                        </Menu.Item>
+                      )}
                       <Menu.Item key="5">
                         <strong>EXERCISES</strong>
                       </Menu.Item>
