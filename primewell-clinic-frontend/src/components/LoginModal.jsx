@@ -1,8 +1,10 @@
 import { Flex, Modal, Form, message, Button, Input, Divider } from "antd"
+import axios from "axios"
 import { useEffect, useState } from "react"
 
 const LoginModal = (props) => {
     const [form] = Form.useForm()
+    const [auth, setAuth] = useState([])
 
     useEffect(() => {
         if (props.open) {
@@ -11,8 +13,19 @@ const LoginModal = (props) => {
         }
     }, [props.open])
 
-    const onFinish = () => {
-        message.success("Submit Success!")
+    const filterPW = (pw) => {
+        return pw.replace(/"/g, '\\"')
+    }
+
+    const onFinish = async (value) => {
+        const res = await axios.post("http://localhost:3000/passAuthPatient", value)
+        setAuth(res.data)
+        console.log(auth)
+        if (res.data.length === 0){
+            console.log("Couldn't log in")
+        } else {
+            console.log("Logged In")
+        }
     }
 
     const onFail = () => {
@@ -44,7 +57,7 @@ const LoginModal = (props) => {
                         >
                             <Input placeholder="example@gmail.com" style={{height: "45px"}}/>
                         </Form.Item>
-                        <Form.Item name="password" label="Password" rules={[
+                        <Form.Item name="pw" label="Password" rules={[
                             {
                                 required: true,
                                 message: "Please input your Password!"
@@ -67,7 +80,7 @@ const LoginModal = (props) => {
             </Flex>
             <Divider><span style={{color: "#666666"}}>New to our Clinic</span></Divider>
             <Button type="primary" htmlType="submit" 
-                style={{width: "100%", border: "1px solid #999999", borderRadius: "18px", padding: "22px 0px", backgroundColor: "#ffe6e2", color: "#000000"}}>Create an account</Button>
+                style={{width: "100%", border: "1px solid #999999", borderRadius: "18px", padding: "22px 0px", backgroundColor: "#ffe6e2", color: "#000000", marginBottom: "10px"}}>Create an account</Button>
         </Modal>
     )
 }
