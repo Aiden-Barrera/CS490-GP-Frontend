@@ -14,6 +14,22 @@ const UserTypeModal = (props) => {
     }
   }
 
+  const handleDoctorClick = () => {
+    handleClose()
+    if (props.name === "Login"){
+      setUserType("Doctor")
+      setIsLoginModalOpen(true)
+    }
+  }
+
+  const handlePharmClick = () => {
+    handleClose()
+    if (props.name === "Login"){
+      setUserType("Pharmacist")
+      setIsLoginModalOpen(true)
+    }
+  }
+
   const handleClose = () => {
     props.handleClose()
   }
@@ -73,6 +89,7 @@ const UserTypeModal = (props) => {
                   padding: "12px 0px",
                   backgroundColor: "#f09c96",
                 }}
+                onClick={handleDoctorClick}
               >
                 Doctor
               </Button>
@@ -87,6 +104,7 @@ const UserTypeModal = (props) => {
                   padding: "12px 0px",
                   backgroundColor: "#f09c96",
                 }}
+                onClick={handlePharmClick}
               >
                 Pharmacy
               </Button>
@@ -94,8 +112,9 @@ const UserTypeModal = (props) => {
           </Flex>
         </Flex>
       </Modal>
-
-      <LoginModal open={isLoginModalOpen} handleClose={() => setIsLoginModalOpen(false)}/>
+      
+      {/* Based on userType, that's what they're log in for */}
+      <LoginModal open={isLoginModalOpen} userType={userType} handleClose={() => setIsLoginModalOpen(false)}/> 
     </>
   );
 };
