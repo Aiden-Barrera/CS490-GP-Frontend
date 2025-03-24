@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 
 const LoginModal = (props) => {
     const [form] = Form.useForm()
-    const [auth, setAuth] = useState([])
 
     useEffect(() => {
         if (props.open) {
@@ -18,13 +17,30 @@ const LoginModal = (props) => {
     }
 
     const onFinish = async (value) => {
-        const res = await axios.post("http://localhost:3000/passAuthPatient", value)
-        setAuth(res.data)
-        console.log(auth)
-        if (res.data.length === 0){
-            console.log("Couldn't log in")
+        if (props.userType === "Patient") { // If they clicked Patient button, this will run for login
+            const res = await axios.post("http://localhost:3000/passAuthPatient", value)
+            if (res.data.length === 0){
+                console.log("Couldn't log in")
+            } else {
+                console.log("Logged In")
+            }
+            console.log(res.data)
+        } else if (props.userType === "Doctor") {
+            const res = await axios.post("http://localhost:3000/passAuthDoctor", value)
+            if (res.data.length === 0){
+                console.log("Couldn't log in")
+            } else {
+                console.log("Logged In")
+            }
+            console.log(res.data)
         } else {
-            console.log("Logged In")
+            const res = await axios.post("http://localhost:3000/passAuthPharm", value)
+            if (res.data.length === 0){
+                console.log("Couldn't log in")
+            } else {
+                console.log("Logged In")
+            }
+            console.log(res.data)
         }
     }
 
