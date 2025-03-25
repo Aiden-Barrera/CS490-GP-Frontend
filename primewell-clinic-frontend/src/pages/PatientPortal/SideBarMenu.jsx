@@ -64,7 +64,7 @@ const SideBarMenu = () => {
             <Flex style={{
                 flex: 1,
                 padding: "20px",
-                overflow: "auto"
+                overflow: "auto",
             }}>
                 <Outlet /> {/* This allows nested routes to be rendered here */}
             </Flex>

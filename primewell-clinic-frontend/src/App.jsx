@@ -9,6 +9,7 @@ import SideBarMenu from './pages/PatientPortal/SideBarMenu'
 import DoctorPortal from './pages/DoctorPortal'
 import PharmacistPortal from './pages/PharmacistPortal'
 import Dashboard from './pages/PatientPortal/Dashboard'
+import Request from './pages/PatientPortal/Request'
 
 function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
@@ -33,7 +34,7 @@ function App() {
           {/* Patient Portal with Nested Routes */}
           <Route path="/PatientPortal" element={<SideBarMenu />}>
             <Route path="Dashboard" element={<Dashboard />} />
-            <Route path="Request" element={<div>Request Page</div>} />
+            <Route path="Request" element={<Request />} />
             <Route path="Appointment" element={<div>Appointments Page</div>} />
             <Route path="Regiment" element={<div>Regiment Page</div>} />
             <Route path="Daily-Survey" element={<div>Daily Survey Page</div>} />
