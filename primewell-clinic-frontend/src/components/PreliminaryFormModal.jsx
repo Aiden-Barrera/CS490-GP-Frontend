@@ -9,21 +9,14 @@ import {
   Dropdown,
   Space,
   Tooltip,
+  Checkbox,
 } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { DownOutlined, MedicineBoxTwoTone } from "@ant-design/icons";
-import PreliminaryFormModal from "./PreliminaryFormModal";
 
 const PatientSignUpModal = (props) => {
   const [form] = Form.useForm();
-  const [isPreliminaryFormModalOpen, setIsPreliminaryFormModalOpen] =
-    useState(false);
-
-  const handlePreliminaryFormClick = () => {
-    // handleClose();
-    setIsPreliminaryFormModalOpen(true);
-  };
 
   useEffect(() => {
     if (props.open) {
@@ -117,6 +110,12 @@ const PatientSignUpModal = (props) => {
     onClick: handleMenuClick,
   };
 
+  // logic can be implemented here to construct what problem was checked in the form then used however
+  // like sending it to the database to store it and then use it to display it somewhere if needed
+  const onChange = (e) => {
+    console.log(`checked = ${e.target.checked}`);
+  };
+
   return (
     <Modal
       open={props.open}
@@ -124,7 +123,7 @@ const PatientSignUpModal = (props) => {
       onCancel={handleClose}
       centered
       className="style-modal"
-      width={600} // Width of the Modal
+      width={650} // Width of the Modal
     >
       <Flex
         vertical
@@ -136,7 +135,7 @@ const PatientSignUpModal = (props) => {
           padding: "25px",
         }}
       >
-        <h1 style={{ fontSize: "64px", color: "#333333" }}>Patient Sign Up</h1>
+        <h1 style={{ fontSize: "64px", color: "#333333" }}>Preliminary Form</h1>
         <Flex vertical style={{ width: "100%" }}>
           <Form
             form={form}
@@ -205,126 +204,79 @@ const PatientSignUpModal = (props) => {
                 style={{ height: "45px" }}
               />
             </Form.Item>
-            <Form.Item
-              name="phonenumber"
-              label="Phone Number"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your Phone Number!",
-                },
-                {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make phone number regex
-                  message: "Please input a valid Phone Number!",
-                },
-              ]}
-              validateTrigger="onSubmit"
-            >
-              <Input
-                placeholder="Enter your phone number"
-                style={{ height: "45px" }}
-              />
-            </Form.Item>
-            <Form.Item
-              name="address"
-              label="Address"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your Address!",
-                },
-                {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
-                  message: "Please input a valid Address!",
-                },
-              ]}
-              validateTrigger="onSubmit"
-            >
-              <Input
-                placeholder="Enter your address"
-                style={{ height: "45px" }}
-              />
-            </Form.Item>
-            <Form.Item
-              name="zipcode"
-              label="Zip Code"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your Zip Code!",
-                },
-                {
-                  pattern: /^[0-9]{5}$/,
-                  message: "Please input a valid Zip Code!",
-                },
-              ]}
-              validateTrigger="onSubmit"
-            >
-              <Input
-                placeholder="Enter your zip code"
-                style={{ height: "45px" }}
-              />
-            </Form.Item>
-            <Form.Item
-              name="pharmacy"
-              label="Nearest Pharmacy (Based on zip code)"
-              rules={[
-                {
-                  required: true,
-                  message: "Please choose a  Pharmacy!",
-                },
-                {
-                  // pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make pharmacy regex????
-                  message: "Please choose a  Pharmacy!",
-                },
-              ]}
-              validateTrigger="onSubmit"
-            >
-              <Dropdown menu={menuProps} styles={{ color: "black" }}>
-                <Button>
-                  <Space>
-                    {selectedLabel}
-                    <DownOutlined />
-                  </Space>
-                </Button>
-              </Dropdown>
-            </Form.Item>
-            <Form.Item
-              name="pw"
-              label="Create a password"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your Password!",
-                },
-                {
-                  min: 5,
-                  message: "Password must be at least 5 characters",
-                },
-              ]}
-              validateTrigger="onSubmit"
-            >
-              <Input.Password
-                placeholder="Enter a password"
-                style={{ height: "45px" }}
-              />
-            </Form.Item>
             <Form.Item>
-              <Button
-                type="primary"
-                style={{
-                  width: "100%",
-                  border: "1px solid #999999",
-                  borderRadius: "18px",
-                  padding: "22px 0px",
-                  backgroundColor: "#ffe6e2",
-                  color: "#000000",
-                  marginBottom: "10px",
-                }}
-                onClick={handlePreliminaryFormClick}
-              >
-                Preliminary Form
-              </Button>
+              <table style={{ textAlign: "left" }}>
+                <tr>
+                  <th style={{ padding: "0px 11px" }}>MUSCLE/JOINT/BONE</th>
+                  <th style={{ padding: "0px 11px" }}>EYES/EARS/NOSE/THROAT</th>
+                  <th style={{ padding: "0px 11px" }}>NEUROLOGIC</th>
+                </tr>
+                <tr>
+                  <td style={{ padding: "0px 11px" }}>
+                    <Checkbox onChange={onChange}>Back Pain</Checkbox>
+                    <br></br>
+                    <Checkbox onChange={onChange}>Leg Pain</Checkbox>
+                    <br></br>
+                    <Checkbox onChange={onChange}>Neck pain</Checkbox>
+                    <br></br>
+                    <Checkbox onChange={onChange}>Arm Pain</Checkbox>
+                    <br></br>
+                    <Checkbox onChange={onChange}>Joint Pain</Checkbox>
+                  </td>
+                  <td style={{ padding: "0px 11px" }}>
+                    <Checkbox onChange={onChange}>Blurred Vision</Checkbox>
+                    <br></br>
+                    <Checkbox onChange={onChange}>Loss of Heating</Checkbox>
+                    <br></br>
+                    <Checkbox onChange={onChange}>Nose Bleeds</Checkbox>
+                    <br></br>
+                    <Checkbox onChange={onChange}>Sinus Problems</Checkbox>
+                    <br></br>
+                    <Checkbox onChange={onChange}>Strep Throat</Checkbox>
+                  </td>
+                  <td style={{ padding: "0px 11px" }}>
+                    <Checkbox onChange={onChange}>Fainting</Checkbox>
+                    <br></br>
+                    <Checkbox onChange={onChange}>Dizziness</Checkbox>
+                    <br></br>
+                    <Checkbox onChange={onChange}>Headache</Checkbox>
+                    <br></br>
+                    <Checkbox onChange={onChange}>Memory Loss</Checkbox>
+                    <br></br>
+                    <Checkbox onChange={onChange}>Depression</Checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <th style={{ padding: "0px 11px" }}>SKIN</th>
+                  <th style={{ padding: "0px 11px" }}>LUNGS</th>
+                  <th style={{ padding: "0px 11px" }}>CARDIOVASCULAR</th>
+                </tr>
+                <td style={{ padding: "0px 11px" }}>
+                  <Checkbox onChange={onChange}>Itching</Checkbox>
+                  <br></br>
+                  <Checkbox onChange={onChange}>Rash</Checkbox>
+                  <br></br>
+                  <Checkbox onChange={onChange}>Callus</Checkbox>
+                </td>
+                <td style={{ padding: "0px 11px" }}>
+                  <Checkbox onChange={onChange}>Shortness of Breath</Checkbox>
+                  <br></br>
+                  <Checkbox onChange={onChange}>Persistent Cough</Checkbox>
+                  <br></br>
+                  <Checkbox onChange={onChange}>Asthma</Checkbox>
+                  <br></br>
+                  <Checkbox onChange={onChange}>Sleep Apnea</Checkbox>
+                </td>
+                <td style={{ padding: "0px 11px" }}>
+                  <Checkbox onChange={onChange}>Chest Pain</Checkbox>
+                  <br></br>
+                  <Checkbox onChange={onChange}>Irregular Heart Beat</Checkbox>
+                  <br></br>
+                  <Checkbox onChange={onChange}>Heart Attack</Checkbox>
+                  <br></br>
+                  <Checkbox onChange={onChange}>Heart Disease</Checkbox>
+                </td>
+              </table>
             </Form.Item>
             <Form.Item>
               <Button
@@ -338,16 +290,12 @@ const PatientSignUpModal = (props) => {
                   backgroundColor: "#f09c96",
                 }}
               >
-                Create an account
+                Submit Preliminary Form
               </Button>
             </Form.Item>
           </Form>
         </Flex>
       </Flex>
-      <PreliminaryFormModal
-        open={isPreliminaryFormModalOpen}
-        handleClose={() => setIsPreliminaryFormModalOpen(false)}
-      />
     </Modal>
   );
 };
