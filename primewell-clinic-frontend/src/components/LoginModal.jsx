@@ -12,10 +12,6 @@ const LoginModal = (props) => {
         }
     }, [props.open])
 
-    const filterPW = (pw) => {
-        return pw.replace(/"/g, '\\"')
-    }
-
     const onFinish = async (value) => {
         if (props.userType === "Patient") { // If they clicked Patient button, this will run for login
             const res = await axios.post("http://localhost:3000/passAuthPatient", value)
@@ -23,24 +19,30 @@ const LoginModal = (props) => {
                 console.log("Couldn't log in")
             } else {
                 console.log("Logged In")
+                props.info(res.data) // This passes down the user info to Navbar
+                props.auth(true) // This passes down that the user has been authenticated to Navbar
+                handleClose()
             }
-            console.log(res.data)
         } else if (props.userType === "Doctor") {
             const res = await axios.post("http://localhost:3000/passAuthDoctor", value)
             if (res.data.length === 0){
                 console.log("Couldn't log in")
             } else {
                 console.log("Logged In")
+                props.info(res.data) // This passes down the user info to Navbar
+                props.auth(true) // This passes down that the user has been authenticated to Navbar
+                handleClose()
             }
-            console.log(res.data)
         } else {
             const res = await axios.post("http://localhost:3000/passAuthPharm", value)
             if (res.data.length === 0){
                 console.log("Couldn't log in")
             } else {
                 console.log("Logged In")
+                props.info(res.data) // This passes down the user info to Navbar
+                props.auth(true) // This passes down that the user has been authenticated to Navbar
+                handleClose()
             }
-            console.log(res.data)
         }
     }
 
