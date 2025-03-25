@@ -13,14 +13,14 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { DownOutlined, MedicineBoxTwoTone } from "@ant-design/icons";
-import PreliminaryFormModal from "./PreliminaryFormModal";
+import WorkHoursFormModal from "./WorkHoursFormModal";
 
-const PatientSignUpModal = (props) => {
+const DoctorSignUpModal = (props) => {
   const [form] = Form.useForm();
   const [isPreliminaryFormModalOpen, setIsPreliminaryFormModalOpen] =
     useState(false);
 
-  const handlePreliminaryFormClick = () => {
+  const handleWorkHoursFormClick = () => {
     // handleClose();
     setIsPreliminaryFormModalOpen(true);
   };
@@ -83,40 +83,6 @@ const PatientSignUpModal = (props) => {
     props.handleClose();
   };
 
-  const [selectedLabel, setSelectedLabel] = useState("Choose a Pharmacy");
-
-  const handleMenuClick = (e) => {
-    message.info("Click on menu item.");
-    // console.log("click", e);
-    const selectedPharmacy = items.find((item) => item.key === e.key);
-    setSelectedLabel(selectedPharmacy.label);
-    // console.log(selectedPharmacy.label);
-  };
-
-  const items = [
-    {
-      label: "Pharmacy 1",
-      key: "1",
-      icon: <MedicineBoxTwoTone twoToneColor="#f09c96" />,
-    },
-    {
-      label: "Pharmacy 2",
-      key: "2",
-      icon: <MedicineBoxTwoTone twoToneColor="#f09c96" />,
-    },
-    {
-      label: "Pharmacy 3",
-      key: "3",
-      icon: <MedicineBoxTwoTone twoToneColor="#f09c96" />,
-    },
-  ];
-  const menuProps = {
-    items,
-    selectable: true,
-    defaultSelectedKeys: ["1"],
-    onClick: handleMenuClick,
-  };
-
   return (
     <Modal
       open={props.open}
@@ -136,11 +102,11 @@ const PatientSignUpModal = (props) => {
           padding: "25px",
         }}
       >
-        <h1 style={{ fontSize: "64px", color: "#333333" }}>Patient Sign Up</h1>
+        <h1 style={{ fontSize: "64px", color: "#333333" }}>Doctor Sign Up</h1>
         <Flex vertical style={{ width: "100%" }}>
           <Form
             form={form}
-            name="patientsignupform"
+            name="doctorsignupform"
             layout="vertical"
             onFinish={onFinish}
             onFinishFailed={onFail}
@@ -267,28 +233,24 @@ const PatientSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="pharmacy"
-              label="Nearest Pharmacy (Based on zip code)"
+              name="doctorlicensenumber"
+              label="Doctor License Number"
               rules={[
                 {
                   required: true,
-                  message: "Please choose a  Pharmacy!",
+                  message: "Please input your Doctor License Number!",
                 },
                 {
-                  // pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make pharmacy regex????
-                  message: "Please choose a  Pharmacy!",
+                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make Doctor License Number regex
+                  message: "Please input a valid Doctor License Number!",
                 },
               ]}
               validateTrigger="onSubmit"
             >
-              <Dropdown menu={menuProps} styles={{ color: "black" }}>
-                <Button>
-                  <Space>
-                    {selectedLabel}
-                    <DownOutlined />
-                  </Space>
-                </Button>
-              </Dropdown>
+              <Input
+                placeholder="Enter your doctor license number"
+                style={{ height: "45px" }}
+              />
             </Form.Item>
             <Form.Item
               name="pw"
@@ -322,9 +284,9 @@ const PatientSignUpModal = (props) => {
                   color: "#000000",
                   marginBottom: "10px",
                 }}
-                onClick={handlePreliminaryFormClick}
+                onClick={handleWorkHoursFormClick}
               >
-                Preliminary Form
+                Work Hours Form
               </Button>
             </Form.Item>
             <Form.Item>
@@ -345,7 +307,7 @@ const PatientSignUpModal = (props) => {
           </Form>
         </Flex>
       </Flex>
-      <PreliminaryFormModal
+      <WorkHoursFormModal
         open={isPreliminaryFormModalOpen}
         handleClose={() => setIsPreliminaryFormModalOpen(false)}
       />
@@ -353,4 +315,4 @@ const PatientSignUpModal = (props) => {
   );
 };
 
-export default PatientSignUpModal;
+export default DoctorSignUpModal;

@@ -205,78 +205,94 @@ const PatientSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item>
-              <table style={{ textAlign: "left" }}>
-                <tr>
-                  <th style={{ padding: "0px 11px" }}>MUSCLE/JOINT/BONE</th>
-                  <th style={{ padding: "0px 11px" }}>EYES/EARS/NOSE/THROAT</th>
-                  <th style={{ padding: "0px 11px" }}>NEUROLOGIC</th>
-                </tr>
-                <tr>
-                  <td style={{ padding: "0px 11px" }}>
-                    <Checkbox onChange={onChange}>Back Pain</Checkbox>
-                    <br></br>
-                    <Checkbox onChange={onChange}>Leg Pain</Checkbox>
-                    <br></br>
-                    <Checkbox onChange={onChange}>Neck pain</Checkbox>
-                    <br></br>
-                    <Checkbox onChange={onChange}>Arm Pain</Checkbox>
-                    <br></br>
-                    <Checkbox onChange={onChange}>Joint Pain</Checkbox>
-                  </td>
-                  <td style={{ padding: "0px 11px" }}>
-                    <Checkbox onChange={onChange}>Blurred Vision</Checkbox>
-                    <br></br>
-                    <Checkbox onChange={onChange}>Loss of Heating</Checkbox>
-                    <br></br>
-                    <Checkbox onChange={onChange}>Nose Bleeds</Checkbox>
-                    <br></br>
-                    <Checkbox onChange={onChange}>Sinus Problems</Checkbox>
-                    <br></br>
-                    <Checkbox onChange={onChange}>Strep Throat</Checkbox>
-                  </td>
-                  <td style={{ padding: "0px 11px" }}>
-                    <Checkbox onChange={onChange}>Fainting</Checkbox>
-                    <br></br>
-                    <Checkbox onChange={onChange}>Dizziness</Checkbox>
-                    <br></br>
-                    <Checkbox onChange={onChange}>Headache</Checkbox>
-                    <br></br>
-                    <Checkbox onChange={onChange}>Memory Loss</Checkbox>
-                    <br></br>
-                    <Checkbox onChange={onChange}>Depression</Checkbox>
-                  </td>
-                </tr>
-                <tr>
-                  <th style={{ padding: "0px 11px" }}>SKIN</th>
-                  <th style={{ padding: "0px 11px" }}>LUNGS</th>
-                  <th style={{ padding: "0px 11px" }}>CARDIOVASCULAR</th>
-                </tr>
-                <td style={{ padding: "0px 11px" }}>
-                  <Checkbox onChange={onChange}>Itching</Checkbox>
-                  <br></br>
-                  <Checkbox onChange={onChange}>Rash</Checkbox>
-                  <br></br>
-                  <Checkbox onChange={onChange}>Callus</Checkbox>
-                </td>
-                <td style={{ padding: "0px 11px" }}>
-                  <Checkbox onChange={onChange}>Shortness of Breath</Checkbox>
-                  <br></br>
-                  <Checkbox onChange={onChange}>Persistent Cough</Checkbox>
-                  <br></br>
-                  <Checkbox onChange={onChange}>Asthma</Checkbox>
-                  <br></br>
-                  <Checkbox onChange={onChange}>Sleep Apnea</Checkbox>
-                </td>
-                <td style={{ padding: "0px 11px" }}>
-                  <Checkbox onChange={onChange}>Chest Pain</Checkbox>
-                  <br></br>
-                  <Checkbox onChange={onChange}>Irregular Heart Beat</Checkbox>
-                  <br></br>
-                  <Checkbox onChange={onChange}>Heart Attack</Checkbox>
-                  <br></br>
-                  <Checkbox onChange={onChange}>Heart Disease</Checkbox>
-                </td>
-              </table>
+              <div>
+                <table style={{ textAlign: "left", width: "100%" }}>
+                  <thead>
+                    <tr>
+                      <th style={{ padding: "0px 11px" }}>MUSCLE/JOINT/BONE</th>
+                      <th style={{ padding: "0px 11px" }}>
+                        EYES/EARS/NOSE/THROAT
+                      </th>
+                      <th style={{ padding: "0px 11px" }}>NEUROLOGIC</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style={{ padding: "0px 11px" }}>
+                        <Checkbox onChange={onChange}>Back Pain</Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>Leg Pain</Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>Neck pain</Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>Arm Pain</Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>Joint Pain</Checkbox>
+                      </td>
+                      <td style={{ padding: "0px 11px" }}>
+                        <Checkbox onChange={onChange}>Blurred Vision</Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>Loss of Hearing</Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>Nose Bleeds</Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>Sinus Problems</Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>Strep Throat</Checkbox>
+                      </td>
+                      <td style={{ padding: "0px 11px" }}>
+                        <Checkbox onChange={onChange}>Fainting</Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>Dizziness</Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>Headache</Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>Memory Loss</Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>Depression</Checkbox>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style={{ padding: "0px 11px" }}>SKIN</th>
+                      <th style={{ padding: "0px 11px" }}>LUNGS</th>
+                      <th style={{ padding: "0px 11px" }}>CARDIOVASCULAR</th>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: "0px 11px" }}>
+                        <Checkbox onChange={onChange}>Itching</Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>Rash</Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>Callus</Checkbox>
+                      </td>
+                      <td style={{ padding: "0px 11px" }}>
+                        <Checkbox onChange={onChange}>
+                          Shortness of Breath
+                        </Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>
+                          Persistent Cough
+                        </Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>Asthma</Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>Sleep Apnea</Checkbox>
+                      </td>
+                      <td style={{ padding: "0px 11px" }}>
+                        <Checkbox onChange={onChange}>Chest Pain</Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>
+                          Irregular Heart Beat
+                        </Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>Heart Attack</Checkbox>
+                        <br />
+                        <Checkbox onChange={onChange}>Heart Disease</Checkbox>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </Form.Item>
             <Form.Item>
               <Button
