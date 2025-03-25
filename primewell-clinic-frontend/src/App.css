@@ -71,3 +71,21 @@ body{
 .topDoctor-container {
   background-color: #ffffff;
 }
+
+.menu {
+  background-color: #ffe6e2 !important;
+  border-inline-end: none !important;
+}
+
+.menu .ant-menu-item {
+  color: #333333 !important;
+}
+
+.menu .ant-menu-item:hover {
+  background: #ffffff !important;
+}
+
+.menu .ant-menu-item-selected {
+  color: #ffffff !important; 
+}
+
