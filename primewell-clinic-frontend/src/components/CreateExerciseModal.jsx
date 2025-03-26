@@ -1,6 +1,6 @@
 import { Flex, Modal, Form, message, Button, Input} from "antd"
 import { useEffect, useState } from "react"
-import EIModal from "./EIModal"
+import EIModal from "./Exercise_ImageUpload"
 const ExerciseModal = (props) => {
     const [form] = Form.useForm()
 
@@ -25,11 +25,26 @@ const ExerciseModal = (props) => {
     }
 
     return (
-        <Modal open={props.open} footer={null} onCancel={handleClose} centered className="style-modal">
-            <Flex vertical justify="center" align="center" style={{border: "1px solid #999999", borderRadius: "16px", padding: "25px"}}>
+        <Modal open={props.open} footer={null} onCancel={handleClose} centered className="style-modal" >
+            <Flex 
+            vertical justify="center" 
+            align="center" 
+            style={{
+                border: "1px solid #999999", 
+                borderRadius: "16px", 
+                padding: "25px"
+            }}
+            >
                 <h1 style={{fontSize: "50px", color: "#333333"}}>Create Exercise</h1>
-                <Flex vertical style={{width: "100%"}}>
-                    <Form form={form} layout="vertical" onFinish={onFinish} onFinishFailed={onFail} autoComplete="off">
+                <Flex 
+                vertical style={{width: "100%"}}
+                >
+                    <Form 
+                    form={form} layout="vertical" 
+                    onFinish={onFinish} 
+                    onFinishFailed={onFail} 
+                    autoComplete="off"
+                    >
                         <Form.Item name="Exercise Name" label="Exercise Name" rules={[
                             {
                                 required: true,
@@ -77,8 +92,18 @@ const ExerciseModal = (props) => {
                         </Form.Item>
                         <Form.Item>
                             <EIModal />
-                            <Button type="primary" htmlType="submit" 
-                                style={{width: "100%", borderRadius: "18px", padding: "22px 0px", backgroundColor: "#A3C3A4"}}>Submit new exercise entry</Button>
+                            <Button 
+                            type="primary" 
+                            htmlType="submit" 
+                            style={{
+                                width: "100%", 
+                                borderRadius: "18px", 
+                                padding: "22px 0px", 
+                                backgroundColor: "#A3C3A4"
+                                }}
+                            >
+                            Submit new exercise entry
+                            </Button>
                         </Form.Item>
                     </Form>
                 </Flex>
