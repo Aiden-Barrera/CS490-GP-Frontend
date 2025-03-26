@@ -13,7 +13,7 @@ import {
 } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { DownOutlined, MedicineBoxTwoTone } from "@ant-design/icons";
+import "./table.css";
 
 const PatientSignUpModal = (props) => {
   const [form] = Form.useForm();
@@ -83,7 +83,7 @@ const PatientSignUpModal = (props) => {
       onCancel={handleClose}
       centered
       className="style-modal"
-      width={650} // Width of the Modal
+      width={950} // Width of the Modal
     >
       <Flex
         vertical
@@ -104,6 +104,34 @@ const PatientSignUpModal = (props) => {
             onFinishFailed={onFail}
             autoComplete="off"
           >
+            <Form.Item>
+              <div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Sunday</th>
+                      <th>Monday</th>
+                      <th>Tuesday</th>
+                      <th>Wednesday</th>
+                      <th>Thursday</th>
+                      <th>Friday</th>
+                      <th>Saturday</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </Form.Item>
             <Form.Item
               name="firstName"
               label="First Name"
@@ -176,7 +204,7 @@ const PatientSignUpModal = (props) => {
                   backgroundColor: "#f09c96",
                 }}
               >
-                Submit Preliminary Form
+                Submit Work Hours Form
               </Button>
             </Form.Item>
           </Form>

@@ -34,6 +34,7 @@ const UserTypeModal = (props) => {
     } else if (props.name === "Sign up") {
       setUserType("Doctor");
       setIsDoctorSignUpModalOpen(true);
+    }
   };
 
   const handlePharmClick = () => {

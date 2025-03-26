@@ -76,40 +76,6 @@ const PatientSignUpModal = (props) => {
     props.handleClose();
   };
 
-  const [selectedLabel, setSelectedLabel] = useState("Choose a Pharmacy");
-
-  const handleMenuClick = (e) => {
-    message.info("Click on menu item.");
-    // console.log("click", e);
-    const selectedPharmacy = items.find((item) => item.key === e.key);
-    setSelectedLabel(selectedPharmacy.label);
-    // console.log(selectedPharmacy.label);
-  };
-
-  const items = [
-    {
-      label: "Pharmacy 1",
-      key: "1",
-      icon: <MedicineBoxTwoTone twoToneColor="#f09c96" />,
-    },
-    {
-      label: "Pharmacy 2",
-      key: "2",
-      icon: <MedicineBoxTwoTone twoToneColor="#f09c96" />,
-    },
-    {
-      label: "Pharmacy 3",
-      key: "3",
-      icon: <MedicineBoxTwoTone twoToneColor="#f09c96" />,
-    },
-  ];
-  const menuProps = {
-    items,
-    selectable: true,
-    defaultSelectedKeys: ["1"],
-    onClick: handleMenuClick,
-  };
-
   // logic can be implemented here to construct what problem was checked in the form then used however
   // like sending it to the database to store it and then use it to display it somewhere if needed
   const onChange = (e) => {
