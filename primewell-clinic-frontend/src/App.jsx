@@ -18,6 +18,7 @@ function App() {
   }, [])
 
   useEffect(() => { // This is to just verify their info is being stored
+    console.log("UserInfo in App.jsx")
     console.log(userInfo)
   }, [userInfo])
 
@@ -33,7 +34,7 @@ function App() {
           <Route path='/PharmacistPortal' element={<PharmacistPortal />}/>
           {/* Patient Portal with Nested Routes */}
           <Route path="/PatientPortal" element={<SideBarMenu />}>
-            <Route path="Dashboard" element={<Dashboard />} />
+            <Route path="Dashboard" element={<Dashboard info={userInfo} />} />
             <Route path="Request" element={<Request />} />
             <Route path="Appointment" element={<div>Appointments Page</div>} />
             <Route path="Regiment" element={<div>Regiment Page</div>} />
