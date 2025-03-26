@@ -6,9 +6,15 @@ import UserTypeModal from "./UserTypeModal";
 const { Title } = Typography;
 const { Header } = Layout;
 
-const Navbar = () => {
+const Navbar = (props) => {
   const [isUserTypeModalOpen, setIsUserTypeModalOpen] = useState(false);
+  const [auth, setAuth] = useState(false)
+  const [userType, setUserType] = useState("")
   const [name, setName] = useState("")
+
+  useEffect(() => {
+    console.log("User has been Authenticated!")
+  }, [auth])
 
   const showModal = (name) => {
     setName(name)
@@ -46,7 +52,15 @@ const Navbar = () => {
                     </Title>
                 </div>
 
-                <Menu theme="dark" mode="horizontal" style={{ marginLeft: "auto" }}>
+                <Menu theme="dark" mode="horizontal" style={{ 
+                  marginLeft: "auto", 
+                  display: "flex",  // Ensures items align properly
+                  flexGrow: 1,      // Allows items to expand dynamically
+                  justifyContent: "flex-end", // Align items to the right
+                  minWidth: "500px", // Prevents shrinking
+                  width: "auto", // Ensures the menu expands to fit items
+                  marginRight: "5px"
+                  }}>
                     <Menu.Item key="1">
                         <Link to="/" style={{ color: "#ffffff" }}>
                         <strong>HOME</strong>
@@ -57,36 +71,88 @@ const Navbar = () => {
                         <strong>POSTS</strong>
                         </Link>
                     </Menu.Item>
+                    {auth ? (
+                      <>
+                      {userType === "Patient" ? (
+                        <Menu.Item key="4">
+                          <Link to="/PatientPortal" style={{ color: "#ffffff" }}>
+                          <strong>PATIENT PORTAL</strong>
+                          </Link>
+                        </Menu.Item>
+                      ) : userType === "Doctor" ? (
+                        <Menu.Item key="4">
+                          <Link to="/DoctorPortal" style={{ color: "#ffffff" }}>
+                          <strong>DOCTOR PORTAL</strong>
+                          </Link>
+                        </Menu.Item>
+                      ) : userType == "Pharmacist" ? (
+                        <Menu.Item key="4">
+                          <Link to="/PharmacistPortal" style={{ color: "#ffffff" }}>
+                          <strong>PHARMACIST PORTAL</strong>
+                          </Link>
+                        </Menu.Item>
+                      ) : null}
+                      <Menu.Item key="5">
+                        <strong>EXERCISES</strong>
+                      </Menu.Item>
+                      </>
+                    ) : null}
                     <Menu.Item key="3">
                         <Link to="/Reviews" style={{ color: "#ffffff" }}>
                         <strong>REVIEWS</strong>
                         </Link>
                     </Menu.Item>
                 </Menu>
-                <Button
-                className="custom-btn"
-                style={{ marginLeft: "5px" }}
-                onClick={() => {
-                    showModal("Login");
-                }}
-                >
-                Login
-                </Button>
-                <Button
-                className="custom-btn"
-                style={{ margin: "0 25px 0 10px", backgroundColor: "#f09c96" }}
-                onClick={() => {
-                    // showSignUpModal();
-                    showModal("Sign up");
-                }}
-                >
-                Create Account
-                </Button>
+                {!auth ? (
+                  <>
+                    <Button
+                      className="custom-btn"
+                      // style={{ marginLeft: "5px" }}
+                      onClick={() => {
+                          showModal("Login");
+                      }}
+                      >
+                      Login
+                    </Button>
+                    <Button
+                      className="custom-btn"
+                      style={{ margin: "0 25px 0 10px", backgroundColor: "#f09c96" }}
+                      onClick={() => {
+                          showModal("Sign up");
+                      }}
+                      >
+                      Create Account
+                    </Button>
+                  </>
+                ) : (
+                <Button style={{ 
+                  width: "48px", 
+                  height: "48px",
+                  padding: 0,         
+                  border: "none",     
+                  overflow: "hidden", 
+                  display: "flex",    
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "transparent",
+                  marginRight: "20px"
+                }}>
+                  <img src="/userIcon.svg" alt="Icon" style={{ 
+                        width: "100%", 
+                        height: "auto", 
+                        objectFit: "cover", 
+                        borderRadius: "10px" 
+                    }}/>
+                </Button>)}
             </Header>
 
             <UserTypeModal
                 open={isUserTypeModalOpen}
                 name={name}
+                auth={setAuth}
+                userType={userType}
+                setUserType={setUserType}
+                info={props.info}
                 handleClose={() => handleClose("SignUp")}
             />
         </>
