@@ -85,13 +85,13 @@ const Navbar = (props) => {
                           <strong>DOCTOR PORTAL</strong>
                           </Link>
                         </Menu.Item>
-                      ) : (
+                      ) : userType == "Pharmacist" ? (
                         <Menu.Item key="4">
                           <Link to="/PharmacistPortal" style={{ color: "#ffffff" }}>
                           <strong>PHARMACIST PORTAL</strong>
                           </Link>
                         </Menu.Item>
-                      )}
+                      ) : null}
                       <Menu.Item key="5">
                         <strong>EXERCISES</strong>
                       </Menu.Item>

@@ -1,8 +1,8 @@
-const Dashboard = () => {
+const Dashboard = (props) => {
     return (
         <div>
             <h1>Dashboard</h1>
-            <p>Welcome to the Dashboard!</p>
+            <p>Welcome {props.First_Name} to the Dashboard!</p>
         </div>
     );
 };
