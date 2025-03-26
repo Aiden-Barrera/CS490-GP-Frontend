@@ -15,12 +15,20 @@ const ExerciseListModal = (props) => {
     }
 
     return (
-        <Modal open={props.open} footer={null} onCancel={handleClose} centered className="style-modal" width={1000} >
+        <Modal open={props.open} footer={null} 
+        onCancel={handleClose} 
+        centered 
+        className="style-modal" 
+        width={1000}
+        style={{backgroundColor:"#A8C4A2"}} 
+        >
             <Flex 
                 align="start" 
                 style={{
                     borderRadius: "10px", 
                     height: "750px", 
+                    backgroundColor: "#A8C4A2",
+                    margin: "-25px"
                 }}>
                 <Flex vertical style={{ width: "100%" }}>
                     <Flex horizontal justify="space-between" align="start"  gap="20px"
@@ -32,7 +40,7 @@ const ExerciseListModal = (props) => {
                             color: "#373b41", 
                             marginBottom: "10px", 
                             fontFamily: "Poppins",
-                            marginTop: "20px"
+                            marginTop: "50px"
                             }} >
                     <span>ID</span>
                     <span>Exercise Name</span>
@@ -41,7 +49,7 @@ const ExerciseListModal = (props) => {
                     <span>Reps</span>
                     <span>Sets</span>
                     </Flex>
-                    <hr style={{ width: "100%", height: "1px", backgroundColor: "#ccc"}} />
+                    <hr style={{ width: "99.8%", height: "1px", backgroundColor: "#A8C4A2"}} />
                     <Flex horizontal justify="space-between" align="start"  gap="20px"
                         style={{ 
                             justify:"space-between",
