@@ -241,7 +241,7 @@ const DoctorSignUpModal = (props) => {
                   message: "Please input your Doctor License Number!",
                 },
                 {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make Doctor License Number regex
+                  pattern: /^[0-9]{3}-[0-9]{2}-[0-9]{6}$/,
                   message: "Please input a valid Doctor License Number!",
                 },
               ]}

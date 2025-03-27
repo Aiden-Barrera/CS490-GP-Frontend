@@ -13,10 +13,11 @@ import {
 } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import "./table.css";
+import OneWeekCalendar from "./OneWeekCalendar";
 
 const PatientSignUpModal = (props) => {
   const [form] = Form.useForm();
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   useEffect(() => {
     if (props.open) {
@@ -24,10 +25,6 @@ const PatientSignUpModal = (props) => {
       message.destroy();
     }
   }, [props.open]);
-
-  const filterPW = (pw) => {
-    return pw.replace(/"/g, '\\"');
-  };
 
   const onFinish = async (value) => {
     if (props.userType === "Patient") {
@@ -105,8 +102,8 @@ const PatientSignUpModal = (props) => {
             autoComplete="off"
           >
             <Form.Item>
-              <div>
-                <table>
+              {/* <div>
+                <table style={{ border: "1px solid black" }}>
                   <thead>
                     <tr>
                       <th>Sunday</th>
@@ -130,65 +127,68 @@ const PatientSignUpModal = (props) => {
                     </tr>
                   </tbody>
                 </table>
+              </div> */}
+              <div>
+                {/* <button
+                  onClick={() =>
+                    setCurrentDate(
+                      new Date(currentDate.setDate(currentDate.getDate() - 7))
+                    )
+                  }
+                >
+                  Previous Week
+                </button>
+                <button
+                  onClick={() =>
+                    setCurrentDate(
+                      new Date(currentDate.setDate(currentDate.getDate() + 7))
+                    )
+                  }
+                >
+                  Next Week
+                </button> */}
+                <OneWeekCalendar date={currentDate} />
               </div>
             </Form.Item>
             <Form.Item
-              name="firstName"
-              label="First Name"
+              name="firstShift"
+              label="First Shift"
               rules={[
                 {
                   required: true,
-                  message: "Please input your First Name!",
+                  message: "Please input your Work Hours for your First Shift!",
                 },
                 {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make first name regex
-                  message: "Please input a valid First Name!",
+                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make hours regex
+                  message: "Please input your Work Hours for your First Shift!",
                 },
               ]}
               validateTrigger="onSubmit"
             >
               <Input
-                placeholder="Enter your first name"
+                placeholder="Enter your work hours for your first shift"
                 style={{ height: "45px" }}
               />
             </Form.Item>
             <Form.Item
-              name="lastName"
-              label="Last Name"
+              name="secondShift"
+              label="Second Shift"
               rules={[
                 {
                   required: true,
-                  message: "Please input your Last Name!",
+                  message:
+                    "Please input your Work Hours for your Second Shift!",
                 },
                 {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make last name regex (probably same as first name)
-                  message: "Please input a valid Last Name!",
+                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make hours regex
+                  message:
+                    "Please input your Work Hours for your Second Shift!",
                 },
               ]}
               validateTrigger="onSubmit"
             >
               <Input
-                placeholder="Enter your last name"
-                style={{ height: "45px" }}
-              />
-            </Form.Item>
-            <Form.Item
-              name="email"
-              label="Email"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your Email!",
-                },
-                {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
-                  message: "Please input a valid Email!",
-                },
-              ]}
-              validateTrigger="onSubmit"
-            >
-              <Input
-                placeholder="example@gmail.com"
+                placeholder="Enter your work hours for your second shift"
                 style={{ height: "45px" }}
               />
             </Form.Item>
