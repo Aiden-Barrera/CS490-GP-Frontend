@@ -1,9 +1,17 @@
+import {Button, Flex} from "antd"
+
+
 const DoctorDashboard = (props) => {
     return (
-        <div>
-            <h1>Dashboard</h1>
-            <h3 style={{color: "#333333"}}>Welcome {props.info?.First_Name} to the Dashboard!</h3>
-        </div>
+        <Flex vertical justify="start" align="center" gap="60px" style={{
+            background: "#ffffff", 
+            borderRadius: "12px",
+            padding: "33px 40px",
+            width: "100%",
+            overflowY: "auto"
+        }}>
+            
+        </Flex>
     );
 };
 
