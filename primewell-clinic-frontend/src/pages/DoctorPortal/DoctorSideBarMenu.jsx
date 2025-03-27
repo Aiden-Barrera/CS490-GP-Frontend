@@ -2,7 +2,7 @@ import { Link, Outlet } from "react-router-dom";
 import { Flex, Button, Menu } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 
-const DoctorSideBarMenu = () => {
+const DoctorSideBarMenu = ({info}) => {
     return (
         <Flex style={{
             height: "90vh",
