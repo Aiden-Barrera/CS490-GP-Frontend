@@ -17,35 +17,30 @@ const Reviews = () => {
         console.log(reviewInfo)
     }, [])
     return (
-
-    <Flex vertical justify="start" align="center" gap="60px" style={{
-            background: "#ffffff", 
-            borderRadius: "12px",
-            padding: "33px 50px",
-            width: "100%",
-            overflowY: "auto",
-            height: '1063px',
-            marginLeft: '330px',
-            
+        <Flex justify="center" align="center" style={{
+            height: "90vh",
+            width: "98vw",
+            margin: "80px 20px 20px",
+            borderRadius: "20px"
         }}>
-            <h1 className="title" style={{ color: "#373b41", marginBottom: "10px", fontFamily: "Poppins"}} >List of Doctors</h1>
-
-            <Input 
-            style={{
-                width: "500px", 
-                borderRadius: 20,
-                marginBottom: "20px"
-                }} 
-                size="large" 
-                placeholder=" Search for doctors"/>
-        
-        <Flex vertical gap="20px" style={{
-                width: "100%",
-            }}>
-                <ReviewCard />
-                
+            <Flex vertical justify="center" align="center" gap="60px" style={{
+                    background: "#ffffff", 
+                    borderRadius: "12px",
+                    padding: "33px 40px",
+                    width: "60%",
+                    maxWidth: "60%",
+                    overflowY: "auto"
+                }}>
+                    <h1 className="title" style={{ color: "#373b41", marginBottom: "10px", marginTop: 0, fontFamily: "Poppins"}} >List of Doctors</h1>
+                    <Input placeholder="Enter Doctor Name" style={{height: "45px", width: "50%"}}/>
+                <Flex vertical gap="20px" style={{
+                        width: "100%",
+                    }}>
+                        <ReviewCard />
+                        
+                </Flex>
+            </Flex>
         </Flex>
-    </Flex>
         
     )
 }
