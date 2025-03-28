@@ -4,7 +4,6 @@ import ReviewCard from "../components/ReviewCard"
 import axios from "axios"
 
 const Reviews = () => {
-
     const [reviewInfo, setReviewInfo] = useState([])
     
     const fetchReviewInfo = async () => {
@@ -14,14 +13,11 @@ const Reviews = () => {
     
     useEffect(() => {
         fetchReviewInfo()
-        console.log(reviewInfo)
     }, [])
+
     return (
         <Flex justify="center" align="center" style={{
-            height: "90vh",
-            width: "98vw",
-            margin: "80px 20px 20px",
-            borderRadius: "20px"
+            height: "auto", width: "100vw", marginTop: "180px", marginBottom: "100px"
         }}>
             <Flex vertical justify="center" align="center" gap="60px" style={{
                     background: "#ffffff", 
@@ -36,8 +32,9 @@ const Reviews = () => {
                 <Flex vertical gap="20px" style={{
                         width: "100%",
                     }}>
-                        <ReviewCard />
-                        
+                    {reviewInfo.map((user, index) => (
+                        <ReviewCard key={index} info={user}/>     
+                    ))}
                 </Flex>
             </Flex>
         </Flex>
