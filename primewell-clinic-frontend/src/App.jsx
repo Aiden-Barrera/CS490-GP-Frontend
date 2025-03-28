@@ -12,6 +12,7 @@ import Request from './pages/PatientPortal/Request'
 import DoctorSideBarMenu from './pages/DoctorPortal/DoctorSideBarMenu'
 import DoctorDashboard from './pages/DoctorPortal/DoctorDashboard'
 import DoctorPillRequest from './pages/DoctorPortal/DoctorPillRequest'
+import Exercise from './pages/Exercise'
 
 function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
@@ -33,6 +34,7 @@ function App() {
           <Route path='/Posts' element={<Posts />}/>
           <Route path='/Reviews' element={<Reviews />}/>
           <Route path='/PharmacistPortal' element={<PharmacistPortal />}/>
+          <Route path='/Exercise' element={<Exercise />} />
           {/* Patient Portal with Nested Routes */}
           <Route path="/PatientPortal" element={<SideBarMenu />}>
             <Route path="Dashboard" element={<Dashboard info={userInfo} />} />
@@ -45,7 +47,7 @@ function App() {
             <Route path="Payment" element={<div>Payment Page</div>} />
           </Route>
           {/* Doctor Portal with Nested Routes */}
-          <Route path="/DoctorPortal/" element={<DoctorSideBarMenu />}>
+          <Route path="/DoctorPortal/" element={<DoctorSideBarMenu landing={true} info={userInfo}/>}>
             <Route path="/DoctorPortal/Dashboard" element={<DoctorDashboard info={userInfo} />} />
             <Route path="/DoctorPortal/Request" element={<div style={{color: "#000000"}}>Incoming Request Page</div>} />
             <Route path="/DoctorPortal/Appointment" element={<div>Appointments Page</div>} />

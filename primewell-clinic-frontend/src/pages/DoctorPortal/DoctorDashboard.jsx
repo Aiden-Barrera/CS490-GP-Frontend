@@ -20,7 +20,6 @@ const DoctorDashboard = (props) => {
             </Flex>
             {/* Doctor's Upcoming Appointments */}
             <Flex vertical justify="center" align="center" gap="20px" style={{
-                width: "40%%",
                 background: "#ffffff", 
                 borderRadius: "12px",
                 padding: "33px 40px",
