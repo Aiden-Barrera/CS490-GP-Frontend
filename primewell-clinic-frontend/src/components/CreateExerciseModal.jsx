@@ -1,7 +1,7 @@
 import { Flex, Modal, Form, message, Button, Input} from "antd"
 import { useEffect, useState } from "react"
 import EIModal from "./Exercise_ImageUpload"
-const ExerciseModal = (props) => {
+const CreateExerciseModal = (props) => {
     const [form] = Form.useForm()
 
     useEffect(() => {
@@ -112,4 +112,4 @@ const ExerciseModal = (props) => {
     )
 }
 
-export default ExerciseModal
+export default CreateExerciseModal
