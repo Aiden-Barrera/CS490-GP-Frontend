@@ -1,7 +1,7 @@
 import { Flex, Row, Col, Card, Button } from "antd";
 import Footer from "../components/Footer";
 import { Image } from "antd";
-import ExerciseModal from "../components/CreateExerciseModal";
+import CreateExerciseModal from "../components/CreateExerciseModal";
 import { useState } from "react";
 import ExerciseListModal from "../components/ExerciseListModal";
 
@@ -16,14 +16,22 @@ const categories = [
 
 const Exercise = () => {
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const showModal = () => {
-        setIsModalOpen(true);
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    const [isListModalOpen, setIsListModalOpen] = useState(false);
+    const showCreateModal = () => {
+        setIsCreateModalOpen(true);
     };
 
-    const handleCancel = () => {
-        setIsModalOpen(false);
+    const showListModal = () => {
+        setIsListModalOpen(true);
+    };
+
+    const handleCreateCancel = () => {
+        setIsCreateModalOpen(false);
+    };
+
+    const handleListCancel = () => {
+        setIsListModalOpen(false);
     };
 
     return (
@@ -38,19 +46,27 @@ const Exercise = () => {
                     <h3 style={{ color: "#F09C96", marginLeft: "50px" }}>Browse through the categories</h3>
                     <div>
                         <Button type="primary" style={{ backgroundColor: "#F09C96", marginRight: "10px" }}>+ Create new Regiment</Button>
-                        <Button type="primary" style={{ backgroundColor: "#A8C4A2", borderColor: "#A8C4A2", marginRight:"65px" }} onClick={() => {showModal()}}>+ Add New Exercise</Button>
+                        <Button type="primary" style={{ backgroundColor: "#A8C4A2", borderColor: "#A8C4A2", marginRight:"65px" }} onClick={() => {showCreateModal()}}>+ Add New Exercise</Button>
                     </div>
-                    <ExerciseListModal open={isModalOpen} handleClose={handleCancel} />
+                    <CreateExerciseModal open={isCreateModalOpen} handleClose={handleCreateCancel} />
                 </Flex>
-                <Flex justify="center" align="center" style={{ width: "100vw", backgroundColor: "#ffffff",  textAlign: "center"}}>
+                <Flex justify="center" align="center" style={{ width: "100vw", backgroundColor: "#ffffff"}}>
                 <Row gutter={[48, 64]} style={{ padding: "20px 0" }}>
                         {categories.map((category, index) => (
                             <Col span={8} key={index} style={{ display: "flex", justifyContent: "center" }}>
-                                <Card hoverable style={{ textAlign: "center", backgroundColor: "#FFE4E1", padding: "20px", borderRadius: "10px" }}>
-                                    <div style={{ marginBottom: "50px" }}>{category.icon}</div>
+                                <Card hoverable 
+                                style={{ 
+                                    textAlign: "center", 
+                                    backgroundColor: "#FFE4E1", 
+                                    padding: "20px", 
+                                    borderRadius: "10px" }}
+                                    onClick={() => {showListModal()}}
+                                >
+                                    <div style={{ marginBottom: "20px", pointerEvents: 'none'}}>{category.icon}</div>
                                     <h3 style={{ color: "#F09C96" }}>{category.name}</h3>
                                     <p style={{ fontSize: "12px", color: "#333" }}>{category.description}</p>
                                 </Card>
+                                <ExerciseListModal open={isListModalOpen} handleClose={handleListCancel} />
                             </Col>
                         ))}
                     </Row>
