@@ -34,7 +34,7 @@ const ReviewCard = ({info}) => {
                   >     
                     <p style={{ fontSize: '50px', fontWeight: 'bold', margin: 0, padding: "15px" }}>{rating}</p>
                   </Flex>
-                  <p style={{fontWeight: "bold"}}>Ratings</p>
+                  <p style={{fontWeight: "bold"}}>{info?.cnt} Ratings</p>
               </Flex>
           </Sider>
           <Content style={{background: "#ffe6e2", flex: 1, display: "flex", flexDirection: "column" }}>
