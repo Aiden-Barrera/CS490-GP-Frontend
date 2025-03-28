@@ -29,41 +29,7 @@ const PatientSignUpModal = (props) => {
   };
 
   const onFinish = async (value) => {
-    if (props.userType === "Patient") {
-      // If they clicked Patient button, this will run for login
-      const res = await axios.post(
-        "http://localhost:3000/passAuthPatient",
-        value
-      );
-      if (res.data.length === 0) {
-        console.log("Couldn't log in");
-      } else {
-        console.log("Logged In");
-      }
-      console.log(res.data);
-    } else if (props.userType === "Doctor") {
-      const res = await axios.post(
-        "http://localhost:3000/passAuthDoctor",
-        value
-      );
-      if (res.data.length === 0) {
-        console.log("Couldn't log in");
-      } else {
-        console.log("Logged In");
-      }
-      console.log(res.data);
-    } else {
-      const res = await axios.post(
-        "http://localhost:3000/passAuthPharm",
-        value
-      );
-      if (res.data.length === 0) {
-        console.log("Couldn't log in");
-      } else {
-        console.log("Logged In");
-      }
-      console.log(res.data);
-    }
+    
   };
 
   const onFail = () => {

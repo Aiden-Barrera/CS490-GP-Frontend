@@ -1,8 +1,8 @@
-const Dashboard = () => {
+const Dashboard = (props) => {
     return (
         <div>
             <h1>Dashboard</h1>
-            <p>Welcome to the Dashboard!</p>
+            <h3 style={{color: "#333333"}}>Welcome {props.info?.First_Name} to the Dashboard!</h3>
         </div>
     );
 };

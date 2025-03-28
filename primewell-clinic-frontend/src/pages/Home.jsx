@@ -32,7 +32,7 @@ const Home = () => {
             <Flex vertical className="topDoctor-container" justify="center" align="center" style={{ width: "100vw"}}>
                 <Flex vertical gap="150px" justify="center" align="stretch" style={{margin: "140px"}}>
                     {topDoctors.map((user, index) => (
-                        <TopDoctorCard name={user.first_name + " " + user.last_name} specialty={user.specialty} 
+                        <TopDoctorCard key={index} name={user.first_name + " " + user.last_name} specialty={user.specialty} 
                             side={index % 2 === 0 ? "left" : "right"}/>
                     ))}
                 </Flex>
