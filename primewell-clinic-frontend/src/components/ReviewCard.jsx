@@ -18,7 +18,8 @@ const ReviewCard = ({info}) => {
           overflow: 'hidden',
           width: '100%',
           height: "100%",
-          backgroundColor: "#FFE6E2"
+          backgroundColor: "#FFE6E2",
+          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
       }}>
         {/*Where 'Quality', squarebox containing rating, and no. of ratings will go*/}
         <Sider width="25%" style={{backgroundColor: '#FFE6E2'}}>
