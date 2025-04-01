@@ -3,7 +3,7 @@ import {Flex, Layout} from "antd"
 import {  UserOutlined } from '@ant-design/icons'
 
 const {Content, Sider} = Layout
-const ReviewCard = ({info}) => {
+const ReviewCard = ({info, onClick}) => {
   const [rating, setRating] = useState(0)
 
   useEffect(() => {
@@ -13,6 +13,7 @@ const ReviewCard = ({info}) => {
   return (
     <>
       {/*Format of the review cards*/}
+    <div className="review-card" onClick={() => onClick(info)}>
       <Layout style={{
           borderRadius: 8,
           overflow: 'hidden',
@@ -48,6 +49,7 @@ const ReviewCard = ({info}) => {
               </Flex>
           </Content>
         </Layout>
+      </div>
     </>
   )
 }
