@@ -40,33 +40,6 @@ const PillInfo = (props) => {
                     width: "1155px",
                 }}>
                 <Flex vertical style={{ width: "100%" }}>
-                <Flex 
-                    justify="space-between" 
-                    align="center" 
-                    style={{ 
-                        backgroundColor: "#000000", 
-                        textAlign: "center"}}>
-                <Flex
-                    vertical
-                    justify="start"
-                    align="start"
-                    style={{ 
-                        background: "#A8C4A2", 
-                        padding: "20px 30px", 
-                        width: "100%", 
-                        maxWidth: "100%", 
-                    }}
-                    >
-                       <h2>Pill Page</h2> 
-                       <div style={{marginLeft: "20px"}}>CVS</div>
-                    </Flex>
-                    <Input placeholder="Search by Pill Name" value={searchedPill} onChange={handleSearch} enterButton={false} style={{fontSize: "14px", height: "40px", width: "257px", marginRight: "20px"}}
-                        prefix={<img src="/searchIcon.svg" alt="Icon" style={{width: "24px", marginRight: "5px"}}/>}
-                    />
-                    <Input placeholder="Search by Pill Name" value={searchedPill} onChange={handleSearch} enterButton={false} style={{fontSize: "14px", height: "40px", width: "257px", marginRight: "20px"}}
-                        prefix={<img src="/searchIcon.svg" alt="Icon" style={{width: "24px", marginRight: "5px"}}/>}
-                    />
-                    </Flex>
                     <Flex horizontal justify="space-between" align="start"  gap="20px"
                         style={{ 
                             justify:"space-between",
