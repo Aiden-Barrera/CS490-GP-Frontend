@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {Flex, Input, Layout} from "antd"
 import ReviewCard from "../components/ReviewCard"
 import './../App.css'
@@ -32,6 +33,10 @@ const Reviews = () => {
         setFilteredInfo(filteredDoctor)
     }, [searchedDoctor])
 
+    const handleReviewCardClick = (user) => {
+        console.log(user)
+    }
+
     return (
         <Flex justify="center" align="center" style={{
             height: "auto", width: "100vw", marginTop: "180px", marginBottom: "100px"
@@ -52,7 +57,9 @@ const Reviews = () => {
                         width: "100%",
                     }}>
                     {filteredDoctor.map((user, index) => (
-                        <ReviewCard key={index} info={user}/>     
+                        <Link key={index} to={`/Reviews/${user?.doctor_id}`}>
+                            <ReviewCard key={index} info={user} onClick={handleReviewCardClick}/>     
+                        </Link>
                     ))}
                 </Flex>
             </Flex>
