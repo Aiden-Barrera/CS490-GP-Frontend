@@ -60,10 +60,10 @@ const PillInfo = (props) => {
                        <h2>Pill Page</h2> 
                        <div style={{marginLeft: "20px"}}>CVS</div>
                     </Flex>
-                    <Input placeholder="Search by Pill Name" value={searchedPill} onChange={handleSearch} enterButton={false} style={{fontSize: "24px", height: "40px", width: "257px"}}
+                    <Input placeholder="Search by Pill Name" value={searchedPill} onChange={handleSearch} enterButton={false} style={{fontSize: "14px", height: "40px", width: "257px", marginRight: "20px"}}
                         prefix={<img src="/searchIcon.svg" alt="Icon" style={{width: "24px", marginRight: "5px"}}/>}
                     />
-                    <Input placeholder="Search by Pill Name" value={searchedPill} onChange={handleSearch} enterButton={false} style={{fontSize: "24px", height: "40px", width: "257px"}}
+                    <Input placeholder="Search by Pill Name" value={searchedPill} onChange={handleSearch} enterButton={false} style={{fontSize: "14px", height: "40px", width: "257px", marginRight: "20px"}}
                         prefix={<img src="/searchIcon.svg" alt="Icon" style={{width: "24px", marginRight: "5px"}}/>}
                     />
                     </Flex>
