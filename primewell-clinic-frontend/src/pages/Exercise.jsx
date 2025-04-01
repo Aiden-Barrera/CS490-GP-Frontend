@@ -4,6 +4,7 @@ import { Image } from "antd";
 import CreateExerciseModal from "../components/CreateExerciseModal";
 import { useState } from "react";
 import ExerciseListModal from "../components/ExerciseListModal";
+import AddCalendar from "../components/AddCalendar";
 
 const categories = [
     { name: "Upper Body", icon: <Image src= "/Upper.PNG" style={{ width: "150px", height: "150px", }}/>, description: "Effective exercises for toning and strengthening the arms, chest, and back." },
@@ -66,7 +67,7 @@ const Exercise = () => {
                                     <h3 style={{ color: "#F09C96" }}>{category.name}</h3>
                                     <p style={{ fontSize: "12px", color: "#333" }}>{category.description}</p>
                                 </Card>
-                                <ExerciseListModal open={isListModalOpen} handleClose={handleListCancel} />
+                                <AddCalendar open={isListModalOpen} handleClose={handleListCancel} />
                             </Col>
                         ))}
                     </Row>

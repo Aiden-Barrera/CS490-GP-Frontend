@@ -4,11 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 const AddCalendar = (props) => {
     const days = [ 'Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const [selectedDays, setSelectedDays] = useState([]);
-    const [exercise, setExercise] = useState({ reps: 1, sets: 1 });
-
-    const onChange = (value) => {
-        console.log(`selected ${value}`, value);
-    }; //Logs what values are selected
+    const [exercise, setExercise] = useState({ reps: 1, sets: 1 }); //exercise.reps, exercise.sets to access
 
     useEffect(() => {
         if (props.open) {
@@ -37,10 +33,12 @@ const AddCalendar = (props) => {
     
       const handleRepsChange = (value) => {
         setExercise({ ...exercise, reps: value });
+        console.log(`selected reps: ${value}`, value);
       };
     
       const handleSetsChange = (value) => {
         setExercise({ ...exercise, sets: value });
+        console.log(`selected sets: ${value}`, value);
       };
 
     return (
@@ -105,11 +103,8 @@ const AddCalendar = (props) => {
             align = "flex-start"
             style={{
                 marginTop:"20px",
-                height:"300px",
-                backgroundColor:"red",
                 border:"1px solid black",
-                borderRadius:"10px",
-                padding: "0px 100px 0px 100px"
+                padding: "0px 200px 0px 200px"
             }}>
                 <Flex 
                 vertical
@@ -117,7 +112,7 @@ const AddCalendar = (props) => {
                 align="center"
                 >
                     Reps
-                    <InputNumber min={1} max={20} defaultValue={1} onChange={onChange} />
+                    <InputNumber min={1} max={20} defaultValue={1} onChange={handleRepsChange} />
                 </Flex>
                 
 
@@ -127,9 +122,8 @@ const AddCalendar = (props) => {
                 align="center"
                 >
                     Sets
-                    <InputNumber justifyContent= "center" align="center" min={1} max={10} defaultValue={1} onChange={onChange} />
+                    <InputNumber min={1} max={10} defaultValue={1} onChange={handleSetsChange} />
                 </Flex>
-
             </Flex>
         </Modal>
     );

@@ -2,7 +2,7 @@ import { Link, Outlet } from "react-router-dom";
 import { Flex, Button, Menu } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 
-const SideBarMenu = () => {
+const PharmaSideBarMenu = ({info}) => {
     return (
         <Flex style={{
             height: "90vh",
@@ -34,28 +34,19 @@ const SideBarMenu = () => {
                 {/* Menu Navigation */}
                 <Menu className="menu">
                     <Menu.Item key="1">
-                        <Link to="/PatientPortal/Dashboard"><strong>Dashboard</strong></Link>
+                        <Link to="PharmacyPortal/Dashboard"><strong>Dashboard</strong></Link>
                     </Menu.Item>
                     <Menu.Item key="2">
-                        <Link to="/PatientPortal/Request"><strong>Request</strong></Link>
+                        <Link to="PharmacyPortal/Request"><strong>Requests</strong></Link>
                     </Menu.Item>
                     <Menu.Item key="3">
-                        <Link to="/PatientPortal/Appointment"><strong>Appointments</strong></Link>
+                        <Link to="PharmacyPortal/Pickups"><strong>Pending Pick-ups</strong></Link>
                     </Menu.Item>
                     <Menu.Item key="4">
-                        <Link to="/PatientPortal/Regiment"><strong>Regiment</strong></Link>
+                        <Link to="PharmacyPortal/PillPage"><strong>Pill Page</strong></Link>
                     </Menu.Item>
                     <Menu.Item key="5">
-                        <Link to="/PatientPortal/Daily-Survey"><strong>Daily Survey</strong></Link>
-                    </Menu.Item>
-                    <Menu.Item key="6">
-                        <Link to="/PatientPortal/AccountInfo"><strong>Account Info</strong></Link>
-                    </Menu.Item>
-                    <Menu.Item key="7">
-                        <Link to="/PatientPortal/Prescription"><strong>Prescription</strong></Link>
-                    </Menu.Item>
-                    <Menu.Item key="8">
-                        <Link to="/PatientPortal/Payment"><strong>Payment</strong></Link>
+                        <Link to="PharmacyPortal/AccountInfo"><strong>Account Info</strong></Link>
                     </Menu.Item>
                 </Menu>
             </Flex>
@@ -69,7 +60,7 @@ const SideBarMenu = () => {
                 <Outlet /> {/* This allows nested routes to be rendered here */}
             </Flex>
         </Flex>
-    );
-};
+    )
+}
 
-export default SideBarMenu;
+export default PharmaSideBarMenu

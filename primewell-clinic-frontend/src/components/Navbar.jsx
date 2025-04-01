@@ -93,7 +93,9 @@ const Navbar = (props) => {
                         </Menu.Item>
                       ) : null}
                       <Menu.Item key="5">
+                        <Link to="/Exercise" style={{ color: "#ffffff" }}>
                         <strong>EXERCISES</strong>
+                        </Link>
                       </Menu.Item>
                       </>
                     ) : null}
