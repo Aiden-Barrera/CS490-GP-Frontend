@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Flex, Layout } from "antd";
+import { Flex, Layout, Button } from "antd";
 const {Content, Sider} = Layout
 import ReviewCommentCard from "./ReviewCommentCard";
 
-const ReviewDetail = () => {
+const ReviewDetail = ({userInfo}) => {
     const { id } = useParams(); // Get the review ID from the URL
     const [reviews, setReviews] = useState(null);
     const [doctorInfo, setDoctorInfo] = useState(null)
@@ -71,6 +71,10 @@ const ReviewDetail = () => {
                             </Flex>
                         </Flex>
                     </Flex>
+                    {/* Section for Writing a new review */}
+                    <Button type="primary" style={{
+                        width: "40%", borderRadius: "24px", padding: "22px 0px", backgroundColor: "#f09c96", fontSize: "22px", fontWeight: "700", marginBottom: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
+                    }}>Write a Review</Button>
 
                     {/* Section for comments */}
                     <Flex vertical align="center" justify="center" gap="20px">

@@ -9,7 +9,7 @@ const Home = () => {
     const [topDoctors, setTopDoctors] = useState([])
 
     const fetchTopDoctors = async () => {
-        const res = await axios.get("http://localhost:3000/reviews/top")
+        const res = await axios.get("http://localhost:3000/reviewsTop")
         setTopDoctors(res.data)
         console.log(res.data)
     }
