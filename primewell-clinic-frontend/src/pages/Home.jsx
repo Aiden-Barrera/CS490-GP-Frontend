@@ -1,10 +1,22 @@
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import {Flex} from "antd"
+import axios from "axios"
 import "./../App.css"
 import TopDoctorCard from "../components/TopDoctorCard";
 import Footer from "../components/Footer";
 
 const Home = () => {
+    const [topDoctors, setTopDoctors] = useState([])
+
+    const fetchTopDoctors = async () => {
+        const res = await axios.get("http://localhost:3000/reviews/top")
+        setTopDoctors(res.data)
+        console.log(res.data)
+    }
+    
+    useEffect(() => {
+        fetchTopDoctors()
+    }, [])
 
     return (
         <>
@@ -18,10 +30,11 @@ const Home = () => {
             </Flex>
             {/* This is Section for Top 3 Doctors */}
             <Flex vertical className="topDoctor-container" justify="center" align="center" style={{ width: "100vw"}}>
-                <Flex vertical gap="150px" justify="center" align="center" style={{margin: "140px"}}>
-                    <TopDoctorCard name="Doctor 1" side="left" />
-                    <TopDoctorCard name="Doctor 2" side="right" />
-                    <TopDoctorCard name="Doctor 3" side="left" />
+                <Flex vertical gap="150px" justify="center" align="stretch" style={{margin: "140px"}}>
+                    {topDoctors.map((user, index) => (
+                        <TopDoctorCard key={index} name={user.first_name + " " + user.last_name} specialty={user.specialty} 
+                            side={index % 2 === 0 ? "left" : "right"}/>
+                    ))}
                 </Flex>
             </Flex>
             <Flex justify="center" align="center" style={{width: "100vw", margin: "25px"}}>

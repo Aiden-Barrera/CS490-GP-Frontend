@@ -1,4 +1,5 @@
 import { Flex, Modal, Form, message, Button, Input, Divider } from "antd"
+import axios from "axios"
 import { useEffect, useState } from "react"
 
 const LoginModal = (props) => {
@@ -11,8 +12,38 @@ const LoginModal = (props) => {
         }
     }, [props.open])
 
-    const onFinish = () => {
-        message.success("Submit Success!")
+    const onFinish = async (value) => {
+        if (props.userType === "Patient") { // If they clicked Patient button, this will run for login
+            const res = await axios.post("http://localhost:3000/passAuthPatient", value)
+            if (res.data.length === 0){
+                console.log("Couldn't log in")
+            } else {
+                console.log("Logged In")
+                props.info(res.data) // This passes down the user info to Navbar
+                props.auth(true) // This passes down that the user has been authenticated to Navbar
+                handleClose()
+            }
+        } else if (props.userType === "Doctor") {
+            const res = await axios.post("http://localhost:3000/passAuthDoctor", value)
+            if (res.data.length === 0){
+                console.log("Couldn't log in")
+            } else {
+                console.log("Logged In")
+                props.info(res.data) // This passes down the user info to Navbar
+                props.auth(true) // This passes down that the user has been authenticated to Navbar
+                handleClose()
+            }
+        } else {
+            const res = await axios.post("http://localhost:3000/passAuthPharm", value)
+            if (res.data.length === 0){
+                console.log("Couldn't log in")
+            } else {
+                console.log("Logged In")
+                props.info(res.data) // This passes down the user info to Navbar
+                props.auth(true) // This passes down that the user has been authenticated to Navbar
+                handleClose()
+            }
+        }
     }
 
     const onFail = () => {
@@ -35,11 +66,16 @@ const LoginModal = (props) => {
                                 required: true,
                                 message: "Please input your Email!"
                             },
+                            {
+                                pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
+                                message: "Please input a valid Email!"
+                            },
                         ]}
+                        validateTrigger="onSubmit"
                         >
                             <Input placeholder="example@gmail.com" style={{height: "45px"}}/>
                         </Form.Item>
-                        <Form.Item name="password" label="Password" rules={[
+                        <Form.Item name="pw" label="Password" rules={[
                             {
                                 required: true,
                                 message: "Please input your Password!"
@@ -49,6 +85,7 @@ const LoginModal = (props) => {
                                 message: "Password must be at least 5 characters"
                             }
                         ]}
+                        validateTrigger="onSubmit"
                         >
                             <Input.Password placeholder="Enter your password" style={{height: "45px"}}/>
                         </Form.Item>
@@ -61,7 +98,7 @@ const LoginModal = (props) => {
             </Flex>
             <Divider><span style={{color: "#666666"}}>New to our Clinic</span></Divider>
             <Button type="primary" htmlType="submit" 
-                style={{width: "100%", border: "1px solid #999999", borderRadius: "18px", padding: "22px 0px", backgroundColor: "#ffe6e2", color: "#000000"}}>Create an account</Button>
+                style={{width: "100%", border: "1px solid #999999", borderRadius: "18px", padding: "22px 0px", backgroundColor: "#ffe6e2", color: "#000000", marginBottom: "10px"}}>Create an account</Button>
         </Modal>
     )
 }
