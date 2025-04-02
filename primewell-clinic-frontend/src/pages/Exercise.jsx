@@ -19,6 +19,8 @@ const Exercise = () => {
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [isListModalOpen, setIsListModalOpen] = useState(false);
+    const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
+
     const showCreateModal = () => {
         setIsCreateModalOpen(true);
     };
@@ -27,6 +29,10 @@ const Exercise = () => {
         setIsListModalOpen(true);
     };
 
+    const showCalendarModal = () => {
+        setIsCalendarModalOpen(true);
+    }
+
     const handleCreateCancel = () => {
         setIsCreateModalOpen(false);
     };
@@ -34,6 +40,10 @@ const Exercise = () => {
     const handleListCancel = () => {
         setIsListModalOpen(false);
     };
+
+    const handleCalendarCancel = () => {
+        setIsCalendarModalOpen(false);
+    }
 
     return (
         <>
@@ -46,9 +56,10 @@ const Exercise = () => {
                 <Flex justify="space-between" align="center" style={{ width: "100vw", backgroundColor: "#ffffff", textAlign: "center"}}>
                     <h3 style={{ color: "#F09C96", marginLeft: "50px" }}>Browse through the categories</h3>
                     <div>
-                        <Button type="primary" style={{ backgroundColor: "#F09C96", marginRight: "10px" }}>+ Create new Regiment</Button>
+                        <Button type="primary" style={{ backgroundColor: "#F09C96", marginRight: "10px" }} onClick={() => {showCalendarModal()}} >+ Create new Regiment</Button>
                         <Button type="primary" style={{ backgroundColor: "#A8C4A2", borderColor: "#A8C4A2", marginRight:"65px" }} onClick={() => {showCreateModal()}}>+ Add New Exercise</Button>
                     </div>
+                    <AddCalendar open={isCalendarModalOpen} handleClose={handleCalendarCancel} />
                     <CreateExerciseModal open={isCreateModalOpen} handleClose={handleCreateCancel} />
                 </Flex>
                 <Flex justify="center" align="center" style={{ width: "100vw", backgroundColor: "#ffffff"}}>
@@ -67,7 +78,7 @@ const Exercise = () => {
                                     <h3 style={{ color: "#F09C96" }}>{category.name}</h3>
                                     <p style={{ fontSize: "12px", color: "#333" }}>{category.description}</p>
                                 </Card>
-                                <AddCalendar open={isListModalOpen} handleClose={handleListCancel} />
+                                <ExerciseListModal open={isListModalOpen} handleClose={handleListCancel} />
                             </Col>
                         ))}
                     </Row>
@@ -80,5 +91,4 @@ const Exercise = () => {
     );
 };
 
-export default Exercise;
-
+export default Exercise
