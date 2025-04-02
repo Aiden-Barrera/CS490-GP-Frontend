@@ -4,16 +4,10 @@ import { useEffect, useState } from "react"
 
 const desc = ['Very Poor', 'Poor', 'Neutral', 'Good', 'Execellent']
 
-const ReviewModal = ({open, handleClose, userInfo, doctorInfo, fetchDoctorInfo}) => {
+const ReviewModal = ({open, handleClose, userInfo, doctorInfo, sent}) => {
     const [form] = Form.useForm()
     const [patient, setPatient] = useState(null)
     const [rating, setRating] = useState(0.0)
-    const [body, setBody] = useState({
-        Patient_ID: userInfo?.patient_id,
-        Doctor_ID: doctorInfo?.doctor_id,
-        Review_Text: "",
-        Rating: ""
-    })
 
     useEffect(() => {
         if (open) {
@@ -27,30 +21,26 @@ const ReviewModal = ({open, handleClose, userInfo, doctorInfo, fetchDoctorInfo})
         handleClose()
     }
 
-    const sendReview = async (value) => {
+    const sendReview = async (body) => {
         try {
-            setBody((prev) => ({
-                ...prev,
-                Patient_ID: userInfo?.patient_id,
-                Doctor_ID: doctorInfo?.doctor_id,
-                Review_Text: value.review_text,
-                Rating: value.rating
-            }))
             const res = axios.post("http://localhost:3000/reviews", body)
 
-            fetchDoctorInfo()
+            sent(true)
             handleClose()
         } catch (err) {
             console.log("Error Sending Review: ", err)
         }
     } 
 
-    useEffect(() => {
-        console.log("Updated body:", body);
-    }, [body]);
-
-    const onFinish = (value) => {
-        sendReview(value)
+    const onFinish = async (value) => {
+        const updatedBody = {
+            Patient_ID: userInfo?.patient_id,
+            Doctor_ID: doctorInfo?.[0]?.doctor_id, 
+            Review_Text: value.review_text,
+            Rating: value.rating
+        };
+        console.log("Updated Body: ", )
+        await sendReview(updatedBody)
     }
 
     const onFail = () => {

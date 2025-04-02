@@ -34,6 +34,7 @@ const Reviews = () => {
     }, [searchedDoctor])
 
     const handleReviewCardClick = (user) => {
+        console.log("Body from Review Card Clicked")
         console.log(user)
     }
 
@@ -50,7 +51,7 @@ const Reviews = () => {
                     overflowY: "auto"
                 }}>
                     <h1 className="title" style={{ color: "#373b41", marginBottom: "10px", marginTop: 0, fontFamily: "Poppins"}} >List of Doctors</h1>
-                    <Input placeholder="Search by Doctor" value={searchedDoctor} onChange={handleSearch} enterButton={false} style={{fontSize: "24px", height: "50px", width: "50%"}}
+                    <Input placeholder="Search by Doctor" value={searchedDoctor} onChange={handleSearch} style={{fontSize: "24px", height: "50px", width: "50%"}}
                         prefix={<img src="/searchIcon.svg" alt="Icon" style={{width: "24px", marginRight: "5px"}}/>}
                     />
                 <Flex vertical gap="20px" style={{

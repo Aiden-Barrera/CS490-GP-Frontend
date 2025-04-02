@@ -11,13 +11,13 @@ const ReviewDetail = ({userInfo}) => {
     const [reviews, setReviews] = useState(null);
     const [doctorInfo, setDoctorInfo] = useState(null)
     const [rating, setRating] = useState(0)
+    const [sent, setSent] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const fetchDoctorInfo = async () => {
         try {
             const res1 = await axios.get(`http://localhost:3000/reviews/comments/${id}`)
             setReviews(res1.data)
-            console.log(res1.data)
     
             const res2 = await axios.get(`http://localhost:3000/reviews/${id}`)
             setDoctorInfo(res2.data)
@@ -29,8 +29,10 @@ const ReviewDetail = ({userInfo}) => {
 
     useEffect(() => {
         fetchDoctorInfo()
-        console.log(reviews)
-    }, [id]);
+        setSent(false)
+        console.log("Doctor Info Body")
+        console.log(doctorInfo)
+    }, [id, sent]);
 
     const showModal = () => {
         setIsModalOpen(true)
@@ -96,7 +98,7 @@ const ReviewDetail = ({userInfo}) => {
                 </Flex>
             </Flex>
 
-            <ReviewModal open={isModalOpen} handleClose={handleClose} userInfo={userInfo} doctorInfo={doctorInfo?.[0]} fetchDoctorInfo={fetchDoctorInfo}/>
+            <ReviewModal open={isModalOpen} handleClose={handleClose} userInfo={userInfo} doctorInfo={doctorInfo} sent={setSent}/>
         </>
     )
 }
