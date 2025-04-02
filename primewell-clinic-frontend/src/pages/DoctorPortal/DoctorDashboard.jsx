@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import {Button, Flex} from "antd"
 
 

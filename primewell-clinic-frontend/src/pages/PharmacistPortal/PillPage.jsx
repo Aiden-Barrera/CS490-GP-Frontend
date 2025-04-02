@@ -1,9 +1,8 @@
 import {Flex, Input} from "antd"
 import { useEffect, useState } from "react"
 import axios from "axios"
-import RequestCard from "../../components/RequestCard"
 import PillInfo from "../../components/PillInfo"
-
+import PillFilter from "../../components/PillFilter"
 const PillPage = () => {
     const [pillsInfo, setPillsInfo] = useState([])
     const [reviewInfo, setReviewInfo] = useState([])
@@ -62,20 +61,16 @@ const PillPage = () => {
                        <h2>Pill Page</h2> 
                        <div style={{marginLeft: "20px"}}>CVS</div>
                     </Flex>
-                    <Input placeholder="Search by Pill Name" value={searchedPill} onChange={handleSearch} enterButton={false} style={{fontSize: "14px", height: "40px", width: "257px", marginRight: "20px"}}
-                        prefix={<img src="/searchIcon.svg" alt="Icon" style={{width: "24px", marginRight: "5px"}}/>}
-                    />
-                    {/* Replace with filtering option */}
-                    <Input placeholder="Search by Pill Name" value={searchedPill} onChange={handleSearch} enterButton={false} style={{fontSize: "14px", height: "40px", width: "257px", marginRight: "20px"}}
-                        prefix={<img src="/searchIcon.svg" alt="Icon" style={{width: "24px", marginRight: "5px"}}/>}
-                    /> 
-                    </Flex>
+            </Flex>
             <Flex vertical gap="20px" style={{
                 width: "100%",
             }}>
+                <PillFilter/>
+                {/*
                 {pillsInfo.map((user, index) => (
                     <RequestCard key={index} info={user} />
                 ))}
+                    */}
             </Flex>
         </Flex>
     );

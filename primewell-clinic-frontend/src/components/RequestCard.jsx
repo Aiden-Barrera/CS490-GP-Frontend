@@ -39,7 +39,7 @@ const RequestCard = (props) => {
                 }}>
                     <img src="/downArrow.svg" alt="Icon" style={{
                         width: "32px", // Ensures circular shape
-                        height: "32px",
+                        height: "32px", 
                     }} />
                 </Button>
             ) : null}

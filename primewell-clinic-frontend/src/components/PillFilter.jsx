@@ -1,71 +1,84 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Spin, Alert } from 'antd';
+import { Table, Input } from 'antd';
+import axios from 'axios';
 
 const columns = [
   {
     title: 'Medicine Name',
-    dataIndex: 'pill_name',
-    sorter: (a, b) => a.pill_name.localeCompare(b.pill_name),
-    width: 250,
+    dataIndex: 'Pill_Name',
+    sorter: (a, b) => a.Pill_Name.localeCompare(b.Pill_Name),
+    width: 150,
   },
   {
     title: 'ID',
-    dataIndex: 'pill_id',
-    sorter: (a, b) => a.pill_id - b.pill_id,
+    dataIndex: 'Pill_ID',
+    sorter: (a, b) => a.Pill_ID - b.Pill_ID,
     width: 150,
   },
   {
-    title: 'Math Sc',
-    dataIndex: 'math',
-    sorter: (a, b) => a.math - b.math,
+    title: 'Dosage',
+    dataIndex: 'Dosage',
+    sorter: (a, b) => a.Dosage - b.Dosage,
     width: 150,
   },
   {
-    title: 'Count',
-    dataIndex: 'count',
-    sorter: (a, b) => a.count - b.count,
+    title: 'Cost',
+    dataIndex: 'Cost',
+    sorter: (a, b) => parseFloat(a.Cost) - parseFloat(b.Cost),
     width: 150,
   },
 ];
 
 const PillFilter = () => {
-  const [data, setData] = useState([]); // Store API data
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error handling
-
+  const [pillsInfo, setPillsInfo] = useState([]);
+  const [searchedPill, setSearchedPill] = useState("");
+  
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchPillsInfo = async () => {
       try {
-        const response = await fetch('https://api.example.com/pills'); // Replace with actual API URL
-        if (!response.ok) throw new Error('Failed to fetch data');
-        const result = await response.json();
-        setData(result); // Set API data
+        const res = await axios.get("http://localhost:3000/pillbank");
+        setPillsInfo(res.data);
       } catch (error) {
-        setError(error.message); // Capture error
-      } finally {
-        setLoading(false); // Stop loading
+        console.error("Error fetching pill data:", error);
       }
     };
-
-    fetchData();
+    fetchPillsInfo();
   }, []);
+
+  const handleSearch = (e) => {
+    setSearchedPill(e.target.value);
+  };
+
+  const filteredPills = pillsInfo.filter((pill) =>
+    pill.Pill_Name.toLowerCase().includes(searchedPill.toLowerCase())
+  );
 
   const onChange = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
   };
 
   return (
-    <div style={{ width: '100%', padding: '20px' }}>
-        <Table
-          columns={columns}
-          dataSource={data}
-          onChange={onChange}
-          bordered
-          size="middle"
-          pagination={{ pageSize: 5 }}
-          rowClassName={(record, index) => (index % 2 === 0 ? 'table-row-light' : 'table-row-dark')}
-          rowKey="pill_id" // Ensure unique row keys
-        />
+    <div style={{ width: '100%' }}>
+      <Input 
+        justifyContent="end"
+        alignItems="end"
+        placeholder="Search by Medicine Name" 
+        value={searchedPill} 
+        onChange={handleSearch} 
+        style={{ marginBottom: 20, width: 300, justify:"center" }}
+        prefix={<img src="/searchIcon.svg" alt="Icon" style={{width: "15px", marginRight: "5px"}}
+      />}
+      />
+      <Table
+        columns={columns}
+        dataSource={filteredPills}
+        onChange={onChange}
+        bordered
+        size="middle"
+        pagination={{ pageSize: 5 }}
+        rowClassName={(record, index) => (index % 2 === 0 ? 'table-row-light' : 'table-row-dark')}
+        rowKey="Pill_ID"
+      />
       <style>
         {`
           .table-row-light {
