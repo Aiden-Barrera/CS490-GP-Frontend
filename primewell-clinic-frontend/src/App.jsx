@@ -55,7 +55,7 @@ function App() {
           </Route>
           {/* Reviews with Nested Routes */}
           <Route path='/Reviews' element={<Reviews />} />
-          <Route path='/Reviews/:id' element={<ReviewDetail />} />
+          <Route path='/Reviews/:id' element={<ReviewDetail userInfo={userInfo}/>} />
 
         </Routes>
       </div>

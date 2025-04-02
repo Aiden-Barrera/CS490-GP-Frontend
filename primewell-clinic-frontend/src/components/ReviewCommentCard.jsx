@@ -17,7 +17,8 @@ const ReviewCommentCard = ({info}) => {
                 borderRadius: "12px",
                 padding: "33px 40px",
                 overflowY: "auto",
-                width: "100%"
+                width: "100%", 
+                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
             }}>
                 {/* Rating Section */}
                 <Flex vertical style={{minWidth: "141px"}}>
