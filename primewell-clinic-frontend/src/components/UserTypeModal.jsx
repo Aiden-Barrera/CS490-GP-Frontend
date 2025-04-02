@@ -18,7 +18,7 @@ const UserTypeModal = (props) => {
       props.setUserType("Patient");
       setIsLoginModalOpen(true);
     } else if (props.name === "Sign up") {
-      setUserType("Patient");
+      props.setUserType("Patient");
       setIsPatientSignUpModalOpen(true);
     }
   };

@@ -1,21 +1,23 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Flex, Layout } from "antd";
+import { Flex, Layout, Button } from "antd";
 const {Content, Sider} = Layout
 import ReviewCommentCard from "./ReviewCommentCard";
+import ReviewModal from "./ReviewModal";
 
-const ReviewDetail = () => {
+const ReviewDetail = ({userInfo}) => {
     const { id } = useParams(); // Get the review ID from the URL
     const [reviews, setReviews] = useState(null);
     const [doctorInfo, setDoctorInfo] = useState(null)
     const [rating, setRating] = useState(0)
+    const [sent, setSent] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     const fetchDoctorInfo = async () => {
         try {
             const res1 = await axios.get(`http://localhost:3000/reviews/comments/${id}`)
             setReviews(res1.data)
-            console.log(res1.data)
     
             const res2 = await axios.get(`http://localhost:3000/reviews/${id}`)
             setDoctorInfo(res2.data)
@@ -27,8 +29,18 @@ const ReviewDetail = () => {
 
     useEffect(() => {
         fetchDoctorInfo()
-        console.log(reviews)
-    }, [id]);
+        setSent(false)
+        console.log("Doctor Info Body")
+        console.log(doctorInfo)
+    }, [id, sent]);
+
+    const showModal = () => {
+        setIsModalOpen(true)
+    };
+    
+    const handleClose = () => {
+        setIsModalOpen(false)
+    };
 
 
     return (
@@ -71,6 +83,10 @@ const ReviewDetail = () => {
                             </Flex>
                         </Flex>
                     </Flex>
+                    {/* Section for Writing a new review */}
+                    <Button type="primary" style={{
+                        width: "40%", borderRadius: "24px", padding: "22px 0px", backgroundColor: "#f09c96", fontSize: "22px", fontWeight: "700", marginBottom: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
+                    }} onClick={showModal}>Write a Review</Button>
 
                     {/* Section for comments */}
                     <Flex vertical align="center" justify="center" gap="20px">
@@ -81,6 +97,8 @@ const ReviewDetail = () => {
 
                 </Flex>
             </Flex>
+
+            <ReviewModal open={isModalOpen} handleClose={handleClose} userInfo={userInfo} doctorInfo={doctorInfo} sent={setSent}/>
         </>
     )
 }
