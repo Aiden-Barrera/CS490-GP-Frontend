@@ -1,6 +1,4 @@
 import {Flex, Input} from "antd"
-import { useEffect, useState } from "react"
-import axios from "axios"
 import PillFilter from "../../components/PillFilter"
 const PillPage = () => {
     return (
@@ -29,18 +27,13 @@ const PillPage = () => {
                     }}
                     >
                        <h2 style={{fontFamily: "Poppins", fontSize: "22px", color: "#000000"}}>Pill Page</h2> 
-                       <div style={{marginLeft: "20px", fontFamily: "Poppins", fontSize: "14px", color: "#F09C96"}}>CVS</div>
+                       <div style={{marginLeft: "20px", marginTop: "-10px", fontFamily: "Poppins", fontSize: "14px", color: "#F09C96"}}>CVS</div>
                     </Flex>
             </Flex>
             <Flex vertical gap="20px" style={{
                 width: "100%",
             }}>
                 <PillFilter/>
-                {/*
-                {pillsInfo.map((user, index) => (
-                    <RequestCard key={index} info={user} />
-                ))}
-                    */}
             </Flex>
         </Flex>
     );
