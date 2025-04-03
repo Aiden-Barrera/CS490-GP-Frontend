@@ -70,7 +70,7 @@ const ReviewModal = ({open, handleClose, userInfo, doctorInfo, sent}) => {
                                 fontSize: "42px"
                             }}/>
                         </Form.Item>
-                        <Form.Item name="review_text" label="Review_Text" rules={[
+                        <Form.Item name="review_text" label="Review Text" rules={[
                             {
                                 required: true,
                                 message: "Please make leave a review!"

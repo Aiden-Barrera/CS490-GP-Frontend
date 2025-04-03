@@ -30,7 +30,7 @@ const Reviews = () => {
     })
 
     useEffect(() => {
-        setFilteredInfo(filteredDoctor)
+        //setFilteredInfo(filteredDoctor)
     }, [searchedDoctor])
 
     const handleReviewCardClick = (user) => {
