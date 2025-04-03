@@ -1,8 +1,10 @@
 import { Flex, Modal, message, Button, Input, Form} from "antd"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import axios from "axios"
 const CreatePillModal = (props) => {
     const [form] = Form.useForm()
-
+    const [pillsInfo, setPillsInfo] = useState([]);
+    
     useEffect(() => {
         if (props.open) {
             form.resetFields()
@@ -10,12 +12,39 @@ const CreatePillModal = (props) => {
         }
     }, [props.open])
 
-    const onFinish = () => {
-        message.success("New Exercise Added!")
-    }
+    useEffect(() => {
+        const fetchPillsInfo = async () => {
+          try {
+            const res = await axios.get("http://localhost:3000/pillbank");
+            setPillsInfo(res.data);
+          } catch (error) {
+            console.error("Error fetching pill data:", error);
+          }
+        };
+        fetchPillsInfo();
+      }, []);
+
+      const onFinish = async (values) => {
+        try {
+            const formattedValues = {
+                ...values,
+                ID: Number(values.ID), // Ensure ID is a number
+                Dosage: Number(values.Dosage), // Ensure Dosage is a number
+                Cost: Number(values.Cost) // Ensure Cost is a number
+            };
+            await axios.post("http://localhost:3000/pillbank", values);
+            message.success("New Pill Added!");
+            form.resetFields();
+            props.handleClose();  
+        } catch (error) {
+            console.error("Error adding Pill:", error.response?.data || error.message);
+            message.error("Error:", error.response?.data?.message || "Unable to Add Pill");
+        } 
+    };
+    
 
     const onFail = () => {
-        message.error("Unable to Add Exercise")
+        message.error("Unable to Add Pill")
     }
 
     const handleClose = () => {
@@ -40,7 +69,7 @@ const CreatePillModal = (props) => {
                 margin: "-25px"
             }}
             >
-                <h1 style={{fontSize: "35px", color: "#333333"}}>Enter Medicine Details</h1>
+                <h1 style={{fontSize: "35px", color: "#333333"}}>Enter Pill Details</h1>
                 <Flex 
                 vertical style={{width: "100%"}}
                 >
@@ -50,32 +79,23 @@ const CreatePillModal = (props) => {
                     onFinishFailed={onFail} 
                     autoComplete="off"
                     >
-                        <Form.Item name="Medicine Name" label="Medicine Name" rules={[
+                        <Form.Item name="Pill_Name" label="Pill Name" rules={[
                             {
                                 required: true,
-                                message: "Medicine Name Required"
+                                message: "Pill Name Required"
                             },
                         ]}
                         >
-                            <Input placeholder="Medicine Name" style={{height: "45px"}}/>
+                            <Input placeholder="Pill Name" style={{height: "45px"}}/>
                         </Form.Item>
-                        <Form.Item name="ID" label="ID" rules={[
+                        <Form.Item name="Pill_ID" label="Pill ID" rules={[
                             {
                                 required: true,
-                                message: "ID Required"
+                                message: "Pill ID Required"
                             },
                         ]}
                         >
-                            <Input placeholder="ID" style={{height: "45px"}}/>
-                        </Form.Item>
-                        <Form.Item name="Price" label="Price" rules={[
-                            {
-                                required: true,
-                                message: "Price Required "
-                            },
-                        ]}
-                        >
-                            <Input placeholder="Price" style={{height: "45px"}}/>
+                            <Input placeholder="Pill ID" style={{height: "45px"}}/>
                         </Form.Item>
                         <Form.Item name="Dosage" label="Dosage" rules={[
                             {
@@ -86,6 +106,15 @@ const CreatePillModal = (props) => {
                         >
                             <Input placeholder="Dosage" style={{height: "45px"}}/>
                         </Form.Item>
+                        <Form.Item name="Cost" label="Cost" rules={[
+                            {
+                                required: true,
+                                message: "Cost Required "
+                            },
+                        ]}
+                        >
+                            <Input placeholder="Cost" style={{height: "45px"}}/>
+                        </Form.Item>
                         <Form.Item>
                             <Flex justify="center">
                             <Button
@@ -94,7 +123,7 @@ const CreatePillModal = (props) => {
                             justify="center" 
                             align="center"
                             style={{ backgroundColor: "#A8C4A2" }}>
-                            Submit new exercise entry
+                            Submit new Pill entry
                             </Button>
                             </Flex>
                         </Form.Item>
