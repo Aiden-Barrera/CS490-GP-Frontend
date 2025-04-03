@@ -16,6 +16,11 @@ const DailySurvey = () => {
     const [form] = Form.useForm()
     const date = new Date()
     const [rate, setRate] = useState(0.0)
+    const [sent, setSent] = useState(false)
+
+    useEffect(() => {
+        form.resetFields()
+    }, [])
 
     const onFinish = async (value) => {
         const body = {
@@ -25,6 +30,7 @@ const DailySurvey = () => {
             mood: rate
         }
         console.log(body)
+        message.success("Your daily survey was successfully submitted!");
     }
 
     const onFail = () => {
@@ -42,30 +48,48 @@ const DailySurvey = () => {
                                 required: true,
                                 message: "Please input your Weight!"
                             },
+                            {
+                                pattern: /^\d+(\.\d+)?$/,
+                                message: "Letters aren't allowed!"
+                            },
                         ]}
                         validateTrigger="onSubmit"
                         >
-                            <Input placeholder="Weight (lbs)" style={{width: "150px"}}/><span style={{marginLeft: "5px", fontWeight: "700"}}>lbs</span>
+                            <div style={{ display: "flex", alignItems: "center" }}>
+                                <Input placeholder="Weight (lbs)" style={{width: "150px"}}/><span style={{marginLeft: "5px", fontWeight: "700"}}>lbs</span>
+                            </div>
                         </Form.Item>
                         <Form.Item name="caloric_intake" label="Calorie Intake" rules={[
                             {
                                 required: true,
                                 message: "Please input your Caloric Intake!"
                             },
+                            {
+                                pattern: /^\d+(\.\d+)?$/,
+                                message: "Letters aren't allowed!"
+                            },
                         ]}
                         validateTrigger="onSubmit"
                         >
-                            <Input placeholder="Total calories consumed today (e.g., 2000 Cal)" style={{width: "330px"}}/><span style={{marginLeft: "5px", fontWeight: "700"}}>Calories</span>
+                            <div style={{ display: "flex", alignItems: "center" }}>
+                                <Input placeholder="Total calories consumed today (e.g., 2000 Cal)" style={{width: "330px"}}/><span style={{marginLeft: "5px", fontWeight: "700"}}>Calories</span>
+                            </div>
                         </Form.Item>
                         <Form.Item name="water_intake" label="Water Intake" rules={[
                             {
                                 required: true,
                                 message: "Please input your Water Intake!"
                             },
+                            {
+                                pattern: /^\d+(\.\d+)?$/,
+                                message: "Letters aren't allowed!"
+                            },
                         ]}
                         validateTrigger="onSubmit"
                         >
-                            <Input placeholder="Total water intake today (e.g., 64 fl oz)" style={{width: "330px"}}/><span style={{marginLeft: "5px", fontWeight: "700"}}>fl oz</span>
+                            <div style={{ display: "flex", alignItems: "center" }}>
+                                <Input placeholder="Total water intake today (e.g., 64 fl oz)" style={{width: "330px"}}/><span style={{marginLeft: "5px", fontWeight: "700"}}>Fl Oz</span>
+                            </div>
                         </Form.Item>
                         <Form.Item name="mood" label="Mood Scale" rules={[
                             {
@@ -75,7 +99,7 @@ const DailySurvey = () => {
                         ]}
                         validateTrigger="onSubmit"
                         >
-                            <Rate allowHalf tooltips={desc} value={rate} onChange={() => setRate} character={({index = 0}) => customIcons[index+1]} style={{
+                            <Rate allowHalf tooltips={desc} value={rate} onChange={setRate} character={({index = 0}) => customIcons[index+1]} style={{
                                 fontSize: "42px"
                             }}/>
                         </Form.Item>
