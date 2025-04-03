@@ -14,6 +14,7 @@ import DoctorDashboard from './pages/DoctorPortal/DoctorDashboard'
 import DoctorPillRequest from './pages/DoctorPortal/DoctorPillRequest'
 import Exercise from './pages/Exercise'
 import ReviewDetail from './components/ReviewDetail'
+import DailySurvey from './pages/PatientPortal/DailySurvey'
 
 function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
@@ -41,7 +42,7 @@ function App() {
             <Route path="Request" element={<Request />} />
             <Route path="Appointment" element={<div>Appointments Page</div>} />
             <Route path="Regiment" element={<div>Regiment Page</div>} />
-            <Route path="Daily-Survey" element={<div>Daily Survey Page</div>} />
+            <Route path="Daily-Survey" element={<DailySurvey />} />
             <Route path="AccountInfo" element={<div>Account Info Page</div>} />
             <Route path="Prescription" element={<div>Prescription Page</div>} />
             <Route path="Payment" element={<div>Payment Page</div>} />
