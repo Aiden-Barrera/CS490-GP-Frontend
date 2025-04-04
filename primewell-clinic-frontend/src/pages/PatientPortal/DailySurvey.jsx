@@ -45,6 +45,14 @@ const DailySurvey = ({info, setSurveyCompleted}) => {
         } catch (err) {
             if (axios.isAxiosError(err)){
                 console.error("Axios error:", err.response?.status, err.message, "in DailySurvey.jsx onFinish")
+                if (err.response?.status === 500) {
+                    api.open({
+                        message: 'Failed!',
+                        description:
+                          `${info?.First_Name} already completed today's Daily Survey`,
+                    });
+                    form.resetFields()                    
+                }
             }
         }
     }
