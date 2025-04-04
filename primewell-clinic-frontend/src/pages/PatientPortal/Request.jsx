@@ -26,7 +26,8 @@ const Request = () => {
             borderRadius: "12px",
             padding: "33px 40px",
             width: "100%",
-            overflowY: "auto"
+            overflowY: "auto",
+            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
         }}>
             <h1 style={{color: "#333333", marginBottom: 0}}>List of Doctors</h1>
             <Flex vertical gap="20px" style={{
