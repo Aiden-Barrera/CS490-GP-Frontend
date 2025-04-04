@@ -8,13 +8,16 @@ const Request = () => {
     const [doctorInfo, setDoctorInfo] = useState([])
 
     const fetchDoctorInfo = async () => {
-        const res = await axios.get("http://localhost:3000/doctor")
-        setDoctorInfo(res.data)
+        try {
+            const res = await axios.get("http://localhost:3000/doctor/listAll")
+            setDoctorInfo(res.data)
+        } catch (err) {
+            console.log("Error Fetching Doctor: ", err)
+        }
     }
 
     useEffect(() => {
         fetchDoctorInfo()
-        console.log(doctorInfo)
     }, [])
 
     return (
@@ -29,7 +32,7 @@ const Request = () => {
             <Flex vertical gap="20px" style={{
                 width: "100%",
             }}>
-                {doctorInfo.map((user, index) => (
+                {doctorInfo?.map((user, index) => (
                     <RequestCard key={index} info={user} />
                 ))}
             </Flex>

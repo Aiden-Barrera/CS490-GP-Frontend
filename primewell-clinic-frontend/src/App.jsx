@@ -37,7 +37,7 @@ function App() {
           <Route path='/PharmacistPortal' element={<PharmacistPortal />}/>
           <Route path='/Exercise' element={<Exercise />} />
           {/* Patient Portal with Nested Routes */}
-          <Route path="/PatientPortal" element={<SideBarMenu />}>
+          <Route path="/PatientPortal" element={<SideBarMenu info={userInfo}/>}>
             <Route path="Dashboard" element={<Dashboard info={userInfo} />} />
             <Route path="Request" element={<Request />} />
             <Route path="Appointment" element={<div>Appointments Page</div>} />
