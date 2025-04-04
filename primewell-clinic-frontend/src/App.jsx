@@ -42,7 +42,7 @@ function App() {
             <Route path="Request" element={<Request />} />
             <Route path="Appointment" element={<div>Appointments Page</div>} />
             <Route path="Regiment" element={<div>Regiment Page</div>} />
-            <Route path="Daily-Survey" element={<DailySurvey />} />
+            <Route path="Daily-Survey" element={<DailySurvey info={userInfo}/>} />
             <Route path="AccountInfo" element={<div>Account Info Page</div>} />
             <Route path="Prescription" element={<div>Prescription Page</div>} />
             <Route path="Payment" element={<div>Payment Page</div>} />
