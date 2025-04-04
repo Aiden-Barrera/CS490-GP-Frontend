@@ -1,7 +1,6 @@
 import {Button, Flex} from "antd"
 
 const RequestCard = (props) => {
-    console.log(props.info)
     
     return (
         <Flex align="center" justify="space-between" style={{

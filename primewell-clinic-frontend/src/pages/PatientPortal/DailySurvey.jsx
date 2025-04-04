@@ -12,7 +12,7 @@ const customIcons = {
     5: <SmileOutlined />,
   };
 
-const DailySurvey = ({info}) => {
+const DailySurvey = ({info, setSurveyCompleted}) => {
     const [api, contextHolder] = notification.useNotification();
     const [form] = Form.useForm()
     const date = new Date()
@@ -35,6 +35,7 @@ const DailySurvey = ({info}) => {
     
             console.log(body)
             const res2 = await axios.post(`http://localhost:3000/patientsurvey`, body)
+            setSurveyCompleted(true)
             api.open({
                 message: 'Success!',
                 description:

@@ -4,23 +4,31 @@ import { MenuOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const SideBarMenu = ({info}) => {
+const SideBarMenu = ({info, surveyCompleted}) => {
     const [surveyNeeded, setSurveyNeeded] = useState(false)
 
     const fetchDate = async () => {
         const body = {
-            patient_id: info[0]?.patient_id,
+            patient_id: info?.patient_id,
         }
+        
         const res = await axios.post("http://localhost:3000/patientsurvey/date", body)
-        console.log(res.data)
         if (res.data === false){
             setSurveyNeeded(true)
+        } else {
+            setSurveyNeeded(false)
         }
     }
 
     useEffect(() => {
         fetchDate()
     }, [])
+
+    useEffect(() => {
+        if (surveyCompleted) {
+            setSurveyNeeded(false)
+        }
+    }, [surveyCompleted])
 
 
     return (
