@@ -62,7 +62,7 @@ const SideBarMenu = ({info, surveyCompleted}) => {
                 {/* Menu Navigation */}
                 <Menu className="menu">
                     <Menu.Item key="1">
-                        <Link to="/PatientPortal/Dashboard"><strong>Dashboard</strong></Link>
+                        <Link to="/PatientPortal"><strong>Dashboard</strong></Link>
                     </Menu.Item>
                     <Menu.Item key="2">
                         <Link to="/PatientPortal/Request"><strong>Request</strong></Link>
