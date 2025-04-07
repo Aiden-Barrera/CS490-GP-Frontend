@@ -12,6 +12,7 @@ const RequestCard = (props) => {
     const [btnClicked, setBtnClicked] = useState(false)
     const [selectDate, setSelectDate] = useState(() => dayjs())
     const [daySchedule, setDaySchedule] = useState(null)
+    const [timeSlot, setTimeSlot] = useState("")
 
     const handleSelect = (value) => {
         setSelectDate(value)
@@ -31,6 +32,10 @@ const RequestCard = (props) => {
     useEffect(()=>{
         fetchDaySchudule()
     }, [selectDate])
+
+    const handleClick = (value, key) => {
+        console.log(value + " " + key)
+    }
 
     
     return (
@@ -83,7 +88,7 @@ const RequestCard = (props) => {
                     <Calendar fullscreen={false} onSelect={handleSelect} disabledDate={disabledDate} style={{width: "300px", border: "1px solid #999999", borderRadius: "9px", backgroundColor: "#ffe6e2", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} />
                     <Flex gap="20px" justify="center" align="flex-start">
                         {daySchedule?.[0]?.Slots.map((timeSlot, index) => (
-                            <SlotCard key={index} timeSlot={timeSlot}/>
+                            <SlotCard key={index} index={index} timeSlot={timeSlot} setTimeSlot={setTimeSlot} onClick={handleClick}/>
                         ))}
                     </Flex>
                 </Flex>
