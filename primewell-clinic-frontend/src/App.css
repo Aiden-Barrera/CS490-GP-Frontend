@@ -85,7 +85,8 @@ body{
   background: #ffffff !important;
 }
 
-.menu .ant-menu-item-selected {
+.menu .ant-menu-item-selected,
+.menu .ant-menu-item-selected .ant-badge {
   color: #ffffff !important; 
 }
 
