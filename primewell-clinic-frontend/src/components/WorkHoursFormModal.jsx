@@ -71,17 +71,31 @@ const PatientSignUpModal = (props) => {
   //   }
   // }, [props.open, props.shift1, props.shift2]);
   useEffect(() => {
+    setShift1(props.shift1);
+    setShift2(props.shift2);
+    // console.log(props.shift1);
+    // console.log(shift1);
+
+    setDays({ ...props.days });
+    message.destroy();
+  }, [props.shift1, props.shift2, props.days]);
+  useEffect(() => {
     if (props.open) {
       form.resetFields();
       form.setFieldsValue({
         firstShift: props.shift1 || "",
         secondShift: props.shift2 || "",
       });
+      setShift1(props.shift1);
+      setShift2(props.shift2);
+      // console.log(props.shift1);
+      // console.log(shift1);
 
       setDays({ ...props.days });
       message.destroy();
     }
   }, [props.open, props.shift1, props.shift2, props.days]);
+
   const onFinish = async (value) => {
     setShift1(value.firstShift);
     // console.log(value.firstShift);
@@ -101,62 +115,59 @@ const PatientSignUpModal = (props) => {
         if (!newSchedule[key]) {
           newSchedule[key] = [];
         }
-        console.log(shift1);
+        // console.log(shift1);
 
         let timeArray = [];
-        const [start, end] = shift1.split("-");
+        const shiftTimes = [value.firstShift, value.secondShift];
+        for (let j = 0; j < 2; j++) {
+          const [start, end] = shiftTimes[j].split("-");
 
-        const startHour = parseInt(start.split(":")[0]);
-        const endHour = parseInt(end.split(":")[0]);
-        const startMinutes = parseInt(start.split(":")[1]);
+          const startHour = parseInt(start.split(":")[0]);
+          const endHour = parseInt(end.split(":")[0]);
+          const minutes = parseInt(start.split(":")[1]);
 
-        let currentHour = startHour;
-
-        while (currentHour != endHour) {
-          if (currentHour == 12) {
-            time = time - 12;
-          }
-          if (time2 > 12) {
-            time2 = time2 - 12;
-          }
-          timeArray.push(
-            time.toString() +
+          let currentHour = startHour;
+          let nextHour = currentHour + 1;
+          let time = currentHour;
+          let time2 = nextHour;
+          console.log(shiftTimes[j]);
+          console.log("Start Hour:", startHour);
+          console.log("End Hour:", endHour);
+          console.log("start Minutes:", minutes);
+          while (time != endHour) {
+            console.log("Current Hour:", time);
+            console.log("next Hour:", time2);
+            time = currentHour;
+            time2 = nextHour;
+            if (currentHour > 12) {
+              time = currentHour - 12;
+            }
+            if (nextHour > 12) {
+              time2 = nextHour - 12;
+            }
+            let timestr =
+              time.toString() +
               ":" +
-              startMinutes.toString() +
+              minutes.toString() +
               "-" +
               time2.toString() +
               ":" +
-              startMinutes.toString()
-          );
+              minutes.toString();
+
+            if (minutes === 0) {
+              timestr =
+                time.toString() + ":00" + "-" + time2.toString() + ":00";
+            }
+            // console.log(timestr);
+            timeArray.push(timestr);
+            currentHour++;
+            nextHour++;
+          }
+          console.log("break time", time);
         }
 
-        // if (startHour == 12) {
-        //   for (let a = 0; a < endHour - 1; a++) {
-        //     let time = starthour + a;
-        //     let time2 = time + 1;
-        //     if (time > 12) {
-        //       time = time - 12;
-        //     }
-        //     if (time2 > 12) {
-        //       time2 = time2 - 12;
-        //     }
-        //     timeArray.push(
-        //       time.toString() +
-        //         ":" +
-        //         startMinutes.toString() +
-        //         "-" +
-        //         time2.toString() +
-        //         ":" +
-        //         startMinutes.toString()
-        //     );
-        //   }
-        // }
-
-        console.log("Start Hour:", startHour);
-        console.log("End Hour:", endHour);
-
-        if (shift1) newSchedule[key].push(shift1);
-        if (shift2) newSchedule[key].push(shift2);
+        console.log(timeArray);
+        newSchedule[key].push(timeArray);
       }
     }
 
