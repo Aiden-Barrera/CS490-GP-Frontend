@@ -1,14 +1,35 @@
 import {Button, Flex, Calendar} from "antd"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import axios from "axios";
 import dayjs from 'dayjs';
+const disabledDate = (current) => {
+    const now = dayjs();
+    return current.month() !== now.month() || current.year() !== now.year();
+  };
 
 const RequestCard = (props) => {
     const [btnClicked, setBtnClicked] = useState(false)
-    const [selectDate, setSelectDate] = useState(() => dayjs('2017-01-25'))
+    const [selectDate, setSelectDate] = useState(() => dayjs())
+    const [daySchedule, setDaySchedule] = useState(null)
 
     const handleSelect = (value) => {
         setSelectDate(value)
     }
+
+    const fetchDaySchudule = async () => {
+        const body = {
+            doc_id: props.info.doctor_id,
+            day: selectDate.format("dddd")
+        }
+        console.log(body)
+        const res = await axios.post("http://localhost:3000/getDoctorSchedule", body)
+        setDaySchedule(res.data)
+        console.log(res.data)
+    }
+
+    useEffect(()=>{
+        fetchDaySchudule()
+    }, [selectDate])
 
     
     return (
@@ -57,10 +78,10 @@ const RequestCard = (props) => {
 
             {/* Section for Displaying Sending Request */}
             {btnClicked && (
-                <Flex style={{backgroundColor: "#ffe6e2"}}>
-                    <Calendar fullscreen={false} onSelect={handleSelect} style={{width: "300px", border: "1px solid #666666", borderRadius: "9px"}} />
+                <Flex gap="10px">
+                    <Calendar fullscreen={false} onSelect={handleSelect} disabledDate={disabledDate} style={{width: "300px", border: "1px solid #999999", borderRadius: "9px", backgroundColor: "#ffe6e2"}} />
                     <Flex>
-                        {selectDate.format('YYYY-MM-DD')}
+                        {selectDate.format('dddd')}
                     </Flex>
                 </Flex>
             )}
