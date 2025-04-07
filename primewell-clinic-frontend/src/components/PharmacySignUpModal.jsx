@@ -29,7 +29,7 @@ const PatientSignUpModal = (props) => {
   };
 
   const onFinish = async (value) => {
-    
+    console.log(value);
   };
 
   const onFail = () => {
@@ -79,7 +79,7 @@ const PatientSignUpModal = (props) => {
                   message: "Please input your Pharmacy Name!",
                 },
                 {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make first name regex
+                  pattern: /^([a-zA-Z](\s){0,1}){1,}$/,
                   message: "Please input a valid Pharmacy Name!",
                 },
               ]}
@@ -119,7 +119,7 @@ const PatientSignUpModal = (props) => {
                   message: "Please input your Pharmacy Address!",
                 },
                 {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
+                  pattern: /^[0-9]+ [A-Za-z]+ [A-Za-z]+$/,
                   message: "Please input a valid Pharmacy Address!",
                 },
               ]}

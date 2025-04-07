@@ -61,17 +61,21 @@ const DoctorSignUpModal = (props) => {
   const onFinish = async (value) => {
     value = { ...value, Availability: "1" };
     console.log(value);
-    // const res = await axios.post("http://localhost:3000/doctor", value);
-    // if (res.data.length === 0) {
-    //   console.log("Couldn't create doctor");
-    // } else {
-    //   console.log("Doctor Created");
-    //   const prelim = await axios.post("http://localhost:3000/preliminaries", {
-    //     Patient_ID: res.data.insertId,
-    //     Symptoms: JSON.stringify(symptoms),
-    //   });
-    //   handleClose();
-    // }
+
+    // console.log(schedule);
+    const res = await axios.post("http://localhost:3000/doctor", value);
+    if (res.data.length === 0) {
+      console.log("Couldn't create doctor");
+    } else {
+      console.log("Doctor Created");
+      // console.log(res.data.insertId);
+      const prelim = await axios.post("http://localhost:3000/doctorSchedule", {
+        Doctor_ID: res.data.insertId,
+        Doctor_Schedule: JSON.stringify(schedule),
+      });
+      handleClose();
+    }
+
     // handleClose();
   };
 
@@ -91,11 +95,11 @@ const DoctorSignUpModal = (props) => {
       Fri: "false",
       Sat: "false",
     });
-    console.log(shift1);
+    // console.log(shift1);
 
     setShift1();
     setShift2();
-    console.log(shift1);
+    // console.log(shift1);
     props.handleClose();
   };
 

@@ -111,11 +111,14 @@ const PatientSignUpModal = (props) => {
     for (let i = 0; i < Object.keys(days).length; i++) {
       const key = Object.keys(days)[i];
 
+      if (!newSchedule[key]) {
+        newSchedule[key] = [];
+      }
+
       if (days[key] === "true") {
         if (!newSchedule[key]) {
           newSchedule[key] = [];
         }
-        // console.log(shift1);
 
         let timeArray = [];
         const shiftTimes = [value.firstShift, value.secondShift];
@@ -128,85 +131,50 @@ const PatientSignUpModal = (props) => {
 
           let currentHour = startHour;
           let nextHour = currentHour + 1;
-          let time = currentHour;
-          let time2 = nextHour;
-          console.log(shiftTimes[j]);
-          console.log("Start Hour:", startHour);
-          console.log("End Hour:", endHour);
-          console.log("start Minutes:", minutes);
-          while (time != endHour) {
-            console.log("Current Hour:", time);
-            console.log("next Hour:", time2);
-            time = currentHour;
-            time2 = nextHour;
+
+          while (currentHour != endHour) {
             if (currentHour > 12) {
-              time = currentHour - 12;
+              currentHour = currentHour - 12;
             }
             if (nextHour > 12) {
-              time2 = nextHour - 12;
+              nextHour = nextHour - 12;
             }
             let timestr =
-              time.toString() +
+              currentHour.toString() +
               ":" +
               minutes.toString() +
               "-" +
-              time2.toString() +
+              nextHour.toString() +
               ":" +
               minutes.toString();
 
             if (minutes === 0) {
               timestr =
-                time.toString() + ":00" + "-" + time2.toString() + ":00";
+                currentHour.toString() +
+                ":00" +
+                "-" +
+                nextHour.toString() +
+                ":00";
             }
-            // console.log(timestr);
             timeArray.push(timestr);
             currentHour++;
             nextHour++;
           }
-          console.log("break time", time);
         }
 
-        console.log(timeArray);
-        newSchedule[key].push(timeArray);
+        newSchedule[key] = [...newSchedule[key], ...timeArray];
+      } else {
+        if (!newSchedule[key]) {
+          newSchedule[key] = [];
+        }
       }
     }
 
     console.log(newSchedule);
+    props.onSubmitSchedule(newSchedule);
 
-    // handleClose();
+    handleClose();
   };
-
-  // const onFinish = async (value) => {
-  //   // console.log(value);
-  //   setShift1(value.firstShift);
-  //   console.log(value.firstShift);
-  //   props.onSubmitShift1(value.firstShift);
-  //   setShift2(value.secondShift);
-  //   props.onSubmitShift2(value.secondShift);
-  //   // props.onSubmitDays()
-  //   setDays(daysJSON);
-  //   props.onSubmitDays(days);
-  //   // console.log(Object.keys(days).length);
-  //   console.log(days["Mon"] === "true");
-  //   for (let i = 0; i < Object.keys(days).length; i++) {
-  //     const key = Object.keys(days)[i];
-  //     // console.log(key);
-  //     if (days[key] === "true") {
-  //       // console.log(key);
-  //       console.log(shift1);
-  //       console.log(shift2);
-  //       schedule[key].push("10");
-  //       // schedule({...key: "1"});
-  //     } else {
-  //       schedule[key].push([]);
-  //     }
-
-  //     // const times = days[key];
-  //     // console.log(times);
-  //   }
-  //   console.log(schedule);
-  //   // handleClose();
-  // };
 
   const onFail = () => {
     message.error("Submit Failed!");
