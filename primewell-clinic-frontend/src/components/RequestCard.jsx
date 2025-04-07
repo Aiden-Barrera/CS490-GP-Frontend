@@ -2,7 +2,6 @@ import {Button, Flex} from "antd"
 
 const RequestCard = (props) => {
     
-    
     return (
         <Flex align="center" justify="space-between" style={{
             background: "#f09c96", 

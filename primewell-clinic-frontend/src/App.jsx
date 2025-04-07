@@ -18,6 +18,7 @@ import DailySurvey from './pages/PatientPortal/DailySurvey'
 
 function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
+  const [surveyCompleted, setSurveyCompleted] = useState(false); // shared state
   useEffect(() => {
     document.title = "PrimeWell Clinic"
   }, [])
@@ -37,12 +38,12 @@ function App() {
           <Route path='/PharmacistPortal' element={<PharmacistPortal />}/>
           <Route path='/Exercise' element={<Exercise />} />
           {/* Patient Portal with Nested Routes */}
-          <Route path="/PatientPortal" element={<SideBarMenu />}>
-            <Route path="Dashboard" element={<Dashboard info={userInfo} />} />
+          <Route path="/PatientPortal" element={<SideBarMenu info={userInfo} surveyCompleted={surveyCompleted}/>}>
+            <Route index element={<Dashboard info={userInfo} />} />
             <Route path="Request" element={<Request />} />
             <Route path="Appointment" element={<div>Appointments Page</div>} />
             <Route path="Regiment" element={<div>Regiment Page</div>} />
-            <Route path="Daily-Survey" element={<DailySurvey />} />
+            <Route path="Daily-Survey" element={<DailySurvey info={userInfo} setSurveyCompleted={setSurveyCompleted}/>} />
             <Route path="AccountInfo" element={<div>Account Info Page</div>} />
             <Route path="Prescription" element={<div>Prescription Page</div>} />
             <Route path="Payment" element={<div>Payment Page</div>} />
