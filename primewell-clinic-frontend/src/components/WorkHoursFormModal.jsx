@@ -14,28 +14,209 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import OneWeekCalendar from "./OneWeekCalendar";
+import { setDay } from "date-fns";
+import { startOfWeek, endOfWeek, eachDayOfInterval, format } from "date-fns";
+import "./calendar.css";
 
 const PatientSignUpModal = (props) => {
   const [form] = Form.useForm();
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [schedule, setSchedule] = useState({});
+  const [days, setDays] = useState(props.days);
+  const [shift1, setShift1] = useState(props.shift1);
+  const [shift2, setShift2] = useState(props.shift2);
 
+  const weekStart = startOfWeek(currentDate, { weekStartsOn: 0 }); // Assuming Monday as the first day of the week
+  const weekEnd = endOfWeek(currentDate, { weekStartsOn: 0 });
+  const calendarDays = eachDayOfInterval({ start: weekStart, end: weekEnd });
+  let daysJSON = props.days;
+  // console.log(daysJSON);
+
+  const selected = (e, day) => {
+    // console.log("clicked", day);
+
+    setDays((prevDays) => ({
+      ...prevDays,
+      [day]: prevDays[day] === "true" ? "false" : "true",
+    }));
+
+    console.log(daysJSON);
+
+    const element = document.getElementById(day);
+    const bg = element.style.backgroundColor;
+
+    element.style.backgroundColor =
+      bg === "rgb(255, 230, 226)" ? "rgb(255,255,255)" : "rgb(255, 230, 226)";
+  };
+  // const [days, setDays] = useState({
+  //   Sun: "false",
+  //   Mon: "false",
+  //   Tue: "false",
+  //   Wed: "false",
+  //   Thu: "false",
+  //   Fri: "false",
+  //   Sat: "false",
+  // });
+
+  // useEffect(() => {
+  //   if (props.open) {
+  //     form.resetFields();
+  //     // setShift1(props.shift1 || "");
+  //     // setShift2(props.shift2 || "");
+  //     form.setFieldsValue({
+  //       firstShift: props.shift1 || "",
+  //       secondShift: props.shift2 || "",
+  //     });
+  //     message.destroy();
+  //   }
+  // }, [props.open, props.shift1, props.shift2]);
   useEffect(() => {
     if (props.open) {
       form.resetFields();
+      form.setFieldsValue({
+        firstShift: props.shift1 || "",
+        secondShift: props.shift2 || "",
+      });
+
+      setDays({ ...props.days });
       message.destroy();
     }
-  }, [props.open]);
-
+  }, [props.open, props.shift1, props.shift2, props.days]);
   const onFinish = async (value) => {
-    
+    setShift1(value.firstShift);
+    // console.log(value.firstShift);
+    props.onSubmitShift1(value.firstShift);
+    setShift2(value.secondShift);
+    props.onSubmitShift2(value.secondShift);
+
+    setDays(daysJSON);
+    props.onSubmitDays(days);
+
+    const newSchedule = {};
+
+    for (let i = 0; i < Object.keys(days).length; i++) {
+      const key = Object.keys(days)[i];
+
+      if (days[key] === "true") {
+        if (!newSchedule[key]) {
+          newSchedule[key] = [];
+        }
+        console.log(shift1);
+
+        let timeArray = [];
+        const [start, end] = shift1.split("-");
+
+        const startHour = parseInt(start.split(":")[0]);
+        const endHour = parseInt(end.split(":")[0]);
+        const startMinutes = parseInt(start.split(":")[1]);
+
+        let currentHour = startHour;
+
+        while (currentHour != endHour) {
+          if (currentHour == 12) {
+            time = time - 12;
+          }
+          if (time2 > 12) {
+            time2 = time2 - 12;
+          }
+          timeArray.push(
+            time.toString() +
+              ":" +
+              startMinutes.toString() +
+              "-" +
+              time2.toString() +
+              ":" +
+              startMinutes.toString()
+          );
+        }
+
+        // if (startHour == 12) {
+        //   for (let a = 0; a < endHour - 1; a++) {
+        //     let time = starthour + a;
+        //     let time2 = time + 1;
+        //     if (time > 12) {
+        //       time = time - 12;
+        //     }
+        //     if (time2 > 12) {
+        //       time2 = time2 - 12;
+        //     }
+        //     timeArray.push(
+        //       time.toString() +
+        //         ":" +
+        //         startMinutes.toString() +
+        //         "-" +
+        //         time2.toString() +
+        //         ":" +
+        //         startMinutes.toString()
+        //     );
+        //   }
+        // }
+
+        console.log("Start Hour:", startHour);
+        console.log("End Hour:", endHour);
+
+        if (shift1) newSchedule[key].push(shift1);
+        if (shift2) newSchedule[key].push(shift2);
+      }
+    }
+
+    console.log(newSchedule);
+
+    // handleClose();
   };
+
+  // const onFinish = async (value) => {
+  //   // console.log(value);
+  //   setShift1(value.firstShift);
+  //   console.log(value.firstShift);
+  //   props.onSubmitShift1(value.firstShift);
+  //   setShift2(value.secondShift);
+  //   props.onSubmitShift2(value.secondShift);
+  //   // props.onSubmitDays()
+  //   setDays(daysJSON);
+  //   props.onSubmitDays(days);
+  //   // console.log(Object.keys(days).length);
+  //   console.log(days["Mon"] === "true");
+  //   for (let i = 0; i < Object.keys(days).length; i++) {
+  //     const key = Object.keys(days)[i];
+  //     // console.log(key);
+  //     if (days[key] === "true") {
+  //       // console.log(key);
+  //       console.log(shift1);
+  //       console.log(shift2);
+  //       schedule[key].push("10");
+  //       // schedule({...key: "1"});
+  //     } else {
+  //       schedule[key].push([]);
+  //     }
+
+  //     // const times = days[key];
+  //     // console.log(times);
+  //   }
+  //   console.log(schedule);
+  //   // handleClose();
+  // };
 
   const onFail = () => {
     message.error("Submit Failed!");
   };
 
   const handleClose = () => {
+    // console.log("Closed work hours");
     message.destroy();
+    setDays({
+      Sun: "false",
+      Mon: "false",
+      Tue: "false",
+      Wed: "false",
+      Thu: "false",
+      Fri: "false",
+      Sat: "false",
+    });
+    setShift1();
+    setShift2();
+    setSchedule({});
+    // console.log(days);
     props.handleClose();
   };
 
@@ -68,52 +249,23 @@ const PatientSignUpModal = (props) => {
             autoComplete="off"
           >
             <Form.Item>
-              {/* <div>
-                <table style={{ border: "1px solid black" }}>
-                  <thead>
-                    <tr>
-                      <th>Sunday</th>
-                      <th>Monday</th>
-                      <th>Tuesday</th>
-                      <th>Wednesday</th>
-                      <th>Thursday</th>
-                      <th>Friday</th>
-                      <th>Saturday</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div> */}
-              <div>
-                {/* <button
-                  onClick={() =>
-                    setCurrentDate(
-                      new Date(currentDate.setDate(currentDate.getDate() - 7))
-                    )
-                  }
-                >
-                  Previous Week
-                </button>
-                <button
-                  onClick={() =>
-                    setCurrentDate(
-                      new Date(currentDate.setDate(currentDate.getDate() + 7))
-                    )
-                  }
-                >
-                  Next Week
-                </button> */}
-                <OneWeekCalendar date={currentDate} />
+              <div className="one-week-calendar">
+                {calendarDays.map((day) => (
+                  <div
+                    id={format(day, "EEE")}
+                    key={format(day, "EEE")}
+                    className="calendar-day"
+                    onClick={(e) => selected(e, format(day, "EEE"))}
+                    style={{
+                      backgroundColor:
+                        days[format(day, "EEE")] === "true"
+                          ? "rgb(255, 230, 226)"
+                          : "rgb(255, 255, 255)",
+                    }}
+                  >
+                    {format(day, "EEE")}
+                  </div>
+                ))}
               </div>
             </Form.Item>
             <Form.Item
@@ -125,7 +277,9 @@ const PatientSignUpModal = (props) => {
                   message: "Please input your Work Hours for your First Shift!",
                 },
                 {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make hours regex
+                  pattern: /^([1-9]|1[0-2]):([0-5][0-9])-([1-9]|1[0-2]):\2$/,
+
+                  // /^([1-9]|1[0-2]):[0-5][0-9]-([1-9]|1[0-2]):[0-5][0-9]$/,
                   message: "Please input your Work Hours for your First Shift!",
                 },
               ]}
@@ -146,7 +300,9 @@ const PatientSignUpModal = (props) => {
                     "Please input your Work Hours for your Second Shift!",
                 },
                 {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make hours regex
+                  pattern: /^([1-9]|1[0-2]):([0-5][0-9])-([1-9]|1[0-2]):\2$/,
+
+                  // /^([1-9]|1[0-2]):[0-5][0-9]-([1-9]|1[0-2]):[0-5][0-9]$/,
                   message:
                     "Please input your Work Hours for your Second Shift!",
                 },

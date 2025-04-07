@@ -1,34 +1,35 @@
-import React from "react";
+import { React, useState } from "react";
 import { startOfWeek, endOfWeek, eachDayOfInterval, format } from "date-fns";
 import "./calendar.css";
 
-function OneWeekCalendar({ date }) {
-  const weekStart = startOfWeek(date, { weekStartsOn: 0 }); // Assuming Monday as the first day of the week
-  const weekEnd = endOfWeek(date, { weekStartsOn: 0 });
-  const days = eachDayOfInterval({ start: weekStart, end: weekEnd });
-  let scheduleJSON =
-    '{"Sun": "false", "Mon": "false","Tue": "false","Wed": "false","Thu": "false","Fri": "false","Sat": "false","firstShift": "00:00","secondShift": "00:00"}';
+const OneWeekCalendar = (props) => {
+  const weekStart = startOfWeek(props.date, { weekStartsOn: 0 }); // Assuming Monday as the first day of the week
+  const weekEnd = endOfWeek(props.date, { weekStartsOn: 0 });
+  const calendarDays = eachDayOfInterval({ start: weekStart, end: weekEnd });
+  const [days, setDays] = useState(props.days);
+
+  let daysJSON = days;
+  console.log(daysJSON);
 
   const selected = (e, day) => {
-    // console.log("e", e);
     // console.log("clicked", day);
-    // console.log("document", document.getElementById(day));
-    // let dayBox = document.getElementById(day).style.backgroundColor;
-    // console.log(dayBox);
 
-    if (
-      document.getElementById(day).style.backgroundColor ===
-      "rgb(255, 230, 226)"
-    ) {
-      document.getElementById(day).style.backgroundColor = "rgb(255,255,255)";
-    } else {
-      document.getElementById(day).style.backgroundColor = "rgb(255, 230, 226)";
-    }
+    daysJSON[day] = daysJSON[day] === "false" ? "true" : "false";
+
+    console.log(daysJSON);
+
+    const element = document.getElementById(day);
+    const bg = element.style.backgroundColor;
+
+    element.style.backgroundColor =
+      bg === "rgb(255, 230, 226)" ? "rgb(255,255,255)" : "rgb(255, 230, 226)";
+    setDays(daysJSON);
+    props.onSubmitDays(days);
   };
 
   return (
     <div className="one-week-calendar">
-      {days.map((day) => (
+      {calendarDays.map((day) => (
         <div
           id={format(day, "EEE")}
           key={format(day, "EEE")}
@@ -40,6 +41,6 @@ function OneWeekCalendar({ date }) {
       ))}
     </div>
   );
-}
+};
 
 export default OneWeekCalendar;
