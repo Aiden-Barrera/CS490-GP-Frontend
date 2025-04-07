@@ -4,8 +4,7 @@ import axios from 'axios';
 import { PlusOutlined } from '@ant-design/icons';
 import CreatePillModal from './CreatePillModal';
 
-const PillFilter = () => {
-
+const PillFilter = ({pharmID}) => {
   const [pillsInfo, setPillsInfo] = useState([]);
   const [searchedPill, setSearchedPill] = useState("");
   
@@ -21,6 +20,7 @@ const PillFilter = () => {
     fetchPillsInfo();
   }, []);
 
+
   const handleSearch = (e) => {
     setSearchedPill(e.target.value);
   };
@@ -30,7 +30,9 @@ const PillFilter = () => {
   };
 
   {/* For searchbar */}
-  const filteredPills = pillsInfo.filter((pill) =>
+  const filteredPills = pillsInfo
+  .filter((pill) => pill.Pharm_ID === pharmID)
+  .filter((pill) =>
     pill.Pill_Name.toLowerCase().includes(searchedPill.toLowerCase())
   );
 
@@ -96,7 +98,7 @@ const PillFilter = () => {
     {
       title: 'Action',
       dataIndex: 'action',
-      width: 120,
+      width: 150,
       render: (_, record) => (
         <Button danger onClick={() => deletePill(record.Pill_ID)}>
           Delete
