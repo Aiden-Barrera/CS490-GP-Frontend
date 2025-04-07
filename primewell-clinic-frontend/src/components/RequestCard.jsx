@@ -2,6 +2,7 @@ import {Button, Flex, Calendar} from "antd"
 import { useState, useEffect } from "react"
 import axios from "axios";
 import dayjs from 'dayjs';
+import SlotCard from "./SlotCard";
 const disabledDate = (current) => {
     const now = dayjs();
     return current.month() !== now.month() || current.year() !== now.year();
@@ -78,10 +79,12 @@ const RequestCard = (props) => {
 
             {/* Section for Displaying Sending Request */}
             {btnClicked && (
-                <Flex gap="10px">
-                    <Calendar fullscreen={false} onSelect={handleSelect} disabledDate={disabledDate} style={{width: "300px", border: "1px solid #999999", borderRadius: "9px", backgroundColor: "#ffe6e2"}} />
-                    <Flex>
-                        {selectDate.format('dddd')}
+                <Flex gap="20px">
+                    <Calendar fullscreen={false} onSelect={handleSelect} disabledDate={disabledDate} style={{width: "300px", border: "1px solid #999999", borderRadius: "9px", backgroundColor: "#ffe6e2", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} />
+                    <Flex gap="20px" justify="center" align="flex-start">
+                        {daySchedule?.[0]?.Slots.map((timeSlot, index) => (
+                            <SlotCard key={index} timeSlot={timeSlot}/>
+                        ))}
                     </Flex>
                 </Flex>
             )}
