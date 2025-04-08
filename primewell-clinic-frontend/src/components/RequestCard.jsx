@@ -86,10 +86,17 @@ const RequestCard = (props) => {
             {btnClicked && (
                 <Flex gap="20px">
                     <Calendar fullscreen={false} onSelect={handleSelect} disabledDate={disabledDate} style={{width: "300px", border: "1px solid #999999", borderRadius: "9px", backgroundColor: "#ffe6e2", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} />
-                    <Flex gap="20px" justify="center" align="flex-start">
-                        {daySchedule?.[0]?.Slots.map((timeSlot, index) => (
-                            <SlotCard key={index} index={index} timeSlot={timeSlot} setTimeSlot={setTimeSlot} onClick={handleClick}/>
-                        ))}
+                    <Flex vertical gap="50px" justify="center" align="flex-start">
+                        <Flex gap="20px" justify="center" align="flex-start">
+                            {daySchedule?.[0]?.Slots.map((timeSlot, index) => (
+                                <SlotCard key={index} index={index} timeSlot={timeSlot} setTimeSlot={setTimeSlot} onClick={handleClick}/>
+                            ))}
+                        </Flex>
+                        <Flex >
+                            <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px"}} >
+                                Send Request
+                            </Button>
+                        </Flex>
                     </Flex>
                 </Flex>
             )}

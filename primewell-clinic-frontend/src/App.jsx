@@ -31,7 +31,7 @@ function App() {
   return (
     <>
       <div className='App'>
-        <Navbar info={setUserInfo}/>
+        <Navbar userInfo={userInfo} info={setUserInfo}/>
         <Routes>
           <Route path='/' element={<Home />}/>
           <Route path='/Posts' element={<Posts />}/>
