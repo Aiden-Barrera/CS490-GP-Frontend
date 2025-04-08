@@ -103,3 +103,4 @@ const SideBarMenu = ({info, surveyCompleted}) => {
 };
 
 export default SideBarMenu;
+
