@@ -1,6 +1,12 @@
 import { Flex, Modal, message, Button, Input, Form} from "antd"
 import { useEffect, useState } from "react"
 import axios from "axios"
+
+{/* Discuss how to properly add new Pill back to database 
+        Currently backend has Pharm_ID: 339
+        Currently frontend has Pill_ID
+    */}
+
 const CreatePillModal = (props) => {
     const [form] = Form.useForm()
     const [pillsInfo, setPillsInfo] = useState([]);
