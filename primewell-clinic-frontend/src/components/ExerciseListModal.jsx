@@ -1,4 +1,4 @@
-import { Modal, message, Table, ConfigProvider, Space, Button, Tooltip } from "antd";
+import { Modal, message, Table, ConfigProvider, Space, Button, Tooltip,  App as AntdApp } from "antd";
 import { useEffect, useState } from "react";
 import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
@@ -67,13 +67,13 @@ const ExerciseListModal = (props) => {
                             onClick={() => handleButtonClick(record)}
                             style={{
                                 backgroundColor: selectedRows.has(record.Exercise_ID) ? '#A2C3A4' : 'rgba(179, 179, 179, 0.73)',
-                                marginRight:'-20px'
+                                marginRight:'-15px'
                             }}
                         />
                     </Tooltip>
                 </Space>
             ),
-            width: 10
+            width: 30,
         },
     ];
 
@@ -100,7 +100,7 @@ const ExerciseListModal = (props) => {
                         dataSource={exerciseInfo}
                         bordered
                         size="middle"
-                        pagination={{ pageSize: 10 }}
+                        pagination={{ pageSize: 5 }}
                         rowClassName={(record, index) => (index % 2 === 0 ? 'table-row-light' : 'table-row-dark')}
                         rowKey="Exercise_ID"
                     />
@@ -120,7 +120,7 @@ const ExerciseListModal = (props) => {
                     </h3>
                     {selectedRows.size > 0 && (
                     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                        <Button type="primary" onClick={() => setSelectedModalVisible(true)}>
+                        <Button type="primary" style={{ backgroundColor: '#A2C3A4'}} onClick={() => setSelectedModalVisible(true)}>
                             View Selected Exercises
                         </Button>
                     </div>
@@ -128,6 +128,9 @@ const ExerciseListModal = (props) => {
                     <AddCalendar
                     open={selectedModalVisible}
                     handleClose={() => setSelectedModalVisible(false)}
+                    selectedRows={[...selectedRows]} // Convert Set to Array
+                    exerciseInfo={exerciseInfo} // optional, if you want to pass full info
+                    patientId={props.patientId} // assuming parent of ExerciseListModal provides this
                     footer={null}
                     title="Selected Exercises"
                     centered
@@ -141,10 +144,14 @@ const ExerciseListModal = (props) => {
                             );
                         })}
                     </ul>
-                </AddCalendar>
+                    </AddCalendar>
             </Modal>
         </ConfigProvider>
     );
 };
 
 export default ExerciseListModal;
+
+
+
+

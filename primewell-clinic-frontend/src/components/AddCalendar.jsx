@@ -1,9 +1,12 @@
-import { Modal, message, Flex, Button } from "antd";
+import { Modal, Flex, Button, App } from "antd";
 import { useEffect, useState, useCallback } from "react";
-
+import axios from "axios";
 const AddCalendar = (props) => {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const [selectedDays, setSelectedDays] = useState([]);
+    const { selectedRows, exerciseInfo, patientId } = props;
+    const { useApp } = App;
+    const { message } = useApp();
 
     useEffect(() => {
         if (props.open) {
@@ -33,12 +36,22 @@ const AddCalendar = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Submitting:", { selectedDays, exercise });
-        // POST request to the backend
-        // props.onSubmit({ selectedDays, exercise });
-        handleClose();
-    };
 
+        const Regiment = selectedRows.map((exerciseId) => ({
+            exercise: exerciseId,
+            days: selectedDays
+        }));
+
+        axios.post("http://localhost:3000/regiment", { Patient_ID: patientId, Regiment })
+            .then(response => {
+                console.log("Submitted:", Regiment);
+            })
+            .catch(error => {
+                console.error("Error submitting regiment:", error);
+            });
+
+        props.handleClose();
+    };
     return (
         <Modal
             open={props.open}
@@ -84,7 +97,7 @@ const AddCalendar = (props) => {
                 </div>
                 {selectedDays.length > 0 && (
                     <Flex justify="center" style={{ marginTop: '30px' }}>
-                        <Button htmlType="submit" type="primary">
+                        <Button htmlType="submit" type="primary" style={{backgroundColor:"#A8C4A2"}}>
                             Submit Schedule
                         </Button>
                     </Flex>
