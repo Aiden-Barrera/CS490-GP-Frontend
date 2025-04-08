@@ -17,6 +17,8 @@ const PillPage = () => {
 
         fetchUserInfo();
     }, []);
+
+
     return (
         <Flex vertical justify="start" align="center" gap="60px" style={{
             borderRadius: "12px",
@@ -49,7 +51,7 @@ const PillPage = () => {
             <Flex vertical gap="20px" style={{
                 width: "100%",
             }}>
-                <PillFilter/>
+                <PillFilter pharmID={userInfo?.[0]?.Pharm_ID}/>
             </Flex>
         </Flex>
     );
