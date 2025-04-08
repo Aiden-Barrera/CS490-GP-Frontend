@@ -2,11 +2,13 @@ import { Modal, message, Table, ConfigProvider, Space, Button, Tooltip } from "a
 import { useEffect, useState } from "react";
 import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
-
+import AddCalendar from "./AddCalendar";
 const ExerciseListModal = (props) => {
     const [exerciseInfo, setExerciseInfo] = useState([]);
     const [selectedRows, setSelectedRows] = useState(new Set());
+    const [selectedModalVisible, setSelectedModalVisible] = useState(false);
 
+    
     useEffect(() => {
         const fetchExerciseInfo = async () => {
             try {
@@ -25,6 +27,10 @@ const ExerciseListModal = (props) => {
         }
     }, [props.open]);
 
+    useEffect(() => {
+        console.log("Selected rows:", selectedRows);
+    }, [selectedRows]);
+
     const handleClose = () => {
         props.handleClose();
     };
@@ -41,6 +47,7 @@ const ExerciseListModal = (props) => {
         });
     };
 
+   
     const columns = [
         { title: 'Exercise Name', dataIndex: 'Exercise_Name', width: 150 },
         { title: 'ID', dataIndex: 'Exercise_ID', width: 25 },
@@ -111,6 +118,30 @@ const ExerciseListModal = (props) => {
                 <h3 style={{ textAlign: 'center' }}>
                         Selected {selectedRows.size} exercise(s)
                     </h3>
+                    {selectedRows.size > 0 && (
+                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                        <Button type="primary" onClick={() => setSelectedModalVisible(true)}>
+                            View Selected Exercises
+                        </Button>
+                    </div>
+                )}
+                    <AddCalendar
+                    open={selectedModalVisible}
+                    handleClose={() => setSelectedModalVisible(false)}
+                    footer={null}
+                    title="Selected Exercises"
+                    centered
+                    width="50%"
+                    >
+                    <ul>
+                        {[...selectedRows].map((id) => {
+                            const exercise = exerciseInfo.find(ex => ex.Exercise_ID === id);
+                            return (
+                                <li key={id}>{exercise?.Exercise_Name || `Exercise ${id}`}</li>
+                            );
+                        })}
+                    </ul>
+                </AddCalendar>
             </Modal>
         </ConfigProvider>
     );
