@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {Flex, Input, Layout} from "antd"
 import ReviewCard from "../components/ReviewCard"
 import './../App.css'
@@ -29,8 +30,13 @@ const Reviews = () => {
     })
 
     useEffect(() => {
-        setFilteredInfo(filteredDoctor)
+        //setFilteredInfo(filteredDoctor)
     }, [searchedDoctor])
+
+    const handleReviewCardClick = (user) => {
+        console.log("Body from Review Card Clicked")
+        console.log(user)
+    }
 
     return (
         <Flex justify="center" align="center" style={{
@@ -42,17 +48,20 @@ const Reviews = () => {
                     padding: "33px 40px",
                     width: "60%",
                     maxWidth: "60%",
-                    overflowY: "auto"
+                    overflowY: "auto",
+                    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
                 }}>
                     <h1 className="title" style={{ color: "#373b41", marginBottom: "10px", marginTop: 0, fontFamily: "Poppins"}} >List of Doctors</h1>
-                    <Input placeholder="Search by Doctor" value={searchedDoctor} onChange={handleSearch} enterButton={false} style={{fontSize: "24px", height: "50px", width: "50%"}}
+                    <Input placeholder="Search by Doctor" value={searchedDoctor} onChange={handleSearch} style={{fontSize: "24px", height: "50px", width: "50%"}}
                         prefix={<img src="/searchIcon.svg" alt="Icon" style={{width: "24px", marginRight: "5px"}}/>}
                     />
                 <Flex vertical gap="20px" style={{
                         width: "100%",
                     }}>
                     {filteredDoctor.map((user, index) => (
-                        <ReviewCard key={index} info={user}/>     
+                        <Link key={index} to={`/Reviews/${user?.doctor_id}`}>
+                            <ReviewCard key={index} info={user} onClick={handleReviewCardClick}/>     
+                        </Link>
                     ))}
                 </Flex>
             </Flex>

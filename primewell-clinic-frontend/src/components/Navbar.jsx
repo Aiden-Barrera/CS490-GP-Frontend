@@ -12,10 +12,6 @@ const Navbar = (props) => {
   const [userType, setUserType] = useState("")
   const [name, setName] = useState("")
 
-  useEffect(() => {
-    console.log("User has been Authenticated!")
-  }, [auth])
-
   const showModal = (name) => {
     setName(name)
     setIsUserTypeModalOpen(true)

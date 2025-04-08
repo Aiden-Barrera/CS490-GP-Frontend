@@ -6,18 +6,20 @@ import Posts from './pages/Posts'
 import Reviews from './pages/Reviews'
 import Navbar from './components/Navbar'
 import SideBarMenu from './pages/PatientPortal/SideBarMenu'
-import PharmacistPortal from './pages/PharmacistPortal/PharmacistPortal'
+import PharmacistPortal from './pages/PharmacistPortal'
 import Dashboard from './pages/PatientPortal/Dashboard'
 import Request from './pages/PatientPortal/Request'
 import DoctorSideBarMenu from './pages/DoctorPortal/DoctorSideBarMenu'
 import DoctorDashboard from './pages/DoctorPortal/DoctorDashboard'
 import DoctorPillRequest from './pages/DoctorPortal/DoctorPillRequest'
 import Exercise from './pages/Exercise'
-import PillPage from './pages/PharmacistPortal/PillPage'
+import ReviewDetail from './components/ReviewDetail'
+import DailySurvey from './pages/PatientPortal/DailySurvey'
 import PharmaSideBarMenu from './pages/PharmacistPortal/PharmaSideBarMenu'
 
 function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
+  const [surveyCompleted, setSurveyCompleted] = useState(false); // shared state
   useEffect(() => {
     document.title = "PrimeWell Clinic"
   }, [])
@@ -34,16 +36,15 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />}/>
           <Route path='/Posts' element={<Posts />}/>
-          <Route path='/Reviews' element={<Reviews />}/>
           <Route path='/PharmacistPortal' element={<PharmacistPortal />}/>
           <Route path='/Exercise' element={<Exercise />} />
           {/* Patient Portal with Nested Routes */}
-          <Route path="/PatientPortal" element={<SideBarMenu />}>
-            <Route path="Dashboard" element={<Dashboard info={userInfo} />} />
+          <Route path="/PatientPortal" element={<SideBarMenu info={userInfo} surveyCompleted={surveyCompleted}/>}>
+            <Route index element={<Dashboard info={userInfo} />} />
             <Route path="Request" element={<Request />} />
             <Route path="Appointment" element={<div>Appointments Page</div>} />
             <Route path="Regiment" element={<div>Regiment Page</div>} />
-            <Route path="Daily-Survey" element={<div>Daily Survey Page</div>} />
+            <Route path="Daily-Survey" element={<DailySurvey info={userInfo} setSurveyCompleted={setSurveyCompleted}/>} />
             <Route path="AccountInfo" element={<div>Account Info Page</div>} />
             <Route path="Prescription" element={<div>Prescription Page</div>} />
             <Route path="Payment" element={<div>Payment Page</div>} />
@@ -63,6 +64,10 @@ function App() {
             <Route path="PharmacyPortal/PillPage" element={<PillPage />} />
             <Route path="PharmacyPortal/AccountInfo" element={<div>Account Info Page</div>} />
           </Route>
+          {/* Reviews with Nested Routes */}
+          <Route path='/Reviews' element={<Reviews />} />
+          <Route path='/Reviews/:id' element={<ReviewDetail userInfo={userInfo}/>} />
+
         </Routes>
       </div>
     </>
@@ -70,3 +75,4 @@ function App() {
 }
 
 export default App
+

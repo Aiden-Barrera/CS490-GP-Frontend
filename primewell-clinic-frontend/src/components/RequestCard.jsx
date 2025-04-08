@@ -2,7 +2,6 @@ import {Button, Flex} from "antd"
 
 const RequestCard = (props) => {
     
-    
     return (
         <Flex align="center" justify="space-between" style={{
             background: "#f09c96", 
@@ -39,7 +38,7 @@ const RequestCard = (props) => {
                 }}>
                     <img src="/downArrow.svg" alt="Icon" style={{
                         width: "32px", // Ensures circular shape
-                        height: "32px", 
+                        height: "32px",
                     }} />
                 </Button>
             ) : null}
