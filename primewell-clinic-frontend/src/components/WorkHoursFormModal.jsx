@@ -29,11 +29,8 @@ const PatientSignUpModal = (props) => {
   const weekEnd = endOfWeek(currentDate, { weekStartsOn: 0 });
   const calendarDays = eachDayOfInterval({ start: weekStart, end: weekEnd });
   let daysJSON = props.days;
-  // console.log(daysJSON);
 
   const selected = (e, day) => {
-    // console.log("clicked", day);
-
     setDays((prevDays) => ({
       ...prevDays,
       [day]: prevDays[day] === "true" ? "false" : "true",
@@ -47,33 +44,9 @@ const PatientSignUpModal = (props) => {
     element.style.backgroundColor =
       bg === "rgb(255, 230, 226)" ? "rgb(255,255,255)" : "rgb(255, 230, 226)";
   };
-  // const [days, setDays] = useState({
-  //   Sun: "false",
-  //   Mon: "false",
-  //   Tue: "false",
-  //   Wed: "false",
-  //   Thu: "false",
-  //   Fri: "false",
-  //   Sat: "false",
-  // });
-
-  // useEffect(() => {
-  //   if (props.open) {
-  //     form.resetFields();
-  //     // setShift1(props.shift1 || "");
-  //     // setShift2(props.shift2 || "");
-  //     form.setFieldsValue({
-  //       firstShift: props.shift1 || "",
-  //       secondShift: props.shift2 || "",
-  //     });
-  //     message.destroy();
-  //   }
-  // }, [props.open, props.shift1, props.shift2]);
   useEffect(() => {
     setShift1(props.shift1);
     setShift2(props.shift2);
-    // console.log(props.shift1);
-    // console.log(shift1);
 
     setDays({ ...props.days });
     message.destroy();
@@ -87,8 +60,6 @@ const PatientSignUpModal = (props) => {
       });
       setShift1(props.shift1);
       setShift2(props.shift2);
-      // console.log(props.shift1);
-      // console.log(shift1);
 
       setDays({ ...props.days });
       message.destroy();
@@ -97,7 +68,6 @@ const PatientSignUpModal = (props) => {
 
   const onFinish = async (value) => {
     setShift1(value.firstShift);
-    // console.log(value.firstShift);
     props.onSubmitShift1(value.firstShift);
     setShift2(value.secondShift);
     props.onSubmitShift2(value.secondShift);
@@ -180,7 +150,6 @@ const PatientSignUpModal = (props) => {
   };
 
   const handleClose = () => {
-    // console.log("Closed work hours");
     message.destroy();
     setDays({
       Sun: "false",
@@ -194,7 +163,6 @@ const PatientSignUpModal = (props) => {
     setShift1();
     setShift2();
     setSchedule({});
-    // console.log(days);
     props.handleClose();
   };
 
@@ -256,8 +224,6 @@ const PatientSignUpModal = (props) => {
                 },
                 {
                   pattern: /^([1-9]|1[0-2]):([0-5][0-9])-([1-9]|1[0-2]):\2$/,
-
-                  // /^([1-9]|1[0-2]):[0-5][0-9]-([1-9]|1[0-2]):[0-5][0-9]$/,
                   message: "Please input your Work Hours for your First Shift!",
                 },
               ]}
@@ -279,8 +245,6 @@ const PatientSignUpModal = (props) => {
                 },
                 {
                   pattern: /^([1-9]|1[0-2]):([0-5][0-9])-([1-9]|1[0-2]):\2$/,
-
-                  // /^([1-9]|1[0-2]):[0-5][0-9]-([1-9]|1[0-2]):[0-5][0-9]$/,
                   message:
                     "Please input your Work Hours for your Second Shift!",
                 },

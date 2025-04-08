@@ -29,7 +29,16 @@ const PatientSignUpModal = (props) => {
   };
 
   const onFinish = async (value) => {
+    value.Address = JSON.stringify(value.Address);
+    console.log(value.Address);
     console.log(value);
+    const res = await axios.post("http://localhost:3000/pharmacies", value);
+    if (res.data.length === 0) {
+      console.log("Couldn't create pharmacy");
+    } else {
+      console.log("Pharmacy Created");
+      handleClose();
+    }
   };
 
   const onFail = () => {
@@ -71,7 +80,7 @@ const PatientSignUpModal = (props) => {
             autoComplete="off"
           >
             <Form.Item
-              name="pharmacyName"
+              name="Company_Name"
               label="Pharmacy Name"
               rules={[
                 {
@@ -91,7 +100,7 @@ const PatientSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="pharmacyEmail"
+              name="Email"
               label="Pharmacy Email"
               rules={[
                 {
@@ -111,7 +120,7 @@ const PatientSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="pharmacyAddress"
+              name="Address"
               label="Pharmacy Address"
               rules={[
                 {
@@ -131,7 +140,7 @@ const PatientSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="pharmacyZipCode"
+              name="Zip"
               label="Pharmacy Zip Code"
               rules={[
                 {
@@ -151,7 +160,7 @@ const PatientSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="pharmacyWorkHours"
+              name="Work_Hours"
               label="Pharmacy Work Hours"
               rules={[
                 {
@@ -159,7 +168,8 @@ const PatientSignUpModal = (props) => {
                   message: "Please input your Pharmacy Work Hours!",
                 },
                 {
-                  pattern: /^[0-9]{5}$/,
+                  pattern:
+                    /^([0-9]|1[0-9]|2[0-3]):([0-5][0-9])-([0-9]|1[0-9]|2[0-3]):\2$/,
                   message: "Please input a valid Pharmacy Work Hours!",
                 },
               ]}
@@ -171,7 +181,7 @@ const PatientSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="Pharmacypw"
+              name="PW"
               label="Create a Pharmacy password"
               rules={[
                 {

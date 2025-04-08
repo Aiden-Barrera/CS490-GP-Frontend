@@ -60,7 +60,7 @@ const DoctorSignUpModal = (props) => {
   // console.log(shift1);
   const onFinish = async (value) => {
     value = { ...value, Availability: "1" };
-    console.log(value);
+    // console.log(value);
 
     // console.log(schedule);
     const res = await axios.post("http://localhost:3000/doctor", value);
