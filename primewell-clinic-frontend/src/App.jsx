@@ -15,6 +15,7 @@ import DoctorPillRequest from './pages/DoctorPortal/DoctorPillRequest'
 import Exercise from './pages/Exercise'
 import ReviewDetail from './components/ReviewDetail'
 import DailySurvey from './pages/PatientPortal/DailySurvey'
+import Profile from './pages/Profile'
 
 function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
@@ -37,6 +38,7 @@ function App() {
           <Route path='/Posts' element={<Posts />}/>
           <Route path='/PharmacistPortal' element={<PharmacistPortal />}/>
           <Route path='/Exercise' element={<Exercise />} />
+          <Route path='/viewProfile' element={<Profile userInfo={userInfo}/>} />
           {/* Patient Portal with Nested Routes */}
           <Route path="/PatientPortal" element={<SideBarMenu info={userInfo} surveyCompleted={surveyCompleted}/>}>
             <Route index element={<Dashboard info={userInfo} />} />

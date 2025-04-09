@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./../App.css";
 import { Layout, Dropdown, Menu, Typography, Button } from "antd";
 import { useEffect, useState } from "react";
@@ -11,6 +11,8 @@ const Navbar = (props) => {
   const [auth, setAuth] = useState(false)
   const [userType, setUserType] = useState("")
   const [name, setName] = useState("")
+  const navigate = useNavigate();
+
 
   const showModal = (name) => {
     setName(name)
@@ -44,6 +46,7 @@ const Navbar = (props) => {
     switch (e.key) {
       case '2':
         console.log('Navigating to profile');
+        navigate("/viewProfile")
         // navigate('/profile'); // if using react-router-dom's useNavigate
         break;
       case '3':
