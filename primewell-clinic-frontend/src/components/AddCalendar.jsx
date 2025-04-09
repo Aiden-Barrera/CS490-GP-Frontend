@@ -1,29 +1,15 @@
-import { Modal, Flex, Button, App } from "antd";
+import { Modal, Flex, Button } from "antd";
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
-const AddCalendar = (props) => {
+
+const AddCalendar = ({ open, handleClose, selectedRows, exerciseInfo, patientInfo }) => {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const [selectedDays, setSelectedDays] = useState([]);
-    const { selectedRows, exerciseInfo, patientId } = props;
-    const { useApp } = App;
-    const { message } = useApp();
 
-    useEffect(() => {
-        if (props.open) {
-            message.destroy();
-        }
-    }, [props.open]);
-
+    console.log("Received props in AddCalendar:", { selectedRows, exerciseInfo, patientInfo })
     useEffect(() => {
         console.log("Selected days:", selectedDays);
     }, [selectedDays]);
-
-    const handleClose = () => {
-        message.destroy();
-        if (props.handleClose) {
-            props.handleClose();
-        }
-    };
 
     const handleDayClick = useCallback((day) => {
         setSelectedDays((prevDays) =>
@@ -33,28 +19,40 @@ const AddCalendar = (props) => {
         );
     }, []);
 
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const Regiment = selectedRows.map((exerciseId) => ({
-            exercise: exerciseId,
-            days: selectedDays
-        }));
+        const Regiment = selectedRows.map((exerciseId) => {
+            const exercise = exerciseInfo.find(ex => ex.Exercise_ID === exerciseId);
+            return {
+                exerciseName: exercise?.Exercise_Name,
+                id: exerciseId,
+                days: selectedDays,
+                reps: exercise?.Reps,
+                sets: exercise?.Sets,
+                muscleGroup: exercise?.Muscle_Group,
+                description: exercise?.Exercise_Description
+            };
+        });
 
-        axios.post("http://localhost:3000/regiment", { Patient_ID: patientId, Regiment })
-            .then(response => {
-                console.log("Submitted:", Regiment);
-            })
-            .catch(error => {
-                console.error("Error submitting regiment:", error);
-            });
+        console.log("Regiment:", Regiment);
+        console.log("Patient ID for Regiment:", patientInfo.patient_id);
 
-        props.handleClose();
+        try {
+            await axios.post(`http://localhost:3000/regiment`, { Patient_ID: patientInfo, Regiment });
+            console.log("Submitted:", Regiment);
+        } catch (error) {
+            console.error("Error submitting regiment:", error);
+        }
+
+        if (handleClose) {
+            handleClose();
+        }
     };
+
     return (
         <Modal
-            open={props.open}
+            open={open}
             footer={null}
             onCancel={handleClose}
             centered
@@ -97,7 +95,7 @@ const AddCalendar = (props) => {
                 </div>
                 {selectedDays.length > 0 && (
                     <Flex justify="center" style={{ marginTop: '30px' }}>
-                        <Button htmlType="submit" type="primary" style={{backgroundColor:"#A8C4A2"}}>
+                        <Button htmlType="submit" type="primary" style={{ backgroundColor: "#A8C4A2" }}>
                             Submit Schedule
                         </Button>
                     </Flex>
