@@ -42,7 +42,7 @@ const Posts = () => {
                     <Button type="primary" style={{
                         width: "40%", borderRadius: "24px", padding: "22px 0px", backgroundColor: "#f09c96", marginBottom:"40px", fontSize: "22px", fontWeight: "700", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
                     }}>Start a Discussion</Button>
-                <Flex vertical gap="20px" style={{
+                <Flex vertical gap="30px" style={{
                         width: "100%",
                     }}>
                    {/* Where the Post Cards will go */}
