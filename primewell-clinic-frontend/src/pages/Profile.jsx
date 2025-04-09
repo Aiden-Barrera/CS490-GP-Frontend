@@ -74,6 +74,9 @@ const Profile = ({userInfo}) => {
                         {userType === 'Patient' && (
                             <h1 className="title" style={{ color: "#373b41", marginBottom: "10px", marginTop: 0, fontFamily: "Poppins"}}>{userInfo?.First_Name + " " + userInfo?.Last_Name}'s Profile</h1>
                         )}
+                        {userType === 'Doctor' && (
+                            <h1 className="title" style={{ color: "#373b41", marginBottom: "10px", marginTop: 0, fontFamily: "Poppins"}}>{userInfo?.First_Name + " " + userInfo?.Last_Name}'s Profile</h1>
+                        )}
                     </Flex>
                     <Flex vertical style={{color: "#333333", fontSize: "18px"}}>
                         {userType === 'Patient' && (
@@ -86,6 +89,17 @@ const Profile = ({userInfo}) => {
                                 <p>Zip: {userProfile?.Zip}</p>
                                 <p>Assigned Phamracy: {assignedPharm?.[0]?.Company_Name} at {assignedPharm?.[0]?.Address}, {assignedPharm?.[0]?.Zip}</p>
                                 <p>Assigned Doctor: { assignedDoct ? assignedDoct?.[0]?.First_Name + " " + assignedDoct?.[0]?.Last_Name : "No Doctor Requested Yet"}</p>
+                            </>
+                        )}
+                        {userType === 'Doctor' && (
+                            <>
+                                <p>First Name: {userProfile?.First_Name}</p>
+                                <p>First Name: {userProfile?.Last_Name}</p>
+                                <p>Specialy: {userProfile?.Specialty}</p>
+                                <p>Email: {userProfile?.Email}</p>
+                                <p>Phone: {userProfile?.Phone}</p>
+                                <p>Doctor License ID: {userProfile?.License_Serial}</p>
+                                <p>Availablilty: {userProfile?.Availability === 1 ? "Accepting Request" : "Not Accepting Requests"}</p>
                             </>
                         )}
                     </Flex>
