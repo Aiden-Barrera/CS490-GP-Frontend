@@ -156,3 +156,4 @@ const UserTypeModal = (props) => {
 };
 
 export default UserTypeModal
+
