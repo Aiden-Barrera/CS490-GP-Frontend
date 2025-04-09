@@ -13,6 +13,7 @@ const RequestCard = (props) => {
     const [selectDate, setSelectDate] = useState(() => dayjs())
     const [daySchedule, setDaySchedule] = useState(null)
     const [timeSlot, setTimeSlot] = useState("")
+    const [activeIndex, setActiveIndex] = useState(null)
 
     const handleSelect = (value) => {
         setSelectDate(value)
@@ -33,8 +34,9 @@ const RequestCard = (props) => {
         fetchDaySchudule()
     }, [selectDate])
 
-    const handleClick = (value, key) => {
-        console.log(value + " " + key)
+    const handleClick = (slot, key) => {
+        console.log(slot + " " + key)
+        setActiveIndex(key)
     }
 
     
@@ -89,11 +91,11 @@ const RequestCard = (props) => {
                     <Flex vertical gap="50px" justify="center" align="flex-start">
                         <Flex gap="20px" justify="center" align="flex-start">
                             {daySchedule?.[0]?.Slots.map((timeSlot, index) => (
-                                <SlotCard key={index} index={index} timeSlot={timeSlot} setTimeSlot={setTimeSlot} onClick={handleClick}/>
+                                <SlotCard key={index} index={index} timeSlot={timeSlot} setTimeSlot={setTimeSlot} onClick={handleClick} isActive={index === activeIndex}/>
                             ))}
                         </Flex>
-                        <Flex >
-                            <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px"}} >
+                        <Flex>
+                            <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} >
                                 Send Request
                             </Button>
                         </Flex>
