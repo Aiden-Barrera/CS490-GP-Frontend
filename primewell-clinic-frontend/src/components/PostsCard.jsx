@@ -73,8 +73,8 @@ const PostsCard = ({postInfo}) => {
                     </Flex>
 
                     {/* Feedback */}
-                    <Flex vertical style={{maxWidth: "500px", flex:1}}>
-                        <Title level={5} style={{ marginBottom: "4px" }}>{`${userInfo?.First_Name} ${userInfo?.Last_Name}`}'s Feedback</Title>
+                    <Flex vertical gap="10px" style={{maxWidth: "500px", flex:1}}>
+                        <Title level={4} style={{ marginBottom: "4px" }}>{`${userInfo?.First_Name} ${userInfo?.Last_Name}`}'s Feedback</Title>
                         <Paragraph style={{ fontSize: "16px", margin: 0 }}>
                         {postInfo?.Forum_Text}
                         </Paragraph>
