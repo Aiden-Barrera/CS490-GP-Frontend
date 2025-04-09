@@ -15,7 +15,7 @@ import DoctorPillRequest from './pages/DoctorPortal/DoctorPillRequest'
 import Exercise from './pages/Exercise'
 import ReviewDetail from './components/ReviewDetail'
 import DailySurvey from './pages/PatientPortal/DailySurvey'
-import PharmaSideBarMenu from './pages/PharmacistPortal/PharmaSideBarMenu'
+import Profile from './pages/Profile'
 
 function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
@@ -32,12 +32,13 @@ function App() {
   return (
     <>
       <div className='App'>
-        <Navbar info={setUserInfo}/>
+        <Navbar userInfo={userInfo} info={setUserInfo}/>
         <Routes>
           <Route path='/' element={<Home />}/>
           <Route path='/Posts' element={<Posts />}/>
           <Route path='/PharmacistPortal' element={<PharmacistPortal />}/>
           <Route path='/Exercise' element={<Exercise />} />
+          <Route path='/viewProfile' element={<Profile userInfo={userInfo}/>} />
           {/* Patient Portal with Nested Routes */}
           <Route path="/PatientPortal" element={<SideBarMenu info={userInfo} surveyCompleted={surveyCompleted}/>}>
             <Route index element={<Dashboard info={userInfo} />} />
@@ -56,14 +57,6 @@ function App() {
             <Route path="/DoctorPortal/Appointment" element={<div>Appointments Page</div>} />
             <Route path="/DoctorPortal/PillRequest" element={<DoctorPillRequest />} />
           </Route>
-          {/* Pharmacist Portal with Nested Routes */}
-          <Route path="/PharmacistPortal/" element={<PharmaSideBarMenu  />}>
-            <Route path="PharmacyPortal/Dashboard" element={<div>Dashboard</div>} />
-            <Route path="PharmacyPortal/Request" element={<div>Request</div>} />
-            <Route path="PharmacyPortal/Pickups" element={<div>Pending Pick-ups Page</div>} />
-            <Route path="PharmacyPortal/PillPage" element={<PillPage />} />
-            <Route path="PharmacyPortal/AccountInfo" element={<div>Account Info Page</div>} />
-          </Route>
           {/* Reviews with Nested Routes */}
           <Route path='/Reviews' element={<Reviews />} />
           <Route path='/Reviews/:id' element={<ReviewDetail userInfo={userInfo}/>} />
@@ -75,4 +68,3 @@ function App() {
 }
 
 export default App
-

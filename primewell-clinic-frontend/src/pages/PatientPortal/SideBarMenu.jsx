@@ -2,6 +2,7 @@ import { Link, Outlet } from "react-router-dom";
 import { Flex, Button, Menu, Badge } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
+import "./../../App.css"
 import axios from "axios";
 
 const SideBarMenu = ({info, surveyCompleted}) => {
@@ -74,9 +75,11 @@ const SideBarMenu = ({info, surveyCompleted}) => {
                         <Link to="/PatientPortal/Regiment"><strong>Regiment</strong></Link>
                     </Menu.Item>
                     <Menu.Item key="5">
-                        <Badge dot={surveyNeeded} offset={[10,0]}>
-                            <Link to="/PatientPortal/Daily-Survey"><strong>Daily Survey</strong></Link>
-                        </Badge>
+                        <Link to="/PatientPortal/Daily-Survey">
+                            <Badge dot={surveyNeeded} offset={[10,0]}>
+                                <strong>Daily Survey</strong>
+                            </Badge>
+                        </Link>
                     </Menu.Item>
                     <Menu.Item key="6">
                         <Link to="/PatientPortal/AccountInfo"><strong>Account Info</strong></Link>
@@ -103,4 +106,3 @@ const SideBarMenu = ({info, surveyCompleted}) => {
 };
 
 export default SideBarMenu;
-
