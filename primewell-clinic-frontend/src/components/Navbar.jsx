@@ -53,6 +53,7 @@ const Navbar = (props) => {
         console.log('Signing out...');
         setAuth(false);
         setUserType('');
+        navigate("/")
         break;
       default:
         break;
