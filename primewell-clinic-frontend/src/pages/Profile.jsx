@@ -77,6 +77,9 @@ const Profile = ({userInfo}) => {
                         {userType === 'Doctor' && (
                             <h1 className="title" style={{ color: "#373b41", marginBottom: "10px", marginTop: 0, fontFamily: "Poppins"}}>{userProfile?.First_Name + " " + userProfile?.Last_Name}'s Profile</h1>
                         )}
+                        {userType === 'Pharmacy' && (
+                            <h1 className="title" style={{ color: "#373b41", marginBottom: "10px", marginTop: 0, fontFamily: "Poppins"}}>{userProfile?.Company_Name} Profile</h1>
+                        )}
                     </Flex>
                     <Flex vertical style={{color: "#333333", fontSize: "18px"}}>
                         {userType === 'Patient' && (
@@ -94,12 +97,20 @@ const Profile = ({userInfo}) => {
                         {userType === 'Doctor' && (
                             <>
                                 <p>First Name: {userProfile?.First_Name}</p>
-                                <p>First Name: {userProfile?.Last_Name}</p>
+                                <p>Last Name: {userProfile?.Last_Name}</p>
                                 <p>Specialy: {userProfile?.Specialty}</p>
                                 <p>Email: {userProfile?.Email}</p>
                                 <p>Phone: {userProfile?.Phone}</p>
                                 <p>Doctor License ID: {userProfile?.License_Serial}</p>
                                 <p>Availablilty: {userProfile?.Availability === 1 ? "Accepting Request" : "Not Accepting Requests"}</p>
+                            </>
+                        )}
+                        {userType === "Pharmacy" && (
+                            <>
+                                <p>Pharmacy Name: {userProfile?.Company_Name}</p>
+                                <p>Work Hours: {userProfile?.Work_Hours}</p>
+                                <p>Address: {userProfile?.Address}</p>
+                                <p>Zip Code: {userProfile?.Zip}</p>
                             </>
                         )}
                     </Flex>
