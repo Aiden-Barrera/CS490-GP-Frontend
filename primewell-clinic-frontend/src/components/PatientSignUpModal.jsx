@@ -71,6 +71,7 @@ const PatientSignUpModal = (props) => {
   const handleClose = () => {
     message.destroy();
     setSymptoms({});
+    setZipCode("")
     props.handleClose();
   };
 
@@ -259,7 +260,7 @@ const PatientSignUpModal = (props) => {
             >
               <Select placeholder="Select a pharmacy">
                 {pharmacyOptions.map((pharmacy) => (
-                  <Select.Option key={pharmacy.Pharm_ID} value={pharmacy.Company_Name}>
+                  <Select.Option key={pharmacy.Pharm_ID} value={pharmacy.Pharm_ID}>
                     {pharmacy.Company_Name} @ Zip: {pharmacy.Zip}
                   </Select.Option>
                 ))}
