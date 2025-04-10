@@ -2,7 +2,7 @@ import { Flex, Row, Col, Card, Button } from "antd";
 import Footer from "../components/Footer";
 import { Image } from "antd";
 import CreateExerciseModal from "../components/CreateExerciseModal";
-import { useState } from "react";
+import { use, useState } from "react";
 import ExerciseListModal from "../components/ExerciseListModal";
 import AddCalendar from "../components/AddCalendar";
 
@@ -15,12 +15,12 @@ const categories = [
     { name: "Flexibility & Yoga", icon: <Image src= "/Yoga.PNG" style={{ width: "150px", height: "150px" }} />, description: "Stretching techniques and yoga poses for relaxation and flexibility." }
 ];
 
-const Exercise = () => {
-
+const Exercise = ({info}) => { //keep track of patient info for Regiment
+    console.log(info?.patient_id);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [isListModalOpen, setIsListModalOpen] = useState(false);
     const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
-
+    
     const showCreateModal = () => {
         setIsCreateModalOpen(true);
     };
@@ -60,7 +60,7 @@ const Exercise = () => {
                         <Button type="primary" style={{ backgroundColor: "#F09C96", marginRight: "10px" }} onClick={() => {showCalendarModal()}} >+ Create new Regiment</Button>
                         <Button type="primary" style={{ backgroundColor: "#A8C4A2", borderColor: "#A8C4A2", marginRight:"65px" }} onClick={() => {showCreateModal()}}>+ Add New Exercise</Button>
                     </div>
-                    <AddCalendar open={isCalendarModalOpen} handleClose={handleCalendarCancel} />
+                    <AddCalendar info={info} open={isCalendarModalOpen} handleClose={handleCalendarCancel} />
                     <CreateExerciseModal open={isCreateModalOpen} handleClose={handleCreateCancel} />
                 </Flex>
                 <Flex justify="center" align="center" style={{ width: "100vw", backgroundColor: "#ffffff"}}>
@@ -79,7 +79,7 @@ const Exercise = () => {
                                     <h3 style={{ color: "#F09C96" }}>{category.name}</h3>
                                     <p style={{ fontSize: "12px", color: "#333" }}>{category.description}</p>
                                 </Card>
-                                <ExerciseListModal open={isListModalOpen} handleClose={handleListCancel} />
+                                <ExerciseListModal info={info} open={isListModalOpen} handleClose={handleListCancel} />
                             </Col>
                         ))}
                     </Row>

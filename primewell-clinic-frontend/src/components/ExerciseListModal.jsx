@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import AddCalendar from "./AddCalendar";
-const ExerciseListModal = (props) => {
+const ExerciseListModal = ({info, open, handleClose}) => {
+    console.log("From ExerciseListModal.jsx", info?.patient_id);
     const [exerciseInfo, setExerciseInfo] = useState([]);
     const [selectedRows, setSelectedRows] = useState(new Set());
     const [selectedModalVisible, setSelectedModalVisible] = useState(false);
@@ -22,26 +23,23 @@ const ExerciseListModal = (props) => {
     }, []);
 
     useEffect(() => {
-        if (props.open) {
+        if (info.open) {
             message.destroy();
         }
-    }, [props.open]);
+    }, [info.open]);
 
     useEffect(() => {
         console.log("Selected rows:", selectedRows);
     }, [selectedRows]);
 
-    const handleClose = () => {
-        props.handleClose();
-    };
 
-    const handleButtonClick = (record) => {
+    const handleButtonClick = (props) => {
         setSelectedRows((prevSelectedRows) => {
             const newSelectedRows = new Set(prevSelectedRows);
-            if (newSelectedRows.has(record.Exercise_ID)) {
-                newSelectedRows.delete(record.Exercise_ID);
+            if (newSelectedRows.has(props.Exercise_ID)) {
+                newSelectedRows.delete(props.Exercise_ID);
             } else {
-                newSelectedRows.add(record.Exercise_ID);
+                newSelectedRows.add(props.Exercise_ID);
             }
             return newSelectedRows;
         });
@@ -58,15 +56,15 @@ const ExerciseListModal = (props) => {
         {
             title: '',
             key: 'action',
-            render: (_, record) => (
+            render: (_, props) => (
                 <Space size="middle">
                     <Tooltip title="Select Exercise">
                         <Button
                             shape="circle"
                             icon={<PlusOutlined />}
-                            onClick={() => handleButtonClick(record)}
+                            onClick={() => handleButtonClick(props)}
                             style={{
-                                backgroundColor: selectedRows.has(record.Exercise_ID) ? '#A2C3A4' : 'rgba(179, 179, 179, 0.73)',
+                                backgroundColor: selectedRows.has(props.Exercise_ID) ? '#A2C3A4' : 'rgba(179, 179, 179, 0.73)',
                                 marginRight:'-15px'
                             }}
                         />
@@ -87,7 +85,7 @@ const ExerciseListModal = (props) => {
             }}
         >
             <Modal
-                open={props.open}
+                open={open}
                 footer={null}
                 onCancel={handleClose}
                 centered
@@ -101,7 +99,7 @@ const ExerciseListModal = (props) => {
                         bordered
                         size="middle"
                         pagination={{ pageSize: 5 }}
-                        rowClassName={(record, index) => (index % 2 === 0 ? 'table-row-light' : 'table-row-dark')}
+                        rowClassName={(props, index) => (index % 2 === 0 ? 'table-row-light' : 'table-row-dark')}
                         rowKey="Exercise_ID"
                     />
                     <style>
@@ -120,17 +118,18 @@ const ExerciseListModal = (props) => {
                     </h3>
                     {selectedRows.size > 0 && (
                     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                        <Button type="primary" style={{ backgroundColor: '#A2C3A4'}} onClick={() => setSelectedModalVisible(true)}>
-                            View Selected Exercises
+                        <Button type="primary" htmlType="submit" style={{ backgroundColor: '#A2C3A4'}} onClick={() => setSelectedModalVisible(true)}>
+                            Schedule Exercise(s)
                         </Button>
                     </div>
                 )}
+                
                     <AddCalendar
                     open={selectedModalVisible}
                     handleClose={() => setSelectedModalVisible(false)}
                     selectedRows={[...selectedRows]} // Convert Set to Array
-                    exerciseInfo={exerciseInfo} // optional, if you want to pass full info
-                    patientId={props.patientId} // assuming parent of ExerciseListModal provides this
+                    exerciseInfo={exerciseInfo}
+                    patientInfo={info}
                     footer={null}
                     title="Selected Exercises"
                     centered
@@ -145,6 +144,7 @@ const ExerciseListModal = (props) => {
                         })}
                     </ul>
                     </AddCalendar>
+                
             </Modal>
         </ConfigProvider>
     );
