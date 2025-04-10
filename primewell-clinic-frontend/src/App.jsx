@@ -11,6 +11,7 @@ import Dashboard from './pages/PatientPortal/Dashboard'
 import Request from './pages/PatientPortal/Request'
 import DoctorSideBarMenu from './pages/DoctorPortal/DoctorSideBarMenu'
 import DoctorDashboard from './pages/DoctorPortal/DoctorDashboard'
+import DoctorIncomingRequests from "./pages/DoctorPortal/DoctorIncomingRequests";
 import DoctorPillRequest from './pages/DoctorPortal/DoctorPillRequest'
 import Exercise from './pages/Exercise'
 import ReviewDetail from './components/ReviewDetail'
@@ -21,13 +22,14 @@ function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
   const [surveyCompleted, setSurveyCompleted] = useState(false); // shared state
   useEffect(() => {
-    document.title = "PrimeWell Clinic"
-  }, [])
+    document.title = "PrimeWell Clinic";
+  }, []);
 
-  useEffect(() => { // This is to just verify their info is being stored
-    console.log("UserInfo in App.jsx")
-    console.log(userInfo)
-  }, [userInfo])
+  useEffect(() => {
+    // This is to just verify their info is being stored
+    console.log("UserInfo in App.jsx");
+    console.log(userInfo);
+  }, [userInfo]);
 
   return (
     <>
@@ -51,11 +53,26 @@ function App() {
             <Route path="Payment" element={<div>Payment Page</div>} />
           </Route>
           {/* Doctor Portal with Nested Routes */}
-          <Route path="/DoctorPortal/" element={<DoctorSideBarMenu landing={true} info={userInfo}/>}>
-            <Route path="/DoctorPortal/Dashboard" element={<DoctorDashboard info={userInfo} />} />
-            <Route path="/DoctorPortal/Request" element={<div style={{color: "#000000"}}>Incoming Request Page</div>} />
-            <Route path="/DoctorPortal/Appointment" element={<div>Appointments Page</div>} />
-            <Route path="/DoctorPortal/PillRequest" element={<DoctorPillRequest />} />
+          <Route
+            path="/DoctorPortal/"
+            element={<DoctorSideBarMenu landing={true} info={userInfo} />}
+          >
+            <Route
+              path="/DoctorPortal/Dashboard"
+              element={<DoctorDashboard info={userInfo} />}
+            />
+            <Route
+              path="/DoctorPortal/Request"
+              element={<DoctorIncomingRequests info={userInfo} />}
+            />
+            <Route
+              path="/DoctorPortal/Appointment"
+              element={<div>Appointments Page</div>}
+            />
+            <Route
+              path="/DoctorPortal/PillRequest"
+              element={<DoctorPillRequest />}
+            />
           </Route>
           {/* Reviews with Nested Routes */}
           <Route path='/Reviews' element={<Reviews />} />
@@ -64,7 +81,7 @@ function App() {
         </Routes>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
