@@ -1,4 +1,4 @@
-import { Flex, Modal, Form, message, Button, Input, Rate } from "antd"
+import { Flex, Modal, Form, message, notification, Button, Input, Rate } from "antd"
 import axios from "axios"
 import { useEffect, useState } from "react"
 
@@ -7,7 +7,9 @@ const desc = ['Very Poor', 'Poor', 'Neutral', 'Good', 'Execellent']
 const ReviewModal = ({open, handleClose, userInfo, doctorInfo, sent}) => {
     const [form] = Form.useForm()
     const [patient, setPatient] = useState(null)
-    const [rating, setRating] = useState(0.0)
+    const [rating, setRating] = useState(0.0)    
+    const [api, contextHolder] = notification.useNotification();
+
 
     useEffect(() => {
         if (open) {
@@ -23,12 +25,22 @@ const ReviewModal = ({open, handleClose, userInfo, doctorInfo, sent}) => {
 
     const sendReview = async (body) => {
         try {
-            const res = axios.post("http://localhost:3000/reviews", body)
+            const res = await axios.post("http://localhost:3000/reviews", body)
 
             sent(true)
             handleClose()
         } catch (err) {
-            console.log("Error Sending Review: ", err)
+            if (axios.isAxiosError(err)){
+                console.error("Axios error:", err.response?.status, err.message, "in ReviewModal.jsx sendReview")
+                if (err.response?.status === 403) {
+                    api.open({
+                        message: "Can't Make a Review!",
+                        description:
+                          `${userInfo?.First_Name} isn't assigned to ${doctorInfo?.[0]?.first_name} ${doctorInfo?.[0]?.last_name}`,
+                    });
+                    form.resetFields()                    
+                }
+            }
         }
     } 
 
@@ -39,8 +51,18 @@ const ReviewModal = ({open, handleClose, userInfo, doctorInfo, sent}) => {
             Review_Text: value.review_text,
             Rating: value.rating
         };
-        console.log("Updated Body: ", )
-        await sendReview(updatedBody)
+        if (!updatedBody.Patient_ID) {
+            console.log("No Patient ID")
+            api.open({
+                message: 'Failed!',
+                description:
+                  `Must be Signed in or a Patient to Make a Review!`,
+            });
+            form.resetFields()                    
+        } else {
+            console.log("Updated Body: ", updatedBody)
+            await sendReview(updatedBody)
+        }
     }
 
     const onFail = () => {
@@ -50,6 +72,7 @@ const ReviewModal = ({open, handleClose, userInfo, doctorInfo, sent}) => {
 
     return (
         <>
+        {contextHolder}
         <Modal open={open} footer={null} onCancel={handleCloseHere} centered className="style-modal" style={{
             width: "auto",
             minWidth: "40vw",

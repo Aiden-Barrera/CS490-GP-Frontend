@@ -23,7 +23,7 @@ const PostsCard = ({postInfo}) => {
 
 
     return (
-        <Flex vertical gap="50px" style={{
+        <Flex vertical gap="10px" style={{
             background: "#ffe6e2", 
             borderRadius: "12px",
             padding: "33px 40px",

@@ -26,7 +26,7 @@ const Navbar = (props) => {
   const items = [
     {
       key: '1',
-      label: userType === "Pharmacist" ? props?.userInfo?.Company_name : props?.userInfo?.First_Name + " " + props?.userInfo?.Last_Name,
+      label: userType === "Pharmacist" ? props?.userInfo?.Company_Name : props?.userInfo?.First_Name + " " + props?.userInfo?.Last_Name,
       disabled: true,
     },
     {
@@ -84,7 +84,7 @@ const Navbar = (props) => {
                         textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
                         }}
                     >
-                        PrimeWell Clinic
+                        {userType === "Pharmacist" ? props?.userInfo?.Company_Name : "PrimeWell Clinic"}
                     </Title>
                 </div>
 

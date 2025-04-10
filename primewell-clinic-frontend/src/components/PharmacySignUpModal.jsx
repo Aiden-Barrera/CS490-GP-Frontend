@@ -181,7 +181,7 @@ const PharmacySignUpModal = (props) => {
               validateTrigger="onSubmit"
             >
               <Input
-                placeholder="Enter your Pharmacy's Work Hours"
+                placeholder="Example: X:XX-Y:YY"
                 style={{ height: "45px" }}
               />
             </Form.Item>
