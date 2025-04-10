@@ -81,9 +81,6 @@ const SideBarMenu = ({info, surveyCompleted}) => {
                             </Badge>
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key="6">
-                        <Link to="/PatientPortal/AccountInfo"><strong>Account Info</strong></Link>
-                    </Menu.Item>
                     <Menu.Item key="7">
                         <Link to="/PatientPortal/Prescription"><strong>Prescription</strong></Link>
                     </Menu.Item>
