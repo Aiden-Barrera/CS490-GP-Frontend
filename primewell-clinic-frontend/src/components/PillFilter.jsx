@@ -9,7 +9,8 @@ const PillFilter = ({info}) => {
 
   const [pillsInfo, setPillsInfo] = useState([]);
   const [searchedPill, setSearchedPill] = useState("");
-  
+  const [sent, setSent] = useState(false);
+
   useEffect(() => {
     const fetchPillsInfo = async () => {
       try {
@@ -20,7 +21,8 @@ const PillFilter = ({info}) => {
       }
     };
     fetchPillsInfo();
-  }, []);
+    setSent(false)
+  }, [sent]);
 
 
   const handleSearch = (e) => {
@@ -130,6 +132,7 @@ const PillFilter = ({info}) => {
         open={createPillModalVisible} 
         handleClose={handleCreatePillCancel} 
         info={info}
+        sent={setSent}
       />      
     </Flex>
       <Table

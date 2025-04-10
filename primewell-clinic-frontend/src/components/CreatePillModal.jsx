@@ -7,6 +7,7 @@ import axios from "axios"
         Currently frontend has Pill_ID
     */}
 
+
 const CreatePillModal = (props) => {
     const [form] = Form.useForm()
     const [pillsInfo, setPillsInfo] = useState([]);
@@ -42,6 +43,7 @@ const CreatePillModal = (props) => {
       
           await axios.post("http://localhost:3000/pillbank", formattedValues);
           message.success("New Pill Added!");
+          props.sent(true)
           form.resetFields();
           props.handleClose();  
         } catch (error) {
