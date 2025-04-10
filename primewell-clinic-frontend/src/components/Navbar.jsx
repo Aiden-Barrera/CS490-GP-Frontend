@@ -26,7 +26,7 @@ const Navbar = (props) => {
   const items = [
     {
       key: '1',
-      label: props?.userInfo?.First_Name + " " + props?.userInfo?.Last_Name,
+      label: userType === "Pharmacist" ? props?.userInfo?.Company_name : props?.userInfo?.First_Name + " " + props?.userInfo?.Last_Name,
       disabled: true,
     },
     {
