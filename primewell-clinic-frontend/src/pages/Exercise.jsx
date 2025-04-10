@@ -20,12 +20,14 @@ const Exercise = ({info}) => { //keep track of patient info for Regiment
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [isListModalOpen, setIsListModalOpen] = useState(false);
     const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState(null);
     
     const showCreateModal = () => {
         setIsCreateModalOpen(true);
     };
 
-    const showListModal = () => {
+    const showListModal = (category) => {
+        setSelectedCategory(category)
         setIsListModalOpen(true);
     };
 
@@ -73,16 +75,16 @@ const Exercise = ({info}) => { //keep track of patient info for Regiment
                                     backgroundColor: "#FFE4E1", 
                                     padding: "20px", 
                                     borderRadius: "10px" }}
-                                    onClick={() => {showListModal()}}
+                                    onClick={() => {showListModal(category.name)}}
                                 >
                                     <div style={{ marginBottom: "20px", pointerEvents: 'none'}}>{category.icon}</div>
                                     <h3 style={{ color: "#F09C96" }}>{category.name}</h3>
                                     <p style={{ fontSize: "12px", color: "#333" }}>{category.description}</p>
                                 </Card>
-                                <ExerciseListModal info={info} open={isListModalOpen} handleClose={handleListCancel} />
                             </Col>
                         ))}
                     </Row>
+                    <ExerciseListModal info={info} open={isListModalOpen} handleClose={handleListCancel} categoryName={selectedCategory} />
                 </Flex>
             
             <Flex justify="center" align="center" style={{ width: "100vw", margin: "25px" }}>
