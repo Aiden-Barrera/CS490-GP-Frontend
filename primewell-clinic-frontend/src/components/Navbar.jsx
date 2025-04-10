@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./../App.css";
-import { Layout, Menu, Typography, Button } from "antd";
+import { Layout, Dropdown, Menu, Typography, Button } from "antd";
 import { useEffect, useState } from "react";
 import UserTypeModal from "./UserTypeModal";
 const { Title } = Typography;
@@ -11,10 +11,8 @@ const Navbar = (props) => {
   const [auth, setAuth] = useState(false)
   const [userType, setUserType] = useState("")
   const [name, setName] = useState("")
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("User has been Authenticated!")
-  }, [auth])
 
   const showModal = (name) => {
     setName(name)
@@ -24,6 +22,44 @@ const Navbar = (props) => {
   const handleClose = () => {
    setIsUserTypeModalOpen(false)
   };
+
+  const items = [
+    {
+      key: '1',
+      label: props?.userInfo?.First_Name + " " + props?.userInfo?.Last_Name,
+      disabled: true,
+    },
+    {
+      type: 'divider',
+    },
+    {
+      key: '2',
+      label: 'View Profile',
+    },
+    {
+      key: '3',
+      label: 'Sign Out',
+    },
+  ]
+
+  const handleMenuClick = (e) => {
+    switch (e.key) {
+      case '2':
+        console.log('Navigating to profile');
+        navigate("/viewProfile")
+        // navigate('/profile'); // if using react-router-dom's useNavigate
+        break;
+      case '3':
+        console.log('Signing out...');
+        setAuth(false);
+        setUserType('');
+        navigate("/")
+        break;
+      default:
+        break;
+    }
+  };
+  
 
     return (    
         <>
@@ -127,25 +163,27 @@ const Navbar = (props) => {
                     </Button>
                   </>
                 ) : (
-                <Button style={{ 
-                  width: "48px", 
-                  height: "48px",
-                  padding: 0,         
-                  border: "none",     
-                  overflow: "hidden", 
-                  display: "flex",    
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "transparent",
-                  marginRight: "20px"
-                }}>
-                  <img src="/userIcon.svg" alt="Icon" style={{ 
-                        width: "100%", 
-                        height: "auto", 
-                        objectFit: "cover", 
-                        borderRadius: "10px" 
-                    }}/>
-                </Button>)}
+                <Dropdown menu={{ items, onClick: handleMenuClick }} placement="bottomRight" trigger={['click']}>
+                  <Button style={{ 
+                    width: "48px", 
+                    height: "48px",
+                    padding: 0,         
+                    border: "none",     
+                    overflow: "hidden", 
+                    display: "flex",    
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: "transparent",
+                    marginRight: "20px"
+                  }}>
+                    <img src="/userIcon.svg" alt="Icon" style={{ 
+                          width: "100%", 
+                          height: "auto", 
+                          objectFit: "cover", 
+                          borderRadius: "10px" 
+                      }}/>
+                  </Button>
+                </Dropdown>)}
             </Header>
 
             <UserTypeModal

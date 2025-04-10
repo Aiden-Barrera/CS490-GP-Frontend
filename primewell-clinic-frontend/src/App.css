@@ -85,7 +85,23 @@ body{
   background: #ffffff !important;
 }
 
-.menu .ant-menu-item-selected {
+.menu .ant-menu-item-selected,
+.menu .ant-menu-item-selected .ant-badge {
   color: #ffffff !important; 
 }
 
+.slot-card {
+  background-color: #ffe6e2;
+  transition: all 0.3s ease;
+  color: #333333 !important;
+  cursor: pointer;
+}
+
+.slot-card:hover {
+  background-color: #ffccc2 !important; /* a slightly darker tone for hover */
+}
+
+.slot-card.active {
+  background-color: #333333 !important; /* grey highlight */
+  color: #ffffff !important;
+}

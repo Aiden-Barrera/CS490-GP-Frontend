@@ -10,8 +10,7 @@ const UserTypeModal = (props) => {
   const [isPatientSignUpModalOpen, setIsPatientSignUpModalOpen] =
     useState(false);
   const [isDoctorSignUpModalOpen, setIsDoctorSignUpModalOpen] = useState(false);
-  const [isPharmacySignUpModalOpen, setIsPharmacySignUpModalOpen] =
-    useState(false);
+  const [isPharmacySignUpModalOpen, setIsPharmacySignUpModalOpen] = useState(false);
 
   const handlePatientClick = () => {
     handleClose();
@@ -156,4 +155,4 @@ const UserTypeModal = (props) => {
   );
 };
 
-export default UserTypeModal;
+export default UserTypeModal

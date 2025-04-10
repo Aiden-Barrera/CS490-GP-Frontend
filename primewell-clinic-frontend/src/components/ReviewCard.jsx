@@ -1,155 +1,57 @@
-import { useState } from "react";
-import { Flex, Layout } from "antd";
-import { BorderOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import {Flex, Layout} from "antd"
+import {  UserOutlined } from '@ant-design/icons'
 
-const { Content, Sider } = Layout;
-const ReviewCard = () => {
-  const DoctorHeader = ({ name }) => {
-    return (
-      <h2
-        justify="start"
-        align="start"
-        style={{
-          color: "#0C0C0D",
-          backgroundColor: "#FFE6E2",
-          fontSize: 36,
-          marginTop: 5,
-          marginLeft: 10,
-          height: 30,
-          fontFamily: "Poppins",
-        }}
-      >
-        {name}
-      </h2>
-    );
-  };
+const {Content, Sider} = Layout
+const ReviewCard = ({info, onClick}) => {
+  const [rating, setRating] = useState(0)
 
-  const ReviewBody = ({ reviewBody }) => {
-    return (
-      <div
-        style={{
-          width: 660,
-          height: 100,
-          fontSize: 20,
-          marginTop: -10,
-          textAlign: "left",
-          padding: 10,
-          backgroundColor: "#FFE6E2",
-          color: "#333",
-          overflow: "auto",
-          fontFamily: "Poppins",
-        }}
-      >
-        {reviewBody}
-      </div>
-    );
-  };
-
+  useEffect(() => {
+    setRating(parseFloat(info?.rating).toFixed(1))
+  }, [info])
+  
   return (
     <>
       {/*Format of the review cards*/}
-      <Layout
-        style={{
+    <div className="review-card" onClick={() => onClick(info)}>
+      <Layout style={{
           borderRadius: 8,
-          overflow: "hidden",
-          width: "100%",
-          height: "210px",
+          overflow: 'hidden',
+          width: '100%',
+          height: "100%",
           backgroundColor: "#FFE6E2",
-        }}
-      >
+          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
+      }}>
         {/*Where 'Quality', squarebox containing rating, and no. of ratings will go*/}
-        <Sider
-          width="25%"
-          style={{
-            flexDirection: "column",
-            textAlign: "center",
-            lineHeight: "120px",
-            color: "#fff",
-            backgroundColor: "#FFE6E2",
-            fontFamily: "Poppins",
-          }}
-        >
-          <Flex
-            style={{
-              marginTop: "10px",
-              width: "100%",
-              height: "30px",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "#000000",
-            }}
-          >
-            Quality
-          </Flex>
-          <Flex
-            style={{
-              marginLeft: "55px",
-              width: "50%",
-              height: "101px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "#ffffff",
-              color: "#000000",
-            }}
-          >
-            <span style={{ fontSize: "70px", fontWeight: "bold" }}>3.5</span>
-          </Flex>
-          <Flex
-            style={{
-              width: "100%",
-              height: "30px",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "#000000",
-            }}
-          >
-            no. of rating
-          </Flex>
-        </Sider>
-
-        <Layout>
-          {/*Header of the review card*/}
-          <Flex
-            style={{
-              borderRadius: 8,
-              display: "flex",
-              backgroundColor: "#FFE6E2",
-              justifyContent: "start",
-              alignItems: "center",
-            }}
-          >
-            {/*Put user symbol here*/}
-            <h2
-              style={{
-                justifyContent: "start",
-                align: "center",
-                color: "#0C0C0D",
-                backgroundColor: "#FFE6E2",
-                fontSize: 24,
-                margin: 0,
-                fontFamily: "Poppins",
-              }}
-            >
-              Header
-            </h2>
-          </Flex>
-          <Content
-            style={{
-              textAlign: "center",
-              minHeight: 100,
-              color: "#fff",
-              backgroundColor: "#FFE6E2",
-            }}
-          >
-            <DoctorHeader name="Dr. Example" />
-            {/* <DoctorHeader name={`Dr. ${props.info.first_name} ${props.info.last_name}`} /> */}
-            <ReviewBody reviewBody="Review goes here" />
+        <Sider width="25%" style={{backgroundColor: '#FFE6E2'}}>
+          <Flex vertical justify="center" align="center" gap="5px" style={{color: "#333333"}}> 
+              <h2>Quality</h2> 
+              <Flex justify="center" align="center"
+                  style={{
+                      width: 'auto',
+                      borderRadius: "8px",
+                      backgroundColor: rating >= 4 ? '#80ed99' : rating >= 3 ? "#fee440" : "#ef476f",
+                      color: "#333333",
+                      }}
+                  >     
+                    <p style={{ fontSize: '50px', fontWeight: 'bold', margin: 0, padding: "15px" }}>{rating}</p>
+                  </Flex>
+                  <p style={{fontWeight: "bold"}}>{info?.cnt} Ratings</p>
+              </Flex>
+          </Sider>
+          <Content style={{background: "#ffe6e2", flex: 1, display: "flex", flexDirection: "column" }}>
+              <Flex vertical gap="5px" justify="center" style={{margin: "20px", height:"100%"}}>
+                <Flex gap="10px" align="center">
+                  <img src="/MaleDoctorIcon.svg" alt="Icon" style={{width: "48px"}} />
+                  <h1 style={{margin: 0, color: "#333333"}}>{`${info?.first_name} ${info?.last_name}`}</h1>
+                </Flex>
+                <h2 style={{margin: 0, color: "#333333"}}>{info?.specialty}</h2>   
+              </Flex>
           </Content>
         </Layout>
-      </Layout>
+      </div>
     </>
-  );
-};
+  )
+}
 
 export default ReviewCard;
