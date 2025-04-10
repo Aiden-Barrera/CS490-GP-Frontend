@@ -32,21 +32,24 @@ const CreatePillModal = (props) => {
 
       const onFinish = async (values) => {
         try {
-            const formattedValues = {
-                ...values,
-                ID: Number(values.ID), // Ensure ID is a number
-                Dosage: Number(values.Dosage), // Ensure Dosage is a number
-                Cost: Number(values.Cost) // Ensure Cost is a number
-            };
-            await axios.post("http://localhost:3000/pillbank", values);
-            message.success("New Pill Added!");
-            form.resetFields();
-            props.handleClose();  
+          const formattedValues = {
+            ...values,
+            Pill_ID: Number(values.Pill_ID),
+            Dosage: Number(values.Dosage),
+            Cost: Number(values.Cost),
+            Pharm_ID: props.info?.pharm_id  
+          };
+      
+          await axios.post("http://localhost:3000/pillbank", formattedValues);
+          message.success("New Pill Added!");
+          props.sent(true)
+          form.resetFields();
+          props.handleClose();  
         } catch (error) {
-            console.error("Error adding Pill:", error.response?.data || error.message);
-            message.error("Error:", error.response?.data?.message || "Unable to Add Pill");
+          console.error("Error adding Pill:", error.response?.data || error.message);
+          message.error("Error:", error.response?.data?.message || "Unable to Add Pill");
         } 
-    };
+      };
     
 
     const onFail = () => {

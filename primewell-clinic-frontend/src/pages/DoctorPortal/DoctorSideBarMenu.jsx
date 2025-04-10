@@ -34,7 +34,7 @@ const DoctorSideBarMenu = ({info}) => {
                 {/* Menu Navigation */}
                 <Menu className="menu">
                     <Menu.Item key="1">
-                        <Link to="/DoctorPortal/Dashboard"><strong>Dashboard</strong></Link>
+                        <Link to="/DoctorPortal"><strong>Dashboard</strong></Link>
                     </Menu.Item>
                     <Menu.Item key="2">
                         <Link to="/DoctorPortal/Request"><strong>Incoming Requests</strong></Link>
