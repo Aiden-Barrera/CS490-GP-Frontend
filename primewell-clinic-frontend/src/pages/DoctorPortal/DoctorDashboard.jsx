@@ -1,8 +1,48 @@
 import { Button, Flex } from "antd";
 import PatientCard from "../../components/PatientCard";
 import UpcomingAptsCards from "../../components/UpcomingAptsCards";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const DoctorDashboard = (props) => {
+  const [doctorPatients, setDoctorPatients] = useState([]);
+  const [upcomingAppointments, setUpcomingAppointments] = useState([]);
+  // console.log(props.info);
+
+  const getDoctorPatients = async () => {
+    try {
+      const res = await axios.post("http://localhost:3000/doctorPatients", {
+        Doctor_ID: props.info.doctor_id,
+      });
+      // console.log(res.data);
+      setDoctorPatients(res.data);
+    } catch (error) {
+      console.error("Error fetching doctor patient data:", error);
+    }
+  };
+
+  const getUpcomingPatients = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:3000/appointment/doctor/${props.info.doctor_id}`
+      );
+      console.log(res.data);
+      setUpcomingAppointments(res.data);
+      if (res.data.length === 0) {
+        console.log("Couldn't get doctor patient data");
+      } else {
+        console.log("Doctor patient data retrieved successfully");
+      }
+    } catch (error) {
+      console.error("Error fetching doctor patient data:", error);
+    }
+  };
+
+  useEffect(() => {
+    getDoctorPatients();
+    getUpcomingPatients();
+  }, []);
+
   return (
     <Flex
       justify="start"
@@ -29,7 +69,10 @@ const DoctorDashboard = (props) => {
         }}
       >
         <h1 style={{ color: "#333333" }}>Patients</h1>
-        <PatientCard></PatientCard>
+        {doctorPatients.length > 0 &&
+          doctorPatients.map((patient) => (
+            <PatientCard Fname={patient.First_Name} Lname={patient.Last_Name} />
+          ))}
       </Flex>
       {/* Doctor's Upcoming Appointments */}
       <Flex
@@ -45,7 +88,17 @@ const DoctorDashboard = (props) => {
         }}
       >
         <h1 style={{ color: "#333333" }}>Upcoming Appointments</h1>
-        <UpcomingAptsCards></UpcomingAptsCards>
+        {upcomingAppointments.length > 0 &&
+          upcomingAppointments.map((patient) => (
+            <UpcomingAptsCards
+              Fname={patient.First_Name}
+              Lname={patient.Last_Name}
+              Date={patient.Appt_Date}
+              Time={patient.Appt_Time}
+              Tier={patient.Tier}
+            ></UpcomingAptsCards>
+          ))}
+        {/* <UpcomingAptsCards></UpcomingAptsCards> */}
       </Flex>
     </Flex>
   );

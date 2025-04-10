@@ -3,8 +3,8 @@ import { UserOutlined, CalendarOutlined } from "@ant-design/icons";
 
 const { Content } = Layout;
 
-const PatientCard = () => {
-  const PatientName = ({ name }) => {
+const UpcomingAptsCards = (props) => {
+  const PatientData = ({ name }) => {
     return (
       <div
         style={{
@@ -55,11 +55,17 @@ const PatientCard = () => {
         <Flex style={{ flexDirection: "column" }}>
           <Flex>
             <CalendarOutlined style={{ fontSize: "30px", color: "white" }} />
-            <p fontSize="30px"> Date | Time</p>
+            <p fontSize="30px">
+              {" "}
+              {props.Date.substring(0, 10)} | {props.Time}
+            </p>
           </Flex>
           <Flex>
             <UserOutlined style={{ fontSize: "30px", color: "white" }} />
-            <p fontSize="30px"> Name | Tier</p>
+            <p fontSize="30px">
+              {" "}
+              {props.Fname} {props.Lname} | {props.Tier}
+            </p>
           </Flex>
         </Flex>
         <Content
@@ -90,4 +96,4 @@ const PatientCard = () => {
   );
 };
 
-export default PatientCard;
+export default UpcomingAptsCards;

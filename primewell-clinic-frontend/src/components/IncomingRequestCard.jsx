@@ -3,8 +3,12 @@ import { UserOutlined, CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
 const { Content } = Layout;
 
-const PatientCard = () => {
-  const PatientName = ({ name }) => {
+const IncomingRequestCard = (props) => {
+  const handleAccept = () => {};
+
+  const handleDecline = () => {};
+
+  const PatientName = ({ Fname, Lname }) => {
     return (
       <div
         style={{
@@ -23,7 +27,7 @@ const PatientCard = () => {
             margin: 0,
           }}
         >
-          {name}
+          {Fname} {Lname}
         </h2>
       </div>
     );
@@ -52,7 +56,7 @@ const PatientCard = () => {
         }}
       >
         <UserOutlined style={{ fontSize: "40px", color: "white" }} />
-        <PatientName name="Patient Name" />
+        <PatientName Fname={props.Fname} Lname={props.Lname} />
         <Content
           style={{
             display: "flex",
@@ -73,6 +77,7 @@ const PatientCard = () => {
               height: 60,
               width: 60,
             }}
+            onClick={handleAccept()}
           >
             <CheckOutlined />
           </Button>
@@ -87,6 +92,7 @@ const PatientCard = () => {
               height: 60,
               width: 60,
             }}
+            onClick={handleDecline()}
           >
             <CloseOutlined />
           </Button>
@@ -96,4 +102,4 @@ const PatientCard = () => {
   );
 };
 
-export default PatientCard;
+export default IncomingRequestCard;

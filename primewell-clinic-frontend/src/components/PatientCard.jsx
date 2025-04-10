@@ -1,10 +1,11 @@
 import { Flex, Layout, Button } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { ControlOutlined, UserOutlined } from "@ant-design/icons";
 
 const { Content } = Layout;
 
-const PatientCard = () => {
-  const PatientName = ({ name }) => {
+const PatientCard = (props) => {
+  // console.log(props);
+  const PatientName = ({ Fname, Lname }) => {
     return (
       <div
         style={{
@@ -23,7 +24,7 @@ const PatientCard = () => {
             margin: 0,
           }}
         >
-          {name}
+          {Fname} {Lname}
         </h2>
       </div>
     );
@@ -52,7 +53,7 @@ const PatientCard = () => {
         }}
       >
         <UserOutlined style={{ fontSize: "40px", color: "white" }} />
-        <PatientName name="Patient Name" />
+        <PatientName Fname={props.Fname} Lname={props.Lname} />
         {/* <Flex>
           <Content
             style={{
