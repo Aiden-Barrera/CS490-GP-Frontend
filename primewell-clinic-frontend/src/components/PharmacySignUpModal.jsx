@@ -13,9 +13,8 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { DownOutlined, MedicineBoxTwoTone } from "@ant-design/icons";
-import PreliminaryFormModal from "./PreliminaryFormModal";
 
-const PatientSignUpModal = (props) => {
+const PharmacySignUpModal = (props) => {
   const [form] = Form.useForm();
   useEffect(() => {
     if (props.open) {
@@ -29,15 +28,21 @@ const PatientSignUpModal = (props) => {
   };
 
   const onFinish = async (value) => {
-    value.Address = JSON.stringify(value.Address);
-    console.log(value.Address);
-    console.log(value);
-    const res = await axios.post("http://localhost:3000/pharmacies", value);
-    if (res.data.length === 0) {
-      console.log("Couldn't create pharmacy");
-    } else {
-      console.log("Pharmacy Created");
-      handleClose();
+    try {
+      value.Address = JSON.stringify(value.Address);
+      console.log(value.Address);
+      console.log(value);
+      const res = await axios.post("http://localhost:3000/pharmacies", value);
+      if (res.data.length === 0) {
+        console.log("Couldn't create pharmacy");
+      } else {
+        props.info(res.data)
+        props.auth(true)
+        console.log("Pharmacy Created");
+        handleClose();
+      }
+    } catch (err) {
+      console.log("Error Signing Pharmacy: ", err)
     }
   };
 
@@ -88,7 +93,7 @@ const PatientSignUpModal = (props) => {
                   message: "Please input your Pharmacy Name!",
                 },
                 {
-                  pattern: /^([a-zA-Z](\s){0,1}){1,}$/,
+                  pattern: /^([a-zA-Z'](\s)?)+$/,
                   message: "Please input a valid Pharmacy Name!",
                 },
               ]}
@@ -222,4 +227,4 @@ const PatientSignUpModal = (props) => {
   );
 };
 
-export default PatientSignUpModal;
+export default PharmacySignUpModal;
