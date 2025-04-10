@@ -3,6 +3,7 @@ import { Flex, Button, Menu } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 
 const PharmaSideBarMenu = ({info}) => {
+    console.log("From PharmaSideBarMenu.jsx: ", info?.pharm_id)
     return (
         <Flex style={{
             height: "90vh",

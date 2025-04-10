@@ -4,7 +4,9 @@ import axios from 'axios';
 import { PlusOutlined } from '@ant-design/icons';
 import CreatePillModal from './CreatePillModal';
 
-const PillFilter = ({pharmID}) => {
+const PillFilter = ({info}) => {
+  console.log("📦 info in PillFilter:", info);
+
   const [pillsInfo, setPillsInfo] = useState([]);
   const [searchedPill, setSearchedPill] = useState("");
   
@@ -29,14 +31,13 @@ const PillFilter = ({pharmID}) => {
     console.log('params', pagination, filters, sorter, extra);
   };
 
-  {/* For searchbar */}
+ 
   const filteredPills = pillsInfo
-  .filter((pill) => pill.Pharm_ID === pharmID)
+  .filter((pill) => !info || pill.Pharm_ID === info.pharm_id)
   .filter((pill) =>
     pill.Pill_Name.toLowerCase().includes(searchedPill.toLowerCase())
   );
-
-  {/* For table */}
+ 
   const [createPillModalVisible, setCreatePillModalVisible] = useState(false);
   const showCreatePillModal = () => {
     setCreatePillModalVisible(true);
@@ -125,8 +126,12 @@ const PillFilter = ({pharmID}) => {
           icon={<PlusOutlined />}
           onClick={() => {showCreatePillModal()}} />
       </Tooltip> 
-      <CreatePillModal open={createPillModalVisible} handleClose={handleCreatePillCancel}/>  
-      </Flex>
+      <CreatePillModal 
+        open={createPillModalVisible} 
+        handleClose={handleCreatePillCancel} 
+        info={info}
+      />      
+    </Flex>
       <Table
         columns={columns}
         dataSource={filteredPills}

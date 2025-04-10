@@ -17,6 +17,8 @@ import Exercise from './pages/Exercise'
 import ReviewDetail from './components/ReviewDetail'
 import DailySurvey from './pages/PatientPortal/DailySurvey'
 import Profile from './pages/Profile'
+import PharmaSideBarMenu from './pages/PharmacistPortal/PharmaSideBarMenu'
+import PillPage from './pages/PharmacistPortal/PillPage'
 
 function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
@@ -39,7 +41,7 @@ function App() {
           <Route path='/' element={<Home />}/>
           <Route path='/Posts' element={<Posts />}/>
           <Route path='/PharmacistPortal' element={<PharmacistPortal />}/>
-          <Route path='/Exercise' element={<Exercise />} />
+          <Route path='/Exercise' element={<Exercise info={userInfo}/>} />
           <Route path='/viewProfile' element={<Profile userInfo={userInfo}/>} />
           {/* Patient Portal with Nested Routes */}
           <Route path="/PatientPortal" element={<SideBarMenu info={userInfo} surveyCompleted={surveyCompleted}/>}>
@@ -73,6 +75,14 @@ function App() {
               path="/DoctorPortal/PillRequest"
               element={<DoctorPillRequest />}
             />
+          </Route>
+           {/* Pharmacist Portal with Nested Routes */}
+          <Route path="/PharmacistPortal/" element={<PharmaSideBarMenu info={userInfo} />}>
+            <Route path="PharmacyPortal/Dashboard" element={<div>Dashboard</div>} />
+            <Route path="PharmacyPortal/Request" element={<div>Request</div>} />
+            <Route path="PharmacyPortal/Pickups" element={<div>Pending Pick-ups Page</div>} />
+            <Route path="PharmacyPortal/PillPage" element={<PillPage info={userInfo} />} />
+            <Route path="PharmacyPortal/AccountInfo" element={<div>Account Info Page</div>} />
           </Route>
           {/* Reviews with Nested Routes */}
           <Route path='/Reviews' element={<Reviews />} />
