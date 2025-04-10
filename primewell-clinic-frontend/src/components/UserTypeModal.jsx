@@ -139,16 +139,22 @@ const UserTypeModal = (props) => {
       <PatientSignUpModal
         open={isPatientSignUpModalOpen}
         userType={props.userType}
+        info={props.info}
+        auth={props.auth}
         handleClose={() => setIsPatientSignUpModalOpen(false)}
       />
       <DoctorSignUpModal
         open={isDoctorSignUpModalOpen}
         userType={props.userType}
+        info={props.info}
+        auth={props.auth}
         handleClose={() => setIsDoctorSignUpModalOpen(false)}
       />
       <PharmacySignUpModal
         open={isPharmacySignUpModalOpen}
         userType={props.userType}
+        info={props.info}
+        auth={props.auth}
         handleClose={() => setIsPharmacySignUpModalOpen(false)}
       />
     </>

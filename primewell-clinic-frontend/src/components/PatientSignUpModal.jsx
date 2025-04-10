@@ -42,16 +42,23 @@ const PatientSignUpModal = (props) => {
   const onFinish = async (value) => {
     // console.log(value);
     // console.log(symptoms);
-    const res = await axios.post("http://localhost:3000/patient", value);
-    if (res.data.length === 0) {
-      console.log("Couldn't create patient");
-    } else {
-      console.log("Patient Created");
-      const prelim = await axios.post("http://localhost:3000/preliminaries", {
-        Patient_ID: res.data.insertId,
-        Symptoms: JSON.stringify(symptoms),
-      });
-      handleClose();
+    try {
+      console.log("Patient Sign up info: ", value)
+      const res = await axios.post("http://localhost:3000/patient", value);
+      if (res.data.length === 0) {
+        console.log("Couldn't create patient");
+      } else {
+        console.log("Patient Created");
+        const prelim = await axios.post("http://localhost:3000/preliminaries", {
+          Patient_ID: res.data.patient_id,
+          Symptoms: JSON.stringify(symptoms),
+        });
+        props.info(res.data)
+        props.auth(true)
+        handleClose();
+      }
+    } catch (err) {
+      console.log("Error Signing Patient Up: ", err)
     }
   };
 
