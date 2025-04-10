@@ -6,7 +6,7 @@ import {
   Button,
   Input,
   Divider,
-  Dropdown,
+  Select,
   Space,
   Tooltip,
 } from "antd";
@@ -19,6 +19,7 @@ const PatientSignUpModal = (props) => {
   const [form] = Form.useForm();
   const [isPreliminaryFormModalOpen, setIsPreliminaryFormModalOpen] =
     useState(false);
+  const [symptoms, setSymptoms] = useState({});
 
   const handlePreliminaryFormClick = () => {
     // handleClose();
@@ -27,7 +28,9 @@ const PatientSignUpModal = (props) => {
 
   useEffect(() => {
     if (props.open) {
+      // console.log(symptoms);
       form.resetFields();
+      setSymptoms({});
       message.destroy();
     }
   }, [props.open]);
@@ -37,7 +40,19 @@ const PatientSignUpModal = (props) => {
   };
 
   const onFinish = async (value) => {
-    
+    // console.log(value);
+    // console.log(symptoms);
+    const res = await axios.post("http://localhost:3000/patient", value);
+    if (res.data.length === 0) {
+      console.log("Couldn't create patient");
+    } else {
+      console.log("Patient Created");
+      const prelim = await axios.post("http://localhost:3000/preliminaries", {
+        Patient_ID: res.data.insertId,
+        Symptoms: JSON.stringify(symptoms),
+      });
+      handleClose();
+    }
   };
 
   const onFail = () => {
@@ -46,42 +61,24 @@ const PatientSignUpModal = (props) => {
 
   const handleClose = () => {
     message.destroy();
+    setSymptoms({});
     props.handleClose();
   };
 
-  const [selectedLabel, setSelectedLabel] = useState("Choose a Pharmacy");
-
-  const handleMenuClick = (e) => {
-    message.info("Click on menu item.");
-    // console.log("click", e);
-    const selectedPharmacy = items.find((item) => item.key === e.key);
-    setSelectedLabel(selectedPharmacy.label);
-    // console.log(selectedPharmacy.label);
-  };
-
-  const items = [
+  const pharmacyOptions = [
     {
       label: "Pharmacy 1",
-      key: "1",
-      icon: <MedicineBoxTwoTone twoToneColor="#f09c96" />,
+      value: "1",
     },
     {
       label: "Pharmacy 2",
-      key: "2",
-      icon: <MedicineBoxTwoTone twoToneColor="#f09c96" />,
+      value: "2",
     },
     {
       label: "Pharmacy 3",
-      key: "3",
-      icon: <MedicineBoxTwoTone twoToneColor="#f09c96" />,
+      value: "3",
     },
   ];
-  const menuProps = {
-    items,
-    selectable: true,
-    defaultSelectedKeys: ["1"],
-    onClick: handleMenuClick,
-  };
 
   return (
     <Modal
@@ -113,7 +110,7 @@ const PatientSignUpModal = (props) => {
             autoComplete="off"
           >
             <Form.Item
-              name="firstName"
+              name="First_Name"
               label="First Name"
               rules={[
                 {
@@ -121,7 +118,7 @@ const PatientSignUpModal = (props) => {
                   message: "Please input your First Name!",
                 },
                 {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make first name regex
+                  pattern: /^[A-Z]{1}[a-z]+$/,
                   message: "Please input a valid First Name!",
                 },
               ]}
@@ -133,7 +130,7 @@ const PatientSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="lastName"
+              name="Last_Name"
               label="Last Name"
               rules={[
                 {
@@ -141,7 +138,7 @@ const PatientSignUpModal = (props) => {
                   message: "Please input your Last Name!",
                 },
                 {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make last name regex (probably same as first name)
+                  pattern: /^[A-Z]{1}[a-z]+$/,
                   message: "Please input a valid Last Name!",
                 },
               ]}
@@ -153,7 +150,7 @@ const PatientSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="email"
+              name="Email"
               label="Email"
               rules={[
                 {
@@ -173,7 +170,7 @@ const PatientSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="phoneNumber"
+              name="Phone"
               label="Phone Number"
               rules={[
                 {
@@ -181,7 +178,7 @@ const PatientSignUpModal = (props) => {
                   message: "Please input your Phone Number!",
                 },
                 {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make phone number regex
+                  pattern: /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/,
                   message: "Please input a valid Phone Number!",
                 },
               ]}
@@ -193,7 +190,7 @@ const PatientSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="address"
+              name="Address"
               label="Address"
               rules={[
                 {
@@ -201,7 +198,7 @@ const PatientSignUpModal = (props) => {
                   message: "Please input your Address!",
                 },
                 {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
+                  pattern: /^[0-9]+ [A-Za-z]+ [A-Za-z]+$/,
                   message: "Please input a valid Address!",
                 },
               ]}
@@ -213,7 +210,7 @@ const PatientSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="zipCode"
+              name="Zip"
               label="Zip Code"
               rules={[
                 {
@@ -233,31 +230,25 @@ const PatientSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="pharmacy"
+              name="Pharm_ID"
               label="Nearest Pharmacy (Based on zip code)"
               rules={[
                 {
                   required: true,
-                  message: "Please choose a  Pharmacy!",
-                },
-                {
-                  // pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make pharmacy regex????
-                  message: "Please choose a  Pharmacy!",
+                  message: "Please choose a Pharmacy!",
                 },
               ]}
-              validateTrigger="onSubmit"
             >
-              <Dropdown menu={menuProps} styles={{ color: "black" }}>
-                <Button>
-                  <Space>
-                    {selectedLabel}
-                    <DownOutlined />
-                  </Space>
-                </Button>
-              </Dropdown>
+              <Select placeholder="Select a pharmacy">
+                {pharmacyOptions.map((pharmacy) => (
+                  <Select.Option key={pharmacy.value} value={pharmacy.value}>
+                    {pharmacy.label}
+                  </Select.Option>
+                ))}
+              </Select>
             </Form.Item>
             <Form.Item
-              name="pw"
+              name="PW"
               label="Create a password"
               rules={[
                 {
@@ -314,6 +305,8 @@ const PatientSignUpModal = (props) => {
       <PreliminaryFormModal
         open={isPreliminaryFormModalOpen}
         handleClose={() => setIsPreliminaryFormModalOpen(false)}
+        symptoms={symptoms}
+        onSubmitSymptoms={(data) => setSymptoms(data)}
       />
     </Modal>
   );

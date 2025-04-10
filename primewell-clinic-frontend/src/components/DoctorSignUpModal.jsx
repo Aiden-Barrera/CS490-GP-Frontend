@@ -19,15 +19,37 @@ const DoctorSignUpModal = (props) => {
   const [form] = Form.useForm();
   const [isPreliminaryFormModalOpen, setIsPreliminaryFormModalOpen] =
     useState(false);
+  const [schedule, setSchedule] = useState({});
+  const [days, setDays] = useState({
+    Sun: "false",
+    Mon: "false",
+    Tue: "false",
+    Wed: "false",
+    Thu: "false",
+    Fri: "false",
+    Sat: "false",
+  });
+  const [shift1, setShift1] = useState();
+  const [shift2, setShift2] = useState();
 
   const handleWorkHoursFormClick = () => {
     // handleClose();
     setIsPreliminaryFormModalOpen(true);
   };
-
+  // console.log(days);
   useEffect(() => {
     if (props.open) {
       form.resetFields();
+      setSchedule({});
+      setDays({
+        Sun: "false",
+        Mon: "false",
+        Tue: "false",
+        Wed: "false",
+        Thu: "false",
+        Fri: "false",
+        Sat: "false",
+      });
       message.destroy();
     }
   }, [props.open]);
@@ -35,9 +57,26 @@ const DoctorSignUpModal = (props) => {
   const filterPW = (pw) => {
     return pw.replace(/"/g, '\\"');
   };
-
+  // console.log(shift1);
   const onFinish = async (value) => {
-    
+    value = { ...value, Availability: "1" };
+    // console.log(value);
+
+    // console.log(schedule);
+    const res = await axios.post("http://localhost:3000/doctor", value);
+    if (res.data.length === 0) {
+      console.log("Couldn't create doctor");
+    } else {
+      console.log("Doctor Created");
+      // console.log(res.data.insertId);
+      const prelim = await axios.post("http://localhost:3000/doctorSchedule", {
+        Doctor_ID: res.data.insertId,
+        Doctor_Schedule: JSON.stringify(schedule),
+      });
+      handleClose();
+    }
+
+    // handleClose();
   };
 
   const onFail = () => {
@@ -46,6 +85,21 @@ const DoctorSignUpModal = (props) => {
 
   const handleClose = () => {
     message.destroy();
+    console.log(days);
+    setDays({
+      Sun: "false",
+      Mon: "false",
+      Tue: "false",
+      Wed: "false",
+      Thu: "false",
+      Fri: "false",
+      Sat: "false",
+    });
+    // console.log(shift1);
+
+    setShift1();
+    setShift2();
+    // console.log(shift1);
     props.handleClose();
   };
 
@@ -79,7 +133,7 @@ const DoctorSignUpModal = (props) => {
             autoComplete="off"
           >
             <Form.Item
-              name="firstName"
+              name="First_Name"
               label="First Name"
               rules={[
                 {
@@ -87,7 +141,7 @@ const DoctorSignUpModal = (props) => {
                   message: "Please input your First Name!",
                 },
                 {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make first name regex
+                  pattern: /^[A-Z]{1}[a-z]+$/,
                   message: "Please input a valid First Name!",
                 },
               ]}
@@ -99,7 +153,7 @@ const DoctorSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="lastName"
+              name="Last_Name"
               label="Last Name"
               rules={[
                 {
@@ -107,7 +161,7 @@ const DoctorSignUpModal = (props) => {
                   message: "Please input your Last Name!",
                 },
                 {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make last name regex (probably same as first name)
+                  pattern: /^[A-Z]{1}[a-z]+$/,
                   message: "Please input a valid Last Name!",
                 },
               ]}
@@ -119,7 +173,7 @@ const DoctorSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="email"
+              name="Email"
               label="Email"
               rules={[
                 {
@@ -139,7 +193,7 @@ const DoctorSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="phoneNumber"
+              name="Phone"
               label="Phone Number"
               rules={[
                 {
@@ -147,7 +201,7 @@ const DoctorSignUpModal = (props) => {
                   message: "Please input your Phone Number!",
                 },
                 {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make phone number regex
+                  pattern: /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/,
                   message: "Please input a valid Phone Number!",
                 },
               ]}
@@ -159,47 +213,27 @@ const DoctorSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="address"
-              label="Address"
+              name="Specialty"
+              label="Specialty"
               rules={[
                 {
                   required: true,
-                  message: "Please input your Address!",
+                  message: "Please input your Specialty!",
                 },
                 {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
-                  message: "Please input a valid Address!",
+                  pattern: /^([a-zA-Z](\s){0,1}){1,}$/,
+                  message: "Please input a valid Specialty!",
                 },
               ]}
               validateTrigger="onSubmit"
             >
               <Input
-                placeholder="Enter your address"
+                placeholder="Enter your specialty"
                 style={{ height: "45px" }}
               />
             </Form.Item>
             <Form.Item
-              name="zipCode"
-              label="Zip Code"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your Zip Code!",
-                },
-                {
-                  pattern: /^[0-9]{5}$/,
-                  message: "Please input a valid Zip Code!",
-                },
-              ]}
-              validateTrigger="onSubmit"
-            >
-              <Input
-                placeholder="Enter your zip code"
-                style={{ height: "45px" }}
-              />
-            </Form.Item>
-            <Form.Item
-              name="doctorlicensenumber"
+              name="License_Serial"
               label="Doctor License Number"
               rules={[
                 {
@@ -207,7 +241,7 @@ const DoctorSignUpModal = (props) => {
                   message: "Please input your Doctor License Number!",
                 },
                 {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make Doctor License Number regex
+                  pattern: /^[0-9]{3}-[0-9]{2}-[0-9]{6}$/,
                   message: "Please input a valid Doctor License Number!",
                 },
               ]}
@@ -219,7 +253,7 @@ const DoctorSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="pw"
+              name="PW"
               label="Create a password"
               rules={[
                 {
@@ -276,6 +310,14 @@ const DoctorSignUpModal = (props) => {
       <WorkHoursFormModal
         open={isPreliminaryFormModalOpen}
         handleClose={() => setIsPreliminaryFormModalOpen(false)}
+        schedule={schedule}
+        onSubmitSchedule={(data) => setSchedule(data)}
+        days={days}
+        onSubmitDays={(data) => setDays(data)}
+        shift1={shift1}
+        onSubmitShift1={(data) => setShift1(data)}
+        shift2={shift2}
+        onSubmitShift2={(data) => setShift2(data)}
       />
     </Modal>
   );
