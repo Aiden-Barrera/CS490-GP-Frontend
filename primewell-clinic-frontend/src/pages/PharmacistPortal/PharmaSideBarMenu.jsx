@@ -34,9 +34,6 @@ const PharmaSideBarMenu = ({info}) => {
 
                 {/* Menu Navigation */}
                 <Menu className="menu">
-                    <Menu.Item key="1">
-                        <Link to="PharmacyPortal/Dashboard"><strong>Dashboard</strong></Link>
-                    </Menu.Item>
                     <Menu.Item key="2">
                         <Link to="PharmacyPortal/Request"><strong>Requests</strong></Link>
                     </Menu.Item>
@@ -44,7 +41,7 @@ const PharmaSideBarMenu = ({info}) => {
                         <Link to="PharmacyPortal/Pickups"><strong>Pending Pick-ups</strong></Link>
                     </Menu.Item>
                     <Menu.Item key="4">
-                        <Link to="PharmacyPortal/PillPage"><strong>Pill Page</strong></Link>
+                        <Link to="/PharmacistPortal"><strong>Pill Page</strong></Link>
                     </Menu.Item>
                     <Menu.Item key="5">
                         <Link to="PharmacyPortal/AccountInfo"><strong>Account Info</strong></Link>
