@@ -63,6 +63,15 @@ const CreateExerciseModal = (props) => {
                         >
                             <Input placeholder="Muscle Group" style={{height: "45px"}}/>
                         </Form.Item>
+                        <Form.Item name="Exercise Class" label="Exercise Class" rules={[
+                            {
+                                required: true,
+                                message: "Exercise Class Required"
+                            },
+                        ]}
+                        >
+                            <Input placeholder="Exercise Class" style={{height: "45px"}}/>
+                        </Form.Item>
                         <Form.Item name="Sets" label="Sets" rules={[
                             {
                                 required: true,
