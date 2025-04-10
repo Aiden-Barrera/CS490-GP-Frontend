@@ -63,17 +63,23 @@ const DoctorSignUpModal = (props) => {
     // console.log(value);
 
     // console.log(schedule);
-    const res = await axios.post("http://localhost:3000/doctor", value);
-    if (res.data.length === 0) {
-      console.log("Couldn't create doctor");
-    } else {
-      console.log("Doctor Created");
-      // console.log(res.data.insertId);
-      const prelim = await axios.post("http://localhost:3000/doctorSchedule", {
-        Doctor_ID: res.data.insertId,
-        Doctor_Schedule: JSON.stringify(schedule),
-      });
-      handleClose();
+    try {
+      const res = await axios.post("http://localhost:3000/doctor", value);
+      if (res.data.length === 0) {
+        console.log("Couldn't create doctor");
+      } else {
+        console.log("Doctor Created: ", res.data);
+        // console.log(res.data.insertId);
+        const prelim = await axios.post("http://localhost:3000/doctorSchedule", {
+          Doctor_ID: res.data.doctor_id,
+          Doctor_Schedule: JSON.stringify(schedule),
+        });
+        props.info(res.data)
+        props.auth(true)
+        handleClose();
+      }
+    } catch (err) {
+      console.log('Signing Doctor Failed: ', err)
     }
 
     // handleClose();

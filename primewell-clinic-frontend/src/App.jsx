@@ -60,7 +60,7 @@ function App() {
             element={<DoctorSideBarMenu landing={true} info={userInfo} />}
           >
             <Route
-              path="/DoctorPortal/Dashboard"
+              index
               element={<DoctorDashboard info={userInfo} />}
             />
             <Route
@@ -78,10 +78,9 @@ function App() {
           </Route>
            {/* Pharmacist Portal with Nested Routes */}
           <Route path="/PharmacistPortal/" element={<PharmaSideBarMenu info={userInfo} />}>
-            <Route path="PharmacyPortal/Dashboard" element={<div>Dashboard</div>} />
             <Route path="PharmacyPortal/Request" element={<div>Request</div>} />
             <Route path="PharmacyPortal/Pickups" element={<div>Pending Pick-ups Page</div>} />
-            <Route path="PharmacyPortal/PillPage" element={<PillPage info={userInfo} />} />
+            <Route index element={<PillPage info={userInfo} />} />
             <Route path="PharmacyPortal/AccountInfo" element={<div>Account Info Page</div>} />
           </Route>
           {/* Reviews with Nested Routes */}
