@@ -97,6 +97,8 @@ const Navbar = (props) => {
                   width: "auto", // Ensures the menu expands to fit items
                   marginRight: "5px"
                   }}>
+                  {userType !== "Pharmacist" && (
+                    <>
                     <Menu.Item key="1">
                         <Link to="/" style={{ color: "#ffffff" }}>
                         <strong>HOME</strong>
@@ -107,6 +109,8 @@ const Navbar = (props) => {
                         <strong>POSTS</strong>
                         </Link>
                     </Menu.Item>
+                    </>
+                  )}
                     {auth ? (
                       <>
                       {userType === "Patient" ? (
