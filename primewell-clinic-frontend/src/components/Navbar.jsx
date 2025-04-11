@@ -10,6 +10,7 @@ const Navbar = (props) => {
   const [isUserTypeModalOpen, setIsUserTypeModalOpen] = useState(false);
   const [auth, setAuth] = useState(false)
   const [userType, setUserType] = useState("")
+  const [isPharm, setIsPharm] = useState(false)
   const [name, setName] = useState("")
   const navigate = useNavigate();
 
@@ -52,6 +53,9 @@ const Navbar = (props) => {
       case '3':
         console.log('Signing out...');
         setAuth(false);
+        if (userType === "Pharmacist"){
+          setIsPharm(false)
+        }
         setUserType('');
         navigate("/")
         break;
@@ -84,7 +88,7 @@ const Navbar = (props) => {
                         textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
                         }}
                     >
-                        {userType === "Pharmacist" ? props?.userInfo?.Company_Name : "PrimeWell Clinic"}
+                        {isPharm ? props?.userInfo?.Company_Name : "PrimeWell Clinic"}
                     </Title>
                 </div>
 
@@ -97,7 +101,7 @@ const Navbar = (props) => {
                   width: "auto", // Ensures the menu expands to fit items
                   marginRight: "5px"
                   }}>
-                  {userType !== "Pharmacist" && (
+                  {!isPharm && (
                     <>
                     <Menu.Item key="1">
                         <Link to="/" style={{ color: "#ffffff" }}>
@@ -132,18 +136,22 @@ const Navbar = (props) => {
                           </Link>
                         </Menu.Item>
                       ) : null}
-                      <Menu.Item key="5">
-                        <Link to="/Exercise" style={{ color: "#ffffff" }}>
-                        <strong>EXERCISES</strong>
-                        </Link>
-                      </Menu.Item>
+                      {!isPharm && (
+                        <Menu.Item key="5">
+                          <Link to="/Exercise" style={{ color: "#ffffff" }}>
+                          <strong>EXERCISES</strong>
+                          </Link>
+                        </Menu.Item>
+                      )}
                       </>
                     ) : null}
-                    <Menu.Item key="3">
-                        <Link to="/Reviews" style={{ color: "#ffffff" }}>
-                        <strong>REVIEWS</strong>
-                        </Link>
-                    </Menu.Item>
+                    {!isPharm && (
+                      <Menu.Item key="3">
+                          <Link to="/Reviews" style={{ color: "#ffffff" }}>
+                          <strong>REVIEWS</strong>
+                          </Link>
+                      </Menu.Item>
+                    )}
                 </Menu>
                 {!auth ? (
                   <>
@@ -197,6 +205,7 @@ const Navbar = (props) => {
                 userType={userType}
                 setUserType={setUserType}
                 info={props.info}
+                setIsPharm={setIsPharm}
                 handleClose={() => handleClose("SignUp")}
             />
         </>
