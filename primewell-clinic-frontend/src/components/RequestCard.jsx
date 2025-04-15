@@ -4,9 +4,11 @@ import axios from "axios";
 import dayjs from 'dayjs';
 import SlotCard from "./SlotCard";
 const disabledDate = (current) => {
-    const now = dayjs();
-    return current.month() !== now.month() || current.year() !== now.year();
-  };
+    const today = dayjs().startOf('day');
+    const maxDate = today.add(28, 'day');
+  
+    return current.isBefore(today, 'day') || current.isAfter(maxDate, 'day');
+};
 
 const RequestCard = (props) => {
     const [btnClicked, setBtnClicked] = useState(false)
@@ -17,12 +19,14 @@ const RequestCard = (props) => {
 
     const handleSelect = (value) => {
         setSelectDate(value)
+        console.log("Selected Date: ", value)
     }
 
     const fetchDaySchudule = async () => {
         const body = {
             doc_id: props.info.doctor_id,
-            day: selectDate.format("dddd")
+            day: selectDate.format("dddd"),
+            date: selectDate.format("YYYY-MM-DD")
         }
         console.log(body)
         const res = await axios.post("http://localhost:3000/getDoctorSchedule", body)
@@ -90,7 +94,7 @@ const RequestCard = (props) => {
                     <Calendar fullscreen={false} onSelect={handleSelect} disabledDate={disabledDate} style={{width: "300px", border: "1px solid #999999", borderRadius: "9px", backgroundColor: "#ffe6e2", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} />
                     <Flex vertical gap="50px" justify="center" align="flex-start">
                         <Flex gap="20px" justify="center" align="flex-start">
-                            {daySchedule?.[0]?.Slots.map((timeSlot, index) => (
+                            {daySchedule?.map((timeSlot, index) => (
                                 <SlotCard key={index} index={index} timeSlot={timeSlot} setTimeSlot={setTimeSlot} onClick={handleClick} isActive={index === activeIndex}/>
                             ))}
                         </Flex>

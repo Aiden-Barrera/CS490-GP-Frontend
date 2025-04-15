@@ -108,7 +108,6 @@ const Profile = ({userInfo}) => {
                         {userType === "Pharmacy" && (
                             <>
                                 <p>Pharmacy Name: {userProfile?.Company_Name}</p>
-                                <p>Work Hours: {userProfile?.Work_Hours}</p>
                                 <p>Address: {userProfile?.Address}</p>
                                 <p>Zip Code: {userProfile?.Zip}</p>
                             </>
