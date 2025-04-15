@@ -9,7 +9,9 @@ const PillFilter = ({info}) => {
 
   const [pillsInfo, setPillsInfo] = useState([]);
   const [searchedPill, setSearchedPill] = useState("");
-  const [sent, setSent] = useState(false);
+
+  const [sent, setSent] = useState(false)
+  
 
   useEffect(() => {
     const fetchPillsInfo = async () => {

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import AddCalendar from "./AddCalendar";
-const ExerciseListModal = ({info, open, handleClose}) => {
+const ExerciseListModal = ({info, open, handleClose, categoryName}) => {
     console.log("From ExerciseListModal.jsx", info?.patient_id);
     const [exerciseInfo, setExerciseInfo] = useState([]);
     const [selectedRows, setSelectedRows] = useState(new Set());
@@ -13,14 +13,18 @@ const ExerciseListModal = ({info, open, handleClose}) => {
     useEffect(() => {
         const fetchExerciseInfo = async () => {
             try {
-                const res = await axios.get("http://localhost:3000/exercisebank");
+                const body = {
+                    Exercise_Class: categoryName 
+                }
+                console.log("Category Name: ", body)
+                const res = await axios.post("http://localhost:3000/exerciseByClass", body);
                 setExerciseInfo(res.data);
             } catch (error) {
                 console.error("Error fetching exercise data:", error);
             }
         };
         fetchExerciseInfo();
-    }, []);
+    }, [open]);
 
     useEffect(() => {
         if (info.open) {

@@ -44,7 +44,7 @@ const SideBarMenu = ({info, surveyCompleted}) => {
             <Flex vertical gap="3px" style={{
                 margin: "15px 15px 10px 15px",
                 paddingRight: "20px",
-                borderRight: "2px solid #333333"
+                borderRight: "2px solid #666666"
             }}>
                 <Button style={{
                     width: "25px",
@@ -80,9 +80,6 @@ const SideBarMenu = ({info, surveyCompleted}) => {
                                 <strong>Daily Survey</strong>
                             </Badge>
                         </Link>
-                    </Menu.Item>
-                    <Menu.Item key="6">
-                        <Link to="/PatientPortal/AccountInfo"><strong>Account Info</strong></Link>
                     </Menu.Item>
                     <Menu.Item key="7">
                         <Link to="/PatientPortal/Prescription"><strong>Prescription</strong></Link>

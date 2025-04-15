@@ -20,6 +20,8 @@ const PatientSignUpModal = (props) => {
   const [isPreliminaryFormModalOpen, setIsPreliminaryFormModalOpen] =
     useState(false);
   const [symptoms, setSymptoms] = useState({});
+  const [pharmacyOptions, setPharmacyOptions] = useState([])
+  const [zipCode, setZipCode] = useState("")
 
   const handlePreliminaryFormClick = () => {
     // handleClose();
@@ -42,16 +44,23 @@ const PatientSignUpModal = (props) => {
   const onFinish = async (value) => {
     // console.log(value);
     // console.log(symptoms);
-    const res = await axios.post("http://localhost:3000/patient", value);
-    if (res.data.length === 0) {
-      console.log("Couldn't create patient");
-    } else {
-      console.log("Patient Created");
-      const prelim = await axios.post("http://localhost:3000/preliminaries", {
-        Patient_ID: res.data.insertId,
-        Symptoms: JSON.stringify(symptoms),
-      });
-      handleClose();
+    try {
+      console.log("Patient Sign up info: ", value)
+      const res = await axios.post("http://localhost:3000/patient", value);
+      if (res.data.length === 0) {
+        console.log("Couldn't create patient");
+      } else {
+        console.log("Patient Created");
+        const prelim = await axios.post("http://localhost:3000/preliminaries", {
+          Patient_ID: res.data.patient_id,
+          Symptoms: JSON.stringify(symptoms),
+        });
+        props.info(res.data)
+        props.auth(true)
+        handleClose();
+      }
+    } catch (err) {
+      console.log("Error Signing Patient Up: ", err)
     }
   };
 
@@ -62,23 +71,22 @@ const PatientSignUpModal = (props) => {
   const handleClose = () => {
     message.destroy();
     setSymptoms({});
+    setZipCode("")
     props.handleClose();
   };
 
-  const pharmacyOptions = [
-    {
-      label: "Pharmacy 1",
-      value: "1",
-    },
-    {
-      label: "Pharmacy 2",
-      value: "2",
-    },
-    {
-      label: "Pharmacy 3",
-      value: "3",
-    },
-  ];
+  const searchNearestPharmacies = async () => {
+    try {
+      const body = {
+        Zip: zipCode
+      }
+      const res = await axios.post("http://localhost:3000/getPharmByZip", body)
+      setPharmacyOptions(res.data)
+      console.log("Fetched Nearest Pharmacies: ", res.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (
     <Modal
@@ -224,10 +232,21 @@ const PatientSignUpModal = (props) => {
               ]}
               validateTrigger="onSubmit"
             >
-              <Input
-                placeholder="Enter your zip code"
-                style={{ height: "45px" }}
-              />
+              <Space.Compact style={{width: "100%"}}>
+                <Input
+                  placeholder="Enter your zip code"
+                  value={zipCode}
+                  onChange={(e) => setZipCode(e.target.value)}
+                  style={{ width: "60%", height: "45px" }}
+                />
+                <Button
+                  style={{ width: "40%", height: "45px", backgroundColor: "#a2c3a4" }}
+                  onClick={searchNearestPharmacies}
+                  type="primary"
+                >
+                  Search Nearest Pharmacies
+                </Button>
+              </Space.Compact>
             </Form.Item>
             <Form.Item
               name="Pharm_ID"
@@ -241,8 +260,8 @@ const PatientSignUpModal = (props) => {
             >
               <Select placeholder="Select a pharmacy">
                 {pharmacyOptions.map((pharmacy) => (
-                  <Select.Option key={pharmacy.value} value={pharmacy.value}>
-                    {pharmacy.label}
+                  <Select.Option key={pharmacy.Pharm_ID} value={pharmacy.Pharm_ID}>
+                    {pharmacy.Company_Name} @ Zip: {pharmacy.Zip}
                   </Select.Option>
                 ))}
               </Select>

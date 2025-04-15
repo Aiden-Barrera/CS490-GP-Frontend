@@ -1,9 +1,11 @@
 import { Flex, Modal, Form, message, Button, Input, Divider } from "antd"
+import { useNavigate } from "react-router-dom";
 import axios from "axios"
 import { useEffect, useState } from "react"
 
 const LoginModal = (props) => {
     const [form] = Form.useForm()
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (props.open) {
@@ -41,6 +43,8 @@ const LoginModal = (props) => {
                 console.log("Logged In")
                 props.info(res.data) // This passes down the user info to Navbar
                 props.auth(true) // This passes down that the user has been authenticated to Navbar
+                props.setIsPharm(true)
+                navigate('/PharmacistPortal')
                 handleClose()
             }
         }

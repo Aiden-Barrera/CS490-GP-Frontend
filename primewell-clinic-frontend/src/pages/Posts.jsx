@@ -5,6 +5,7 @@ import PostsCard from "../components/PostsCard";
 
 const Posts = () => {
     const [postInfo, setPostInfo] = useState(null)
+    const [searchedValue, setSearchedValue] = useState("")
 
     const fetchPosts = async () => {
         try {
@@ -19,6 +20,17 @@ const Posts = () => {
     useEffect(()=> {
         fetchPosts()
     }, [])
+
+    const handleSearch = (e) => {
+        console.log(e.target.value)
+        setSearchedValue(e.target.value)
+    }
+
+    const filteredPosts = postInfo?.filter((post) => {
+        if (post === "") return
+
+        return post.Exercise_Name.toLowerCase().includes(searchedValue.toLowerCase())
+    })
 
     return (
         <>
@@ -36,7 +48,7 @@ const Posts = () => {
                 }}>
                     <h1 className="title" style={{ color: "#373b41", marginBottom: "10px", marginTop: 0, fontFamily: "Poppins"}} >Exercise Posts</h1>
                     <Input placeholder="Search by Exercise Name" style={{fontSize: "24px", height: "50px", width: "50%", marginTop: "40px"}}
-                        prefix={<img src="/searchIcon.svg" alt="Icon" style={{width: "24px", marginRight: "5px"}}/>}
+                        prefix={<img src="/searchIcon.svg" alt="Icon" style={{width: "24px", marginRight: "5px"}}/>} onChange={handleSearch}
                     />
                     {/* Section for Writing a new review */}
                     <Button type="primary" style={{
@@ -46,7 +58,7 @@ const Posts = () => {
                         width: "100%",
                     }}>
                    {/* Where the Post Cards will go */}
-                   {postInfo?.map((post, index) => (
+                   {filteredPosts?.map((post, index) => (
                         <PostsCard key={index} postInfo={post} />
                    ))}
                 </Flex>
