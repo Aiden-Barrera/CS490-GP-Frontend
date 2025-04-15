@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import RequestCard from "../../components/RequestCard"
 
-const Request = () => {
+const Request = ({userInfo}) => {
     const [doctorInfo, setDoctorInfo] = useState([])
 
     const fetchDoctorInfo = async () => {
@@ -34,12 +34,11 @@ const Request = () => {
                 width: "100%",
             }}>
                 {doctorInfo?.map((user, index) => (
-                    <RequestCard key={index} info={user} />
+                    <RequestCard key={index} info={user} patientInfo={userInfo}/>
                 ))}
             </Flex>
         </Flex>
     );
 };
-
 
 export default Request;

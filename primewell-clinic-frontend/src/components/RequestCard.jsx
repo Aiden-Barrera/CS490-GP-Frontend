@@ -1,4 +1,4 @@
-import {Button, Flex, Calendar} from "antd"
+import {Button, Flex, Calendar, Select, Space} from "antd"
 import { useState, useEffect } from "react"
 import axios from "axios";
 import dayjs from 'dayjs';
@@ -10,12 +10,29 @@ const disabledDate = (current) => {
     return current.isBefore(today, 'day') || current.isAfter(maxDate, 'day');
 };
 
+const option = [
+    {
+        value: "Basic",
+        label: "Basic"
+    }, 
+    {
+        value: "Plus",
+        label: "Plus"
+    }, 
+    {
+        value: "Premium",
+        label: "Premium"
+    }, 
+    
+]
+
 const RequestCard = (props) => {
     const [btnClicked, setBtnClicked] = useState(false)
     const [selectDate, setSelectDate] = useState(() => dayjs())
     const [daySchedule, setDaySchedule] = useState(null)
     const [timeSlot, setTimeSlot] = useState("")
     const [activeIndex, setActiveIndex] = useState(null)
+    const [tier, setTier] = useState("")
 
     const handleSelect = (value) => {
         setSelectDate(value)
@@ -39,10 +56,26 @@ const RequestCard = (props) => {
     }, [selectDate])
 
     const handleClick = (slot, key) => {
-        console.log(slot + " " + key)
+        setTimeSlot(slot)
         setActiveIndex(key)
     }
 
+    const sendRequest = async () => {
+        const body = {
+            Patient_ID: props?.patientInfo?.patient_id,
+            Doctor_ID: props.info.doctor_id,
+            Appt_Date: selectDate.format("YYYY-MM-DD"),
+            Appt_Time: timeSlot,
+            Tier: tier
+        }
+
+        try {
+            const res = await axios.post("http://localhost:3000/request", body)
+            console.log("Request Sent Successfully")
+        } catch (err) {
+            console.log("Failed Making Request: ", err.response.data)
+        }
+    }
     
     return (
         <Flex vertical gap="10px" style={{
@@ -95,11 +128,14 @@ const RequestCard = (props) => {
                     <Flex vertical gap="50px" justify="center" align="flex-start">
                         <Flex gap="20px" justify="center" align="flex-start">
                             {daySchedule?.map((timeSlot, index) => (
-                                <SlotCard key={index} index={index} timeSlot={timeSlot} setTimeSlot={setTimeSlot} onClick={handleClick} isActive={index === activeIndex}/>
+                                <SlotCard key={index} index={index} timeSlot={timeSlot} onClick={handleClick} isActive={index === activeIndex}/>
                             ))}
                         </Flex>
-                        <Flex>
-                            <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} >
+                        <Flex gap="10px">
+                            <Select placeholder="Select Tier" options={option} onChange={(value) => setTier(value)} style={{ 
+                                fontWeight: "700", fontSize: "24px", color: "#333333", height: "100%", minWidth: "100px",boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
+                            }}/>
+                            <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={sendRequest}>
                                 Send Request
                             </Button>
                         </Flex>
