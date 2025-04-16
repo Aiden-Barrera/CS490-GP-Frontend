@@ -46,10 +46,8 @@ const RequestCard = (props) => {
             day: selectDate.format("dddd"),
             date: selectDate.format("YYYY-MM-DD")
         }
-        console.log(body)
         const res = await axios.post("http://localhost:3000/getDoctorSchedule", body)
         setDaySchedule(res.data)
-        console.log(res.data)
     }
 
     useEffect(()=>{
@@ -150,6 +148,11 @@ const RequestCard = (props) => {
                             <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={sendRequest}>
                                 Send Request
                             </Button>
+                            {props.dropDoctor && (
+                                <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "rgb(239, 71, 111)", color: "#ffffff", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} >
+                                    Drop Doctor
+                                </Button>
+                            )}
                         </Flex>
                     </Flex>
                 </Flex>

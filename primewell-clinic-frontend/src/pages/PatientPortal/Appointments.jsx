@@ -33,6 +33,7 @@ const Appointments = ({userInfo}) => {
             <h1 style={{color: "#333333", marginBottom: 0}}>Upcoming Appointments</h1>
             <Flex vertical gap="20px" style={{
                 width: "100%",
+                overflow: "auto"
             }}>
                 {appointmentInfo?.map((user, index) => (
                     <AppointmentCard key={index} apptInfo={user}/>
