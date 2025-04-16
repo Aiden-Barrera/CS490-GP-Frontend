@@ -1,0 +1,55 @@
+import {Button, Flex, Calendar, Select, Space, notification} from "antd"
+import { useState, useEffect } from "react"
+import dayjs from 'dayjs';
+
+
+const AppointmentCard = ({apptInfo}) => {
+    const [btnClicked, setBtnClicked] = useState(false)
+    const [date, setDate] = useState(() => dayjs())
+    
+    useEffect(() => {
+        setDate(dayjs(apptInfo?.Appt_Date))
+    }, [])
+
+    return (
+        <Flex vertical gap="10px" style={{
+            background: "#f09c96", 
+            padding: "20px 30px", 
+            width: "100%", 
+            maxWidth: "100%", 
+            borderRadius: "8px",
+            boxSizing: "border-box",
+            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
+        }}>
+            {/* Section for Displaying Doctor Info and Availablilty */}
+            <Flex align="center" justify="space-between">
+                <Flex vertical gap="15px">
+                    <Flex gap="10px">
+                        <img src="/calender.svg" alt="Icon" style={{ 
+                            width: "52px", 
+                            height: "auto", 
+                            borderRadius: "10px",
+                            flexShrink: 0
+                        }} />
+                        <h2 style={{color: "#ffffff", fontSize: "32px", borderRight: "3px solid #ffffff", paddingRight: "18px", margin: 0}}>{date?.format('MMM D, YYYY')}</h2>
+                        <h2 style={{color: "#ffffff", fontSize: "32px", paddingLeft: "9px", margin: 0}}>{`${apptInfo?.Appt_Time}`}</h2>
+                    </Flex>
+                    <Flex gap="10px">
+                        <img src="/firstAidIcon.svg" alt="Icon" style={{ 
+                            width: "52px", 
+                            height: "auto", 
+                            borderRadius: "10px",
+                            flexShrink: 0
+                        }} />
+                        <h2 style={{color: "#ffffff", fontSize: "32px", borderRight: "3px solid #ffffff", paddingRight: "18px", margin: 0}}>Dr. {`${apptInfo?.first_name} ${apptInfo?.last_name}`}</h2>
+                        <h2 style={{color: "#ffffff", fontSize: "32px", paddingLeft: "9px", margin: 0}}>{`${apptInfo?.specialty}`}</h2>
+                    </Flex>
+                </Flex>
+                <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}}>
+                    Join Appointment
+                </Button>
+            </Flex>
+        </Flex>
+    )
+}
+export default AppointmentCard

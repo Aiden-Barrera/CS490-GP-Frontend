@@ -1,4 +1,4 @@
-import {Button, Flex, Calendar, Select, Space} from "antd"
+import {Button, Flex, Calendar, Select, Space, notification} from "antd"
 import { useState, useEffect } from "react"
 import axios from "axios";
 import dayjs from 'dayjs';
@@ -27,6 +27,7 @@ const option = [
 ]
 
 const RequestCard = (props) => {
+    const [api, contextHolder] = notification.useNotification();
     const [btnClicked, setBtnClicked] = useState(false)
     const [selectDate, setSelectDate] = useState(() => dayjs())
     const [daySchedule, setDaySchedule] = useState(null)
@@ -71,8 +72,18 @@ const RequestCard = (props) => {
 
         try {
             const res = await axios.post("http://localhost:3000/request", body)
+            api.open({
+                message: 'Request Sent!',
+                description:
+                  `${props.patientInfo?.First_Name}'s Successfully Sent Request, waiting for Approval from Doctor`,
+              });
             console.log("Request Sent Successfully")
         } catch (err) {
+            api.open({
+                message: 'Request Failed!',
+                description:
+                  `Failed to Send Request!`,
+              });
             console.log("Failed Making Request: ", err.response.data)
         }
     }
@@ -135,6 +146,7 @@ const RequestCard = (props) => {
                             <Select placeholder="Select Tier" options={option} onChange={(value) => setTier(value)} style={{ 
                                 fontWeight: "700", fontSize: "24px", color: "#333333", height: "100%", minWidth: "100px",boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
                             }}/>
+                            {contextHolder}
                             <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={sendRequest}>
                                 Send Request
                             </Button>
