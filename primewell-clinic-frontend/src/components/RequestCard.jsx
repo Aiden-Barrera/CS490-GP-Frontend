@@ -34,6 +34,7 @@ const RequestCard = (props) => {
     const [timeSlot, setTimeSlot] = useState("")
     const [activeIndex, setActiveIndex] = useState(null)
     const [tier, setTier] = useState("")
+    const [drop, setDrop] = useState(false)
 
     const handleSelect = (value) => {
         setSelectDate(value)
@@ -83,6 +84,32 @@ const RequestCard = (props) => {
                   `Failed to Send Request!`,
               });
             console.log("Failed Making Request: ", err.response.data)
+        }
+    }
+
+    const dropDoctor = async () => {
+        const body = {
+            Patient_ID: props?.patientInfo?.patient_id,
+            Doctor_ID: props.info.doctor_id
+        }
+        try {
+            const res = await axios.patch(`http://localhost:3000/patientDropDoctor/removeDoc`, body)
+            api.open({
+                message: "Doctor Dropped!",
+                description: 
+                    `Dr. ${props.info.last_name} Successfully Dropped!`
+            })
+
+            setTimeout(() => {
+                props?.fetchDoctorInfo?.()
+            }, 3000) // 3 seconds is usually enough
+        } catch (err) {
+            api.open({
+                message: 'Drop Failed!',
+                description:
+                  `Failed to Drop Doctor!`,
+              });
+            console.log("Failed Dropping Doctor: ", err.response.data)
         }
     }
     
@@ -149,7 +176,7 @@ const RequestCard = (props) => {
                                 Send Request
                             </Button>
                             {props.dropDoctor && (
-                                <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "rgb(239, 71, 111)", color: "#ffffff", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} >
+                                <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "rgb(239, 71, 111)", color: "#ffffff", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={dropDoctor}>
                                     Drop Doctor
                                 </Button>
                             )}

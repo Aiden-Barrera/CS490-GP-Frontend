@@ -48,7 +48,7 @@ const Request = ({userInfo}) => {
                     <Flex vertical gap="20px" style={{
                         width: "100%",
                     }}>
-                        <RequestCard info={patientDoctor} patientInfo={userInfo} dropDoctor={true}/>
+                        <RequestCard info={patientDoctor} patientInfo={userInfo} dropDoctor={true} fetchDoctorInfo={fetchDoctorInfo}/>
                     </Flex>
                 </>
             )}
