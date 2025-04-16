@@ -54,4 +54,4 @@ const ReviewCard = ({info, onClick}) => {
   )
 }
 
-export default ReviewCard
+export default ReviewCard;

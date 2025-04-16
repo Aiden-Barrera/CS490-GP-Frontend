@@ -1,7 +1,7 @@
 import { Flex, Modal, Form, message, Button, Input} from "antd"
 import { useEffect, useState } from "react"
 import EIModal from "./Exercise_ImageUpload"
-const ExerciseModal = (props) => {
+const CreateExerciseModal = (props) => {
     const [form] = Form.useForm()
 
     useEffect(() => {
@@ -63,6 +63,15 @@ const ExerciseModal = (props) => {
                         >
                             <Input placeholder="Muscle Group" style={{height: "45px"}}/>
                         </Form.Item>
+                        <Form.Item name="Exercise Class" label="Exercise Class" rules={[
+                            {
+                                required: true,
+                                message: "Exercise Class Required"
+                            },
+                        ]}
+                        >
+                            <Input placeholder="Exercise Class" style={{height: "45px"}}/>
+                        </Form.Item>
                         <Form.Item name="Sets" label="Sets" rules={[
                             {
                                 required: true,
@@ -112,4 +121,4 @@ const ExerciseModal = (props) => {
     )
 }
 
-export default ExerciseModal
+export default CreateExerciseModal

@@ -15,22 +15,25 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { DownOutlined, MedicineBoxTwoTone } from "@ant-design/icons";
 
-const PatientSignUpModal = (props) => {
+const PreliminaryFormModal = (props) => {
   const [form] = Form.useForm();
+  const [symptoms, setSymptoms] = useState(props.symptoms);
 
   useEffect(() => {
     if (props.open) {
       form.resetFields();
       message.destroy();
+      setSymptoms(props.symptoms || {});
     }
-  }, [props.open]);
+  }, [props.open, props.symptoms]);
 
   const filterPW = (pw) => {
     return pw.replace(/"/g, '\\"');
   };
 
   const onFinish = async (value) => {
-    
+    props.onSubmitSymptoms(symptoms);
+    props.handleClose();
   };
 
   const onFail = () => {
@@ -39,47 +42,17 @@ const PatientSignUpModal = (props) => {
 
   const handleClose = () => {
     message.destroy();
+    setSymptoms({});
     props.handleClose();
   };
 
-  const [selectedLabel, setSelectedLabel] = useState("Choose a Pharmacy");
-
-  const handleMenuClick = (e) => {
-    message.info("Click on menu item.");
-    // console.log("click", e);
-    const selectedPharmacy = items.find((item) => item.key === e.key);
-    setSelectedLabel(selectedPharmacy.label);
-    // console.log(selectedPharmacy.label);
-  };
-
-  const items = [
-    {
-      label: "Pharmacy 1",
-      key: "1",
-      icon: <MedicineBoxTwoTone twoToneColor="#f09c96" />,
-    },
-    {
-      label: "Pharmacy 2",
-      key: "2",
-      icon: <MedicineBoxTwoTone twoToneColor="#f09c96" />,
-    },
-    {
-      label: "Pharmacy 3",
-      key: "3",
-      icon: <MedicineBoxTwoTone twoToneColor="#f09c96" />,
-    },
-  ];
-  const menuProps = {
-    items,
-    selectable: true,
-    defaultSelectedKeys: ["1"],
-    onClick: handleMenuClick,
-  };
-
-  // logic can be implemented here to construct what problem was checked in the form then used however
-  // like sending it to the database to store it and then use it to display it somewhere if needed
-  const onChange = (e) => {
-    console.log(`checked = ${e.target.checked}`);
+  const handleSymptomChange = (checked, label, category) => {
+    setSymptoms((prev) => {
+      const current = new Set(prev[category] || []);
+      if (checked) current.add(label);
+      else current.delete(label);
+      return { ...prev, [category]: Array.from(current) };
+    });
   };
 
   return (
@@ -110,7 +83,7 @@ const PatientSignUpModal = (props) => {
             onFinishFailed={onFail}
             autoComplete="off"
           >
-            <Form.Item
+            {/* <Form.Item
               name="firstName"
               label="First Name"
               rules={[
@@ -169,7 +142,7 @@ const PatientSignUpModal = (props) => {
                 placeholder="example@gmail.com"
                 style={{ height: "45px" }}
               />
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item>
               <div>
                 <table style={{ textAlign: "left", width: "100%" }}>
@@ -185,37 +158,90 @@ const PatientSignUpModal = (props) => {
                   <tbody>
                     <tr>
                       <td style={{ padding: "0px 11px" }}>
-                        <Checkbox onChange={onChange}>Back Pain</Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>Leg Pain</Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>Neck pain</Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>Arm Pain</Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>Joint Pain</Checkbox>
+                        {[
+                          "Back Pain",
+                          "Leg Pain",
+                          "Neck Pain",
+                          "Arm Pain",
+                          "Joint Pain",
+                        ].map((symptom) => (
+                          <div key={symptom}>
+                            <Checkbox
+                              checked={
+                                symptoms["Muscle/Joint/Bone"]?.includes(
+                                  symptom
+                                ) || false
+                              }
+                              onChange={(e) =>
+                                handleSymptomChange(
+                                  e.target.checked,
+                                  symptom,
+                                  "Muscle/Joint/Bone"
+                                )
+                              }
+                            >
+                              {symptom}
+                            </Checkbox>
+                            <br />
+                          </div>
+                        ))}
                       </td>
                       <td style={{ padding: "0px 11px" }}>
-                        <Checkbox onChange={onChange}>Blurred Vision</Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>Loss of Hearing</Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>Nose Bleeds</Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>Sinus Problems</Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>Strep Throat</Checkbox>
+                        {[
+                          "Blurred Vision",
+                          "Loss of Hearing",
+                          "Nose Bleeds",
+                          "Sinus Problems",
+                          "Strep Throat",
+                        ].map((symptom) => (
+                          <div key={symptom}>
+                            <Checkbox
+                              checked={
+                                symptoms["Eyes/Ears/Nose/Throat"]?.includes(
+                                  symptom
+                                ) || false
+                              }
+                              onChange={(e) =>
+                                handleSymptomChange(
+                                  e.target.checked,
+                                  symptom,
+                                  "Eyes/Ears/Nose/Throat"
+                                )
+                              }
+                            >
+                              {symptom}
+                            </Checkbox>
+                            <br />
+                          </div>
+                        ))}
                       </td>
                       <td style={{ padding: "0px 11px" }}>
-                        <Checkbox onChange={onChange}>Fainting</Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>Dizziness</Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>Headache</Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>Memory Loss</Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>Depression</Checkbox>
+                        {[
+                          "Fainting",
+                          "Dizziness",
+                          "Headache",
+                          "Memory Loss",
+                          "Depression",
+                        ].map((symptom) => (
+                          <div key={symptom}>
+                            <Checkbox
+                              checked={
+                                symptoms["Neurologic"]?.includes(symptom) ||
+                                false
+                              }
+                              onChange={(e) =>
+                                handleSymptomChange(
+                                  e.target.checked,
+                                  symptom,
+                                  "Neurologic"
+                                )
+                              }
+                            >
+                              {symptom}
+                            </Checkbox>
+                            <br />
+                          </div>
+                        ))}
                       </td>
                     </tr>
                     <tr>
@@ -225,35 +251,78 @@ const PatientSignUpModal = (props) => {
                     </tr>
                     <tr>
                       <td style={{ padding: "0px 11px" }}>
-                        <Checkbox onChange={onChange}>Itching</Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>Rash</Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>Callus</Checkbox>
+                        {["Itching", "Rash", "Callus"].map((symptom) => (
+                          <div key={symptom}>
+                            <Checkbox
+                              checked={
+                                symptoms["Skin"]?.includes(symptom) || false
+                              }
+                              onChange={(e) =>
+                                handleSymptomChange(
+                                  e.target.checked,
+                                  symptom,
+                                  "Skin"
+                                )
+                              }
+                            >
+                              {symptom}
+                            </Checkbox>
+                            <br />
+                          </div>
+                        ))}
                       </td>
                       <td style={{ padding: "0px 11px" }}>
-                        <Checkbox onChange={onChange}>
-                          Shortness of Breath
-                        </Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>
-                          Persistent Cough
-                        </Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>Asthma</Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>Sleep Apnea</Checkbox>
+                        {[
+                          "Shortness of Breath",
+                          "Persistent Cough",
+                          "Asthma",
+                          "Sleep Apnea",
+                        ].map((symptom) => (
+                          <div key={symptom}>
+                            <Checkbox
+                              checked={
+                                symptoms["Lungs"]?.includes(symptom) || false
+                              }
+                              onChange={(e) =>
+                                handleSymptomChange(
+                                  e.target.checked,
+                                  symptom,
+                                  "Lungs"
+                                )
+                              }
+                            >
+                              {symptom}
+                            </Checkbox>
+                            <br />
+                          </div>
+                        ))}
                       </td>
                       <td style={{ padding: "0px 11px" }}>
-                        <Checkbox onChange={onChange}>Chest Pain</Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>
-                          Irregular Heart Beat
-                        </Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>Heart Attack</Checkbox>
-                        <br />
-                        <Checkbox onChange={onChange}>Heart Disease</Checkbox>
+                        {[
+                          "Chest Pain",
+                          "Irregular Heart Beat",
+                          "Heart Attack",
+                          "Heart Disease",
+                        ].map((symptom) => (
+                          <div key={symptom}>
+                            <Checkbox
+                              checked={
+                                symptoms["Cardiovascular"]?.includes(symptom) ||
+                                false
+                              }
+                              onChange={(e) =>
+                                handleSymptomChange(
+                                  e.target.checked,
+                                  symptom,
+                                  "Cardiovascular"
+                                )
+                              }
+                            >
+                              {symptom}
+                            </Checkbox>
+                            <br />
+                          </div>
+                        ))}
                       </td>
                     </tr>
                   </tbody>
@@ -282,4 +351,4 @@ const PatientSignUpModal = (props) => {
   );
 };
 
-export default PatientSignUpModal;
+export default PreliminaryFormModal;

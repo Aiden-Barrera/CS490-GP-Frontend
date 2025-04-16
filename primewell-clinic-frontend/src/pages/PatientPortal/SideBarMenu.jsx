@@ -1,8 +1,37 @@
 import { Link, Outlet } from "react-router-dom";
-import { Flex, Button, Menu } from "antd";
+import { Flex, Button, Menu, Badge } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
+import { useState, useEffect } from "react";
+import "./../../App.css"
+import axios from "axios";
 
-const SideBarMenu = () => {
+const SideBarMenu = ({info, surveyCompleted}) => {
+    const [surveyNeeded, setSurveyNeeded] = useState(false)
+
+    const fetchDate = async () => {
+        const body = {
+            patient_id: info?.patient_id,
+        }
+        
+        const res = await axios.post("http://localhost:3000/patientsurvey/date", body)
+        if (res.data === false){
+            setSurveyNeeded(true)
+        } else {
+            setSurveyNeeded(false)
+        }
+    }
+
+    useEffect(() => {
+        fetchDate()
+    }, [])
+
+    useEffect(() => {
+        if (surveyCompleted) {
+            setSurveyNeeded(false)
+        }
+    }, [surveyCompleted])
+
+
     return (
         <Flex style={{
             height: "90vh",
@@ -15,7 +44,7 @@ const SideBarMenu = () => {
             <Flex vertical gap="3px" style={{
                 margin: "15px 15px 10px 15px",
                 paddingRight: "20px",
-                borderRight: "2px solid #333333"
+                borderRight: "2px solid #666666"
             }}>
                 <Button style={{
                     width: "25px",
@@ -34,7 +63,7 @@ const SideBarMenu = () => {
                 {/* Menu Navigation */}
                 <Menu className="menu">
                     <Menu.Item key="1">
-                        <Link to="/PatientPortal/Dashboard"><strong>Dashboard</strong></Link>
+                        <Link to="/PatientPortal"><strong>Dashboard</strong></Link>
                     </Menu.Item>
                     <Menu.Item key="2">
                         <Link to="/PatientPortal/Request"><strong>Request</strong></Link>
@@ -46,10 +75,11 @@ const SideBarMenu = () => {
                         <Link to="/PatientPortal/Regiment"><strong>Regiment</strong></Link>
                     </Menu.Item>
                     <Menu.Item key="5">
-                        <Link to="/PatientPortal/Daily-Survey"><strong>Daily Survey</strong></Link>
-                    </Menu.Item>
-                    <Menu.Item key="6">
-                        <Link to="/PatientPortal/AccountInfo"><strong>Account Info</strong></Link>
+                        <Link to="/PatientPortal/Daily-Survey">
+                            <Badge dot={surveyNeeded} offset={[10,0]}>
+                                <strong>Daily Survey</strong>
+                            </Badge>
+                        </Link>
                     </Menu.Item>
                     <Menu.Item key="7">
                         <Link to="/PatientPortal/Prescription"><strong>Prescription</strong></Link>

@@ -13,9 +13,8 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { DownOutlined, MedicineBoxTwoTone } from "@ant-design/icons";
-import PreliminaryFormModal from "./PreliminaryFormModal";
 
-const PatientSignUpModal = (props) => {
+const PharmacySignUpModal = (props) => {
   const [form] = Form.useForm();
   useEffect(() => {
     if (props.open) {
@@ -29,7 +28,22 @@ const PatientSignUpModal = (props) => {
   };
 
   const onFinish = async (value) => {
-    
+    try {
+      value.Address = JSON.stringify(value.Address);
+      console.log(value.Address);
+      console.log(value);
+      const res = await axios.post("http://localhost:3000/pharmacies", value);
+      if (res.data.length === 0) {
+        console.log("Couldn't create pharmacy");
+      } else {
+        props.info(res.data)
+        props.auth(true)
+        console.log("Pharmacy Created");
+        handleClose();
+      }
+    } catch (err) {
+      console.log("Error Signing Pharmacy: ", err)
+    }
   };
 
   const onFail = () => {
@@ -71,7 +85,7 @@ const PatientSignUpModal = (props) => {
             autoComplete="off"
           >
             <Form.Item
-              name="pharmacyName"
+              name="Company_Name"
               label="Pharmacy Name"
               rules={[
                 {
@@ -79,7 +93,7 @@ const PatientSignUpModal = (props) => {
                   message: "Please input your Pharmacy Name!",
                 },
                 {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make first name regex
+                  pattern: /^([a-zA-Z'](\s)?)+$/,
                   message: "Please input a valid Pharmacy Name!",
                 },
               ]}
@@ -91,7 +105,7 @@ const PatientSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="pharmacyEmail"
+              name="Email"
               label="Pharmacy Email"
               rules={[
                 {
@@ -111,7 +125,7 @@ const PatientSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="pharmacyAddress"
+              name="Address"
               label="Pharmacy Address"
               rules={[
                 {
@@ -119,7 +133,7 @@ const PatientSignUpModal = (props) => {
                   message: "Please input your Pharmacy Address!",
                 },
                 {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
+                  pattern: /^[0-9]+ [A-Za-z]+ [A-Za-z]+$/,
                   message: "Please input a valid Pharmacy Address!",
                 },
               ]}
@@ -131,7 +145,7 @@ const PatientSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="pharmacyZipCode"
+              name="Zip"
               label="Pharmacy Zip Code"
               rules={[
                 {
@@ -151,7 +165,7 @@ const PatientSignUpModal = (props) => {
               />
             </Form.Item>
             <Form.Item
-              name="pharmacyWorkHours"
+              name="Work_Hours"
               label="Pharmacy Work Hours"
               rules={[
                 {
@@ -159,19 +173,20 @@ const PatientSignUpModal = (props) => {
                   message: "Please input your Pharmacy Work Hours!",
                 },
                 {
-                  pattern: /^[0-9]{5}$/,
+                  pattern:
+                    /^([0-9]|1[0-9]|2[0-3]):([0-5][0-9])-([0-9]|1[0-9]|2[0-3]):\2$/,
                   message: "Please input a valid Pharmacy Work Hours!",
                 },
               ]}
               validateTrigger="onSubmit"
             >
               <Input
-                placeholder="Enter your Pharmacy's Work Hours"
+                placeholder="Example: X:XX-Y:YY"
                 style={{ height: "45px" }}
               />
             </Form.Item>
             <Form.Item
-              name="Pharmacypw"
+              name="PW"
               label="Create a Pharmacy password"
               rules={[
                 {
@@ -212,4 +227,4 @@ const PatientSignUpModal = (props) => {
   );
 };
 
-export default PatientSignUpModal;
+export default PharmacySignUpModal;

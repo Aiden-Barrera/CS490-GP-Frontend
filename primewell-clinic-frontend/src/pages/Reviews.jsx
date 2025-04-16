@@ -30,7 +30,7 @@ const Reviews = () => {
     })
 
     useEffect(() => {
-        setFilteredInfo(filteredDoctor)
+        //setFilteredInfo(filteredDoctor)
     }, [searchedDoctor])
 
     const handleReviewCardClick = (user) => {
@@ -48,7 +48,8 @@ const Reviews = () => {
                     padding: "33px 40px",
                     width: "60%",
                     maxWidth: "60%",
-                    overflowY: "auto"
+                    overflowY: "auto",
+                    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
                 }}>
                     <h1 className="title" style={{ color: "#373b41", marginBottom: "10px", marginTop: 0, fontFamily: "Poppins"}} >List of Doctors</h1>
                     <Input placeholder="Search by Doctor" value={searchedDoctor} onChange={handleSearch} style={{fontSize: "24px", height: "50px", width: "50%"}}
