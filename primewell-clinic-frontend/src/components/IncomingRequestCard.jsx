@@ -4,9 +4,13 @@ import { UserOutlined, CheckOutlined, CloseOutlined } from "@ant-design/icons";
 const { Content } = Layout;
 
 const IncomingRequestCard = (props) => {
-  const handleAccept = () => {};
+  const handleAccept = () => {
+    console.log("Patient " + props.Fname + " " + props.Lname + " accepted");
+  };
 
-  const handleDecline = () => {};
+  const handleDecline = () => {
+    console.log("Patient " + props.Fname + " " + props.Lname + " Declined");
+  };
 
   const PatientName = ({ Fname, Lname }) => {
     return (
@@ -77,7 +81,7 @@ const IncomingRequestCard = (props) => {
               height: 60,
               width: 60,
             }}
-            onClick={handleAccept()}
+            onClick={() => {handleAccept()}}
           >
             <CheckOutlined />
           </Button>
@@ -92,7 +96,7 @@ const IncomingRequestCard = (props) => {
               height: 60,
               width: 60,
             }}
-            onClick={handleDecline()}
+            onClick={() => {handleDecline()}}
           >
             <CloseOutlined />
           </Button>
