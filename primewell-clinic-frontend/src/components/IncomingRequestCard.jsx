@@ -1,15 +1,43 @@
 import { Flex, Layout, Button } from "antd";
 import { UserOutlined, CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import axios from "axios";
 
 const { Content } = Layout;
 
 const IncomingRequestCard = (props) => {
-  const handleAccept = () => {
-    console.log("Patient " + props.Fname + " " + props.Lname + " accepted");
+  const handleAccept = async () => {
+    try {
+      console.log("Patient " + props.Fname + " " + props.Lname + " accepted");
+  
+      const response = await axios.post('http://localhost:3000/request/appointment', {
+        Patient_ID: props.Patient_ID,
+        Doctor_ID: props.Doctor_ID,
+        Appt_Date: props.Appt_Date,
+        Appt_Time: props.Appt_Time,
+        Tier: props.Tier
+      });
+  
+      console.log('Patient accepted:', response.data);
+    } catch (error) {
+      console.error('Error accepting request:', error.response?.data || error.message);
+    }
   };
 
-  const handleDecline = () => {
-    console.log("Patient " + props.Fname + " " + props.Lname + " Declined");
+  const handleDecline = async () => {
+    try {
+      console.log("Patient " + props.Fname + " " + props.Lname + " Declined");
+  
+      const response = await axios.patch('http://localhost:3000/request/rejectRequest', {
+        Patient_ID: props.Patient_ID,
+        Doctor_ID: props.Doctor_ID,
+        Appt_Date: props.Appt_Date,
+        Appt_Time: props.Appt_Time
+      });
+  
+      console.log('Request declined: ', response.data);
+    } catch (error) {
+      console.error('Error declining request:', error.response?.data || error.message);
+    }
   };
 
   const PatientName = ({ Fname, Lname }) => {

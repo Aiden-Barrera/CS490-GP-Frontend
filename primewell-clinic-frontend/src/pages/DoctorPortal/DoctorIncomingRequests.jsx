@@ -3,7 +3,7 @@ import IncomingRequestCard from "../../components/IncomingRequestCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const DoctorPillRequest = (props) => {
+const DoctorIncomingRequests = (props) => {
   const [form] = Form.useForm();
   const [incomingRequests, setIncomingRequests] = useState([]);
 
@@ -17,7 +17,7 @@ const DoctorPillRequest = (props) => {
         `http://localhost:3000/request/${props.info.doctor_id}`
       );
       // console.log(props.info.doctor_id);
-      // console.log(res.data);
+      console.log(res.data);
       setIncomingRequests(res.data);
       if (res.data.length === 0) {
         console.log("Couldn't get doctor patient data");
@@ -73,4 +73,4 @@ const DoctorPillRequest = (props) => {
   );
 };
 
-export default DoctorPillRequest;
+export default DoctorIncomingRequests;
