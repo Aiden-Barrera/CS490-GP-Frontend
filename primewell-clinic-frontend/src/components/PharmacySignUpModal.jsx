@@ -38,6 +38,12 @@ const PharmacySignUpModal = (props) => {
       } else {
         props.info(res.data)
         props.auth(true)
+
+        sessionStorage.setItem("userInfo", JSON.stringify(res.data));
+        sessionStorage.setItem("userType", props.userType);
+        sessionStorage.setItem("auth", true);
+        sessionStorage.setItem("isPharm", true)
+
         console.log("Pharmacy Created");
         handleClose();
       }
