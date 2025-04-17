@@ -1,9 +1,17 @@
 import { Flex, Layout, Button } from "antd";
 import { UserOutlined, CalendarOutlined } from "@ant-design/icons";
+import dayjs from "dayjs";
+import { useState, useEffect } from "react";
 
 const { Content } = Layout;
 
 const UpcomingAptsCards = (props) => {
+  const [date, setDate] = useState(() => dayjs())
+
+  useEffect(() => {
+    setDate(dayjs(props.Date))
+  }, [])
+
   const PatientData = ({ name }) => {
     return (
       <div
@@ -38,6 +46,7 @@ const UpcomingAptsCards = (props) => {
         height: "150px",
         backgroundColor: "#f09c96",
         display: "flex",
+        flexShrink: 0,
         alignItems: "center",
         boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
       }}
@@ -57,7 +66,7 @@ const UpcomingAptsCards = (props) => {
           <Flex gap="10px">
             <CalendarOutlined style={{ fontSize: "24px", color: "white" }} />
             <h2 style={{color: "#ffffff", fontSize: "20px", borderRight: "3px solid #ffffff", paddingRight: "18px", margin: 0, fontWeight: "800"}}>
-              {props.Date.substring(0, 10)} 
+              {date.format("MMM D, YYYY")} 
             </h2>
             <h2 style={{color: "#ffffff", fontSize: "20px", paddingLeft: "9px", margin: 0, fontWeight: "800"}}>{props.Time}</h2>
           </Flex>

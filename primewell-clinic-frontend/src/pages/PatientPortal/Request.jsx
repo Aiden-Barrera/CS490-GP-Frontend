@@ -38,7 +38,7 @@ const Request = ({userInfo}) => {
             borderRadius: "12px",
             padding: "33px 40px",
             width: "100%",
-            overflowY: "auto",
+            overflow: "auto",
             boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
         }}>
             {/* Section for Current Doctor */}
@@ -57,7 +57,7 @@ const Request = ({userInfo}) => {
             <h1 style={{color: "#333333", marginBottom: 0}}>List of Doctors</h1>
             <Flex vertical gap="20px" style={{
                 width: "100%",
-                overflow: "auto"
+                // overflow: "auto"
             }}>
                 {otherDoctors?.map((user, index) => (
                     <RequestCard key={index} info={user} patientInfo={userInfo}/>
