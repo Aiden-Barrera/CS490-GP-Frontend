@@ -9,7 +9,6 @@ const Regiment = ({ info }) => {
     useEffect(() => {
         const fetchRegimentInfo = async () => {
             try {
-                console.log("Fetching for patient:", info?.patient_id);
                 const res = await axios.get(`http://localhost:3000/regiment/${info.patient_id}`);
                 console.log("Fetched data:", res.data);
 
@@ -46,9 +45,7 @@ const Regiment = ({ info }) => {
              }}>
             <h1>Regiment</h1>
 
-            {loading ? (
-                <p>Loading...</p>
-            ) : regimentData ? (
+            {regimentData &&
                 Object.entries(regimentData).map(([day, exercises]) => (
                     <div key={day} style={{ marginBottom: "15px", width: "80%", backgroundColor: "#f09c96", padding: "10px", borderRadius: "8px" }}>
                         <strong>{day}</strong>
@@ -63,9 +60,7 @@ const Regiment = ({ info }) => {
                         )}
                     </div>
                 ))
-            ) : (
-                <p>No regiment data found.</p>
-            )}
+            }
         </Flex>
     );
 };
