@@ -30,37 +30,42 @@ const Regiment = ({ info }) => {
     }, [info]);
 
     return (
-        <Flex vertical 
-        justify="flex-start" 
-        align="center" 
-        style={{ 
-            backgroundColor: "#ffffff", 
-            borderRadius: "16px", 
-            width: "100%", 
-            height: "100%", 
-            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)", 
-            padding: "20px",
-            marginBottom: "20px",
-            overflowY: "auto"
-             }}>
-            <h1>Regiment</h1>
+        <Flex vertical justify="start" align="center" gap="60px" style={{
+            background: "#ffffff", 
+            borderRadius: "12px",
+            padding: "33px 40px",
+            width: "100%",
+            overflow: "auto",
+            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
+        }}>
+            <h1 style={{color: "#333333", marginBottom: 0}}>Regiment</h1>
 
-            {regimentData &&
-                Object.entries(regimentData).map(([day, exercises]) => (
-                    <div key={day} style={{ marginBottom: "15px", width: "80%", backgroundColor: "#f09c96", padding: "10px", borderRadius: "8px" }}>
-                        <strong>{day}</strong>
-                        {exercises.length > 0 ? (
-                            <ul>
-                                {exercises.map((exercise, id) => (
-                                    <p key={id}>{exercise}</p>
-                                ))} 
-                            </ul>
-                        ) : (
-                            <p style={{ color: "#000000" }}>No exercises</p>
-                        )}
-                    </div>
-                ))
-            }
+             <Flex vertical gap="15px" justify="center" align="center" style={{width: "100%"}}>
+                {regimentData &&
+                    Object.entries(regimentData).map(([day, exercises]) => (
+                        <div key={day} style={{ 
+                            background: "#f09c96", 
+                            padding: "20px 30px", 
+                            width: "100%", 
+                            maxWidth: "100%", 
+                            borderRadius: "8px",
+                            boxSizing: "border-box",
+                            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
+                        }}>
+                            <strong>{day}</strong>
+                            {exercises.length > 0 ? (
+                                <ul>
+                                    {exercises.map((exercise, id) => (
+                                        <p key={id}>{exercise}</p>
+                                    ))} 
+                                </ul>
+                            ) : (
+                                <p style={{ color: "#000000" }}>No exercises</p>
+                            )}
+                        </div>
+                    ))
+                }
+             </Flex>
         </Flex>
     );
 };
