@@ -1,15 +1,50 @@
 import { Flex, Layout, Button } from "antd";
 import { UserOutlined, CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import axios from "axios";
 
 const { Content } = Layout;
 
 const IncomingRequestCard = (props) => {
-  const handleAccept = () => {
-    console.log("Patient " + props.Fname + " " + props.Lname + " accepted");
+  // console.log(props.Fname);
+  // console.log(props.Lname);
+  // console.log(props.Patient_ID);
+  // console.log(props.Doctor_ID);
+  // console.log(props.Appt_Date);
+  // console.log(props.Appt_Time);
+  // console.log(props.Tier);
+  const handleAccept = async () => {
+    try {
+      console.log("Patient " + props.Fname + " " + props.Lname + " accepted");
+      // props.Appt_Date = props.Appt_Date.substring(0, 10);
+      const response = await axios.post('http://localhost:3000/appointment', {
+        Patient_ID: props.Patient_ID,
+        Doctor_ID: props.Doctor_ID,
+        Appt_Date: props.Appt_Date,
+        Appt_Time: props.Appt_Time,
+        Tier: props.Tier
+      });
+      // console.log(props.Appt_Date);
+      console.log('Patient accepted:', response.data);
+    } catch (error) {
+      console.error('Error accepting request:', error.response?.data || error.message);
+    }
   };
 
-  const handleDecline = () => {
-    console.log("Patient " + props.Fname + " " + props.Lname + " Declined");
+  const handleDecline = async () => {
+    try {
+      console.log("Patient " + props.Fname + " " + props.Lname + " Declined");
+
+      const response = await axios.patch('http://localhost:3000/rejectRequest', {
+        Patient_ID: props.Patient_ID,
+        Doctor_ID: props.Doctor_ID,
+        Appt_Date: props.Appt_Date,
+        Appt_Time: props.Appt_Time
+      });
+
+      console.log('Request declined: ', response.data);
+    } catch (error) {
+      console.error('Error declining request:', error.response?.data || error.message);
+    }
   };
 
   const PatientName = ({ Fname, Lname }) => {
@@ -81,7 +116,7 @@ const IncomingRequestCard = (props) => {
               height: 60,
               width: 60,
             }}
-            onClick={() => {handleAccept()}}
+            onClick={() => { handleAccept() }}
           >
             <CheckOutlined />
           </Button>
@@ -96,7 +131,7 @@ const IncomingRequestCard = (props) => {
               height: 60,
               width: 60,
             }}
-            onClick={() => {handleDecline()}}
+            onClick={() => { handleDecline() }}
           >
             <CloseOutlined />
           </Button>
