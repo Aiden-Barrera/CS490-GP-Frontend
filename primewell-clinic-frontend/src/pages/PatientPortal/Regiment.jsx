@@ -35,12 +35,12 @@ const Regiment = ({ info }) => {
             borderRadius: "12px",
             padding: "33px 40px",
             width: "100%",
-            overflow: "auto",
+            // overflow: "auto",
             boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
         }}>
             <h1 style={{color: "#333333", marginBottom: 0}}>Regiment</h1>
 
-             <Flex vertical gap="15px" justify="center" align="center" style={{width: "100%"}}>
+             <Flex vertical gap="15px" justify="start" align="center" style={{width: "100%", overflow: "auto"}}>
                 {regimentData &&
                     Object.entries(regimentData).map(([day, exercises]) => (
                         <div key={day} style={{ 
