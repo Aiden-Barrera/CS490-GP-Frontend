@@ -63,7 +63,6 @@ const Exercise = ({info}) => { //keep track of patient info for Regiment
                     <p style={{ color: "#F09C96", marginTop: "-5px", marginLeft:"10px"}}> Select exercises to add to your regiment </p>
                     </Flex>
                     <div>
-                        <Button type="primary" style={{ backgroundColor: "#F09C96", marginRight: "10px" }} onClick={() => {showCalendarModal()}} >+ Create new Regiment</Button>
                         <Button type="primary" style={{ backgroundColor: "#a2c3a4", borderColor: "#a2c3a4", marginRight:"65px" }} onClick={() => {showCreateModal()}}>+ Add New Exercise</Button>
                     </div>
                     <AddCalendar info={info} open={isCalendarModalOpen} handleClose={handleCalendarCancel} />
