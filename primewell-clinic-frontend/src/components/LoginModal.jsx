@@ -23,6 +23,11 @@ const LoginModal = (props) => {
                 console.log("Logged In")
                 props.info(res.data) // This passes down the user info to Navbar
                 props.auth(true) // This passes down that the user has been authenticated to Navbar
+
+                sessionStorage.setItem("userInfo", JSON.stringify(res.data));
+                sessionStorage.setItem("userType", props.userType);
+                sessionStorage.setItem("auth", true);
+
                 handleClose()
             }
         } else if (props.userType === "Doctor") {
@@ -33,6 +38,11 @@ const LoginModal = (props) => {
                 console.log("Logged In")
                 props.info(res.data) // This passes down the user info to Navbar
                 props.auth(true) // This passes down that the user has been authenticated to Navbar
+
+                sessionStorage.setItem("userInfo", JSON.stringify(res.data));
+                sessionStorage.setItem("userType", props.userType);
+                sessionStorage.setItem("auth", true);
+
                 handleClose()
             }
         } else {
@@ -44,6 +54,12 @@ const LoginModal = (props) => {
                 props.info(res.data) // This passes down the user info to Navbar
                 props.auth(true) // This passes down that the user has been authenticated to Navbar
                 props.setIsPharm(true)
+
+                sessionStorage.setItem("userInfo", JSON.stringify(res.data));
+                sessionStorage.setItem("userType", props.userType);
+                sessionStorage.setItem("auth", true);
+                sessionStorage.setItem("isPharm", true)
+
                 navigate('/PharmacistPortal')
                 handleClose()
             }

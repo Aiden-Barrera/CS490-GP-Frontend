@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import {Routes, Route} from 'react-router-dom'
+import { Flex } from 'antd'
 import './App.css'
 import Home from './pages/Home'
 import Posts from './pages/Posts'
@@ -26,16 +27,24 @@ function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
   const [surveyCompleted, setSurveyCompleted] = useState(false); // shared state
   const [headers, setHeaders] = useState(JSON.parse(import.meta.env.VITE_HEADERS))
+  const [isUserInfoLoaded, setIsUserInfoLoaded] = useState(false);
 
   useEffect(() => {
     document.title = "PrimeWell Clinic";
   }, []);
 
   useEffect(() => {
-    // This is to just verify their info is being stored
-    console.log("UserInfo in App.jsx");
-    console.log(userInfo);
-  }, [userInfo]);
+    const storedUserInfo = sessionStorage.getItem("userInfo")
+    const storedAuth = sessionStorage.getItem("auth")
+
+    if (storedUserInfo && storedAuth === "true"){
+      setUserInfo(JSON.parse(storedUserInfo))
+      console.log("Stored UserInfo: ", JSON.parse(storedUserInfo))
+    }
+    setIsUserInfoLoaded(true)
+  }, [])
+
+  if (!isUserInfoLoaded) return <Flex justify='center' align='center' style={{color: "#ffffff", width: "100vw", fontSize: "48px"}}>Loading...</Flex>;
 
   return (
     <>
