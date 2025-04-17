@@ -6,6 +6,7 @@ import axios from "axios";
 const DoctorIncomingRequests = (props) => {
   const [form] = Form.useForm();
   const [incomingRequests, setIncomingRequests] = useState([]);
+  const [pendingRequests, setPendingRequests] = useState([]);
 
   // const onFinish = () => {};
 
@@ -17,8 +18,12 @@ const DoctorIncomingRequests = (props) => {
         `http://localhost:3000/request/${props.info.doctor_id}`
       );
       // console.log(props.info.doctor_id);
-      console.log(res.data);
+      // console.log(res.data);
       setIncomingRequests(res.data);
+      const pending = res.data.filter(
+        (request) => request.Request_Status === "Pending"
+      );
+      setPendingRequests(pending);
       if (res.data.length === 0) {
         console.log("Couldn't get doctor patient data");
       } else {
@@ -51,7 +56,7 @@ const DoctorIncomingRequests = (props) => {
     >
       <h1 style={{ color: "#333333", marginBottom: 0 }}>Incoming Requests</h1>
       <h2 style={{ color: "#333333", marginBottom: 0 }}>
-        Received - {incomingRequests.length}
+        Received - {pendingRequests.length}
       </h2>
       <Flex
         vertical
@@ -60,12 +65,17 @@ const DoctorIncomingRequests = (props) => {
           width: "50%",
         }}
       >
-        {incomingRequests &&
-          incomingRequests.map((patient, index) => (
+        {pendingRequests &&
+          pendingRequests.map((patient, index) => (
             <IncomingRequestCard
               key={index}
               Fname={patient.First_name}
               Lname={patient.last_name}
+              Patient_ID={patient.Patient_ID}
+              Doctor_ID={patient.Doctor_ID}
+              Appt_Date={(patient.Appt_Date).substring(0, 10)}
+              Appt_Time={patient.Appt_Time}
+              Tier={patient.Tier}
             />
           ))}
       </Flex>
