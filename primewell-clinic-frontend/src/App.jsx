@@ -19,11 +19,14 @@ import DailySurvey from './pages/PatientPortal/DailySurvey'
 import Profile from './pages/Profile'
 import PharmaSideBarMenu from './pages/PharmacistPortal/PharmaSideBarMenu'
 import PillPage from './pages/PharmacistPortal/PillPage'
+import Appointments from './pages/PatientPortal/Appointments'
 import Regiment from './pages/PatientPortal/Regiment'
 
 function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
   const [surveyCompleted, setSurveyCompleted] = useState(false); // shared state
+  const [headers, setHeaders] = useState(JSON.parse(import.meta.env.VITE_HEADERS))
+
   useEffect(() => {
     document.title = "PrimeWell Clinic";
   }, []);
@@ -39,7 +42,7 @@ function App() {
       <div className='App'>
         <Navbar userInfo={userInfo} info={setUserInfo}/>
         <Routes>
-          <Route path='/' element={<Home />}/>
+          <Route path='/' element={<Home headers={headers}/>}/>
           <Route path='/Posts' element={<Posts />}/>
           <Route path='/PharmacistPortal' element={<PharmacistPortal />}/>
           <Route path='/Exercise' element={<Exercise info={userInfo}/>} />
@@ -48,7 +51,7 @@ function App() {
           <Route path="/PatientPortal" element={<SideBarMenu info={userInfo} surveyCompleted={surveyCompleted}/>}>
             <Route index element={<Dashboard info={userInfo} />} />
             <Route path="Request" element={<Request userInfo={userInfo} />} />
-            <Route path="Appointment" element={<div>Appointments Page</div>} />
+            <Route path="Appointment" element={<Appointments userInfo={userInfo}/>} />
             <Route path="Regiment" element={<Regiment info={userInfo}/>} />
             <Route path="Daily-Survey" element={<DailySurvey info={userInfo} setSurveyCompleted={setSurveyCompleted}/>} />
             <Route path="Prescription" element={<div>Prescription Page</div>} />
