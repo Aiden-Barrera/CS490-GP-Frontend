@@ -11,10 +11,29 @@ const CreateExerciseModal = (props) => {
         }
     }, [props.open])
 
-    const onFinish = () => {
-        message.success("New Exercise Added!")
-    }
+    const onFinish = async (values) => {
+        try {
+            const formattedValues = {
+                ...values,
+                Exercise_Name: values["Exercise Name"],
+                Muscle_Group: values["Muscle Group"],
+                Exercise_Description: values["Exercise Description"],
+                Muscle_Category: values["Muscle Category"],
+                Sets: Number(values.Sets),
+                Reps: Number(values.Reps)
+            };
 
+            await axios.post("http://localhost:3000/exercisebank", formattedValues);
+            message.success("New Exercise Added!")
+            props.sent(true)
+            form.resetFields();
+            props.handleClose();
+        } catch (error) {
+            console.error("Error adding Exercise:", error.response?.data || error.message);
+            message.error("Error:", error.response?.data?.message || "Unable to Add Exercise");
+        }
+    };
+    
     const onFail = () => {
         message.error("Unable to Add Exercise")
     }
