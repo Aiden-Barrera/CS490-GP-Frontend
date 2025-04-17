@@ -12,7 +12,7 @@ const PatientCard = (props) => {
           display: "flex",
           alignItems: "center", // Vertically centers text
           height: "100%", // Takes full height of the parent
-          paddingLeft: 10, // Ensures left alignment
+          paddingLeft: "15px", // Ensures left alignment
         }}
       >
         <h2
@@ -40,43 +40,25 @@ const PatientCard = (props) => {
         backgroundColor: "#f09c96",
         display: "flex",
         alignItems: "center",
+        boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
       }}
     >
       <Content
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "flex-start",
-          paddingLeft: 10,
+          justifyContent: "space-between",
+          padding: "0 20px",
           width: "100%",
           height: "100%",
         }}
       >
-        <UserOutlined style={{ fontSize: "40px", color: "white" }} />
-        <PatientName Fname={props.Fname} Lname={props.Lname} />
-        {/* <Flex>
-          <Content
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              paddingLeft: 50,
-              flexDirection: "column",
-              gap: 10,
-            }}
-          ></Content>
-        </Flex> */}
+        <Flex gap="10px">
+          <UserOutlined style={{ fontSize: "40px", color: "white" }} />
+          <PatientName Fname={props.Fname} Lname={props.Lname} />
+        </Flex>
 
-        <Content
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            paddingLeft: 150,
-            flexDirection: "column",
-            gap: 10,
-          }}
-        >
+        <Flex vertical gap="15px">
           <Button
             style={{
               backgroundColor: "#FFE6E2",
@@ -84,6 +66,7 @@ const PatientCard = (props) => {
               borderColor: "#FFE6E2",
               fontFamily: "Poppins",
               fontSize: 10,
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
             }}
           >
             <h2>View Dashboard</h2>
@@ -95,11 +78,12 @@ const PatientCard = (props) => {
               borderColor: "#a2c3a4",
               fontFamily: "Poppins",
               fontSize: 10,
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
             }}
           >
             <h2>View forum</h2>
           </Button>
-        </Content>
+        </Flex>
       </Content>
     </Layout>
   );

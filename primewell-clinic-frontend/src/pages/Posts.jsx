@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import {Flex, Input, Button} from "antd"
+import {Flex, Input, Button, Modal} from "antd"
 import PostsCard from "../components/PostsCard";
+import PostModal from "../components/PostModal";
 
 const Posts = () => {
     const [postInfo, setPostInfo] = useState(null)
     const [searchedValue, setSearchedValue] = useState("")
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [sent, setSent] = useState(false)
 
     const fetchPosts = async () => {
         try {
@@ -32,9 +35,17 @@ const Posts = () => {
         return post.Exercise_Name.toLowerCase().includes(searchedValue.toLowerCase())
     })
 
+    const showModal = () => {
+        setIsModalOpen(true)
+    };
+    
+    const handleClose = () => {
+        setIsModalOpen(false)
+    };
+
     return (
         <>
-            <Flex justify="center" align="center" style={{
+        <Flex justify="center" align="center" style={{
             height: "auto", width: "100vw", marginTop: "180px", marginBottom: "100px"
             }}>
             <Flex vertical justify="center" align="center" gap="20px" style={{
@@ -53,7 +64,7 @@ const Posts = () => {
                     {/* Section for Writing a new review */}
                     <Button type="primary" style={{
                         width: "40%", borderRadius: "24px", padding: "22px 0px", backgroundColor: "#f09c96", marginBottom:"40px", fontSize: "22px", fontWeight: "700", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
-                    }}>Start a Discussion</Button>
+                    }} onClick={showModal}>Start a Discussion</Button>
                 <Flex vertical gap="30px" style={{
                         width: "100%",
                     }}>
@@ -64,6 +75,7 @@ const Posts = () => {
                 </Flex>
             </Flex>
         </Flex>
+        <PostModal open={isModalOpen} handleClose={handleClose} sent={setSent} />
         </>
     )
 }

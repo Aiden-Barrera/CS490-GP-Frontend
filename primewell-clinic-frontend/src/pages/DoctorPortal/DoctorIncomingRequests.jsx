@@ -18,11 +18,12 @@ const DoctorIncomingRequests = (props) => {
         `http://localhost:3000/request/${props.info.doctor_id}`
       );
       // console.log(props.info.doctor_id);
-      // console.log(res.data);
+      console.log("All Request: ", res.data);
       setIncomingRequests(res.data);
       const pending = res.data.filter(
         (request) => request.Request_Status === "Pending"
       );
+      console.log("Filtered Requests: ", pending)
       setPendingRequests(pending);
       if (res.data.length === 0) {
         console.log("Couldn't get doctor patient data");
@@ -52,6 +53,7 @@ const DoctorIncomingRequests = (props) => {
         width: "100%",
         overflowY: "auto",
         fontFamily: "Poppins",
+        boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
       }}
     >
       <h1 style={{ color: "#333333", marginBottom: 0 }}>Incoming Requests</h1>
@@ -76,6 +78,7 @@ const DoctorIncomingRequests = (props) => {
               Appt_Date={(patient.Appt_Date).substring(0, 10)}
               Appt_Time={patient.Appt_Time}
               Tier={patient.Tier}
+              fetchRequest={getIncomingRequests}
             />
           ))}
       </Flex>

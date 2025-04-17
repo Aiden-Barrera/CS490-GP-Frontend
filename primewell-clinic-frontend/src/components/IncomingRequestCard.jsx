@@ -1,17 +1,12 @@
-import { Flex, Layout, Button } from "antd";
+import { Flex, Layout, Button, notification } from "antd";
 import { UserOutlined, CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import axios from "axios";
 
 const { Content } = Layout;
 
 const IncomingRequestCard = (props) => {
-  // console.log(props.Fname);
-  // console.log(props.Lname);
-  // console.log(props.Patient_ID);
-  // console.log(props.Doctor_ID);
-  // console.log(props.Appt_Date);
-  // console.log(props.Appt_Time);
-  // console.log(props.Tier);
+  const [api, contextHolder] = notification.useNotification();
+
   const handleAccept = async () => {
     try {
       console.log("Patient " + props.Fname + " " + props.Lname + " accepted");
@@ -23,6 +18,16 @@ const IncomingRequestCard = (props) => {
         Appt_Time: props.Appt_Time,
         Tier: props.Tier
       });
+
+      api.open({
+        message: "Request Accepted!",
+        description: 
+            `Appointment made with ${props.Fname} ${props.Lname} Successfully!`
+      })
+
+      setTimeout(() => {
+        props?.fetchRequest?.()
+      }, 3000) // 3 seconds is usually enough
       // console.log(props.Appt_Date);
       console.log('Patient accepted:', response.data);
     } catch (error) {
@@ -82,29 +87,25 @@ const IncomingRequestCard = (props) => {
         backgroundColor: "#f09c96",
         display: "flex",
         alignItems: "center",
+        boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
       }}
     >
       <Content
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "flex-start",
-          paddingLeft: 10,
+          justifyContent: "space-between",
+          padding: "0 20px",
           width: "100%",
           height: "100%",
         }}
       >
-        <UserOutlined style={{ fontSize: "40px", color: "white" }} />
-        <PatientName Fname={props.Fname} Lname={props.Lname} />
-        <Content
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            paddingRight: 10,
-            gap: 10,
-          }}
-        >
+        <Flex gap="10px">
+          <UserOutlined style={{ fontSize: "40px", color: "white" }} />
+          <PatientName Fname={props.Fname} Lname={props.Lname} />
+        </Flex>
+        <Flex gap="10px">
+        {contextHolder}
           <Button
             style={{
               backgroundColor: "#a2c3a4",
@@ -115,6 +116,7 @@ const IncomingRequestCard = (props) => {
               borderRadius: "100%",
               height: 60,
               width: 60,
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
             }}
             onClick={() => { handleAccept() }}
           >
@@ -130,12 +132,13 @@ const IncomingRequestCard = (props) => {
               borderRadius: "100%",
               height: 60,
               width: 60,
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
             }}
             onClick={() => { handleDecline() }}
           >
             <CloseOutlined />
           </Button>
-        </Content>
+        </Flex>
       </Content>
     </Layout>
   );
