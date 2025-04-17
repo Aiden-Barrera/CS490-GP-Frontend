@@ -1,8 +1,8 @@
-import { Flex, Row, Col, Card, Button } from "antd";
+import { Flex, Row, Col, Card, Button, message } from "antd";
 import Footer from "../components/Footer";
 import { Image } from "antd";
 import CreateExerciseModal from "../components/CreateExerciseModal";
-import { use, useState } from "react";
+import { useState } from "react";
 import ExerciseListModal from "../components/ExerciseListModal";
 import AddCalendar from "../components/AddCalendar";
 
@@ -21,7 +21,6 @@ const Exercise = ({info}) => { //keep track of patient info for Regiment
     const [isListModalOpen, setIsListModalOpen] = useState(false);
     const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
-    
     const showCreateModal = () => {
         setIsCreateModalOpen(true);
     };
@@ -41,6 +40,8 @@ const Exercise = ({info}) => { //keep track of patient info for Regiment
 
     const handleListCancel = () => {
         setIsListModalOpen(false);
+        message.destroy();
+        
     };
 
     const handleCalendarCancel = () => {
@@ -57,9 +58,11 @@ const Exercise = ({info}) => { //keep track of patient info for Regiment
            
             
                 <Flex justify="space-between" align="center" style={{ width: "100vw", backgroundColor: "#ffffff", textAlign: "center"}}>
-                    <h3 style={{ color: "#F09C96", marginLeft: "50px" }}>Browse through the categories</h3>
+                    <Flex vertical align="center" justify="space-between" style={{marginLeft:"50px"}}>
+                    <h3 style={{ color: "#F09C96"}}>Browse through the categories</h3>
+                    <p style={{ color: "#F09C96", marginTop: "-5px", marginLeft:"10px"}}> Select exercises to add to your regiment </p>
+                    </Flex>
                     <div>
-                        <Button type="primary" style={{ backgroundColor: "#F09C96", marginRight: "10px" }} onClick={() => {showCalendarModal()}} >+ Create new Regiment</Button>
                         <Button type="primary" style={{ backgroundColor: "#a2c3a4", borderColor: "#a2c3a4", marginRight:"65px" }} onClick={() => {showCreateModal()}}>+ Add New Exercise</Button>
                     </div>
                     <AddCalendar info={info} open={isCalendarModalOpen} handleClose={handleCalendarCancel} />
@@ -80,11 +83,12 @@ const Exercise = ({info}) => { //keep track of patient info for Regiment
                                     <div style={{ marginBottom: "20px", pointerEvents: 'none'}}>{category.icon}</div>
                                     <h3 style={{ color: "#F09C96" }}>{category.name}</h3>
                                     <p style={{ fontSize: "12px", color: "#333" }}>{category.description}</p>
+                                    {console.log("Category: " + category)}
                                 </Card>
                             </Col>
                         ))}
                     </Row>
-                    <ExerciseListModal info={info} open={isListModalOpen} handleClose={handleListCancel} categoryName={selectedCategory} />
+                    <ExerciseListModal info={info} open={isListModalOpen} handleClose={handleListCancel} categoryName={selectedCategory}/>
                 </Flex>
             
             <Flex justify="center" align="center" style={{ width: "100vw", margin: "25px" }}>

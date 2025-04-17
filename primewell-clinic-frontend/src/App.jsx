@@ -19,6 +19,7 @@ import DailySurvey from './pages/PatientPortal/DailySurvey'
 import Profile from './pages/Profile'
 import PharmaSideBarMenu from './pages/PharmacistPortal/PharmaSideBarMenu'
 import PillPage from './pages/PharmacistPortal/PillPage'
+import Regiment from './pages/PatientPortal/Regiment'
 
 function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
@@ -48,7 +49,7 @@ function App() {
             <Route index element={<Dashboard info={userInfo} />} />
             <Route path="Request" element={<Request userInfo={userInfo} />} />
             <Route path="Appointment" element={<div>Appointments Page</div>} />
-            <Route path="Regiment" element={<div>Regiment Page</div>} />
+            <Route path="Regiment" element={<Regiment info={userInfo}/>} />
             <Route path="Daily-Survey" element={<DailySurvey info={userInfo} setSurveyCompleted={setSurveyCompleted}/>} />
             <Route path="Prescription" element={<div>Prescription Page</div>} />
             <Route path="Payment" element={<div>Payment Page</div>} />

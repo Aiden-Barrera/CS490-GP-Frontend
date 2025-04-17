@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import AddCalendar from "./AddCalendar";
-const ExerciseListModal = ({info, open, handleClose, categoryName}) => {
+const ExerciseListModal = ({info, open, handleClose: handleListCancel, categoryName}) => {
     console.log("From ExerciseListModal.jsx", info?.patient_id);
     const [exerciseInfo, setExerciseInfo] = useState([]);
     const [selectedRows, setSelectedRows] = useState(new Set());
@@ -12,19 +12,21 @@ const ExerciseListModal = ({info, open, handleClose, categoryName}) => {
     
     useEffect(() => {
         const fetchExerciseInfo = async () => {
-            try {
-                const body = {
-                    Exercise_Class: categoryName 
-                }
-                console.log("Category Name: ", body)
-                const res = await axios.post("http://localhost:3000/exerciseByClass", body);
-                setExerciseInfo(res.data);
-            } catch (error) {
-                console.error("Error fetching exercise data:", error);
-            }
+          try {
+            const body = {
+              Exercise_Class: categoryName
+            };
+            console.log("Fetching with body:", body);
+            const res = await axios.post("http://localhost:3000/exerciseByClass", body);
+            console.log("Fetched data: ", res.data);
+            setExerciseInfo(res.data);
+          } catch (error) {
+            console.error("Error fetching exercise data:", error);
+          }
         };
-        fetchExerciseInfo();
-    }, [open]);
+        if (open) fetchExerciseInfo();
+      }, [open, categoryName]);
+      
 
     useEffect(() => {
         if (info.open) {
@@ -49,7 +51,13 @@ const ExerciseListModal = ({info, open, handleClose, categoryName}) => {
         });
     };
 
-   
+    const handleClose = () => {
+        message.destroy();
+        //setSelectedRows(new Set());
+        setSelectedModalVisible(false);
+        handleListCancel();
+      };
+
     const columns = [
         { title: 'Exercise Name', dataIndex: 'Exercise_Name', width: 150 },
         { title: 'ID', dataIndex: 'Exercise_ID', width: 25 },
