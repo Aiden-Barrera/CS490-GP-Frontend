@@ -73,7 +73,7 @@ const DoctorDashboard = (props) => {
           doctorPatients.map((patient) => (
             <PatientCard Fname={patient.First_Name} Lname={patient.Last_Name} />
           )) : (
-            <p style={{margin: 0, color: "#333333", fontSize: "24px"}}>No Patients</p>
+            <p style={{ margin: 0, color: "#333333", fontSize: "24px" }}>No Patients</p>
           )}
       </Flex>
       {/* Doctor's Upcoming Appointments */}
@@ -90,7 +90,7 @@ const DoctorDashboard = (props) => {
         }}
       >
         <h1 style={{ color: "#333333" }}>Upcoming Appointments</h1>
-        {upcomingAppointments.length > 0 ? 
+        {upcomingAppointments.length > 0 ?
           upcomingAppointments.map((patient) => (
             <UpcomingAptsCards
               Fname={patient.First_Name}
@@ -100,9 +100,8 @@ const DoctorDashboard = (props) => {
               Tier={patient.Tier}
             ></UpcomingAptsCards>
           )) : (
-            <p style={{margin: 0, color: "#333333", fontSize: "24px"}}>No Upcoming Appointments</p>
+            <p style={{ margin: 0, color: "#333333", fontSize: "24px" }}>No Upcoming Appointments</p>
           )}
-        {/* <UpcomingAptsCards></UpcomingAptsCards> */}
       </Flex>
     </Flex>
   );
