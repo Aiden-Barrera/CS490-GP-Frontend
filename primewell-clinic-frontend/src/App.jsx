@@ -24,6 +24,8 @@ import Appointments from './pages/PatientPortal/Appointments'
 function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
   const [surveyCompleted, setSurveyCompleted] = useState(false); // shared state
+  const [headers, setHeaders] = useState(JSON.parse(import.meta.env.VITE_HEADERS))
+
   useEffect(() => {
     document.title = "PrimeWell Clinic";
   }, []);
@@ -39,7 +41,7 @@ function App() {
       <div className='App'>
         <Navbar userInfo={userInfo} info={setUserInfo}/>
         <Routes>
-          <Route path='/' element={<Home />}/>
+          <Route path='/' element={<Home headers={headers}/>}/>
           <Route path='/Posts' element={<Posts />}/>
           <Route path='/PharmacistPortal' element={<PharmacistPortal />}/>
           <Route path='/Exercise' element={<Exercise info={userInfo}/>} />

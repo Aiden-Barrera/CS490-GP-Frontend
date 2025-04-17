@@ -39,58 +39,39 @@ const UpcomingAptsCards = (props) => {
         backgroundColor: "#f09c96",
         display: "flex",
         alignItems: "center",
+        boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
       }}
     >
       <Content
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "flex-start",
-          paddingLeft: 10,
+          justifyContent: "space-between",
+          padding: "0 20px",
           width: "100%",
           height: "100%",
           color: "white",
         }}
       >
-        <Flex style={{ flexDirection: "column" }}>
-          <Flex>
-            <CalendarOutlined style={{ fontSize: "30px", color: "white" }} />
-            <p fontSize="30px">
-              {" "}
-              {props.Date.substring(0, 10)} | {props.Time}
-            </p>
+        <Flex style={{ flexDirection: "column", marginLeft: "20px" }} gap="10px">
+          <Flex gap="10px">
+            <CalendarOutlined style={{ fontSize: "24px", color: "white" }} />
+            <h2 style={{color: "#ffffff", fontSize: "20px", borderRight: "3px solid #ffffff", paddingRight: "18px", margin: 0, fontWeight: "800"}}>
+              {props.Date.substring(0, 10)} 
+            </h2>
+            <h2 style={{color: "#ffffff", fontSize: "20px", paddingLeft: "9px", margin: 0, fontWeight: "800"}}>{props.Time}</h2>
           </Flex>
-          <Flex>
-            <UserOutlined style={{ fontSize: "30px", color: "white" }} />
-            <p fontSize="30px">
-              {" "}
-              {props.Fname} {props.Lname} | {props.Tier}
-            </p>
+          <Flex gap="10px">
+            <UserOutlined style={{ fontSize: "24px", color: "white" }} />
+            <h2 style={{color: "#ffffff", fontSize: "20px", borderRight: "3px solid #ffffff", paddingRight: "18px", margin: 0, fontWeight: "800"}}>
+              {props.Fname} {props.Lname} 
+            </h2>
+            <h2 style={{color: "#ffffff", fontSize: "20px", paddingLeft: "9px", margin: 0, fontWeight: "800"}}>{props.Tier}</h2>
           </Flex>
         </Flex>
-        <Content
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            paddingLeft: 350,
-            flexDirection: "column",
-            gap: 10,
-          }}
-        >
-          <Button
-            style={{
-              backgroundColor: "#FFE6E2",
-              color: "black",
-              borderColor: "#FFE6E2",
-              justifyContent: "flex-end",
-              fontFamily: "Poppins",
-              fontSize: 10,
-            }}
-          >
-            <h2>Start Appointment</h2>
-          </Button>
-        </Content>
+        <Button type="primary" style={{fontWeight: "700", fontSize: "18px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}}>
+            Start Appointment
+        </Button>
       </Content>
     </Layout>
   );

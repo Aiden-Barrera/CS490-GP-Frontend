@@ -66,6 +66,7 @@ const DoctorDashboard = (props) => {
           borderRadius: "12px",
           padding: "33px 40px",
           width: "100%",
+          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
         }}
       >
         <h1 style={{ color: "#333333" }}>Patients</h1>
@@ -87,6 +88,7 @@ const DoctorDashboard = (props) => {
           borderRadius: "12px",
           padding: "33px 40px",
           width: "100%",
+          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
         }}
       >
         <h1 style={{ color: "#333333" }}>Upcoming Appointments</h1>
