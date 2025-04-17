@@ -68,7 +68,7 @@ const Navbar = (props) => {
           setIsPharm(false)
         }
         setUserType('');
-        localStorage.clear()
+        sessionStorage.clear()
         navigate("/")
         break;
       default:
