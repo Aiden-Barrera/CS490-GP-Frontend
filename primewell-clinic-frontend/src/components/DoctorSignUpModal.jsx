@@ -76,6 +76,11 @@ const DoctorSignUpModal = (props) => {
         });
         props.info(res.data)
         props.auth(true)
+
+        sessionStorage.setItem("userInfo", JSON.stringify(res.data));
+        sessionStorage.setItem("userType", props.userType);
+        sessionStorage.setItem("auth", true);
+
         handleClose();
       }
     } catch (err) {
