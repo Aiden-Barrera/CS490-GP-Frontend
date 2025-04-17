@@ -37,7 +37,8 @@ const AddCalendar = ({ open, handleClose, selectedRows, exerciseInfo, patientInf
 
     try {
       await axios.patch(`http://localhost:3000/regiments/${patientInfo.patient_id}`, {
-        Regiment: JSON.stringify({...regimentByDay})
+        Regiment: JSON.stringify({...regimentByDay}),
+        Patient_ID: patientInfo.patient_id
       });
       message.success("Regiment successfully created!");
       console.log("Submitted:", regimentByDay);
