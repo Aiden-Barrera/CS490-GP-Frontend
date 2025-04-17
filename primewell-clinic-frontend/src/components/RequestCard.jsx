@@ -95,11 +95,19 @@ const RequestCard = (props) => {
               });
             console.log("Request Sent Successfully")
         } catch (err) {
-            api.open({
-                message: 'Request Failed!',
-                description:
-                  `Failed to Send Request!`,
-              });
+            if (err.response.data?.error == "Request Taken Already") {
+                api.open({
+                    message: 'Request Failed!',
+                    description:
+                      `Request Already Made!`,
+                  });
+            } else {
+                api.open({
+                    message: 'Request Failed!',
+                    description:
+                      `Failed to Send Request!`,
+                  });
+            }
             console.log("Failed Making Request: ", err.response.data)
         } finally {
             setTimeout(() => setRequestBtnClicked(false), 3000)
