@@ -35,6 +35,8 @@ const RequestCard = (props) => {
     const [activeIndex, setActiveIndex] = useState(null)
     const [tier, setTier] = useState("")
     const [drop, setDrop] = useState(false)
+    const [requestBtnClicked, setRequestBtnClicked] = useState(false)
+    const [dropBtnClicked, setDropBtnClicked] = useState(false)
 
     const handleSelect = (value) => {
         setSelectDate(value)
@@ -55,12 +57,27 @@ const RequestCard = (props) => {
         fetchDaySchudule()
     }, [selectDate])
 
+    useEffect(() => {
+        setTier("")
+    }, [btnClicked])
+
     const handleClick = (slot, key) => {
         setTimeSlot(slot)
         setActiveIndex(key)
     }
 
     const sendRequest = async () => {
+        console.log("Tier: ", tier, " Timeslot: ", timeSlot)
+        if (!timeSlot || !tier) {
+            api.open({
+                message: 'Incomplete Request!',
+                description: 'Please select both a time slot and tier before sending your request.',
+            });
+            return;
+        }
+
+        setRequestBtnClicked(true)
+
         const body = {
             Patient_ID: props?.patientInfo?.patient_id,
             Doctor_ID: props.info.doctor_id,
@@ -84,10 +101,14 @@ const RequestCard = (props) => {
                   `Failed to Send Request!`,
               });
             console.log("Failed Making Request: ", err.response.data)
+        } finally {
+            setTimeout(() => setRequestBtnClicked(false), 3000)
         }
     }
 
     const dropDoctor = async () => {
+        setDropBtnClicked(true)
+
         const body = {
             Patient_ID: props?.patientInfo?.patient_id,
             Doctor_ID: props.info.doctor_id
@@ -110,6 +131,8 @@ const RequestCard = (props) => {
                   `Failed to Drop Doctor!`,
               });
             console.log("Failed Dropping Doctor: ", err.response.data)
+        } finally {
+            setTimeout(()=> setDropBtnClicked(false), 3000)
         }
     }
     
@@ -172,7 +195,7 @@ const RequestCard = (props) => {
                                 fontWeight: "700", fontSize: "24px", color: "#333333", height: "100%", minWidth: "100px",boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
                             }}/>
                             {contextHolder}
-                            <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={sendRequest}>
+                            <Button type="primary" disabled={requestBtnClicked} style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={sendRequest}>
                                 Send Request
                             </Button>
                             {props.dropDoctor && (
