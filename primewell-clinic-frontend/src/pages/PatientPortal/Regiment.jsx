@@ -4,14 +4,14 @@ import { Flex } from "antd";
 
 const Regiment = ({ info }) => {
     const [regimentData, setRegimentData] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const dayOrder = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
     useEffect(() => {
         const fetchRegimentInfo = async () => {
             try {
                 const res = await axios.get(`http://localhost:3000/regiment/${info.patient_id}`);
                 console.log("Fetched data:", res.data);
-
+    
                 if (Array.isArray(res.data) && res.data.length > 0) {
                     setRegimentData(res.data[0].Regiment); // Grab nested object
                 } else {
@@ -19,9 +19,7 @@ const Regiment = ({ info }) => {
                 }
             } catch (err) {
                 console.error("Error Fetching Regiment: ", err);
-            } finally {
-                setLoading(false);
-            }
+            } 
         };
 
         if (info?.patient_id) {
@@ -38,7 +36,6 @@ const Regiment = ({ info }) => {
             borderRadius: "16px", 
             width: "100%", 
             height: "100%", 
-            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)", 
             padding: "20px",
             marginBottom: "20px",
             overflowY: "auto"
@@ -46,19 +43,19 @@ const Regiment = ({ info }) => {
             <h1>Regiment</h1>
 
             {regimentData &&
-                Object.entries(regimentData).map(([day, exercises]) => (
-                    <div key={day} style={{ marginBottom: "15px", width: "80%", backgroundColor: "#f09c96", padding: "10px", borderRadius: "8px" }}>
-                        <strong>{day}</strong>
+                Object.entries(regimentData).sort(([a], [b]) => dayOrder.indexOf(a) - dayOrder.indexOf(b)).map(([day, exercises]) => (
+                    <Flex vertical  key={day} style={{ marginBottom: "15px", width: "80%", backgroundColor: "#f09c96", padding: "10px", borderRadius: "8px" }}>
+                        <h2 style={{color: "#ffffff", marginTop: "-5px"}}>{day}</h2>
                         {exercises.length > 0 ? (
-                            <ul>
+                            <Flex vertical>
                                 {exercises.map((exercise, id) => (
-                                    <p key={id}>{exercise}</p>
+                                    <Flex style={{color: "#ffffff"}} key={id} >{exercise}</Flex>
                                 ))} 
-                            </ul>
+                            </Flex>
                         ) : (
-                            <p style={{ color: "#000000" }}>No exercises</p>
+                            <Flex style={{ color: "#ffffff" }}>No exercises</Flex>
                         )}
-                    </div>
+                    </Flex>
                 ))
             }
         </Flex>
