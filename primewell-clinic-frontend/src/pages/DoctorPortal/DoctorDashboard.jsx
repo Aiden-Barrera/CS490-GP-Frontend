@@ -73,7 +73,7 @@ const DoctorDashboard = (props) => {
       >
         <h1 style={{ color: "#333333" }}>Patients</h1>
 
-        <Flex vertical gap="10px" style={{width: "100%", overflow: "auto"}}>
+        <Flex vertical gap="10px" style={{width: "100%", overflow: "auto", padding: "10px"}}>
           {doctorPatients.length > 0 ?
             doctorPatients.map((patient) => (
               <PatientCard Fname={patient.First_Name} Lname={patient.Last_Name} />
@@ -100,7 +100,7 @@ const DoctorDashboard = (props) => {
       >
         <h1 style={{ color: "#333333", marginBottom: "20px" }}>Upcoming Appointments</h1>
 
-        <Flex vertical gap="10px" style={{width: "100%", overflow: "auto"}}>
+        <Flex vertical gap="10px" style={{width: "100%", overflow: "auto", padding: "10px"}}>
           {upcomingAppointments.length > 0 ? (
             upcomingAppointments.map((patient, index) => (
               <UpcomingAptsCards
