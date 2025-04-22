@@ -1,12 +1,15 @@
 import { Flex, Layout, Button } from "antd";
 import { UserOutlined, CalendarOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react";
 
 const { Content } = Layout;
 
 const UpcomingAptsCards = (props) => {
   const [date, setDate] = useState(() => dayjs())
+  const navigate = useNavigate()
+
 
   useEffect(() => {
     setDate(dayjs(props.Date))
@@ -36,6 +39,13 @@ const UpcomingAptsCards = (props) => {
       </div>
     );
   };
+
+  const handleClick = () => {
+    console.log(props?.appt_id)
+    navigate("/DoctorPortal/ApptChannel", {
+        state: {appt_id: props?.appt_id}
+    })
+  }
 
   return (
     <Layout
@@ -78,7 +88,7 @@ const UpcomingAptsCards = (props) => {
             <h2 style={{color: "#ffffff", fontSize: "20px", paddingLeft: "9px", margin: 0, fontWeight: "800"}}>{props.Tier}</h2>
           </Flex>
         </Flex>
-        <Button type="primary" style={{fontWeight: "700", fontSize: "18px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}}>
+        <Button type="primary" style={{fontWeight: "700", fontSize: "18px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={handleClick}>
             Start Appointment
         </Button>
       </Content>

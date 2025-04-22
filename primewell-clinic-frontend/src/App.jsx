@@ -22,6 +22,7 @@ import PharmaSideBarMenu from './pages/PharmacistPortal/PharmaSideBarMenu'
 import PillPage from './pages/PharmacistPortal/PillPage'
 import Appointments from './pages/PatientPortal/Appointments'
 import Regiment from './pages/PatientPortal/Regiment'
+import ApptChannel from './pages/ApptChannel'
 
 function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
@@ -65,6 +66,7 @@ function App() {
             <Route path="Daily-Survey" element={<DailySurvey info={userInfo} setSurveyCompleted={setSurveyCompleted}/>} />
             <Route path="Prescription" element={<div>Prescription Page</div>} />
             <Route path="Payment" element={<div>Payment Page</div>} />
+            <Route path="ApptChannel" element={<ApptChannel userInfo={userInfo} />} />
           </Route>
           {/* Doctor Portal with Nested Routes */}
           <Route
@@ -87,6 +89,11 @@ function App() {
               path="/DoctorPortal/PillRequest"
               element={<DoctorPillRequest />}
             />
+            <Route 
+              path="ApptChannel" 
+              element={<ApptChannel userInfo={userInfo}/>} 
+            />
+
           </Route>
            {/* Pharmacist Portal with Nested Routes */}
           <Route path="/PharmacistPortal/" element={<PharmaSideBarMenu info={userInfo} />}>

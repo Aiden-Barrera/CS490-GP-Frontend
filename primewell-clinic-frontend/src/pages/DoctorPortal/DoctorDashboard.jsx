@@ -26,7 +26,7 @@ const DoctorDashboard = (props) => {
       const res = await axios.get(
         `http://localhost:3000/appointment/doctor/${props.info.doctor_id}`
       );
-      console.log(res.data);
+      console.log("Upcoming Appt: ", res.data);
       setUpcomingAppointments(res.data);
       if (res.data.length === 0) {
         console.log("Couldn't get doctor patient data");
@@ -110,6 +110,7 @@ const DoctorDashboard = (props) => {
                 Date={patient.Appt_Date}
                 Time={patient.Appt_Time}
                 Tier={patient.Tier}
+                appt_id={patient.Appointment_ID}
               />
             ))
           ) : (

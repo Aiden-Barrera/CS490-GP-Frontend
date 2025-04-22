@@ -1,15 +1,25 @@
 import {Button, Flex, Calendar, Select, Space, notification} from "antd"
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import dayjs from 'dayjs';
 
 
 const AppointmentCard = ({apptInfo}) => {
     const [btnClicked, setBtnClicked] = useState(false)
     const [date, setDate] = useState(() => dayjs())
+    const navigate = useNavigate()
+
     
     useEffect(() => {
         setDate(dayjs(apptInfo?.Appt_Date))
+        console.log(apptInfo)
     }, [])
+
+    const handleClick = () => {
+        navigate("/PatientPortal/ApptChannel", {
+            state: {appt_id: apptInfo.Appointment_ID}
+        })
+    }
 
     return (
         <Flex vertical gap="10px" style={{
@@ -45,7 +55,7 @@ const AppointmentCard = ({apptInfo}) => {
                         <h2 style={{color: "#ffffff", fontSize: "32px", paddingLeft: "9px", margin: 0}}>{`${apptInfo?.specialty}`}</h2>
                     </Flex>
                 </Flex>
-                <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}}>
+                <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={handleClick}>
                     Join Appointment
                 </Button>
             </Flex>
