@@ -82,10 +82,6 @@ function App() {
               element={<DoctorIncomingRequests info={userInfo} />}
             />
             <Route
-              path="/DoctorPortal/Appointment"
-              element={<div>Appointments Page</div>}
-            />
-            <Route
               path="/DoctorPortal/PillRequest"
               element={<DoctorPillRequest />}
             />

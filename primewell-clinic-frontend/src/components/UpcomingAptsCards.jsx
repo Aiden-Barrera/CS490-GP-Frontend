@@ -43,7 +43,9 @@ const UpcomingAptsCards = (props) => {
   const handleClick = () => {
     console.log(props?.appt_id)
     navigate("/DoctorPortal/ApptChannel", {
-        state: {appt_id: props?.appt_id}
+        state: {
+          appt_id: props?.appt_id, 
+        }
     })
   }
 
@@ -58,7 +60,7 @@ const UpcomingAptsCards = (props) => {
         display: "flex",
         flexShrink: 0,
         alignItems: "center",
-        boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
+        boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
       }}
     >
       <Content
