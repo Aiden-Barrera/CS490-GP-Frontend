@@ -34,7 +34,7 @@ const DailySurvey = ({info, setSurveyCompleted}) => {
             }
     
             console.log(body)
-            const res2 = await axios.post(`http://localhost:3000/patientsurvey`, body)
+            const res2 = await axios.post(`http://localhost:3000/patientsurvey`, body, JSON.parse(import.meta.env.VITE_HEADERS))
             setSurveyCompleted(true)
             api.open({
                 message: 'Success!',

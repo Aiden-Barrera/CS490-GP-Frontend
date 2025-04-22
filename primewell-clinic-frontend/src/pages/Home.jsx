@@ -9,8 +9,8 @@ const Home = (props) => {
     const [topDoctors, setTopDoctors] = useState([])
 
     const fetchTopDoctors = async () => {
-        console.log(props?.headers)
-        const res = await axios.get("http://localhost:3000/reviewsTop", props?.headers)
+        console.log(JSON.parse(import.meta.env.VITE_HEADERS))
+        const res = await axios.get("http://localhost:3000/reviewsTop", JSON.parse(import.meta.env.VITE_HEADERS))
         setTopDoctors(res.data)
         console.log(res.data)
     }

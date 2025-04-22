@@ -81,8 +81,8 @@ const CalorieChart = (props) => {
                     scales: {
                         y: {
                             beginAtZero: false,
-                            min: 2000,
-                            max: 4000,
+                            min: 500,
+                            max: 6000,
                             ticks: {
                                 stepSize: 200,
                             },
