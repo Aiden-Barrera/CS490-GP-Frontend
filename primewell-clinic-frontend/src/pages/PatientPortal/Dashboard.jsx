@@ -3,6 +3,7 @@ import CalorieChart from "../../components/CalorieChart";
 import WeightChart from "../../components/WeightChart";
 
 const Dashboard = (props) => {
+    console.log(props.info)
     return (
         <Flex vertical justify="start" align="center" gap="60px" style={{
             background: "#ffffff",
