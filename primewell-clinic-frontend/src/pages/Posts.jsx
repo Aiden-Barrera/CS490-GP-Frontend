@@ -74,7 +74,7 @@ const Posts = (props) => {
                     }}>
                         {/* Where the Post Cards will go */}
                         {filteredPosts?.map((post, index) => (
-                            <PostsCard key={index} postInfo={post} />
+                            <PostsCard key={index} postInfo={post} info={props.info} />
                         ))}
                     </Flex>
                 </Flex>

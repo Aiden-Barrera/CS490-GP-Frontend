@@ -7,7 +7,7 @@ const AddPostModal = (props) => {
 
     useEffect(() => {
         if (props.open) {
-            // form.resetFields()
+            form.resetFields()
             message.destroy()
         }
     }, [props.open])

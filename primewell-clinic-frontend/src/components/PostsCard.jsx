@@ -1,11 +1,23 @@
 import { useEffect, useState } from "react";
 import { Flex, Typography, Button } from "antd"
+import AddCommentModal from "../components/AddCommentModal"
 import axios from "axios";
 
 const { Title, Text, Paragraph } = Typography;
-const PostsCard = ({ postInfo }) => {
+const PostsCard = ({ postInfo, info }) => {
     const [userInfo, setUserInfo] = useState(null)
-    // console.log(postInfo.Date_Posted);
+    const [isAddCommentModalOpen, setIsAddCommentModalOpen] = useState(false);
+
+    const showAddCommentModal = () => {
+        setIsAddCommentModalOpen(true);
+    };
+
+    const handleAddCommentCancel = () => {
+        setIsAddCommentModalOpen(false);
+    };
+
+    console.log(info);
+    console.log(postInfo);
 
     const fetchUserName = async () => {
         try {
@@ -88,7 +100,8 @@ const PostsCard = ({ postInfo }) => {
                 <Flex>
                     <Button type="primary" style={{
                         width: "auto", borderRadius: "24px", padding: "22px 22px", backgroundColor: "#A2C3A4", fontSize: "16px", fontWeight: "700", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
-                    }}>Add a Comment</Button>
+                    }} onClick={() => { showAddCommentModal() }}>Add a Comment</Button>
+                    <AddCommentModal open={isAddCommentModalOpen} handleClose={handleAddCommentCancel} Patient_ID={info.patient_id} Forum_ID={postInfo.Forum_ID} /*onPostCreated={handleNewPost}*/ />
                 </Flex>
             </Flex>
         </Flex>
