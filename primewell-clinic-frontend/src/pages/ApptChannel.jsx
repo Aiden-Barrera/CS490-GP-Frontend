@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useState,  } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import { Flex, Input, Button } from "antd";
 import axios from "axios";
@@ -10,6 +10,7 @@ const ApptChannel = ({userInfo}) => {
   const [message, setMessage] = useState("");
   const [chatLog, setChatLog] = useState([]);
   const [appt_id, setAppt_ID] = useState("")
+  const navigate = useNavigate()
   const location = useLocation()
 
   const fetchMessages = async () => {
@@ -53,6 +54,16 @@ const ApptChannel = ({userInfo}) => {
     setMessage("");
   };
 
+  const endAppointment = async () => {
+    const body = {
+      Appointment_ID: appt_id,
+      Doctor_ID: userInfo.doctor_id
+    }
+    await axios.patch("http://localhost:3000/endAppointment", body)
+    navigate("/DoctorPortal/")
+    
+  }
+
   return (
     <div style={{display: "flex", flexDirection: "column", width: "100%", backgroundColor: "#ffffff", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)", borderRadius: "12px", padding: "33px 40px"}}>
       <h2>Room: {appt_id}</h2>
@@ -93,7 +104,7 @@ const ApptChannel = ({userInfo}) => {
           style={{fontSize: "24px", width: "700px" }}
         />
         <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}}  onClick={sendMessage}>Send</Button>
-        {userInfo?.doctor_id && (<Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "rgb(239, 71, 111)", color: "#ffffff", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={sendMessage}>End Appointment</Button>)}
+        {userInfo?.doctor_id && (<Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "rgb(239, 71, 111)", color: "#ffffff", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={endAppointment}>End Appointment</Button>)}
       </Flex>
     </div>
   );
