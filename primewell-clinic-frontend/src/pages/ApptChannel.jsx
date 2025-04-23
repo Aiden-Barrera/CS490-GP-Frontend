@@ -31,8 +31,10 @@ const ApptChannel = ({userInfo}) => {
     const messageData = {
       appt_id,
       message,
-      time: new Date(Date.now()).toLocaleTimeString(),
+      senderID: userInfo?.patient_id ? userInfo.patient_id : userInfo.doctor_id,
+      senderType: userInfo.userType
     };
+    console.log(userInfo, messageData)
     socket.emit("send_msg", messageData);
     setMessage("");
   };
@@ -40,7 +42,7 @@ const ApptChannel = ({userInfo}) => {
   return (
     <div style={{display: "flex", flexDirection: "column", width: "100%", backgroundColor: "#ffffff", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)", borderRadius: "12px", padding: "33px 40px"}}>
       <h2>Room: {appt_id}</h2>
-      <div style={{ overflowY: "scroll", width: "100%", height: "90%", display: "flex", flexDirection: "column", justifyContent: "flex-start", gap: "10px" }}>
+      <div style={{ overflowY: "scroll", width: "100%", height: "90%", display: "flex", flexDirection: "column", justifyContent: "flex-start", gap: "10px", marginTop: "20px" }}>
         {chatLog.map((msg, index) => {
           const isEven = index % 2 === 0;
           return (
@@ -56,12 +58,12 @@ const ApptChannel = ({userInfo}) => {
                 style={{
                   backgroundColor: isEven ? "#f0f0f0" : "#d9f7be", // optional: change bubble color
                   borderRadius: "12px",
-                  padding: "10px",
-                  maxWidth: "350px",
+                  padding: isEven ? "10px 10px 10px 20px" : "10px 20px 10px 10px",
+                  width: "400px",
                 }}
               >
-                <p style={{ margin: 0 }}>{msg.message}</p>
-                <p style={{ fontSize: "10px", margin: 0, textAlign: isEven ? "left" : "right" }}>
+                <p style={{ margin: 0, fontSize: "24px", textAlign: isEven ? "left" : "right" }}>{msg.message}</p>
+                <p style={{ fontSize: "11px", margin: 0, textAlign: isEven ? "left" : "right" }}>
                   <strong>{msg.time}</strong>
                 </p>
               </div>
@@ -69,12 +71,16 @@ const ApptChannel = ({userInfo}) => {
           );
         })}
       </div>
-      <Input
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="Type your message"
-      />
-      <Button onClick={sendMessage}>Send</Button>
+      <Flex justify="center" align="center" gap="15px">
+        <Input
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Type your message"
+          style={{fontSize: "24px", width: "700px" }}
+        />
+        <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}}  onClick={sendMessage}>Send</Button>
+        {userInfo?.doctor_id && (<Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "rgb(239, 71, 111)", color: "#ffffff", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={sendMessage}>End Appointment</Button>)}
+      </Flex>
     </div>
   );
 };

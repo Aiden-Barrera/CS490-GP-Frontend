@@ -21,10 +21,14 @@ const LoginModal = (props) => {
                 console.log("Couldn't log in")
             } else {
                 console.log("Logged In")
-                props.info(res.data) // This passes down the user info to Navbar
+                const enrichedData = {
+                    ...res.data,
+                    userType: props.userType
+                }
+                props.info(enrichedData) // This passes down the user info to Navbar
                 props.auth(true) // This passes down that the user has been authenticated to Navbar
 
-                sessionStorage.setItem("userInfo", JSON.stringify(res.data));
+                sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
                 sessionStorage.setItem("userType", props.userType);
                 sessionStorage.setItem("auth", true);
 
@@ -36,10 +40,14 @@ const LoginModal = (props) => {
                 console.log("Couldn't log in")
             } else {
                 console.log("Logged In")
-                props.info(res.data) // This passes down the user info to Navbar
+                const enrichedData = {
+                    ...res.data,
+                    userType: props.userType
+                }
+                props.info(enrichedData) // This passes down the user info to Navbar
                 props.auth(true) // This passes down that the user has been authenticated to Navbar
 
-                sessionStorage.setItem("userInfo", JSON.stringify(res.data));
+                sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
                 sessionStorage.setItem("userType", props.userType);
                 sessionStorage.setItem("auth", true);
 
@@ -51,11 +59,15 @@ const LoginModal = (props) => {
                 console.log("Couldn't log in")
             } else {
                 console.log("Logged In")
-                props.info(res.data) // This passes down the user info to Navbar
+                const enrichedData = {
+                    ...res.data,
+                    userType: props.userType
+                }
+                props.info(enrichedData) // This passes down the user info to Navbar
                 props.auth(true) // This passes down that the user has been authenticated to Navbar
                 props.setIsPharm(true)
 
-                sessionStorage.setItem("userInfo", JSON.stringify(res.data));
+                sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
                 sessionStorage.setItem("userType", props.userType);
                 sessionStorage.setItem("auth", true);
                 sessionStorage.setItem("isPharm", true)
