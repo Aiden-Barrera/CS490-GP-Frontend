@@ -10,6 +10,7 @@ const ApptChannel = ({userInfo}) => {
   const [message, setMessage] = useState("");
   const [chatLog, setChatLog] = useState([]);
   const [appt_id, setAppt_ID] = useState("")
+  const [appt_end, setAppt_end] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -33,6 +34,7 @@ const ApptChannel = ({userInfo}) => {
       socket.connect()
       setAppt_ID(location.state.appt_id)
       console.log("Joining room:", location.state.appt_id); // <- check this
+      setAppt_end(location.state.appt_end)
       fetchMessages()
 
       socket.emit("join_appointment", location.state.appt_id);
@@ -162,12 +164,13 @@ const ApptChannel = ({userInfo}) => {
         </div>
         <Flex justify="center" align="center" gap="15px" style={{marginTop: "30px"}}>
           <Input
+            disabled={appt_end}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Type your message"
             style={{fontSize: "24px", width: "700px", }}
           />
-          <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}}  onClick={sendMessage}>Send</Button>
+          <Button disabled={appt_end} type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}}  onClick={sendMessage}>Send</Button>
           {userInfo?.doctor_id && (<Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "rgb(239, 71, 111)", color: "#ffffff", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={endAppointment}>End Appointment</Button>)}
         </Flex>
       </div>

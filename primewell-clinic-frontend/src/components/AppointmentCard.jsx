@@ -9,11 +9,20 @@ const AppointmentCard = ({apptInfo}) => {
     const [btnClicked, setBtnClicked] = useState(false)
     const [api, contextHolder] = notification.useNotification();
     const [date, setDate] = useState(() => dayjs())
+    const [appt_end, setAppt_end] = useState(false)
     const navigate = useNavigate()
 
-    
+    const fetchApptEnd = async () => {
+        const body = {
+            Appointment_ID: apptInfo.Appointment_ID
+        }
+        const res1 = await axios.post("http://localhost:3000/fetchApptEndStatus", body)
+        setAppt_end(res1.data.Appt_End)
+    }
+
     useEffect(() => {
         setDate(dayjs(apptInfo?.Appt_Date))
+        fetchApptEnd()
         console.log(apptInfo)
     }, [])
 
@@ -22,10 +31,13 @@ const AppointmentCard = ({apptInfo}) => {
             Appointment_ID: apptInfo.Appointment_ID
         }
         const res = await axios.post("http://localhost:3000/fetchApptStartStatus", body)
-        console.log("Start:", res.data)
+        console.log("Start:", res.data)        
         if (res.data.Appt_Start === 1){
             navigate("/PatientPortal/ApptChannel", {
-                state: {appt_id: apptInfo.Appointment_ID}
+                state: {
+                    appt_id: apptInfo.Appointment_ID,
+                    appt_end: appt_end
+                }
             })
         } else {
             api.open({
@@ -72,7 +84,7 @@ const AppointmentCard = ({apptInfo}) => {
                 </Flex>
                 {contextHolder}
                 <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={handleClick}>
-                    Join Appointment
+                    {appt_end ? "View Appointment Log" : "Join Appointment"}
                 </Button>
             </Flex>
         </Flex>
