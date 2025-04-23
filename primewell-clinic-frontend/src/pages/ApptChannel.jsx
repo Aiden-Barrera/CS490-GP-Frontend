@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import io from "socket.io-client";
 import { Flex, Input, Button } from "antd";
+import axios from "axios";
 
 const socket = io.connect("http://localhost:3000");
 
@@ -11,11 +12,24 @@ const ApptChannel = ({userInfo}) => {
   const [appt_id, setAppt_ID] = useState("")
   const location = useLocation()
 
+  const fetchMessages = async () => {
+    const body = {
+      Appointment_ID: location.state.appt_id
+    }
+
+    const res = await axios.post("http://localhost:3000/fetchApptMessages", body)
+    setChatLog(res.data)
+    console.log("Message Sent to DB: ", res.data)
+  }
+
   useEffect(() => {
     if (location.state?.appt_id) {
       setAppt_ID(location.state.appt_id)
       console.log("Joining room:", location.state.appt_id); // <- check this
+      fetchMessages()
+
       socket.emit("join_appointment", location.state.appt_id);
+
 
       socket.on("receive_msg", (data) => {
         setChatLog((prev) => [...prev, data]);
