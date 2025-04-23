@@ -1,7 +1,7 @@
 import { Button, Flex } from "antd"
 import CalorieChart from "../../components/CalorieChart";
 import WeightChart from "../../components/WeightChart";
-
+import InterventionList from "../../components/InterventionList";
 const Dashboard = (props) => {
     return (
         <Flex vertical justify="start" align="center" gap="60px" style={{
@@ -23,7 +23,7 @@ const Dashboard = (props) => {
                 <WeightChart info={props.info} />
             </Flex>
             <Flex justify="start" align="start" style={{ height: "10000vh", width: "100%", maxWidth: "400px" }}>
-hello
+                <InterventionList info={props.info} />
             </Flex>
 
 
