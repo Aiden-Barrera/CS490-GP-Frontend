@@ -38,14 +38,15 @@ const Regiment = ({ info }) => {
             height: "100%", 
             padding: "20px",
             marginBottom: "20px",
-            overflowY: "auto"
+            overflowY: "auto",
+            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
              }}>
             <h1>Regiment</h1>
 
             {regimentData &&
                 Object.entries(regimentData).sort(([a], [b]) => dayOrder.indexOf(a) - dayOrder.indexOf(b)).map(([day, exercises]) => (
-                    <Flex vertical  key={day} style={{ marginBottom: "15px", width: "80%", backgroundColor: "#f09c96", padding: "10px", borderRadius: "8px" }}>
-                        <h2 style={{color: "#ffffff", marginTop: "-5px"}}>{day}</h2>
+                    <Flex vertical  key={day} style={{ marginBottom: "15px", width: "80%", backgroundColor: "#f09c96", padding: "10px", borderRadius: "12px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)" }}>
+                        <h2 style={{color: "#ffffff", marginTop: "-5px", marginBottom: "5px"}}>{day}</h2>
                         {exercises.length > 0 ? (
                             <Flex vertical>
                                 {exercises.map((exercise, id) => (
