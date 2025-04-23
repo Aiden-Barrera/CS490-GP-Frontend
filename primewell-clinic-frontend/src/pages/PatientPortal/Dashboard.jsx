@@ -22,7 +22,9 @@ const Dashboard = (props) => {
             <Flex justify="start" align="start" style={{ height: "10000vh", width: "100%", maxWidth: "400px" }}>
                 <WeightChart info={props.info} />
             </Flex>
-
+            <Flex justify="start" align="start" style={{ height: "10000vh", width: "100%", maxWidth: "400px" }}>
+hello
+            </Flex>
 
 
         </Flex>
