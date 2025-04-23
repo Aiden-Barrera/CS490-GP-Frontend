@@ -111,6 +111,7 @@ const DoctorDashboard = (props) => {
                 Time={patient.Appt_Time}
                 Tier={patient.Tier}
                 appt_id={patient.Appointment_ID}
+                doctor_id={props.info.doctor_id}
               />
             ))
           ) : (

@@ -3,6 +3,7 @@ import { UserOutlined, CalendarOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const { Content } = Layout;
 
@@ -40,8 +41,13 @@ const UpcomingAptsCards = (props) => {
     );
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     console.log(props?.appt_id)
+    const body = {
+      Appointment_ID: props.appt_id,
+      Doctor_ID: props.doctor_id
+    }
+    await axios.patch("http://localhost:3000/startAppointment", body)
     navigate("/DoctorPortal/ApptChannel", {
         state: {
           appt_id: props?.appt_id, 
