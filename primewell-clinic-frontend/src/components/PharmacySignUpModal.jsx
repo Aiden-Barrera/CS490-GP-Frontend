@@ -36,10 +36,14 @@ const PharmacySignUpModal = (props) => {
       if (res.data.length === 0) {
         console.log("Couldn't create pharmacy");
       } else {
-        props.info(res.data)
+        const enrichedData = {
+          ...res.data,
+          userType: props.userType
+      }
+        props.info(enrichedData)
         props.auth(true)
 
-        sessionStorage.setItem("userInfo", JSON.stringify(res.data));
+        sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
         sessionStorage.setItem("userType", props.userType);
         sessionStorage.setItem("auth", true);
         sessionStorage.setItem("isPharm", true)

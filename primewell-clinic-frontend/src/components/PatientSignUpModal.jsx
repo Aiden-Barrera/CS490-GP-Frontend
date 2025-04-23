@@ -55,10 +55,14 @@ const PatientSignUpModal = (props) => {
           Patient_ID: res.data.patient_id,
           Symptoms: JSON.stringify(symptoms),
         });
-        props.info(res.data)
+        const enrichedData = {
+          ...res.data,
+          userType: props.userType
+        }
+        props.info(enrichedData)
         props.auth(true)
 
-        sessionStorage.setItem("userInfo", JSON.stringify(res.data));
+        sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
         sessionStorage.setItem("userType", props.userType);
         sessionStorage.setItem("auth", true);
 
