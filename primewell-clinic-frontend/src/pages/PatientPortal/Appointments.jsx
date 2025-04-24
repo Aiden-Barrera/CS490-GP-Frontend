@@ -30,7 +30,7 @@ const Appointments = ({userInfo}) => {
             overflowY: "auto",
             boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
         }}>
-            <h1 style={{color: "#333333", marginBottom: 0}}>Upcoming Appointments</h1>
+            <h1 style={{color: "#333333", marginBottom: 0}}>Appointments</h1>
             <Flex vertical gap="20px" style={{
                 width: "100%",
                 // overflow: "auto"

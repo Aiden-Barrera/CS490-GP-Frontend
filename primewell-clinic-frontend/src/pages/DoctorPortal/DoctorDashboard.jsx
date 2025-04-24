@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const DoctorDashboard = (props) => {
   const [doctorPatients, setDoctorPatients] = useState([]);
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
-  // console.log(props.info);
+  console.log(props.info);
 
   const getDoctorPatients = async () => {
     try {

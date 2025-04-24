@@ -23,6 +23,7 @@ import PillPage from './pages/PharmacistPortal/PillPage'
 import Appointments from './pages/PatientPortal/Appointments'
 import Regiment from './pages/PatientPortal/Regiment'
 import ApptChannel from './pages/ApptChannel'
+import DoctorFeedback from './pages/DoctorPortal/DoctorFeedback'
 
 function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
@@ -88,6 +89,10 @@ function App() {
             <Route 
               path="ApptChannel" 
               element={<ApptChannel userInfo={userInfo}/>} 
+            />
+            <Route 
+              path="DoctorFeedback" 
+              element={<DoctorFeedback userInfo={userInfo}/>} 
             />
 
           </Route>
