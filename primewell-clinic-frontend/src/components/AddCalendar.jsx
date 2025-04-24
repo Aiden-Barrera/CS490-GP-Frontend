@@ -9,7 +9,7 @@ const AddCalendar = ({ open, selectedPatient, handleClose, selectedRows, exercis
   useEffect(() => {
     console.log("Selected days:", selectedDays);
   }, [selectedDays]);
-  console.log("Doctor's submitted patient attempt: ", selectedPatient.Patient_ID); //where i stop last night 
+  console.log("Doctor's submitted patient attempt: ", selectedPatient?.Patient_ID); //where i stop last night 
                                                                                   //current error facing: Uncaught TypeError: Cannot read properties of null (reading 'Patient_ID')
 
   const handleDayClick = useCallback((day) => {
@@ -37,16 +37,23 @@ const AddCalendar = ({ open, selectedPatient, handleClose, selectedRows, exercis
       });
     });
 
+    if (!patientInfo?.patient_id && !selectedPatient?.Patient_ID) {
+      message.error("No patient selected!");
+      return;
+    }
+    
     try {
-      await axios.patch(`http://localhost:3000/regiments/${patientInfo.patient_id}`, {
-        Regiment: JSON.stringify({...regimentByDay}),
-        Patient_ID: patientInfo.patient_id || selectedPatient.Patient_ID
+      await axios.patch(`http://localhost:3000/regiments/${patientInfo?.patient_id ?? selectedPatient?.Patient_ID}`, {
+        Regiment: JSON.stringify({ ...regimentByDay }),
+        Patient_ID: patientInfo?.patient_id ?? selectedPatient?.Patient_ID
       });
       message.success("Regiment successfully created!");
       console.log("Submitted:", regimentByDay);
     } catch (error) {
       console.error("Error submitting regiment:", error);
+      message.error("Failed to create regiment.");
     }
+    
 
     if (handleClose) handleClose();
   };
