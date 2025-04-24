@@ -1,15 +1,52 @@
 import {Button, Flex, Calendar, Select, Space, notification} from "antd"
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import dayjs from 'dayjs';
+import axios from "axios";
 
 
 const AppointmentCard = ({apptInfo}) => {
     const [btnClicked, setBtnClicked] = useState(false)
+    const [api, contextHolder] = notification.useNotification();
     const [date, setDate] = useState(() => dayjs())
-    
+    const [appt_end, setAppt_end] = useState(false)
+    const navigate = useNavigate()
+
+    const fetchApptEnd = async () => {
+        const body = {
+            Appointment_ID: apptInfo.Appointment_ID
+        }
+        const res1 = await axios.post("http://localhost:3000/fetchApptEndStatus", body)
+        setAppt_end(res1.data.Appt_End)
+    }
+
     useEffect(() => {
         setDate(dayjs(apptInfo?.Appt_Date))
+        fetchApptEnd()
+        console.log(apptInfo)
     }, [])
+
+    const handleClick = async () => {
+        const body = {
+            Appointment_ID: apptInfo.Appointment_ID
+        }
+        const res = await axios.post("http://localhost:3000/fetchApptStartStatus", body)
+        console.log("Start:", res.data)        
+        if (res.data.Appt_Start === 1){
+            navigate("/PatientPortal/ApptChannel", {
+                state: {
+                    appt_id: apptInfo.Appointment_ID,
+                    appt_end: appt_end
+                }
+            })
+        } else {
+            api.open({
+                message: 'Appointment Not Started!',
+                description: 'Please wait for doctor to start appointment.',
+            });
+        }
+
+    }
 
     return (
         <Flex vertical gap="10px" style={{
@@ -45,11 +82,13 @@ const AppointmentCard = ({apptInfo}) => {
                         <h2 style={{color: "#ffffff", fontSize: "32px", paddingLeft: "9px", margin: 0}}>{`${apptInfo?.specialty}`}</h2>
                     </Flex>
                 </Flex>
-                <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}}>
-                    Join Appointment
+                {contextHolder}
+                <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={handleClick}>
+                    {appt_end ? "View Appointment Log" : "Join Appointment"}
                 </Button>
             </Flex>
         </Flex>
     )
 }
+
 export default AppointmentCard

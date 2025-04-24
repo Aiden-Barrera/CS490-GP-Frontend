@@ -35,6 +35,8 @@ const RequestCard = (props) => {
     const [activeIndex, setActiveIndex] = useState(null)
     const [tier, setTier] = useState("")
     const [drop, setDrop] = useState(false)
+    const [requestBtnClicked, setRequestBtnClicked] = useState(false)
+    const [dropBtnClicked, setDropBtnClicked] = useState(false)
 
     const handleSelect = (value) => {
         setSelectDate(value)
@@ -55,12 +57,27 @@ const RequestCard = (props) => {
         fetchDaySchudule()
     }, [selectDate])
 
+    useEffect(() => {
+        setTier("")
+    }, [btnClicked])
+
     const handleClick = (slot, key) => {
         setTimeSlot(slot)
         setActiveIndex(key)
     }
 
     const sendRequest = async () => {
+        console.log("Tier: ", tier, " Timeslot: ", timeSlot)
+        if (!timeSlot || !tier) {
+            api.open({
+                message: 'Incomplete Request!',
+                description: 'Please select both a time slot and tier before sending your request.',
+            });
+            return;
+        }
+
+        setRequestBtnClicked(true)
+
         const body = {
             Patient_ID: props?.patientInfo?.patient_id,
             Doctor_ID: props.info.doctor_id,
@@ -78,16 +95,28 @@ const RequestCard = (props) => {
               });
             console.log("Request Sent Successfully")
         } catch (err) {
-            api.open({
-                message: 'Request Failed!',
-                description:
-                  `Failed to Send Request!`,
-              });
+            if (err.response.data?.error == "Request Taken Already") {
+                api.open({
+                    message: 'Request Failed!',
+                    description:
+                      `Request Already Made!`,
+                  });
+            } else {
+                api.open({
+                    message: 'Request Failed!',
+                    description:
+                      `Failed to Send Request!`,
+                  });
+            }
             console.log("Failed Making Request: ", err.response.data)
+        } finally {
+            setTimeout(() => setRequestBtnClicked(false), 3000)
         }
     }
 
     const dropDoctor = async () => {
+        setDropBtnClicked(true)
+
         const body = {
             Patient_ID: props?.patientInfo?.patient_id,
             Doctor_ID: props.info.doctor_id
@@ -110,6 +139,8 @@ const RequestCard = (props) => {
                   `Failed to Drop Doctor!`,
               });
             console.log("Failed Dropping Doctor: ", err.response.data)
+        } finally {
+            setTimeout(()=> setDropBtnClicked(false), 3000)
         }
     }
     
@@ -135,7 +166,7 @@ const RequestCard = (props) => {
                         }} />
                         <h2 style={{color: "#ffffff", fontSize: "32px", borderRight: "3px solid #ffffff", paddingRight: "18px", margin: 0}}>Dr. {`${props.info.first_name} ${props.info.last_name}`}</h2>
                         <h2 style={{color: "#ffffff", fontSize: "32px", borderRight: "3px solid #ffffff", paddingLeft: "9px", paddingRight: "18px", margin: 0}}>{`${props.info.specialty}`}</h2>
-                        <h2 style={{color: "#ffffff", fontSize: "32px", paddingLeft: "9px", margin: 0}}>{props.info.availability === 1 ? "Available" : "Not Available"}</h2>
+                    <h2 style={{color: "#ffffff", fontSize: "32px", paddingLeft: "9px", margin: 0}}>{props.info.availability === 1 ? "Available" : "Not Available"}</h2>
                     </Flex>
                 </Flex>
                 {props.info.availability === 1 ? (
@@ -172,7 +203,7 @@ const RequestCard = (props) => {
                                 fontWeight: "700", fontSize: "24px", color: "#333333", height: "100%", minWidth: "100px",boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
                             }}/>
                             {contextHolder}
-                            <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={sendRequest}>
+                            <Button type="primary" disabled={requestBtnClicked} style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={sendRequest}>
                                 Send Request
                             </Button>
                             {props.dropDoctor && (
@@ -187,4 +218,5 @@ const RequestCard = (props) => {
         </Flex>
     )
 }
+
 export default RequestCard

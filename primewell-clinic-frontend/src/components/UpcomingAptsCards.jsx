@@ -1,9 +1,21 @@
 import { Flex, Layout, Button } from "antd";
 import { UserOutlined, CalendarOutlined } from "@ant-design/icons";
+import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const { Content } = Layout;
 
 const UpcomingAptsCards = (props) => {
+  const [date, setDate] = useState(() => dayjs())
+  const navigate = useNavigate()
+
+
+  useEffect(() => {
+    setDate(dayjs(props.Date))
+  }, [])
+
   const PatientData = ({ name }) => {
     return (
       <div
@@ -29,6 +41,20 @@ const UpcomingAptsCards = (props) => {
     );
   };
 
+  const handleClick = async () => {
+    console.log(props?.appt_id)
+    const body = {
+      Appointment_ID: props.appt_id,
+      Doctor_ID: props.doctor_id
+    }
+    await axios.patch("http://localhost:3000/startAppointment", body)
+    navigate("/DoctorPortal/ApptChannel", {
+        state: {
+          appt_id: props?.appt_id, 
+        }
+    })
+  }
+
   return (
     <Layout
       style={{
@@ -38,8 +64,9 @@ const UpcomingAptsCards = (props) => {
         height: "150px",
         backgroundColor: "#f09c96",
         display: "flex",
+        flexShrink: 0,
         alignItems: "center",
-        boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
+        boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
       }}
     >
       <Content
@@ -57,7 +84,7 @@ const UpcomingAptsCards = (props) => {
           <Flex gap="10px">
             <CalendarOutlined style={{ fontSize: "24px", color: "white" }} />
             <h2 style={{color: "#ffffff", fontSize: "20px", borderRight: "3px solid #ffffff", paddingRight: "18px", margin: 0, fontWeight: "800"}}>
-              {props.Date.substring(0, 10)} 
+              {date.format("MMM D, YYYY")} 
             </h2>
             <h2 style={{color: "#ffffff", fontSize: "20px", paddingLeft: "9px", margin: 0, fontWeight: "800"}}>{props.Time}</h2>
           </Flex>
@@ -69,7 +96,7 @@ const UpcomingAptsCards = (props) => {
             <h2 style={{color: "#ffffff", fontSize: "20px", paddingLeft: "9px", margin: 0, fontWeight: "800"}}>{props.Tier}</h2>
           </Flex>
         </Flex>
-        <Button type="primary" style={{fontWeight: "700", fontSize: "18px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}}>
+        <Button type="primary" style={{fontWeight: "700", fontSize: "18px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={handleClick}>
             Start Appointment
         </Button>
       </Content>
@@ -77,4 +104,4 @@ const UpcomingAptsCards = (props) => {
   );
 };
 
-export default UpcomingAptsCards;
+export default UpcomingAptsCards

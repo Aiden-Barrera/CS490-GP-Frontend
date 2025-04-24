@@ -39,6 +39,7 @@ const PatientCard = (props) => {
         height: "150px",
         backgroundColor: "#f09c96",
         display: "flex",
+        flexShrink: 0,
         alignItems: "center",
         boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
       }}
@@ -90,3 +91,4 @@ const PatientCard = (props) => {
 };
 
 export default PatientCard;
+

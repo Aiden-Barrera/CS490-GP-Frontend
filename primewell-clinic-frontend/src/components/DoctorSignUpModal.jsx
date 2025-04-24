@@ -74,10 +74,14 @@ const DoctorSignUpModal = (props) => {
           Doctor_ID: res.data.doctor_id,
           Doctor_Schedule: JSON.stringify(schedule),
         });
-        props.info(res.data)
+        const enrichedData = {
+          ...res.data,
+          userType: props.userType
+      }
+        props.info(enrichedData)
         props.auth(true)
 
-        sessionStorage.setItem("userInfo", JSON.stringify(res.data));
+        sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
         sessionStorage.setItem("userType", props.userType);
         sessionStorage.setItem("auth", true);
 
@@ -335,3 +339,4 @@ const DoctorSignUpModal = (props) => {
 };
 
 export default DoctorSignUpModal;
+

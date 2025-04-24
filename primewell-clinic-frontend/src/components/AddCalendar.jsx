@@ -1,10 +1,14 @@
 import { Modal, Flex, Button, message } from "antd";
 import { useEffect, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const AddCalendar = ({ open, selectedPatient, handleClose, selectedRows, exerciseInfo, patientInfo }) => {
+
+const AddCalendar = ({ open, selectedPatient, handleClose, selectedRows, exerciseInfo, patientInfo, appt_id }) => {
+
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const [selectedDays, setSelectedDays] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     console.log("Selected days:", selectedDays);
@@ -43,9 +47,12 @@ const AddCalendar = ({ open, selectedPatient, handleClose, selectedRows, exercis
     }
     
     try {
+
+      console.log("Before sending to backend: ", regimentByDay)
       await axios.patch(`http://localhost:3000/regiments/${patientInfo?.patient_id ?? selectedPatient?.Patient_ID}`, {
-        Regiment: JSON.stringify({ ...regimentByDay }),
+        Regiment: regimentByDay,
         Patient_ID: patientInfo?.patient_id ?? selectedPatient?.Patient_ID
+
       });
       message.success("Regiment successfully created!");
       console.log("Submitted:", regimentByDay);

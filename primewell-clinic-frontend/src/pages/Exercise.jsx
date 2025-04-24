@@ -1,5 +1,6 @@
-import { Flex, Row, Col, Card, Button, message, Dropdown, Typography, Space } from "antd";
+import { Flex, Row, Col, Card, Button, message, notification, Dropdown, Typography, Space } from "antd";
 import Footer from "../components/Footer";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Image } from "antd";
 import CreateExerciseModal from "../components/CreateExerciseModal";
 import { useState, useEffect, use } from "react";
@@ -22,8 +23,25 @@ const Exercise = ({ info }) => {
     const [isListModalOpen, setIsListModalOpen] = useState(false);
     const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [doctorPatients, setDoctorPatients] = useState([]);
-    const [selectedPatient, setSelectedPatient] = useState(null);
+
+    const location = useLocation()
+    const [patientID, setPatientID] = useState("")
+    const [appt_id, setAppt_ID] = useState("")
+    const [api, contextHolder] = notification.useNotification();
+    const navigate = useNavigate()
+
+
+    useEffect(() => {
+        if (location.state?.patient_id){
+            setPatientID(location.state.patient_id)
+            setAppt_ID(location.state.appt_id)
+        }
+    }, [location.state])
+
+    const showCreateModal = () => {
+        setIsCreateModalOpen(true);
+    };
+
 
     useEffect(() => {
         if (info?.doctor_id) {
@@ -60,22 +78,56 @@ const Exercise = ({ info }) => {
     };
     const handleCalendarCancel = () => setIsCalendarModalOpen(false);
 
-    const patientDropdown = doctorPatients.map((patient) => ({
-        key: patient.Patient_ID,
-        label: `${patient.First_Name} ${patient.Last_Name}`,
-        onClick: () => setSelectedPatient(patient)
-    }));
+
+    const handleCalendarCancel = () => {
+        setIsCalendarModalOpen(false);
+    }
+
+    const clearRegiment = async () => {
+        try {
+            const res = await axios.patch(`http://localhost:3000/regimentClear/${appt_id !== "" ? patientID : info?.patient_id}`)
+            console.log(res.data)
+            api.open({
+                message: 'Regiment Cleared!',
+                description: 'Regiment Schedule has been clear!',
+            });
+        } catch (err) {
+            console.log("err: ", err)
+        }
+    }
+
+    const returnToAppt = () => {
+        navigate("/DoctorPortal/ApptChannel", {
+            state: {
+              appt_id: appt_id, 
+            }
+        })
+    }
+
 
     return (
         <>
-            <Flex justify="center" align="center" style={{ height: "50vh", width: "100vw", backgroundColor: "#a2c3a4", textAlign: "center" }}>
-                <h1 className="title" style={{ color: "#ffffff", fontSize: "52px", fontWeight: "bold" }}>Exercise Bank</h1>
-            </Flex>
+            
+                <Flex justify="center" align="center" style={{ height: "50vh", width: "100vw", backgroundColor: "#a2c3a4",  textAlign: "center"}}>
+                    <h1 className="title" style={{ color: "#ffffff", fontSize: "52px", fontWeight: "bold" }}>Exercise Bank</h1>
+                </Flex>
+           
+            
+                <Flex justify="space-between" align="center" style={{ width: "100vw", backgroundColor: "#ffffff", textAlign: "center"}}>
+                    <Flex vertical align="center" justify="space-between" style={{marginLeft:"50px"}}>
+                    <h3 style={{ color: "#F09C96"}}>Browse through the categories</h3>
+                    <p style={{ color: "#F09C96", marginTop: "-5px", marginLeft:"10px"}}> Select exercises to add to your regiment </p>
+                    </Flex>
+                    {contextHolder}
+                    <Flex gap="15px">
 
-            <Flex justify="space-between" align="center" style={{ width: "100vw", backgroundColor: "#ffffff", textAlign: "center" }}>
-                <Flex vertical align="center" justify="space-between" style={{ marginLeft: "50px" }}>
-                    <h3 style={{ color: "#F09C96" }}>Browse through the categories</h3>
-                    <p style={{ color: "#F09C96", marginTop: "-5px", marginLeft: "10px" }}> Select exercises to add to your regiment </p>
+                        {appt_id !== "" && (<Button type="primary" style={{ backgroundColor: "#f09c96", borderColor: "#f09c96" }} onClick={returnToAppt}>Go Back to Appointment</Button>)}
+                        <Button type="primary" style={{ backgroundColor: "#f09c96", borderColor: "#f09c96" }} onClick={clearRegiment}>- Clear Regiment</Button>
+                        <Button type="primary" style={{ backgroundColor: "#a2c3a4", borderColor: "#a2c3a4", marginRight:"65px" }} onClick={() => {showCreateModal()}}>+ Add New Exercise</Button>
+                    </Flex>
+                    <AddCalendar info={info} open={isCalendarModalOpen} handleClose={handleCalendarCancel} />
+                    <CreateExerciseModal open={isCreateModalOpen} handleClose={handleCreateCancel} />
+
                 </Flex>
 
                 {info?.doctor_id && (
@@ -106,27 +158,28 @@ const Exercise = ({ info }) => {
 
             <Flex justify="center" align="center" style={{ width: "100vw", backgroundColor: "#ffffff" }}>
                 <Row gutter={[48, 64]} style={{ padding: "20px 0" }}>
-                    {categories.map((category, index) => (
-                        <Col span={8} key={index} style={{ display: "flex", justifyContent: "center" }}>
-                            <Card
-                                hoverable
-                                style={{
-                                    textAlign: "center",
-                                    backgroundColor: "#FFE4E1",
-                                    padding: "20px",
-                                    borderRadius: "10px"
-                                }}
-                                onClick={() => showListModal(category.name)}
-                            >
-                                <div style={{ marginBottom: "20px", pointerEvents: "none" }}>{category.icon}</div>
-                                <h3 style={{ color: "#F09C96" }}>{category.name}</h3>
-                                <p style={{ fontSize: "12px", color: "#333" }}>{category.description}</p>
-                            </Card>
-                        </Col>
-                    ))}
-                </Row>
-                <ExerciseListModal info={info} selectedPatient={selectedPatient} open={isListModalOpen} handleClose={handleListCancel} categoryName={selectedCategory} />
-            </Flex>
+
+                        {categories.map((category, index) => (
+                            <Col span={8} key={index} style={{ display: "flex", justifyContent: "center" }}>
+                                <Card hoverable 
+                                style={{ 
+                                    textAlign: "center", 
+                                    backgroundColor: "#FFE4E1", 
+                                    padding: "20px", 
+                                    borderRadius: "10px" }}
+                                    onClick={() => {showListModal(category.name)}}
+                                >
+                                    <div style={{ marginBottom: "20px", pointerEvents: 'none'}}>{category.icon}</div>
+                                    <h3 style={{ color: "#F09C96" }}>{category.name}</h3>
+                                    <p style={{ fontSize: "12px", color: "#333" }}>{category.description}</p>
+                                    {console.log("Category: " + category)}
+                                </Card>
+                            </Col>
+                        ))}
+                    </Row>
+                    <ExerciseListModal info={patientID === "" ? info?.patient_id : patientID} open={isListModalOpen} handleClose={handleListCancel} categoryName={selectedCategory} appt_id={appt_id}/>
+                </Flex>
+            
 
             <Flex justify="center" align="center" style={{ width: "100vw", margin: "25px" }}>
                 <Footer />

@@ -39,9 +39,6 @@ const DoctorSideBarMenu = ({info}) => {
                     <Menu.Item key="2">
                         <Link to="/DoctorPortal/Request"><strong>Incoming Requests</strong></Link>
                     </Menu.Item>
-                    <Menu.Item key="3">
-                        <Link to="/DoctorPortal/Appointment"><strong>Appointments</strong></Link>
-                    </Menu.Item>
                     <Menu.Item key="4">
                         <Link to="/DoctorPortal/PillRequest"><strong>Pill Request</strong></Link>
                     </Menu.Item>
@@ -61,3 +58,4 @@ const DoctorSideBarMenu = ({info}) => {
 };
 
 export default DoctorSideBarMenu;
+
