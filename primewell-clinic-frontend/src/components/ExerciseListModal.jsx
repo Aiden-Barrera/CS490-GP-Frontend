@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import AddCalendar from "./AddCalendar";
-const ExerciseListModal = ({info, open, handleClose: handleListCancel, categoryName}) => {
+const ExerciseListModal = ({info, selectedPatient, open, handleClose: handleListCancel, categoryName}) => {
     console.log("From ExerciseListModal.jsx", info?.patient_id);
+    console.log("From ExerciseListModal.jsx DOCTOR", selectedPatient?.First_Name);
     const [exerciseInfo, setExerciseInfo] = useState([]);
     const [selectedRows, setSelectedRows] = useState(new Set());
     const [selectedModalVisible, setSelectedModalVisible] = useState(false);

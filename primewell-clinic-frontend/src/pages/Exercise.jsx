@@ -3,7 +3,7 @@ import { Flex, Row, Col, Card, Button, message, Dropdown, Typography, Space } fr
 import Footer from "../components/Footer";
 import { Image } from "antd";
 import CreateExerciseModal from "../components/CreateExerciseModal";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import ExerciseListModal from "../components/ExerciseListModal";
 import AddCalendar from "../components/AddCalendar";
 import { DownOutlined } from "@ant-design/icons";
@@ -43,6 +43,12 @@ const Exercise = ({ info }) => {
         }
     }, [info?.doctor_id]);
 
+    useEffect(() => {
+        if (selectedPatient) {
+            console.log("Selected Patient: ", selectedPatient);
+        }
+    }, [selectedPatient]);
+
     const showCreateModal = () => setIsCreateModalOpen(true);
     const showListModal = (category) => {
         setSelectedCategory(category);
@@ -80,7 +86,7 @@ const Exercise = ({ info }) => {
                     >
                         <Typography.Link onClick={(e) => e.preventDefault()} style={{ marginRight: 16 }}>
                             <Space>
-                                {selectedPatient ? `${selectedPatient.first_name} ${selectedPatient.last_name}` : "Select Patient"}
+                                {selectedPatient ? `${selectedPatient.First_Name} ${selectedPatient.Last_Name}` : "Select Patient"}
                                 <DownOutlined />
                             </Space>
                         </Typography.Link>
@@ -120,7 +126,7 @@ const Exercise = ({ info }) => {
                         </Col>
                     ))}
                 </Row>
-                <ExerciseListModal info={selectedPatient || info} open={isListModalOpen} handleClose={handleListCancel} categoryName={selectedCategory} />
+                <ExerciseListModal info={info} selectedPatient={selectedPatient} open={isListModalOpen} handleClose={handleListCancel} categoryName={selectedCategory} />
             </Flex>
 
             <Flex justify="center" align="center" style={{ width: "100vw", margin: "25px" }}>
