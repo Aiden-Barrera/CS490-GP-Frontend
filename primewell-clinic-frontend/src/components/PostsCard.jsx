@@ -19,8 +19,8 @@ const PostsCard = ({ postInfo, info }) => {
     setIsAddCommentModalOpen(false);
   };
 
-  //   console.log(info);
-  //   console.log(postInfo);
+    console.log("Info: ", info);
+    console.log("Post Info: ", postInfo);
 
   const fetchUserName = async () => {
     try {

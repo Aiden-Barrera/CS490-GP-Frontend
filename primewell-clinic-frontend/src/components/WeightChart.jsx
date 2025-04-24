@@ -1,7 +1,17 @@
 import { Flex } from "antd";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { Chart as ChartJS, LineElement, LineController, PointElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
+import dayjs from "dayjs";
+import {
+    Chart as ChartJS,
+    LineElement,
+    LineController,
+    PointElement,
+    CategoryScale,
+    LinearScale,
+    Tooltip,
+    Legend,
+} from "chart.js";
 
 ChartJS.register(LineController, LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -15,6 +25,7 @@ const WeightChart = (props) => {
             const res = await axios.get(
                 `http://localhost:3000/patientsurvey/${props.info.patient_id}`
             );
+            console.log("Survey Data for Weight: ", res.data);
             setPatientSurveyData(res.data);
         } catch (error) {
             console.error("Error fetching patient survey data:", error);
@@ -30,15 +41,32 @@ const WeightChart = (props) => {
             chartInstanceRef.current.destroy();
         }
 
+        const weekdayLabels = ["Sun", "Mon", "Tue", "Wed", "Thurs", "Fri", "Sat"];
+        const weightSums = new Array(7).fill(0);
+        const weightCounts = new Array(7).fill(0);
+
+        // Group weights by weekday and sum them up
+        patientSurveyData.forEach((entry) => {
+            const date = dayjs(entry.Survey_Date);
+            const weekdayIndex = date.day(); // 0 = Sunday, ..., 6 = Saturday
+            weightSums[weekdayIndex] += entry.Weight;
+            weightCounts[weekdayIndex] += 1;
+        });
+
+        // Compute average for each weekday
+        const weightAverages = weightSums.map((sum, index) =>
+            weightCounts[index] > 0 ? sum / weightCounts[index] : null
+        );
+
         if (chartRef.current) {
             chartInstanceRef.current = new ChartJS(chartRef.current, {
-                type: 'line',
+                type: "line",
                 data: {
-                    labels: ["Mon", "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun"],
+                    labels: weekdayLabels,
                     datasets: [
                         {
                             label: "Weight",
-                            data: patientSurveyData.map((entry) => entry.Weight),
+                            data: weightAverages,
                             borderColor: "#4ade80",
                             backgroundColor: "rgba(74, 222, 128, 0.2)",
                             borderWidth: 2,
@@ -96,4 +124,3 @@ const WeightChart = (props) => {
 };
 
 export default WeightChart;
-

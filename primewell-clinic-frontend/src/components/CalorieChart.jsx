@@ -22,7 +22,7 @@ const CalorieChart = (props) => {
             const res = await axios.get(
                 `http://localhost:3000/patientsurvey/${props.info.patient_id}`
             );
-            console.log(res.data);
+            console.log("Survey Data: ", res.data);
             setPatientSurveyData(res.data);
         } catch (error) {
             console.error("Error fetching patient survey data:", error);
@@ -38,15 +38,22 @@ const CalorieChart = (props) => {
             chartInstanceRef.current.destroy();
         }
 
-        const calorieData = new Array(7).fill(null);
+        // Initialize sum and count arrays
+        const calorieSums = new Array(7).fill(0);
+        const calorieCounts = new Array(7).fill(0);
 
+        // Calculate sums and counts per weekday
         patientSurveyData.forEach((entry) => {
             const date = new Date(entry.Survey_Date);
-            // console.log(date);
-            const dayIndex = (date.getDay() + 6) % 7;
-            calorieData[dayIndex] = entry.Caloric_Intake;
+            const dayIndex = (date.getDay() + 6) % 7; // Shift so week starts on Monday
+            calorieSums[dayIndex] += entry.Caloric_Intake;
+            calorieCounts[dayIndex] += 1;
         });
 
+        // Calculate averages
+        const calorieAverages = calorieSums.map((sum, index) =>
+            calorieCounts[index] > 0 ? sum / calorieCounts[index] : null
+        );
 
         if (chartRef.current) {
             chartInstanceRef.current = new ChartJS(chartRef.current, {
@@ -56,7 +63,7 @@ const CalorieChart = (props) => {
                     datasets: [
                         {
                             label: "Caloric Intake",
-                            data: calorieData,
+                            data: calorieAverages,
                             backgroundColor: [
                                 "#a78bfa",
                                 "#f87171",
