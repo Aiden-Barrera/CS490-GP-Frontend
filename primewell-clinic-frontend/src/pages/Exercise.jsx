@@ -101,7 +101,7 @@ const Exercise = ({ info }) => {
                     + Add New Exercise
                 </Button>
 
-                <AddCalendar info={info} open={isCalendarModalOpen} handleClose={handleCalendarCancel} />
+                <AddCalendar info={info} selectedPatient={selectedPatient} open={isCalendarModalOpen} handleClose={handleCalendarCancel} />
                 <CreateExerciseModal open={isCreateModalOpen} handleClose={handleCreateCancel} />
             </Flex>
 
