@@ -1,14 +1,11 @@
-// components/InterventionList.jsx
 import { Button, Flex } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
-
 const InterventionList = ({ info }) => {
     const [interventions, setInterventions] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
-
     useEffect(() => {
         const fetchInterventionInfo = async () => {
             try {
@@ -23,12 +20,9 @@ const InterventionList = ({ info }) => {
         };
         fetchInterventionInfo();
     }, []);
-
     const current = interventions[currentIndex];
     if (!current) return null;
-
     const formattedDate = dayjs(current.Appt_Date).format("MMMM D");
-
     return (
         <Flex
             vertical
@@ -38,17 +32,17 @@ const InterventionList = ({ info }) => {
                 padding: "10px 10px",
                 width: "100%",
                 height: "200px",
-                overflow: "hidden",
                 boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
                 display: "flex",
+                flexDirection: "column",
             }}
         >
             <Flex
                 justify="center"
                 align="center"
                 style={{
-                    width: "100%",
-                    height: "30px",
+                    width: "600px",
+                    height: "100px",
                     fontWeight: "bold",
                     fontSize: "16px",
                     background: "#F09C96",
@@ -112,5 +106,4 @@ const InterventionList = ({ info }) => {
         </Flex>
     );
 };
-
 export default InterventionList;    
