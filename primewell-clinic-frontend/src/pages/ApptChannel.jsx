@@ -97,10 +97,7 @@ const ApptChannel = ({userInfo}) => {
 
   const fetchRegiment = async () => {
     try {
-      const body = {
-        Patient_ID: patientID
-      }
-      const res = await axios.post(`http://localhost:3000/regiment/`, body);
+      const res = await axios.get(`http://localhost:3000/regiment/${patientID}`);
       const regiment = res.data[0]?.Regiment;
 
       const formattedData = Object.entries(regiment).map(([day, exercises]) => ({

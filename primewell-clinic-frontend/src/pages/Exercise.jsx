@@ -27,6 +27,7 @@ const Exercise = ({info}) => { //keep track of patient info for Regiment
     const [patientID, setPatientID] = useState("")
     const [appt_id, setAppt_ID] = useState("")
     const [api, contextHolder] = notification.useNotification();
+    const navigate = useNavigate()
 
 
     useEffect(() => {
@@ -65,7 +66,7 @@ const Exercise = ({info}) => { //keep track of patient info for Regiment
 
     const clearRegiment = async () => {
         try {
-            const res = await axios.patch(`http://localhost:3000/regimentClear/${info?.patient_id}`)
+            const res = await axios.patch(`http://localhost:3000/regimentClear/${appt_id !== "" ? patientID : info?.patient_id}`)
             console.log(res.data)
             api.open({
                 message: 'Regiment Cleared!',
@@ -74,6 +75,14 @@ const Exercise = ({info}) => { //keep track of patient info for Regiment
         } catch (err) {
             console.log("err: ", err)
         }
+    }
+
+    const returnToAppt = () => {
+        navigate("/DoctorPortal/ApptChannel", {
+            state: {
+              appt_id: appt_id, 
+            }
+        })
     }
 
 
@@ -92,6 +101,8 @@ const Exercise = ({info}) => { //keep track of patient info for Regiment
                     </Flex>
                     {contextHolder}
                     <Flex gap="15px">
+
+                        {appt_id !== "" && (<Button type="primary" style={{ backgroundColor: "#f09c96", borderColor: "#f09c96" }} onClick={returnToAppt}>Go Back to Appointment</Button>)}
                         <Button type="primary" style={{ backgroundColor: "#f09c96", borderColor: "#f09c96" }} onClick={clearRegiment}>- Clear Regiment</Button>
                         <Button type="primary" style={{ backgroundColor: "#a2c3a4", borderColor: "#a2c3a4", marginRight:"65px" }} onClick={() => {showCreateModal()}}>+ Add New Exercise</Button>
                     </Flex>

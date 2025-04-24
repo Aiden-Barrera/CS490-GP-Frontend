@@ -44,13 +44,6 @@ const AddCalendar = ({ open, handleClose, selectedRows, exerciseInfo, patientInf
         Patient_ID: patientInfo
       });
       message.success("Regiment successfully created!");
-      if (appt_id !== "") {
-        navigate("/DoctorPortal/ApptChannel", {
-          state: {
-            appt_id: appt_id, 
-          }
-        })
-      }
       console.log("Submitted:", regimentByDay);
     } catch (error) {
       console.error("Error submitting regiment:", error);
