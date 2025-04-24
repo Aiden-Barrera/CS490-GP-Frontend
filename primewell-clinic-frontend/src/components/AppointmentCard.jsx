@@ -91,4 +91,5 @@ const AppointmentCard = ({apptInfo}) => {
         </Flex>
     )
 }
+
 export default AppointmentCard

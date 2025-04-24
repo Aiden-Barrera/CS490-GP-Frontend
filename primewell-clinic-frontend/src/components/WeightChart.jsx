@@ -96,3 +96,4 @@ const WeightChart = (props) => {
 };
 
 export default WeightChart;
+

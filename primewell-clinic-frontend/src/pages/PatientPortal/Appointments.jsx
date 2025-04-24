@@ -43,4 +43,5 @@ const Appointments = ({userInfo}) => {
     );
 };
 
+
 export default Appointments;

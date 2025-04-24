@@ -58,3 +58,4 @@ const DoctorSideBarMenu = ({info}) => {
 };
 
 export default DoctorSideBarMenu;
+

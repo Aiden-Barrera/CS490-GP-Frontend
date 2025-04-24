@@ -341,3 +341,4 @@ const PatientSignUpModal = (props) => {
 };
 
 export default PatientSignUpModal;
+
