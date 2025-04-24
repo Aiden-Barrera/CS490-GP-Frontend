@@ -10,6 +10,7 @@ const ReviewCard = ({info, onClick}) => {
     setRating(parseFloat(info?.rating).toFixed(1))
   }, [info])
   
+  
   return (
     <>
       {/*Format of the review cards*/}
@@ -54,4 +55,4 @@ const ReviewCard = ({info, onClick}) => {
   )
 }
 
-export default ReviewCard;
+export default ReviewCard
