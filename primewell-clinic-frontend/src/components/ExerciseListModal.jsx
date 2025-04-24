@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import AddCalendar from "./AddCalendar";
-const ExerciseListModal = ({info, open, handleClose: handleListCancel, categoryName, appt_id}) => {
+
+const ExerciseListModal = ({info, selectedPatient, open, handleClose: handleListCancel, categoryName, appt_id}) => {
+
     const [exerciseInfo, setExerciseInfo] = useState([]);
     const [selectedRows, setSelectedRows] = useState(new Set());
     const [selectedModalVisible, setSelectedModalVisible] = useState(false);
@@ -24,7 +26,7 @@ const ExerciseListModal = ({info, open, handleClose: handleListCancel, categoryN
           }
         };
         if (open) fetchExerciseInfo();
-      }, [open, categoryName]);
+      }, [open]);
       
 
     // useEffect(() => {
@@ -141,7 +143,11 @@ const ExerciseListModal = ({info, open, handleClose: handleListCancel, categoryN
                     selectedRows={[...selectedRows]} // Convert Set to Array
                     exerciseInfo={exerciseInfo}
                     patientInfo={info}
+
+                    selectedPatient={selectedPatient}
+
                     appt_id={appt_id}
+
                     footer={null}
                     title="Selected Exercises"
                     centered

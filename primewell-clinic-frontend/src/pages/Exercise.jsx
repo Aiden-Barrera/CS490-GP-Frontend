@@ -1,28 +1,29 @@
-import { Flex, Row, Col, Card, Button, message, notification } from "antd";
+import { Flex, Row, Col, Card, Button, message, notification, Dropdown, Typography, Space } from "antd";
 import Footer from "../components/Footer";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Image } from "antd";
 import CreateExerciseModal from "../components/CreateExerciseModal";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import ExerciseListModal from "../components/ExerciseListModal";
 import AddCalendar from "../components/AddCalendar";
+import { DownOutlined } from "@ant-design/icons";
 import axios from "axios";
 
 const categories = [
-    { name: "Upper Body", icon: <Image src= "/Upper.PNG" style={{ width: "150px", height: "150px", }}/>, description: "Effective exercises for toning and strengthening the arms, chest, and back." },
-    { name: "Lower Body", icon: <Image src= "/Lower.PNG" style={{ width: "150px", height: "150px" }} />, description: "Leg day workouts, from squats to lunges, that help with muscle definition." },
-    { name: "Core", icon: <Image src= "/Core.PNG" style={{ width: "150px", height: "150px" }} />, description: "Core-focused routines like crunches and planks for improved stability." },
-    { name: "Full-Body & HIIT", icon: <Image src= "/HIIT.PNG" style={{ width: "150px", height: "150px" }} />, description: "Circuit training and total-body workouts to boost endurance and fat loss." },
-    { name: "Endurance & Cardio", icon: <Image src= "/Cardio.PNG" style={{ width: "150px", height: "150px" }}  />, description: "Running, cycling, and other cardio workouts to boost and improve stamina." },
-    { name: "Flexibility & Yoga", icon: <Image src= "/Yoga.PNG" style={{ width: "150px", height: "150px" }} />, description: "Stretching techniques and yoga poses for relaxation and flexibility." }
+    { name: "Upper Body", icon: <Image src="/Upper.PNG" style={{ width: "150px", height: "150px" }} />, description: "Effective exercises for toning and strengthening the arms, chest, and back." },
+    { name: "Lower Body", icon: <Image src="/Lower.PNG" style={{ width: "150px", height: "150px" }} />, description: "Leg day workouts, from squats to lunges, that help with muscle definition." },
+    { name: "Core", icon: <Image src="/Core.PNG" style={{ width: "150px", height: "150px" }} />, description: "Core-focused routines like crunches and planks for improved stability." },
+    { name: "Full-Body & HIIT", icon: <Image src="/HIIT.PNG" style={{ width: "150px", height: "150px" }} />, description: "Circuit training and total-body workouts to boost endurance and fat loss." },
+    { name: "Endurance & Cardio", icon: <Image src="/Cardio.PNG" style={{ width: "150px", height: "150px" }} />, description: "Running, cycling, and other cardio workouts to boost and improve stamina." },
+    { name: "Flexibility & Yoga", icon: <Image src="/Yoga.PNG" style={{ width: "150px", height: "150px" }} />, description: "Stretching techniques and yoga poses for relaxation and flexibility." }
 ];
 
-const Exercise = ({info}) => { //keep track of patient info for Regiment
-    console.log(info?.patient_id);
+const Exercise = ({ info }) => {
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [isListModalOpen, setIsListModalOpen] = useState(false);
     const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
+
     const location = useLocation()
     const [patientID, setPatientID] = useState("")
     const [appt_id, setAppt_ID] = useState("")
@@ -41,24 +42,42 @@ const Exercise = ({info}) => { //keep track of patient info for Regiment
         setIsCreateModalOpen(true);
     };
 
+
+    useEffect(() => {
+        if (info?.doctor_id) {
+            const getDoctorPatients = async () => {
+                try {
+                    const res = await axios.post("http://localhost:3000/doctorPatients", {
+                        Doctor_ID: info.doctor_id
+                    });
+                    console.log("Doctor Patients: ", res.data);
+                    setDoctorPatients(res.data);
+                } catch (error) {
+                    console.error("Error fetching doctor patient data:", error);
+                }
+            };
+            getDoctorPatients();
+        }
+    }, [info?.doctor_id]);
+
+    useEffect(() => {
+        if (selectedPatient) {
+            console.log("Selected Patient: ", selectedPatient);
+        }
+    }, [selectedPatient]);
+
+    const showCreateModal = () => setIsCreateModalOpen(true);
     const showListModal = (category) => {
-        setSelectedCategory(category)
+        setSelectedCategory(category);
         setIsListModalOpen(true);
     };
-
-    const showCalendarModal = () => {
-        setIsCalendarModalOpen(true);
-    }
-
-    const handleCreateCancel = () => {
-        setIsCreateModalOpen(false);
-    };
-
+    const handleCreateCancel = () => setIsCreateModalOpen(false);
     const handleListCancel = () => {
         setIsListModalOpen(false);
         message.destroy();
-        
     };
+    const handleCalendarCancel = () => setIsCalendarModalOpen(false);
+
 
     const handleCalendarCancel = () => {
         setIsCalendarModalOpen(false);
@@ -108,9 +127,38 @@ const Exercise = ({info}) => { //keep track of patient info for Regiment
                     </Flex>
                     <AddCalendar info={info} open={isCalendarModalOpen} handleClose={handleCalendarCancel} />
                     <CreateExerciseModal open={isCreateModalOpen} handleClose={handleCreateCancel} />
+
                 </Flex>
-                <Flex justify="center" align="center" style={{ width: "100vw", backgroundColor: "#ffffff"}}>
+
+                {info?.doctor_id && (
+                    <Dropdown
+                        menu={{ items: patientDropdown }}
+                        trigger={["click"]}
+                    >
+                        <Typography.Link onClick={(e) => e.preventDefault()} style={{ marginRight: 16 }}>
+                            <Space>
+                                {selectedPatient ? `${selectedPatient.First_Name} ${selectedPatient.Last_Name}` : "Select Patient"}
+                                <DownOutlined />
+                            </Space>
+                        </Typography.Link>
+                    </Dropdown>
+                )}
+
+                <Button
+                    type="primary"
+                    style={{ backgroundColor: "#a2c3a4", borderColor: "#a2c3a4", marginRight: "65px" }}
+                    onClick={showCreateModal}
+                >
+                    + Add New Exercise
+                </Button>
+
+                <AddCalendar info={info} selectedPatient={selectedPatient} open={isCalendarModalOpen} handleClose={handleCalendarCancel} />
+                <CreateExerciseModal open={isCreateModalOpen} handleClose={handleCreateCancel} />
+            </Flex>
+
+            <Flex justify="center" align="center" style={{ width: "100vw", backgroundColor: "#ffffff" }}>
                 <Row gutter={[48, 64]} style={{ padding: "20px 0" }}>
+
                         {categories.map((category, index) => (
                             <Col span={8} key={index} style={{ display: "flex", justifyContent: "center" }}>
                                 <Card hoverable 
@@ -132,6 +180,7 @@ const Exercise = ({info}) => { //keep track of patient info for Regiment
                     <ExerciseListModal info={patientID === "" ? info?.patient_id : patientID} open={isListModalOpen} handleClose={handleListCancel} categoryName={selectedCategory} appt_id={appt_id}/>
                 </Flex>
             
+
             <Flex justify="center" align="center" style={{ width: "100vw", margin: "25px" }}>
                 <Footer />
             </Flex>
@@ -139,4 +188,4 @@ const Exercise = ({info}) => { //keep track of patient info for Regiment
     );
 };
 
-export default Exercise
+export default Exercise;

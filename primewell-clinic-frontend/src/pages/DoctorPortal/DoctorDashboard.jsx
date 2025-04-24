@@ -126,3 +126,4 @@ const DoctorDashboard = (props) => {
 };
 
 export default DoctorDashboard;
+

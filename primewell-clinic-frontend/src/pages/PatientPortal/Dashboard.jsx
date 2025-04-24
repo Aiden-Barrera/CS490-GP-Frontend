@@ -1,6 +1,7 @@
 import { Button, Flex } from "antd"
 import CalorieChart from "../../components/CalorieChart";
 import WeightChart from "../../components/WeightChart";
+import InterventionList from "../../components/InterventionList";
 
 const Dashboard = (props) => {
     console.log(props.info)
@@ -22,10 +23,12 @@ const Dashboard = (props) => {
                 <Flex gap="50px" style={{marginBottom: "100px"}}>
                     <CalorieChart info={props.info} />
                     <WeightChart info={props.info} />
+                    <InterventionList info={props.info} />
                 </Flex>
             </Flex>
         </Flex>
     );
 };
+
 
 export default Dashboard;

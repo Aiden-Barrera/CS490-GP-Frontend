@@ -63,3 +63,4 @@ const Regiment = ({ info }) => {
 };
 
 export default Regiment;
+

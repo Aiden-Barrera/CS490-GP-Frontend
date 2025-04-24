@@ -104,4 +104,4 @@ const UpcomingAptsCards = (props) => {
   );
 };
 
-export default UpcomingAptsCards;
+export default UpcomingAptsCards

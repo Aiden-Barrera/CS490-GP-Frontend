@@ -1,6 +1,7 @@
 import { Flex, Modal, Form, message, Button, Input} from "antd"
 import { useEffect, useState } from "react"
 import EIModal from "./Exercise_ImageUpload"
+import axios from "axios"
 const CreateExerciseModal = (props) => {
     const [form] = Form.useForm()
 
@@ -15,13 +16,15 @@ const CreateExerciseModal = (props) => {
         try {
             const formattedValues = {
                 ...values,
+                Patient_ID: props.info?.patient_id,
                 Exercise_Name: values["Exercise Name"],
                 Muscle_Group: values["Muscle Group"],
-                Exercise_Description: values["Exercise Description"],
-                Muscle_Category: values["Muscle Category"],
+                Exercise_Description: values["Exercise_Description"],
+                Exercise_Class: values["Exercise Class"],
                 Sets: Number(values.Sets),
                 Reps: Number(values.Reps)
             };
+            console.log(formattedValues);
 
             await axios.post("http://localhost:3000/exercisebank", formattedValues);
             message.success("New Exercise Added!")
@@ -33,7 +36,7 @@ const CreateExerciseModal = (props) => {
             message.error("Error:", error.response?.data?.message || "Unable to Add Exercise");
         }
     };
-    
+
     const onFail = () => {
         message.error("Unable to Add Exercise")
     }
@@ -109,7 +112,7 @@ const CreateExerciseModal = (props) => {
                         >
                             <Input placeholder="# of Reps" style={{height: "45px"}}/>
                         </Form.Item>
-                        <Form.Item name="Description" label="Description" rules={[
+                        <Form.Item name="Exercise_Description" label="Exercise_Description" rules={[
                             {
                                 required: true,
                                 message: "Description Required"

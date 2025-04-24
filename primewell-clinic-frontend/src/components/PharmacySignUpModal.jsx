@@ -238,3 +238,4 @@ const PharmacySignUpModal = (props) => {
 };
 
 export default PharmacySignUpModal;
+

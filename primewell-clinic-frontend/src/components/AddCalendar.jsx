@@ -3,7 +3,9 @@ import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const AddCalendar = ({ open, handleClose, selectedRows, exerciseInfo, patientInfo, appt_id }) => {
+
+const AddCalendar = ({ open, selectedPatient, handleClose, selectedRows, exerciseInfo, patientInfo, appt_id }) => {
+
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const [selectedDays, setSelectedDays] = useState([]);
   const navigate = useNavigate()
@@ -11,6 +13,8 @@ const AddCalendar = ({ open, handleClose, selectedRows, exerciseInfo, patientInf
   useEffect(() => {
     console.log("Selected days:", selectedDays);
   }, [selectedDays]);
+  console.log("Doctor's submitted patient attempt: ", selectedPatient?.Patient_ID); //where i stop last night 
+                                                                                  //current error facing: Uncaught TypeError: Cannot read properties of null (reading 'Patient_ID')
 
   const handleDayClick = useCallback((day) => {
     setSelectedDays((prevDays) =>
@@ -37,17 +41,26 @@ const AddCalendar = ({ open, handleClose, selectedRows, exerciseInfo, patientInf
       });
     });
 
+    if (!patientInfo?.patient_id && !selectedPatient?.Patient_ID) {
+      message.error("No patient selected!");
+      return;
+    }
+    
     try {
+
       console.log("Before sending to backend: ", regimentByDay)
-      await axios.patch(`http://localhost:3000/regiments/${patientInfo}`, {
+      await axios.patch(`http://localhost:3000/regiments/${patientInfo?.patient_id ?? selectedPatient?.Patient_ID}`, {
         Regiment: regimentByDay,
-        Patient_ID: patientInfo
+        Patient_ID: patientInfo?.patient_id ?? selectedPatient?.Patient_ID
+
       });
       message.success("Regiment successfully created!");
       console.log("Submitted:", regimentByDay);
     } catch (error) {
       console.error("Error submitting regiment:", error);
+      message.error("Failed to create regiment.");
     }
+    
 
     if (handleClose) handleClose();
   };
