@@ -29,7 +29,8 @@ const Posts = (props) => {
     }
 
     useEffect(() => {
-        fetchPosts()
+        fetchPosts() 
+        setPostCreated(false)
     }, [postCreated])
 
     // const handleNewPost = (newPost) => {
