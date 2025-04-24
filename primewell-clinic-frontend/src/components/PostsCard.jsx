@@ -7,6 +7,8 @@ const { Title, Text, Paragraph } = Typography;
 const PostsCard = ({ postInfo, info }) => {
     const [userInfo, setUserInfo] = useState(null)
     const [isAddCommentModalOpen, setIsAddCommentModalOpen] = useState(false);
+    const [comments, setComments] = useState(false);
+    let commentClicked = false;
 
     const showAddCommentModal = () => {
         setIsAddCommentModalOpen(true);
@@ -28,6 +30,18 @@ const PostsCard = ({ postInfo, info }) => {
         } catch (err) {
             console.log("Error Fetching UserName: ", err)
         }
+    }
+
+    const getComments = async () => {
+        try {
+            const res2 = await axios.get(`http://localhost:3000/patient/comments/${postInfo.Forum_ID}`)
+            const info = res2.data
+            console.log("Fetched Comments: ", res2.data)
+            setComments(info)
+        } catch (err) {
+            console.log("Error Fetching Comments: ", err)
+        }
+        commentClicked = true;
     }
 
     useEffect(() => {
@@ -97,11 +111,31 @@ const PostsCard = ({ postInfo, info }) => {
 
                 </Flex>
                 {/* Post Comment */}
-                <Flex>
-                    <Button type="primary" style={{
-                        width: "auto", borderRadius: "24px", padding: "22px 22px", backgroundColor: "#A2C3A4", fontSize: "16px", fontWeight: "700", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
-                    }} onClick={() => { showAddCommentModal() }}>Add a Comment</Button>
-                    <AddCommentModal open={isAddCommentModalOpen} handleClose={handleAddCommentCancel} Patient_ID={info.patient_id} Forum_ID={postInfo.Forum_ID} /*onPostCreated={handleNewPost}*/ />
+                <Flex gap="50px" justify="flex-start" align="flex-start">
+                    <Flex vertical gap="10px" style={{ maxWidth: "400px", flex: 1 }}>
+                        <Button type="primary" style={{
+                            width: "auto", borderRadius: "24px", padding: "22px 22px", backgroundColor: "#A2C3A4", fontSize: "16px", fontWeight: "700", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
+                        }} onClick={() => { getComments() }}>Comments</Button>
+                        <AddCommentModal open={isAddCommentModalOpen} handleClose={handleAddCommentCancel} Patient_ID={info.patient_id} Forum_ID={postInfo.Forum_ID} /*onPostCreated={handleNewPost}*/ />
+                    </Flex>
+                    <Flex vertical gap="10px" style={{ maxWidth: "500px", flex: 1 }}>
+                        <Button type="primary" style={{
+                            width: "auto", borderRadius: "24px", padding: "22px 22px", backgroundColor: "#A2C3A4", fontSize: "16px", fontWeight: "700", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
+                        }} onClick={() => { showAddCommentModal() }}>Add a Comment</Button>
+                        <AddCommentModal open={isAddCommentModalOpen} handleClose={handleAddCommentCancel} Patient_ID={info.patient_id} Forum_ID={postInfo.Forum_ID} /*onPostCreated={handleNewPost}*/ />
+                    </Flex>
+                </Flex>
+                <Flex gap="50px" justify="flex-start" align="flex-start">
+                    {commentClicked && comments.length > 0 ? (
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "90%", height: "100%", border: "1px solid #666666", borderRadius: "8px", padding: "20px", gap: "10px" }}>
+                            {comments?.map((comment, index) => (
+                                <div style={{ display: "flex", gap: "5px", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+                                    <p key={index} style={{ fontSize: "16px", margin: 0, maxWidth: "335px" }}>{comment.comment}</p>
+                                    <p key={index} style={{ fontSize: "12px", margin: 0 }}>{commentDate.format("MMM DD, YYYY")}</p>
+                                </div>
+                            ))}
+                        </div>
+                    ) : null}
                 </Flex>
             </Flex>
         </Flex>
