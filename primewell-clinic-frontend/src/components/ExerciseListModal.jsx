@@ -5,7 +5,7 @@ import axios from 'axios';
 import AddCalendar from "./AddCalendar";
 const ExerciseListModal = ({info, selectedPatient, open, handleClose: handleListCancel, categoryName}) => {
     console.log("From ExerciseListModal.jsx", info?.patient_id);
-    console.log("From ExerciseListModal.jsx DOCTOR", selectedPatient?.First_Name);
+    console.log("From ExerciseListModal.jsx DOCTOR", selectedPatient?.Patient_ID);
     const [exerciseInfo, setExerciseInfo] = useState([]);
     const [selectedRows, setSelectedRows] = useState(new Set());
     const [selectedModalVisible, setSelectedModalVisible] = useState(false);
@@ -143,6 +143,7 @@ const ExerciseListModal = ({info, selectedPatient, open, handleClose: handleList
                     selectedRows={[...selectedRows]} // Convert Set to Array
                     exerciseInfo={exerciseInfo}
                     patientInfo={info}
+                    selectedPatient={selectedPatient}
                     footer={null}
                     title="Selected Exercises"
                     centered
