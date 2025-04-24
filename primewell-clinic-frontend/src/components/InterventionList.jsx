@@ -12,9 +12,10 @@ const InterventionList = ({ info }) => {
     useEffect(() => {
         const fetchInterventionInfo = async () => {
             try {
+                console.log("Passed info: ", info);
                 const res = await axios.get(`http://localhost:3000/appointmentInfo/${info?.patient_id}`);
                 setInterventions(Array.isArray(res.data) ? res.data : [res.data]);
-                setCurrentIndex(0);
+                setCurrentIndex(0); //for shifting through feedbacks
                 console.log("API info: ", res.data);
             } catch (error) {
                 console.log(error);

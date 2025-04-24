@@ -1,4 +1,3 @@
-// src/pages/Exercise.js
 import { Flex, Row, Col, Card, Button, message, Dropdown, Typography, Space } from "antd";
 import Footer from "../components/Footer";
 import { Image } from "antd";
