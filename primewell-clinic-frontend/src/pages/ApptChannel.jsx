@@ -1,7 +1,7 @@
 import { useEffect, useState,  } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import io from "socket.io-client";
-import { Flex, Input, Button, Popover, Modal, Form, Checkbox, message } from "antd";
+import { Flex, Input, Button, Popover, Modal, Form, Checkbox, message, Table } from "antd";
 import axios from "axios";
 import dayjs from "dayjs";
 import socket from "../Socket";
@@ -17,6 +17,8 @@ const ApptChannel = ({userInfo}) => {
   const [form] = Form.useForm();
   const [symptoms, setSymptoms] = useState({});
   const [patientID, setPatientID] = useState("")
+  const [patientRegiment, setPatientRegiment] = useState(null)
+  const [isRegimentModalOpen, setIsRegimentModalOpen] = useState(false)
 
   const fetchMessages = async () => {
     const body = {
@@ -93,11 +95,56 @@ const ApptChannel = ({userInfo}) => {
     setIsModalOpen(true)
   }
 
+  const fetchRegiment = async () => {
+    try {
+      const body = {
+        Patient_ID: patientID
+      }
+      const res = await axios.post(`http://localhost:3000/regiment/`, body);
+      const regiment = res.data[0]?.Regiment;
+
+      const formattedData = Object.entries(regiment).map(([day, exercises]) => ({
+        key: day,
+        day,
+        exercises: exercises.join(', ') || 'Rest',
+      }));
+      console.log("Regiment: ", formattedData)
+      setPatientRegiment(formattedData);
+      setIsRegimentModalOpen(true)
+    } catch (err) {
+      console.error("Error fetching regiment:", err);
+    }
+  };
+
+  const makeNewPatientRegiment = async () => {
+    navigate("/Exercise", {
+      state: {
+        patient_id: patientID,
+        appt_id: appt_id
+      }
+    })
+  }
+  
+
   const content = (
     <div>
       <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={openModal}>Patient Forum</Button>
+      <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={fetchRegiment}>View Regiment</Button>
     </div>
   )
+
+  const columns = [
+    {
+      title: 'Day',
+      dataIndex: 'day',
+      key: 'day',
+    },
+    {
+      title: 'Exercises',
+      dataIndex: 'exercises',
+      key: 'exercises',
+    },
+  ];
 
   return (
     <>
@@ -351,6 +398,12 @@ const ApptChannel = ({userInfo}) => {
               </Form.Item>
             </Form>
           </Flex>
+        </Flex>
+      </Modal>
+      <Modal open={isRegimentModalOpen} onCancel={() => setIsRegimentModalOpen(false)} footer={false} centered className="style-modal" width={650}>
+        <Table columns={columns} dataSource={patientRegiment} pagination={false} bordered/>
+        <Flex justify="center" align="center" style={{marginTop: "25px"}}>
+          <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={makeNewPatientRegiment}>Make New Regiment</Button>
         </Flex>
       </Modal>
     </>
