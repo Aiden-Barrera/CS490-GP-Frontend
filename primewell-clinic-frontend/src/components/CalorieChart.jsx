@@ -116,4 +116,3 @@ const CalorieChart = (props) => {
 };
 
 export default CalorieChart;
-

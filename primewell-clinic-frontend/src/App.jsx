@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import {Routes, Route} from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import { Flex } from 'antd'
 import './App.css'
 import Home from './pages/Home'
@@ -51,15 +51,15 @@ function App() {
   return (
     <>
       <div className='App'>
-        <Navbar userInfo={userInfo} info={setUserInfo}/>
+        <Navbar userInfo={userInfo} info={setUserInfo} />
         <Routes>
           <Route path='/' element={<Home headers={headers}/>}/>
-          <Route path='/Posts' element={<Posts />}/>
+          <Route path='/Posts' element={<Posts info={userInfo}/>}/>
           <Route path='/PharmacistPortal' element={<PharmacistPortal />}/>
           <Route path='/Exercise' element={<Exercise info={userInfo}/>} />
           <Route path='/viewProfile' element={<Profile userInfo={userInfo}/>} />
           {/* Patient Portal with Nested Routes */}
-          <Route path="/PatientPortal" element={<SideBarMenu info={userInfo} surveyCompleted={surveyCompleted}/>}>
+          <Route path="/PatientPortal" element={<SideBarMenu info={userInfo} surveyCompleted={surveyCompleted} />}>
             <Route index element={<Dashboard info={userInfo} />} />
             <Route path="Request" element={<Request userInfo={userInfo} />} />
             <Route path="Appointment" element={<Appointments userInfo={userInfo}/>} />
@@ -96,7 +96,7 @@ function App() {
             />
 
           </Route>
-           {/* Pharmacist Portal with Nested Routes */}
+          {/* Pharmacist Portal with Nested Routes */}
           <Route path="/PharmacistPortal/" element={<PharmaSideBarMenu info={userInfo} />}>
             <Route path="PharmacyPortal/Request" element={<div>Request</div>} />
             <Route path="PharmacyPortal/Pickups" element={<div>Pending Pick-ups Page</div>} />
@@ -105,7 +105,7 @@ function App() {
           </Route>
           {/* Reviews with Nested Routes */}
           <Route path='/Reviews' element={<Reviews />} />
-          <Route path='/Reviews/:id' element={<ReviewDetail userInfo={userInfo}/>} />
+          <Route path='/Reviews/:id' element={<ReviewDetail userInfo={userInfo} />} />
 
         </Routes>
       </div>
