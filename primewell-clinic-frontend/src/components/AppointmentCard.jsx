@@ -11,6 +11,7 @@ const AppointmentCard = ({apptInfo}) => {
     const [date, setDate] = useState(() => dayjs())
     const [appt_end, setAppt_end] = useState(false)
     const navigate = useNavigate()
+    const [todayDate, setTodayDate] = useState(() => dayjs())
 
     const fetchApptEnd = async () => {
         const body = {
@@ -84,7 +85,7 @@ const AppointmentCard = ({apptInfo}) => {
                 </Flex>
                 {contextHolder}
                 <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={handleClick}>
-                    {appt_end ? "View Appointment Log" : "Join Appointment"}
+                    {appt_end ? "View Appointment Log" : date?.isSame(todayDate, 'day') ? "Join Appointment" : date.diff(dayjs(), 'day') === 0 ? `${date.diff(dayjs(), 'day') + 1} day till Appointment` : `${date.diff(dayjs(), 'day') + 1} days Till Appointment`}
                 </Button>
             </Flex>
         </Flex>
