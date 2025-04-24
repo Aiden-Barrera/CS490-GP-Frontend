@@ -37,8 +37,10 @@ const InterventionList = ({ info }) => {
                 borderRadius: "12px",
                 padding: "10px 10px",
                 width: "100%",
-                overflowY: "auto",
+                height: "200px",
+                overflow: "hidden",
                 boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+                display: "flex",
             }}
         >
             <Flex
@@ -63,16 +65,18 @@ const InterventionList = ({ info }) => {
             <Flex style={{ fontWeight: "bold", marginBottom: "5px" }}>
                 Doctor: {current.Doctor}
             </Flex>
-            <Flex style={{ fontWeight: "bold", marginBottom: "5px" }}>
+            <Flex style={{ fontWeight: "bold", marginBottom: "5px", flex: 1 }}>
                 Doctor Feedback: {current.Doctors_Feedback}
             </Flex>
-            
+    
             <Flex
+                justify="end"
+                align="center"
                 style={{
-                    background: "#ffffff",
                     width: "50%",
                     alignSelf: "center",
                     gap: "10px",
+                    marginTop: "auto",
                 }}
             >
                 <Button
@@ -89,7 +93,7 @@ const InterventionList = ({ info }) => {
                     disabled={currentIndex === 0}
                     onClick={() => setCurrentIndex((i) => i - 1)}
                 />
-
+    
                 <Button
                     style={{
                         background: "#F09C96",
@@ -109,4 +113,4 @@ const InterventionList = ({ info }) => {
     );
 };
 
-export default InterventionList;
+export default InterventionList;    
