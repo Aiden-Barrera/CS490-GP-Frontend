@@ -38,45 +38,25 @@ const CalorieChart = (props) => {
             chartInstanceRef.current.destroy();
         }
 
-        // Filter data for the last 7 days
-        const lastWeekData = patientSurveyData.filter((entry) => {
-            const entryDate = new Date(entry.Survey_Date);
-            const today = new Date();
-            const diffInDays = Math.ceil((today - entryDate) / (1000 * 60 * 60 * 24));
-            return diffInDays <= 7;
-        });
-        console.log("Lastweekdata: ", lastWeekData);
-        const calorieData = new Array(7).fill(0); // Initialize with 0
-        const labels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-        const today = new Date();
-        const currentDay = today.getDay(); // 0 (Sunday) to 6 (Saturday)
+        const calorieData = new Array(7).fill(null);
 
-        // Populate calorieData with values from the last 7 days
-        lastWeekData.forEach((entry) => {
+        patientSurveyData.forEach((entry) => {
             const date = new Date(entry.Survey_Date);
-            const dayIndex = (date.getDay() + 6) % 7; // Adjust to start from Monday
+            // console.log(date);
+            const dayIndex = (date.getDay() + 6) % 7;
             calorieData[dayIndex] = entry.Caloric_Intake;
         });
-
-        // Reorder labels and calorieData to start from the most recent day
-        const reorderedLabels = [];
-        const reorderedCalorieData = [];
-        for (let i = 0; i < 7; i++) {
-            const index = (currentDay - i + 6) % 7;
-            reorderedLabels.unshift(labels[index]);
-            reorderedCalorieData.unshift(calorieData[index]);
-        }
 
 
         if (chartRef.current) {
             chartInstanceRef.current = new ChartJS(chartRef.current, {
                 type: 'bar',
                 data: {
-                    labels: reorderedLabels, // Use reordered labels
+                    labels: ["Mon", "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun"],
                     datasets: [
                         {
                             label: "Caloric Intake",
-                            data: reorderedCalorieData, // Use reordered calorie data
+                            data: calorieData,
                             backgroundColor: [
                                 "#a78bfa",
                                 "#f87171",
@@ -100,9 +80,9 @@ const CalorieChart = (props) => {
                     },
                     scales: {
                         y: {
-                            beginAtZero: true, // Ensure y-axis starts at 0
-                            // min: 2000,  // Removed hardcoded min/max
-                            // max: 4000,
+                            beginAtZero: false,
+                            min: 500,
+                            max: 6000,
                             ticks: {
                                 stepSize: 200,
                             },

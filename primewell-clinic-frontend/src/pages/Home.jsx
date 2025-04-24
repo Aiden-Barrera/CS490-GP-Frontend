@@ -5,11 +5,12 @@ import "./../App.css"
 import TopDoctorCard from "../components/TopDoctorCard";
 import Footer from "../components/Footer";
 
-const Home = () => {
+const Home = (props) => {
     const [topDoctors, setTopDoctors] = useState([])
 
     const fetchTopDoctors = async () => {
-        const res = await axios.get("http://localhost:3000/reviewsTop")
+        console.log(JSON.parse(import.meta.env.VITE_HEADERS))
+        const res = await axios.get("http://localhost:3000/reviewsTop", JSON.parse(import.meta.env.VITE_HEADERS))
         setTopDoctors(res.data)
         console.log(res.data)
     }

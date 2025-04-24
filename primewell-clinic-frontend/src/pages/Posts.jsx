@@ -76,21 +76,10 @@ const Posts = (props) => {
                         {filteredPosts?.map((post, index) => (
                             <PostsCard key={index} postInfo={post} info={props.info} />
                         ))}
-                        {/* {commentClicked && comments.length > 0 ? (
-                            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "90%", height: "100%", border: "1px solid #666666", borderRadius: "8px", padding: "20px", gap: "10px" }}>
-                                {comments?.map((comment, index) => (
-                                    <div style={{ display: "flex", gap: "5px", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-                                        <p key={index} style={{ fontSize: "16px", margin: 0, maxWidth: "335px" }}>{comment.comment}</p>
-                                        <p key={index} style={{ fontSize: "12px", margin: 0 }}>{commentDate.format("MMM DD, YYYY")}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        ) : null} */}
                     </Flex>
                 </Flex>
             </Flex>
         </>
     )
 }
-
 export default Posts

@@ -141,5 +141,4 @@ const PostsCard = ({ postInfo, info }) => {
         </Flex>
     )
 }
-
 export default PostsCard

@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import AddCalendar from "./AddCalendar";
-const ExerciseListModal = ({info, open, handleClose, categoryName}) => {
-    console.log("From ExerciseListModal.jsx", info?.patient_id);
+
+const ExerciseListModal = ({info, selectedPatient, open, handleClose: handleListCancel, categoryName, appt_id}) => {
+
     const [exerciseInfo, setExerciseInfo] = useState([]);
     const [selectedRows, setSelectedRows] = useState(new Set());
     const [selectedModalVisible, setSelectedModalVisible] = useState(false);
@@ -12,25 +13,27 @@ const ExerciseListModal = ({info, open, handleClose, categoryName}) => {
     
     useEffect(() => {
         const fetchExerciseInfo = async () => {
-            try {
-                const body = {
-                    Exercise_Class: categoryName 
-                }
-                console.log("Category Name: ", body)
-                const res = await axios.post("http://localhost:3000/exerciseByClass", body);
-                setExerciseInfo(res.data);
-            } catch (error) {
-                console.error("Error fetching exercise data:", error);
-            }
+          try {
+            const body = {
+              Exercise_Class: categoryName
+            };
+            console.log("Fetching with body:", body);
+            const res = await axios.post("http://localhost:3000/exerciseByClass", body);
+            console.log("Fetched data: ", res.data);
+            setExerciseInfo(res.data);
+          } catch (error) {
+            console.error("Error fetching exercise data:", error);
+          }
         };
-        fetchExerciseInfo();
-    }, [open]);
+        if (open) fetchExerciseInfo();
+      }, [open]);
+      
 
-    useEffect(() => {
-        if (info.open) {
-            message.destroy();
-        }
-    }, [info.open]);
+    // useEffect(() => {
+    //     if (info.open) {
+    //         message.destroy();
+    //     }
+    // }, [info.open]);
 
     useEffect(() => {
         console.log("Selected rows:", selectedRows);
@@ -49,7 +52,13 @@ const ExerciseListModal = ({info, open, handleClose, categoryName}) => {
         });
     };
 
-   
+    const handleClose = () => {
+        message.destroy();
+        //setSelectedRows(new Set());
+        setSelectedModalVisible(false);
+        handleListCancel();
+      };
+
     const columns = [
         { title: 'Exercise Name', dataIndex: 'Exercise_Name', width: 150 },
         { title: 'ID', dataIndex: 'Exercise_ID', width: 25 },
@@ -134,6 +143,11 @@ const ExerciseListModal = ({info, open, handleClose, categoryName}) => {
                     selectedRows={[...selectedRows]} // Convert Set to Array
                     exerciseInfo={exerciseInfo}
                     patientInfo={info}
+
+                    selectedPatient={selectedPatient}
+
+                    appt_id={appt_id}
+
                     footer={null}
                     title="Selected Exercises"
                     centered

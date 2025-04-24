@@ -57,8 +57,8 @@ const WeightChart = (props) => {
                     scales: {
                         y: {
                             beginAtZero: false,
-                            min: 170,
-                            max: 210,
+                            min: 70,
+                            max: 300,
                             ticks: {
                                 stepSize: 5,
                             },
@@ -96,3 +96,4 @@ const WeightChart = (props) => {
 };
 
 export default WeightChart;
+

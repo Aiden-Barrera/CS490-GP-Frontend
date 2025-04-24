@@ -14,6 +14,17 @@ const Navbar = (props) => {
   const [name, setName] = useState("")
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const storedAuth = sessionStorage.getItem("auth") === "true";
+    const storedUserType = sessionStorage.getItem("userType");
+
+    if (storedAuth) {
+      setAuth(true);
+      setUserType(storedUserType);
+      setIsPharm(storedUserType === "Pharmacist");
+    }
+  }, [])
+
 
   const showModal = (name) => {
     setName(name)
@@ -57,6 +68,7 @@ const Navbar = (props) => {
           setIsPharm(false)
         }
         setUserType('');
+        sessionStorage.clear()
         navigate("/")
         break;
       default:
