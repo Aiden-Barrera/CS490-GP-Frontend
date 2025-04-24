@@ -25,7 +25,7 @@ const ExerciseListModal = ({info, open, handleClose: handleListCancel, categoryN
           }
         };
         if (open) fetchExerciseInfo();
-      }, [open, categoryName]);
+      }, [open]);
       
 
     useEffect(() => {
