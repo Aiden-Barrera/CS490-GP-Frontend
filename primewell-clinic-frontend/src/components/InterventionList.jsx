@@ -52,6 +52,7 @@ const InterventionList = ({ info }) => {
                     background: "#F09C96",
                     color: "#ffffff",
                     borderRadius: "2px",
+                    marginBottom: "5px",
                 }}
             >
                 Intervention List
