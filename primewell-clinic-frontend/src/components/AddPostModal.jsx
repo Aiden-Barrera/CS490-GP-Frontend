@@ -24,6 +24,7 @@ const AddPostModal = (props) => {
             const res = await axios.post("http://localhost:3000/forumPosts", newValue)
             console.log("Added Post: ", res.data)
             // props.onPostCreated(res.data);
+            props.postCreated(true)
             handleClose();
         } catch (err) {
             console.log("Error Fetching Posts: ", err)

@@ -4,7 +4,7 @@ import AddCommentModal from "../components/AddCommentModal"
 import axios from "axios";
 
 const { Title, Text, Paragraph } = Typography;
-const PostsCard = ({ postInfo, info }) => {
+const PostsCard = ({ postInfo, info, }) => {
     const [userInfo, setUserInfo] = useState(null)
     const [isAddCommentModalOpen, setIsAddCommentModalOpen] = useState(false);
     const [comments, setComments] = useState(false);
@@ -18,8 +18,8 @@ const PostsCard = ({ postInfo, info }) => {
         setIsAddCommentModalOpen(false);
     };
 
-    console.log(info);
-    console.log(postInfo);
+    console.log("Info: ", info);
+    console.log("Post Info: ", postInfo);
 
     const fetchUserName = async () => {
         try {
@@ -34,7 +34,7 @@ const PostsCard = ({ postInfo, info }) => {
 
     const getComments = async () => {
         try {
-            const res2 = await axios.get(`http://localhost:3000/patient/comments/${postInfo.Forum_ID}`)
+            const res2 = await axios.get(`http://localhost:3000/comments/${postInfo.Forum_ID}`)
             const info = res2.data
             console.log("Fetched Comments: ", res2.data)
             setComments(info)
