@@ -124,10 +124,10 @@ const ApptChannel = ({userInfo}) => {
   
 
   const content = (
-    <div>
-      <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={openModal}>Patient Forum</Button>
-      <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={fetchRegiment}>View Regiment</Button>
-    </div>
+    <Flex vertical gap="10px">
+      <Button type="primary" style={{fontWeight: "700", fontSize: "18px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={openModal}>Patient Forum</Button>
+      {userInfo?.doctor_id && (<Button type="primary" style={{fontWeight: "700", fontSize: "18px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={fetchRegiment}>View Regiment</Button>)}
+    </Flex>
   )
 
   const columns = [
@@ -161,7 +161,7 @@ const ApptChannel = ({userInfo}) => {
               >
                 <div style={{ display: "flex", flexDirection: msg.senderType === "Patient" ? "row" : "row-reverse", alignItems: "flex-end", gap: "10px" }}>
                   {msg.senderType === "Patient" ? (
-                    <Popover content={content} title="View Patient Preliminary Form">
+                    <Popover content={content} title="View Patient Info">
                       <img
                         src={msg.senderType === "Patient" ? `https://ui-avatars.com/api/?name=${encodeURIComponent(msg.senderName)}&background=random&color=fff&size=42` : `https://ui-avatars.com/api/?name=${encodeURIComponent(msg.senderName)}&background=random&color=fff&size=42`}
                         alt="Message Icon"

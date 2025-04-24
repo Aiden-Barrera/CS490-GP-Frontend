@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Flex, Table } from "antd";
+import "./../../App.css"
 
 const Regiment = ({ info }) => {
     const [regimentData, setRegimentData] = useState(null);
@@ -55,7 +56,7 @@ const Regiment = ({ info }) => {
             boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
         }}>
             <h1 style={{color: "#333333", marginBottom: 0}}>Regiment</h1>
-             <Table dataSource={regimentData} columns={columns} pagination={false} bordered style={{width: "100%"}}/>
+             <Table dataSource={regimentData} columns={columns} pagination={false} bordered style={{width: "100%", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)", borderRadius: "8px"}}/>
 
         </Flex>
     );
