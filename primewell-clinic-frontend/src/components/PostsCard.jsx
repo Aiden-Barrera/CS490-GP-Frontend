@@ -92,7 +92,7 @@ const PostsCard = ({ postInfo, info }) => {
                 </Text>
             </Flex>
             <Flex vertical gap="30px">
-                <Flex gap="50px" justify="flex-start" align="flex-start">
+                <Flex gap="150px" justify="flex-start" align="flex-start">
                     {/* Exercise Info */}
                     <Flex vertical gap="10px" style={{ maxWidth: "400px", flex: 1 }}>
                         <Title level={4} style={{ margin: 0 }}>
@@ -115,10 +115,9 @@ const PostsCard = ({ postInfo, info }) => {
                             <Paragraph style={{ marginBottom: 0 }}>{postInfo?.Exercise_Description}</Paragraph>
                         </Flex>
                     </Flex>
-
                     {/* Feedback */}
                     <Flex vertical gap="10px" style={{ maxWidth: "500px", flex: 1 }}>
-                        <Title level={4} style={{ marginBottom: "4px" }}>{`${userInfo?.First_Name} ${userInfo?.Last_Name}`}'s Feedback</Title>
+                        <Title level={4} style={{ margin: "0" }}>{`${userInfo?.First_Name} ${userInfo?.Last_Name}`}'s Feedback</Title>
                         <Paragraph style={{ fontSize: "16px", margin: 0 }}>
                             {postInfo?.Forum_Text}
                         </Paragraph>
@@ -133,8 +132,8 @@ const PostsCard = ({ postInfo, info }) => {
                         }} />
                     </Flex>
                 </Flex>
-                {/* Display Comments */}
-                <Flex vertical gap="5px" justify="flex-start" flexDirection="column">
+                <Flex vertical gap="20px" flexDirection="column" style={{ width: "90%", alignSelf: "flex-end" }}>
+                    {/* Pink Comment Box */}
                     {commentClicked && comments.length > 0 ? (
                         <div
                             style={{
@@ -142,7 +141,7 @@ const PostsCard = ({ postInfo, info }) => {
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "flex-start",
-                                width: "90%",
+                                width: "99%",
                                 height: "auto",
                                 border: "1px solid #666666",
                                 borderRadius: "8px",
@@ -159,8 +158,7 @@ const PostsCard = ({ postInfo, info }) => {
                                         justifyContent: "space-between",
                                         alignItems: "flex-start",
                                         width: "100%",
-                                        borderBottom:
-                                            index < comments.length - 1 ? "1px solid #eee" : "none",
+                                        borderBottom: index < comments.length - 1 ? "1px solid #eee" : "none",
                                         paddingBottom: "10px",
                                         marginBottom: "10px",
                                     }}
@@ -185,9 +183,10 @@ const PostsCard = ({ postInfo, info }) => {
                             ))}
                         </div>
                     ) : commentClicked ? (
-                        <Text type="secondary">No comments yet.</Text>
+                        <Text type="secondary" style={{ textAlign: "right" }}>No comments yet.</Text>
                     ) : null}
 
+                    {/* Add Comment Button */}
                     {commentClicked && (
                         <Button
                             type="primary"
@@ -200,6 +199,7 @@ const PostsCard = ({ postInfo, info }) => {
                                 fontWeight: "700",
                                 boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
                                 marginTop: "20px",
+                                alignSelf: "flex-start",
                             }}
                             onClick={() => {
                                 showAddCommentModal();
