@@ -133,34 +133,33 @@ const PostsCard = ({ postInfo, info }) => {
                     </Flex>
                 </Flex>
                 <Flex vertical gap="20px" flexDirection="column" style={{ width: "90%", alignSelf: "flex-end" }}>
-                    {/* Pink Comment Box */}
+                    {/* Pink Comment Boxes */}
                     {commentClicked && comments.length > 0 ? (
-                        <div
-                            style={{
-                                background: "#f5b5af",
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "flex-start",
-                                width: "99%",
-                                height: "auto",
-                                border: "1px solid #666666",
-                                borderRadius: "8px",
-                                padding: "20px",
-                                gap: "10px",
-                            }}
-                        >
-                            {comments?.map((comment, index) => (
+                        comments?.map((comment, index) => (
+                            <div
+                                key={index}
+                                style={{
+                                    background: "#f5b5af",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "flex-start",
+                                    width: "99%",
+                                    height: "auto",
+                                    border: "1px solid #666666",
+                                    borderRadius: "8px",
+                                    padding: "20px",
+                                    gap: "10px",
+                                    // marginBottom: "px", 
+                                }}
+                            >
                                 <div
-                                    key={index}
                                     style={{
                                         display: "flex",
                                         gap: "15px",
                                         justifyContent: "space-between",
                                         alignItems: "flex-start",
                                         width: "100%",
-                                        borderBottom: index < comments.length - 1 ? "1px solid #eee" : "none",
                                         paddingBottom: "10px",
-                                        marginBottom: "10px",
                                     }}
                                 >
                                     <Text strong>{comment.Patient_ID}:</Text>{" "}
@@ -180,8 +179,8 @@ const PostsCard = ({ postInfo, info }) => {
                                         </Text>
                                     )}
                                 </div>
-                            ))}
-                        </div>
+                            </div>
+                        ))
                     ) : commentClicked ? (
                         <Text type="secondary" style={{ textAlign: "right" }}>No comments yet.</Text>
                     ) : null}
