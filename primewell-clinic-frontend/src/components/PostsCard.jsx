@@ -169,9 +169,9 @@ const PostsCard = ({ postInfo, info }) => {
                   vertical
                   style={{
                     display: "flex",
-                    gap: "15px",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
+                    gap: "10px",
+                    // justifyContent: "space-between",
+                    // alignItems: "flex-start",
                     width: "100%",
                     paddingBottom: "10px",
                   }}
@@ -200,19 +200,11 @@ const PostsCard = ({ postInfo, info }) => {
                   </Flex>
                   <Flex vertical gap="30px">
                     <Flex gap="150px" justify="flex-start" align="flex-start">
-                      <Flex
-                        vertical
-                        gap="10px"
-                        style={{ maxWidth: "400px", flex: 1 }}
+                      <Paragraph
+                        style={{ fontSize: "16px", margin: 0, flex: 1 }}
                       >
-                        <Flex vertical gap="30px">
-                          <Paragraph
-                            style={{ fontSize: "16px", margin: 0, flex: 1 }}
-                          >
-                            {comment.Comment_Text}
-                          </Paragraph>
-                        </Flex>
-                      </Flex>
+                        {comment.Comment_Text}
+                      </Paragraph>
                     </Flex>
                   </Flex>
                   {comment.Date_Created && (
@@ -231,9 +223,27 @@ const PostsCard = ({ postInfo, info }) => {
               </Flex>
             ))
           ) : commentClicked ? (
-            <Text type="secondary" style={{ textAlign: "right" }}>
-              No comments yet.
-            </Text>
+            <Flex
+              style={{
+                background: "#f5b5af",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                width: "99%",
+                height: "auto",
+                border: "1px solid #666666",
+                borderRadius: "8px",
+                padding: "20px",
+                gap: "10px",
+              }}
+            >
+              <Text
+                type="secondary"
+                style={{ textAlign: "right", color: "black" }}
+              >
+                No comments yet.
+              </Text>
+            </Flex>
           ) : null}
 
           {/* Add Comment Button */}
@@ -248,7 +258,7 @@ const PostsCard = ({ postInfo, info }) => {
                 fontSize: "16px",
                 fontWeight: "700",
                 boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-                marginTop: "20px",
+                // marginTop: "20px",
                 alignSelf: "flex-start",
               }}
               onClick={() => {
