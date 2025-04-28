@@ -193,7 +193,7 @@ const PostsCard = ({ postInfo, info }) => {
                         }}
                       />
                       <Text strong style={{ fontSize: "20px" }}>
-                        {`${comment?.First_Name} ${comment?.Last_Name}`}
+                        {`${comment?.PatientName}`}
                       </Text>
                     </Flex>
                     <Text type="secondary" style={{ fontSize: "16px" }}>
