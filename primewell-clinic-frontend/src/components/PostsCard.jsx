@@ -11,6 +11,7 @@ const PostsCard = ({ postInfo, info }) => {
   const [isAddCommentModalOpen, setIsAddCommentModalOpen] = useState(false);
   const [comments, setComments] = useState([]);
   const [commentClicked, setCommentClicked] = useState(false);
+  const [commentCreated, setCommentCreated] = useState(false);
 
   const showAddCommentModal = () => {
     setIsAddCommentModalOpen(true);
@@ -49,6 +50,11 @@ const PostsCard = ({ postInfo, info }) => {
       console.log("Error Fetching Comments: ", err);
     }
   };
+
+  useEffect(() => {
+    getComments();
+    setCommentCreated(false);
+  }, [commentCreated]);
 
   useEffect(() => {
     if (postInfo) {
@@ -162,7 +168,6 @@ const PostsCard = ({ postInfo, info }) => {
                   borderRadius: "8px",
                   padding: "20px",
                   gap: "10px",
-                  // marginBottom: "px",
                 }}
               >
                 <Flex
@@ -170,8 +175,6 @@ const PostsCard = ({ postInfo, info }) => {
                   style={{
                     display: "flex",
                     gap: "10px",
-                    // justifyContent: "space-between",
-                    // alignItems: "flex-start",
                     width: "100%",
                     paddingBottom: "10px",
                   }}
@@ -274,6 +277,7 @@ const PostsCard = ({ postInfo, info }) => {
             handleClose={handleAddCommentCancel}
             Patient_ID={info?.patient_id}
             Forum_ID={postInfo?.Forum_ID}
+            commentCreated={setCommentCreated}
           />
         </Flex>
       </Flex>
