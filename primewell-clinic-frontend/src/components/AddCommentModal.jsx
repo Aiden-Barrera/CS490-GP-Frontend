@@ -74,6 +74,7 @@ const AddCommentModal = (props) => {
                 {
                   required: true,
                   message: "Comment Required",
+                  pattern: /^\s/,
                 },
               ]}
             >
