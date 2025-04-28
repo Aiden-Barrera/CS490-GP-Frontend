@@ -1,4 +1,4 @@
-import { Flex, Modal, Form, message, Button, Input } from "antd";
+import { Flex, Modal, Form, message, Button, Input, notification } from "antd";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -6,6 +6,7 @@ const { TextArea } = Input;
 
 const AddCommentModal = (props) => {
   const [form] = Form.useForm();
+  const [api, contextHolder] = notification.useNotification();
 
   useEffect(() => {
     if (props.open) {
@@ -27,7 +28,16 @@ const AddCommentModal = (props) => {
       props.commentCreated(true);
       handleClose();
     } catch (err) {
-      console.log("Error Fetching Comments: ", err);
+        if (err.response) {
+          if (err.response.status === 400) {
+            api.open({
+              message: 'Invalid Credentials!',
+              description: 'Must be Signed In to leave a Comment.',
+            });
+          } else {
+            console.log("Error Fetching Comments: ", err);
+          }
+        }
     }
   };
 
@@ -48,6 +58,7 @@ const AddCommentModal = (props) => {
       centered
       className="style-modal"
     >
+      {contextHolder}
       <Flex
         vertical
         justify="center"
@@ -74,7 +85,6 @@ const AddCommentModal = (props) => {
                 {
                   required: true,
                   message: "Comment Required",
-                  pattern: /^\s/,
                 },
               ]}
             >

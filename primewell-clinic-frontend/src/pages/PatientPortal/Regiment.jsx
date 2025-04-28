@@ -8,6 +8,7 @@ const Regiment = ({ info }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        console.log(info)
         const fetchRegimentInfo = async () => {
             try {
                 const res = await axios.get(`http://localhost:3000/regiment/${info.patient_id}`);
