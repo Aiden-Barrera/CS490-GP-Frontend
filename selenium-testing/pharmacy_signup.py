@@ -72,4 +72,4 @@ create_an_account_submission_button_XPATH = "//*[@id=\"pharmacysignupform\"]/div
 click_button(create_an_account_submission_button_XPATH)
 
 time.sleep(50)
-# driver.quit()
+driver.quit()
