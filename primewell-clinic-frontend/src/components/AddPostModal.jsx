@@ -146,7 +146,7 @@ const AddPostModal = (props) => {
                                     backgroundColor: "#A3C3A4"
                                 }}
                             >
-                                Submit new exercise entry
+                                Create Discussion Post
                             </Button>
                         </Form.Item>
                     </Form>
