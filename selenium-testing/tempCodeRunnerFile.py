@@ -1,1 +1,1 @@
-create_discussion_post_button_XPATH
+driver.maximize_window()

@@ -55,75 +55,24 @@ click_button(log_in_button_XPATH)
 posts_link_XPATH = "//*[@id=\"root\"]/div/div/header/ul/li[2]/span/a"
 click_button(posts_link_XPATH)
 
-# Click Start a Discussion button
-start_a_discussion_button_XPATH = "//*[@id=\"root\"]/div/div/div/div/button"
-click_button(start_a_discussion_button_XPATH)
+form_chosen = 3 # random.randint(1, 10)
 
-# Enter Excercise Name
-exercise_name_XPATH = "//*[@id=\"Exercise_Name\"]"
-exercise_names = [
-    "Push Up",
-    "Pull Up",
-    "Plank",
-    "Squat",
-    "Deadlift",
-    "Bench Press",
-    "Glude bridge",
-    "Jumping lunge",
-    "Crunch",
-    "Leg raises",
-    "Bicep curls",
-    "Tricep pushdown",
-    "Hamstring curls",
-]
-enter_input(exercise_name_XPATH, random.choice(exercise_names))
+# Click Comment Icon
+comment_icon_XPATH = f"//*[@id=\"root\"]/div/div/div/div/div/div[{form_chosen}]/div[2]/div[2]/div/span"
+click_button(comment_icon_XPATH)
 
-# Enter Muscle Group
-muscle_group_XPATH = "//*[@id=\"Muscle_Group\"]"
-muscle_groups = [
-    "Chest",
-    "Back",
-    "Shoulders",
-    "Biceps",
-    "Triceps",
-    "Forearms",
-    "Quadriceps",
-    "Hamstrings",
-    "Glutes",
-    "Calves",
-    "Abdominals",
-    "Traps",
-    "Lats",
-    "Rhomboids",
-    "Rotator Cuff",
-]
-enter_input(muscle_group_XPATH, random.choice(muscle_groups))
+# Click Add a Comment button
+add_a_comment_button_XPATH = f"//*[@id=\"root\"]/div/div/div/div/div/div[{form_chosen}]/div[2]/div[3]/button"
+click_button(add_a_comment_button_XPATH)
 
-# Enter Excercise Class
-exercise_class_XPATH = "//*[@id=\"Exercise_Class\"]"
-exercise_class = fake.random_element(elements=('Upper Body', 'Lower Body', 'Core', 'Full-Body & HIIT', 'Endurance & Cardio', 'Flexibility & Yoga'))
-enter_input(exercise_class_XPATH, exercise_class)
-
-# Enter Sets
-sets_XPATH = "//*[@id=\"Sets\"]"
-enter_input(sets_XPATH, 3)
-
-# Enter Reps
-reps_XPATH = "//*[@id=\"Reps\"]"
-enter_input(reps_XPATH, 12)
-
-# Enter Description
-description_XPATH = "//*[@id=\"Exercise_Description\"]"
-enter_input(description_XPATH, "Push or pull the weight")
-
-# Enter Feedback
-feedback_XPATH = "//*[@id=\"Forum_Text\"]"
-enter_input(feedback_XPATH, "Use lower weights" + Keys.ENTER) # also submits the form
+# Enter Comment Text
+comment_text_XPATH = "//*[@id=\"Comment_Text\"]"
+enter_input(comment_text_XPATH, "Good workout, was really burning near the end") # also submits the form
 
 # Click Create Discussion Post button
-# create_discussion_post_button_XPATH = "/html/body/div[2]/div/div[2]/div/div[1]/div/div/div/div/form/div[8]/div/div/div/div/button"
-# click_button(create_discussion_post_button_XPATH)
+add_a_comment_button_XPATH = "/html/body/div[4]/div/div[2]/div/div[1]/div/div/div/div/form/div[2]/div/div/div/div/button"
+click_button(add_a_comment_button_XPATH)
 
 
-time.sleep(5)
+time.sleep(10)
 driver.quit()
