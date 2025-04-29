@@ -71,5 +71,5 @@ enter_input(pharmacy_password_XPATH, fake.password())
 create_an_account_submission_button_XPATH = "//*[@id=\"pharmacysignupform\"]/div[7]/div/div/div/div/button"
 click_button(create_an_account_submission_button_XPATH)
 
-time.sleep(5)
+time.sleep(50)
 # driver.quit()
