@@ -17,15 +17,15 @@ const PaymentCard = ({ paymentInfo, fetchPayments, userName, isAppt }) => {
 
     const onFinish = async (value) => {
         console.log(value)
-        if (isAppt) {
-            const body = {
-                Payment_ID: paymentInfo?.Payment_ID,
-                Card_Number: value.cardNumber
-            }
-            await axios.patch("http://localhost:3000/makePaymentAppointment", body)
-            setIsModalOpen(false)
-            fetchPayments()
+        
+        const body = {
+            Payment_ID: paymentInfo?.Payment_ID,
+            Card_Number: value.cardNumber
         }
+        await axios.patch("http://localhost:3000/makePayment", body)
+        fetchPayments()
+        setIsModalOpen(false)
+        
     }
 
     const onFail = () => {
