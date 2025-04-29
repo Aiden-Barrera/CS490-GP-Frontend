@@ -1,4 +1,4 @@
-import { Flex, Modal, Form, message, Button, Input, Rate, notification } from "antd"
+import { Flex, Modal, message, Button, Input, Rate, notification } from "antd"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import PaymentCard from "../../components/PaymentCard"
@@ -41,8 +41,8 @@ const Payment = ({userInfo}) => {
                 <Flex vertical gap="20px" style={{ background: "#fef0ef", borderRadius: "12px", padding: "24px", boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }}>
                     <h2 style={{ fontSize: "28px", color: "#e2624d" }}>Appointment Payments</h2>
                     <Flex vertical gap="15px" style={{ maxHeight: "400px", overflowY: "auto", paddingRight: "10px" }}>
-                        {paymentApptInfo.length > 0 ? (
-                            paymentApptInfo.map((payment, index) => (
+                        {paymentApptInfo?.length > 0 ? (
+                            paymentApptInfo?.map((payment, index) => (
                                 <PaymentCard
                                     key={`appt-${index}`}
                                     paymentInfo={payment}
@@ -61,8 +61,8 @@ const Payment = ({userInfo}) => {
                 <Flex vertical gap="20px" style={{ background: "#f2f9f9", borderRadius: "12px", padding: "24px", boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }}>
                     <h2 style={{ fontSize: "28px", color: "#408080" }}>Prescription Payments</h2>
                     <Flex vertical gap="15px" style={{ maxHeight: "400px", overflowY: "auto", paddingRight: "10px" }}>
-                        {paymentPrescInfo.length > 0 ? (
-                            paymentPrescInfo.map((payment, index) => (
+                        {paymentPrescInfo?.length > 0 ? (
+                            paymentPrescInfo?.map((payment, index) => (
                                 <PaymentCard
                                     key={`presc-${index}`}
                                     paymentInfo={payment}

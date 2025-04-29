@@ -37,7 +37,8 @@ const CreatePillModal = (props) => {
             ...values,
             Dosage: Number(values.Dosage),
             Cost: Number(values.Cost),
-            Pharm_ID: props.info?.pharm_id  
+            Pharm_ID: props.info?.pharm_id, 
+            Quantity: Number(values.Quantity)  
           };
       
           await axios.post("http://localhost:3000/pillbank", formattedValues);
@@ -105,6 +106,15 @@ const CreatePillModal = (props) => {
                         ]}
                         >
                             <Input placeholder="Dosage" style={{height: "45px"}}/>
+                        </Form.Item>
+                        <Form.Item name="Quantity" label="Quantity" rules={[
+                            {
+                                required: true,
+                                message: "Quantity Required"
+                            },
+                        ]}
+                        >
+                            <Input placeholder="Quantity" style={{height: "45px"}}/>
                         </Form.Item>
                         <Form.Item name="Cost" label="Cost" rules={[
                             {
