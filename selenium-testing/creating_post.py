@@ -67,6 +67,7 @@ muscle_group_XPATH = "//*[@id=\"Muscle_Group\"]"
 enter_input(muscle_group_XPATH, fake.last_name())
 
 # Enter Excercise Class
+# ENUM('Upper Body', 'Lower Body', 'Core', 'Full-Body & HIIT', 'Endurance & Cardio', 'Flexibility & Yoga')
 excercise_class_XPATH = "//*[@id=\"Exercise_Class\"]"
 enter_input(excercise_class_XPATH, fake.email())
 
