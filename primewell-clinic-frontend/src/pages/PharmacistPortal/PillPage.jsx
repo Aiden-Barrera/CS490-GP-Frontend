@@ -9,7 +9,8 @@ const PillPage = ({info}) => {
             backgroundColor: "#ffffff",
             padding: "33px 40px",
             width: "100%",
-            overflowY: "auto"
+            overflowY: "auto",
+            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
         }}>
             <Flex 
                 justify="space-between" 

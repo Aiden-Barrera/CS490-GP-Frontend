@@ -35,7 +35,6 @@ const CreatePillModal = (props) => {
         try {
           const formattedValues = {
             ...values,
-            Pill_ID: Number(values.Pill_ID),
             Dosage: Number(values.Dosage),
             Cost: Number(values.Cost),
             Pharm_ID: props.info?.pharm_id  
@@ -97,15 +96,6 @@ const CreatePillModal = (props) => {
                         ]}
                         >
                             <Input placeholder="Pill Name" style={{height: "45px"}}/>
-                        </Form.Item>
-                        <Form.Item name="Pill_ID" label="Pill ID" rules={[
-                            {
-                                required: true,
-                                message: "Pill ID Required"
-                            },
-                        ]}
-                        >
-                            <Input placeholder="Pill ID" style={{height: "45px"}}/>
                         </Form.Item>
                         <Form.Item name="Dosage" label="Dosage" rules={[
                             {
