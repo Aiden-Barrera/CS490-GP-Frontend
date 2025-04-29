@@ -146,7 +146,7 @@ const AddPostModal = (props) => {
                                     backgroundColor: "#A3C3A4"
                                 }}
                             >
-                                Post Discussion Post
+                                Create Discussion Post
                             </Button>
                         </Form.Item>
                     </Form>
