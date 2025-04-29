@@ -2,7 +2,7 @@ import {Flex, Input} from "antd"
 import PillFilter from "../../components/PillFilter"
 
 const PillPage = ({info}) => {
-    console.log("Pharm ID: ",info?.pharm_id);
+    console.log("Pharm ID: ", String(info?.pharm_id));
     return (
         <Flex vertical justify="start" align="center" gap="60px" style={{
             borderRadius: "12px",

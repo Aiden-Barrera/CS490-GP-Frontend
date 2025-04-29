@@ -26,6 +26,7 @@ import ApptChannel from './pages/ApptChannel'
 import DoctorFeedback from './pages/DoctorPortal/DoctorFeedback'
 import DoctorPrescription from './pages/DoctorPortal/DoctorPrescription'
 import Payment from './pages/PatientPortal/Payment'
+import PrescriptionRequests from './pages/PharmacistPortal/PrescriptionRequests'
 
 function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
@@ -104,7 +105,7 @@ function App() {
           </Route>
           {/* Pharmacist Portal with Nested Routes */}
           <Route path="/PharmacistPortal/" element={<PharmaSideBarMenu info={userInfo} />}>
-            <Route path="PharmacyPortal/Request" element={<div>Request</div>} />
+            <Route path="PharmacyPortal/Request" element={<PrescriptionRequests info={userInfo} />} />
             <Route path="PharmacyPortal/Pickups" element={<div>Pending Pick-ups Page</div>} />
             <Route index element={<PillPage info={userInfo} />} />
             <Route path="PharmacyPortal/AccountInfo" element={<div>Account Info Page</div>} />
