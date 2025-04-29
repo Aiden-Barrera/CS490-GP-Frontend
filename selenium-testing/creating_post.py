@@ -54,5 +54,37 @@ click_button(log_in_button_XPATH)
 posts_link_XPATH = "//*[@id=\"root\"]/div/div/header/ul/li[2]/span/a"
 click_button(posts_link_XPATH)
 
+# Click Start a Discussion button
+start_a_discussion_button_XPATH = "//*[@id=\"root\"]/div/div/div/div/button"
+click_button(start_a_discussion_button_XPATH)
+
+# Enter Excercise Name
+excercise_name_XPATH = "//*[@id=\"Exercise_Name\"]"
+enter_input(excercise_name_XPATH, fake.first_name())
+
+# Enter Muscle Group
+muscle_group_XPATH = "//*[@id=\"Muscle_Group\"]"
+enter_input(muscle_group_XPATH, fake.last_name())
+
+# Enter Excercise Class
+excercise_class_XPATH = "//*[@id=\"Exercise_Class\"]"
+enter_input(excercise_class_XPATH, fake.email())
+
+# Enter Sets
+sets_XPATH = "//*[@id=\"Sets\"]"
+enter_input(sets_XPATH, 3)
+
+# Enter Reps
+reps_XPATH = "//*[@id=\"Reps\"]"
+enter_input(reps_XPATH, 12)
+
+# Enter Description
+description_XPATH = "//*[@id=\"Exercise_Description\"]"
+enter_input(description_XPATH, 88010)
+
+# Enter Feedback
+feedback_XPATH = "//*[@id=\"Forum_Text\"]"
+enter_input(feedback_XPATH, 88010)
+
 time.sleep(50)
 driver.quit()
