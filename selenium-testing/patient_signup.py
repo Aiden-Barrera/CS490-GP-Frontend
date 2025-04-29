@@ -109,13 +109,66 @@ password.send_keys(fake.password())
 time.sleep(time_to_wait_between_inputs)
 
 # Click Preliminary Form button
-search_nearest_pharmacy_button_XPATH = "//*[@id=\"patientsignupform_Zip\"]/button"
-WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, search_nearest_pharmacy_button_XPATH)))
-search_nearest_pharmacy_button = driver.find_element(By.XPATH, search_nearest_pharmacy_button_XPATH)
-search_nearest_pharmacy_button.click()
+preliminary_form_button_XPATH = "//*[@id=\"patientsignupform\"]/div[9]/div/div/div/div/button"
+WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, preliminary_form_button_XPATH)))
+preliminary_form_button = driver.find_element(By.XPATH, preliminary_form_button_XPATH)
+preliminary_form_button.click()
 time.sleep(time_to_wait_between_inputs)
 
+# Click Back Pain checkbox
+back_pain_checkbox_XPATH = "/html/body/div[5]/div/div[2]/div/div[1]/div/div/div/div/form/div[1]/div/div/div/div/div/table/tbody/tr[1]/td[1]/div[1]/label/span[1]/input"
+WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, back_pain_checkbox_XPATH)))
+back_pain_checkbox = driver.find_element(By.XPATH, back_pain_checkbox_XPATH)
+back_pain_checkbox.click()
+time.sleep(time_to_wait_between_inputs)
 
+# Click Blurred Vision checkbox
+blurred_vision_checkbox_XPATH = "/html/body/div[5]/div/div[2]/div/div[1]/div/div/div/div/form/div[1]/div/div/div/div/div/table/tbody/tr[1]/td[2]/div[1]/label/span[1]/input"
+WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, blurred_vision_checkbox_XPATH)))
+blurred_vision_checkbox = driver.find_element(By.XPATH, blurred_vision_checkbox_XPATH)
+blurred_vision_checkbox.click()
+time.sleep(time_to_wait_between_inputs)
 
-time.sleep(100)
+# Click Memory Loss checkbox
+memory_loss_checkbox_XPATH = "/html/body/div[5]/div/div[2]/div/div[1]/div/div/div/div/form/div[1]/div/div/div/div/div/table/tbody/tr[1]/td[3]/div[4]/label/span[1]/input"
+WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, memory_loss_checkbox_XPATH)))
+memory_loss = driver.find_element(By.XPATH, memory_loss_checkbox_XPATH)
+memory_loss.click()
+time.sleep(time_to_wait_between_inputs)
+
+# Click Callus checkbox
+callus_checkbox_XPATH = "/html/body/div[5]/div/div[2]/div/div[1]/div/div/div/div/form/div[1]/div/div/div/div/div/table/tbody/tr[3]/td[1]/div[3]/label/span[1]/input"
+WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, callus_checkbox_XPATH)))
+callus_checkbox = driver.find_element(By.XPATH, callus_checkbox_XPATH)
+callus_checkbox.click()
+time.sleep(time_to_wait_between_inputs)
+
+# Click Asthma checkbox
+asthma_checkbox_XPATH = "/html/body/div[5]/div/div[2]/div/div[1]/div/div/div/div/form/div[1]/div/div/div/div/div/table/tbody/tr[3]/td[2]/div[3]/label/span[1]/input"
+WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, asthma_checkbox_XPATH)))
+asthma_checkbox = driver.find_element(By.XPATH, asthma_checkbox_XPATH)
+asthma_checkbox.click()
+time.sleep(time_to_wait_between_inputs)
+
+# Click Callus checkbox
+irregular_heart_beat_checkbox_XPATH = "/html/body/div[5]/div/div[2]/div/div[1]/div/div/div/div/form/div[1]/div/div/div/div/div/table/tbody/tr[3]/td[3]/div[2]/label/span[1]/input"
+WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, irregular_heart_beat_checkbox_XPATH)))
+irregular_heart_beat_checkbox = driver.find_element(By.XPATH, irregular_heart_beat_checkbox_XPATH)
+irregular_heart_beat_checkbox.click()
+time.sleep(time_to_wait_between_inputs)
+
+# Click Submit Preliminary Form
+submit_preliminary_form_XPATH = "/html/body/div[5]/div/div[2]/div/div[1]/div/div/div/div/form/div[2]/div/div/div/div/button"
+WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, submit_preliminary_form_XPATH)))
+submit_preliminary_form = driver.find_element(By.XPATH, submit_preliminary_form_XPATH)
+submit_preliminary_form.click()
+time.sleep(time_to_wait_between_inputs)
+
+# Click Create an account submission button
+create_an_account_submission_button_XPATH = "//*[@id=\"patientsignupform\"]/div[10]/div/div/div/div/button"
+WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, create_an_account_submission_button_XPATH)))
+create_an_account_submission_button = driver.find_element(By.XPATH, create_an_account_submission_button_XPATH)
+create_an_account_submission_button.click()
+
+time.sleep(5)
 # driver.quit()
