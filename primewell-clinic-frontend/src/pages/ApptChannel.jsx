@@ -73,6 +73,13 @@ const ApptChannel = ({userInfo}) => {
   };
 
   const endAppointment = async () => {
+    const paymentBody = {
+      Patient_ID: patientID,
+      Related_ID: appt_id,
+      Payment_Type: "Appointment",
+      Payment_Status: 'Pending'
+    }
+    await axios.post("http://localhost:3000/payment", paymentBody)
     const body = {
       Appointment_ID: appt_id,
       Doctor_ID: userInfo.doctor_id

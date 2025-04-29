@@ -17,7 +17,7 @@ const DoctorFeedback = ({userInfo}) => {
 
     const fecthPatientName = async () => {
         const res = await axios.get(`http://localhost:3000/patient/${location.state.patient_id}`)
-        console.log(res.data)
+        console.log("Fetched Patient Name for Feedback: ", res.data)
         setPatientName(res.data)
     }
 
@@ -33,7 +33,12 @@ const DoctorFeedback = ({userInfo}) => {
             doctor_id: userInfo.doctor_id
         }
         await axios.patch('http://localhost:3000/giveFeedback', body)
-        navigate("/DoctorPortal/")
+        navigate("/DoctorPortal/DoctorPrescription", {
+            state: {
+              patient_id: location.state.patient_id,
+              appt_id: location.state.appt_id
+            }
+        })
     }
 
 

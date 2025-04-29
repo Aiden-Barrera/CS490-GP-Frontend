@@ -24,6 +24,9 @@ import Appointments from './pages/PatientPortal/Appointments'
 import Regiment from './pages/PatientPortal/Regiment'
 import ApptChannel from './pages/ApptChannel'
 import DoctorFeedback from './pages/DoctorPortal/DoctorFeedback'
+import DoctorPrescription from './pages/DoctorPortal/DoctorPrescription'
+import Payment from './pages/PatientPortal/Payment'
+import PrescriptionRequests from './pages/PharmacistPortal/PrescriptionRequests'
 
 function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
@@ -66,7 +69,7 @@ function App() {
             <Route path="Regiment" element={<Regiment info={userInfo}/>} />
             <Route path="Daily-Survey" element={<DailySurvey info={userInfo} setSurveyCompleted={setSurveyCompleted}/>} />
             <Route path="Prescription" element={<div>Prescription Page</div>} />
-            <Route path="Payment" element={<div>Payment Page</div>} />
+            <Route path="Payment" element={<Payment userInfo={userInfo} />} />
             <Route path="ApptChannel" element={<ApptChannel userInfo={userInfo} />} />
           </Route>
           {/* Doctor Portal with Nested Routes */}
@@ -94,11 +97,15 @@ function App() {
               path="DoctorFeedback" 
               element={<DoctorFeedback userInfo={userInfo}/>} 
             />
+            <Route 
+              path="DoctorPrescription" 
+              element={<DoctorPrescription userInfo={userInfo}/>} 
+            />
 
           </Route>
           {/* Pharmacist Portal with Nested Routes */}
           <Route path="/PharmacistPortal/" element={<PharmaSideBarMenu info={userInfo} />}>
-            <Route path="PharmacyPortal/Request" element={<div>Request</div>} />
+            <Route path="PharmacyPortal/Request" element={<PrescriptionRequests info={userInfo} />} />
             <Route path="PharmacyPortal/Pickups" element={<div>Pending Pick-ups Page</div>} />
             <Route index element={<PillPage info={userInfo} />} />
             <Route path="PharmacyPortal/AccountInfo" element={<div>Account Info Page</div>} />

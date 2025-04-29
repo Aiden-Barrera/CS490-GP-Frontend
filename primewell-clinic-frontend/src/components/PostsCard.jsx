@@ -154,9 +154,7 @@ const PostsCard = ({ postInfo, info }) => {
         >
           {/* Pink Comment Boxes */}
           {commentClicked && comments.length > 0 ? (
-            comments?.map((comment, index) => (
               <Flex
-                key={index}
                 style={{
                   background: "#f5b5af",
                   display: "flex",
@@ -170,6 +168,7 @@ const PostsCard = ({ postInfo, info }) => {
                   gap: "10px",
                 }}
               >
+              {comments?.map((comment, index) => (
                 <Flex
                   vertical
                   style={{
@@ -222,10 +221,9 @@ const PostsCard = ({ postInfo, info }) => {
                       {dayjs(comment.Date_Created).format("MMM DD,")}
                     </Text>
                   )}
-                </Flex>
-              </Flex>
-            ))
-          ) : commentClicked ? (
+            </Flex>))}
+            </Flex>
+            ) : commentClicked ? (
             <Flex
               style={{
                 background: "#f5b5af",
