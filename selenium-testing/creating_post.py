@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import ActionChains
 import time
+import random
 from faker import Faker
 
 service = Service(excutable_path="chromedriver.exe")
@@ -59,17 +60,49 @@ start_a_discussion_button_XPATH = "//*[@id=\"root\"]/div/div/div/div/button"
 click_button(start_a_discussion_button_XPATH)
 
 # Enter Excercise Name
-excercise_name_XPATH = "//*[@id=\"Exercise_Name\"]"
-enter_input(excercise_name_XPATH, fake.first_name())
+exercise_name_XPATH = "//*[@id=\"Exercise_Name\"]"
+exercise_names = [
+    "Push Up",
+    "Pull Up",
+    "Plank",
+    "Squat",
+    "Deadlift",
+    "Bench Press",
+    "Glude bridge",
+    "Jumping lunge",
+    "Crunch",
+    "Leg raises",
+    "Bicep curls",
+    "Tricep pushdown",
+    "Hamstring curls",
+]
+enter_input(exercise_name_XPATH, random.choice(exercise_names))
 
 # Enter Muscle Group
 muscle_group_XPATH = "//*[@id=\"Muscle_Group\"]"
-enter_input(muscle_group_XPATH, fake.last_name())
+muscle_groups = [
+    "Chest",
+    "Back",
+    "Shoulders",
+    "Biceps",
+    "Triceps",
+    "Forearms",
+    "Quadriceps",
+    "Hamstrings",
+    "Glutes",
+    "Calves",
+    "Abdominals",
+    "Traps",
+    "Lats",
+    "Rhomboids",
+    "Rotator Cuff",
+]
+enter_input(muscle_group_XPATH, random.choice(muscle_groups))
 
 # Enter Excercise Class
-# ENUM('Upper Body', 'Lower Body', 'Core', 'Full-Body & HIIT', 'Endurance & Cardio', 'Flexibility & Yoga')
-excercise_class_XPATH = "//*[@id=\"Exercise_Class\"]"
-enter_input(excercise_class_XPATH, fake.email())
+exercise_class_XPATH = "//*[@id=\"Exercise_Class\"]"
+exercise_class = fake.random_element(elements=('Upper Body', 'Lower Body', 'Core', 'Full-Body & HIIT', 'Endurance & Cardio', 'Flexibility & Yoga'))
+enter_input(exercise_class_XPATH, exercise_class)
 
 # Enter Sets
 sets_XPATH = "//*[@id=\"Sets\"]"
@@ -81,11 +114,15 @@ enter_input(reps_XPATH, 12)
 
 # Enter Description
 description_XPATH = "//*[@id=\"Exercise_Description\"]"
-enter_input(description_XPATH, 88010)
+enter_input(description_XPATH, "Push or pull the weight")
 
 # Enter Feedback
 feedback_XPATH = "//*[@id=\"Forum_Text\"]"
-enter_input(feedback_XPATH, 88010)
+enter_input(feedback_XPATH, "Use lower weights")
+
+# Click Create Discussion Post
+create_discussion_post_button_XPATH = "/html/body/div[2]/div/div[2]/div/div[1]/div/div/div/div/form/div[8]/div/div/div/div/button"
+click_button(create_discussion_post_button_XPATH)
 
 time.sleep(50)
 driver.quit()
