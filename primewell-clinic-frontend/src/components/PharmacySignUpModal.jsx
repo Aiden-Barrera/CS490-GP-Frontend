@@ -38,21 +38,21 @@ const PharmacySignUpModal = (props) => {
       } else {
         const enrichedData = {
           ...res.data,
-          userType: props.userType
-      }
-        props.info(enrichedData)
-        props.auth(true)
+          userType: props.userType,
+        };
+        props.info(enrichedData);
+        props.auth(true);
 
         sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
         sessionStorage.setItem("userType", props.userType);
         sessionStorage.setItem("auth", true);
-        sessionStorage.setItem("isPharm", true)
+        sessionStorage.setItem("isPharm", true);
 
         console.log("Pharmacy Created");
         handleClose();
       }
     } catch (err) {
-      console.log("Error Signing Pharmacy: ", err)
+      console.log("Error Signing Pharmacy: ", err);
     }
   };
 
@@ -88,7 +88,7 @@ const PharmacySignUpModal = (props) => {
         <Flex vertical style={{ width: "100%" }}>
           <Form
             form={form}
-            name="patientsignupform"
+            name="pharmacysignupform"
             layout="vertical"
             onFinish={onFinish}
             onFinishFailed={onFail}
@@ -238,4 +238,3 @@ const PharmacySignUpModal = (props) => {
 };
 
 export default PharmacySignUpModal;
-
