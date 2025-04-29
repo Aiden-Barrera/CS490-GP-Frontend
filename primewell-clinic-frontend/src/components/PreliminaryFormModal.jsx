@@ -83,68 +83,8 @@ const PreliminaryFormModal = (props) => {
             onFinishFailed={onFail}
             autoComplete="off"
           >
-            {/* <Form.Item
-              name="firstName"
-              label="First Name"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your First Name!",
-                },
-                {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make first name regex
-                  message: "Please input a valid First Name!",
-                },
-              ]}
-              validateTrigger="onSubmit"
-            >
-              <Input
-                placeholder="Enter your first name"
-                style={{ height: "45px" }}
-              />
-            </Form.Item>
-            <Form.Item
-              name="lastName"
-              label="Last Name"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your Last Name!",
-                },
-                {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, // make last name regex (probably same as first name)
-                  message: "Please input a valid Last Name!",
-                },
-              ]}
-              validateTrigger="onSubmit"
-            >
-              <Input
-                placeholder="Enter your last name"
-                style={{ height: "45px" }}
-              />
-            </Form.Item>
-            <Form.Item
-              name="email"
-              label="Email"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your Email!",
-                },
-                {
-                  pattern: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
-                  message: "Please input a valid Email!",
-                },
-              ]}
-              validateTrigger="onSubmit"
-            >
-              <Input
-                placeholder="example@gmail.com"
-                style={{ height: "45px" }}
-              />
-            </Form.Item> */}
             <Form.Item>
-              <div>
+              <Flex>
                 <table style={{ textAlign: "left", width: "100%" }}>
                   <thead>
                     <tr>
@@ -165,7 +105,7 @@ const PreliminaryFormModal = (props) => {
                           "Arm Pain",
                           "Joint Pain",
                         ].map((symptom) => (
-                          <div key={symptom}>
+                          <Flex key={symptom}>
                             <Checkbox
                               checked={
                                 symptoms["Muscle/Joint/Bone"]?.includes(
@@ -183,7 +123,7 @@ const PreliminaryFormModal = (props) => {
                               {symptom}
                             </Checkbox>
                             <br />
-                          </div>
+                          </Flex>
                         ))}
                       </td>
                       <td style={{ padding: "0px 11px" }}>
@@ -194,7 +134,7 @@ const PreliminaryFormModal = (props) => {
                           "Sinus Problems",
                           "Strep Throat",
                         ].map((symptom) => (
-                          <div key={symptom}>
+                          <Flex key={symptom}>
                             <Checkbox
                               checked={
                                 symptoms["Eyes/Ears/Nose/Throat"]?.includes(
@@ -212,7 +152,7 @@ const PreliminaryFormModal = (props) => {
                               {symptom}
                             </Checkbox>
                             <br />
-                          </div>
+                          </Flex>
                         ))}
                       </td>
                       <td style={{ padding: "0px 11px" }}>
@@ -223,7 +163,7 @@ const PreliminaryFormModal = (props) => {
                           "Memory Loss",
                           "Depression",
                         ].map((symptom) => (
-                          <div key={symptom}>
+                          <Flex key={symptom}>
                             <Checkbox
                               checked={
                                 symptoms["Neurologic"]?.includes(symptom) ||
@@ -240,7 +180,7 @@ const PreliminaryFormModal = (props) => {
                               {symptom}
                             </Checkbox>
                             <br />
-                          </div>
+                          </Flex>
                         ))}
                       </td>
                     </tr>
@@ -250,9 +190,9 @@ const PreliminaryFormModal = (props) => {
                       <th style={{ padding: "0px 11px" }}>CARDIOVASCULAR</th>
                     </tr>
                     <tr>
-                      <td style={{ padding: "0px 11px" }}>
+                      <td style={{ padding: "0px 11px", paddingBottom: "20px" }}>
                         {["Itching", "Rash", "Callus"].map((symptom) => (
-                          <div key={symptom}>
+                          <Flex key={symptom}>
                             <Checkbox
                               checked={
                                 symptoms["Skin"]?.includes(symptom) || false
@@ -268,7 +208,7 @@ const PreliminaryFormModal = (props) => {
                               {symptom}
                             </Checkbox>
                             <br />
-                          </div>
+                          </Flex>
                         ))}
                       </td>
                       <td style={{ padding: "0px 11px" }}>
@@ -278,7 +218,7 @@ const PreliminaryFormModal = (props) => {
                           "Asthma",
                           "Sleep Apnea",
                         ].map((symptom) => (
-                          <div key={symptom}>
+                          <Flex key={symptom}>
                             <Checkbox
                               checked={
                                 symptoms["Lungs"]?.includes(symptom) || false
@@ -294,7 +234,7 @@ const PreliminaryFormModal = (props) => {
                               {symptom}
                             </Checkbox>
                             <br />
-                          </div>
+                          </Flex>
                         ))}
                       </td>
                       <td style={{ padding: "0px 11px" }}>
@@ -304,7 +244,7 @@ const PreliminaryFormModal = (props) => {
                           "Heart Attack",
                           "Heart Disease",
                         ].map((symptom) => (
-                          <div key={symptom}>
+                          <Flex key={symptom}>
                             <Checkbox
                               checked={
                                 symptoms["Cardiovascular"]?.includes(symptom) ||
@@ -321,13 +261,13 @@ const PreliminaryFormModal = (props) => {
                               {symptom}
                             </Checkbox>
                             <br />
-                          </div>
+                          </Flex>
                         ))}
                       </td>
                     </tr>
                   </tbody>
                 </table>
-              </div>
+              </Flex>
             </Form.Item>
             <Form.Item>
               <Button
