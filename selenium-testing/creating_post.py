@@ -118,11 +118,12 @@ enter_input(description_XPATH, "Push or pull the weight")
 
 # Enter Feedback
 feedback_XPATH = "//*[@id=\"Forum_Text\"]"
-enter_input(feedback_XPATH, "Use lower weights")
+enter_input(feedback_XPATH, "Use lower weights" + Keys.ENTER) # also submits the form
 
-# Click Create Discussion Post
-create_discussion_post_button_XPATH = "/html/body/div[2]/div/div[2]/div/div[1]/div/div/div/div/form/div[8]/div/div/div/div/button"
-click_button(create_discussion_post_button_XPATH)
+# Click Create Discussion Post button
+# create_discussion_post_button_XPATH = "/html/body/div[2]/div/div[2]/div/div[1]/div/div/div/div/form/div[8]/div/div/div/div/button"
+# click_button(create_discussion_post_button_XPATH)
 
-time.sleep(50)
+
+time.sleep(5)
 driver.quit()
