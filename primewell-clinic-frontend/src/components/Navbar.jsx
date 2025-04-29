@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import UserTypeModal from "./UserTypeModal";
 const { Title } = Typography;
 const { Header } = Layout;
+import socket from "../Socket";
 
 const Navbar = (props) => {
   const [isUserTypeModalOpen, setIsUserTypeModalOpen] = useState(false);
@@ -66,6 +67,10 @@ const Navbar = (props) => {
         setAuth(false);
         if (userType === "Pharmacist"){
           setIsPharm(false)
+          socket.emit("leave_connection", String(props?.userInfo?.Pharm_ID || props?.userInfo?.pharm_id));
+    
+          // Optional: Disconnect if you don't want background socket activity
+          socket.disconnect();
         }
         setUserType('');
         sessionStorage.clear()
