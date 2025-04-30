@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 
 
-const PaymentCard = ({ paymentInfo, fetchPayments, userName }) => {
+const PaymentCard = ({ paymentInfo, fetchPayments, userName, isAppt }) => {
     const createDate = dayjs(paymentInfo?.Create_Date);
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [form] = Form.useForm()
@@ -17,13 +17,15 @@ const PaymentCard = ({ paymentInfo, fetchPayments, userName }) => {
 
     const onFinish = async (value) => {
         console.log(value)
+        
         const body = {
             Payment_ID: paymentInfo?.Payment_ID,
             Card_Number: value.cardNumber
         }
-        await axios.patch("http://localhost:3000/makePaymentAppointment", body)
-        setIsModalOpen(false)
+        await axios.patch("http://localhost:3000/makePayment", body)
         fetchPayments()
+        setIsModalOpen(false)
+        
     }
 
     const onFail = () => {
@@ -68,8 +70,13 @@ const PaymentCard = ({ paymentInfo, fetchPayments, userName }) => {
                             <h2 style={{color: "#ffffff", fontSize: "32px", borderRight: "3px solid #ffffff", paddingRight: "18px", margin: 0}}>
                                 Dr. {paymentInfo?.Doctor_Name}
                             </h2>
+                            {!isAppt ? (
+                                <h2 style={{color: "#ffffff", fontSize: "32px", borderRight: "3px solid #ffffff", paddingRight: "18px", margin: 0}}>
+                                    Pill: {paymentInfo?.Pill_Name}
+                                </h2>
+                            ): null}
                             <h2 style={{color: "#ffffff", fontSize: "32px", paddingLeft: "9px", margin: 0}}>
-                                {paymentInfo?.Service}
+                                {isAppt? paymentInfo?.Service : paymentInfo?.Quantity + "x" + paymentInfo?.Dosage}
                             </h2>
                         </Flex>
                     </Flex>

@@ -35,16 +35,10 @@ const PharmaSideBarMenu = ({info}) => {
                 {/* Menu Navigation */}
                 <Menu className="menu">
                     <Menu.Item key="2">
-                        <Link to="PharmacyPortal/Request"><strong>Requests</strong></Link>
-                    </Menu.Item>
-                    <Menu.Item key="3">
-                        <Link to="PharmacyPortal/Pickups"><strong>Pending Pick-ups</strong></Link>
-                    </Menu.Item>
-                    <Menu.Item key="4">
                         <Link to="/PharmacistPortal"><strong>Pill Page</strong></Link>
                     </Menu.Item>
-                    <Menu.Item key="5">
-                        <Link to="PharmacyPortal/AccountInfo"><strong>Account Info</strong></Link>
+                    <Menu.Item key="4">
+                        <Link to="PharmacyPortal/Request"><strong>Requests</strong></Link>
                     </Menu.Item>
                 </Menu>
             </Flex>

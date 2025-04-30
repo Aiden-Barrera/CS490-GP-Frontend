@@ -1,4 +1,4 @@
-import { Button, Flex, Form, Input, Select } from "antd"
+import { Button, Flex, Form, Input, Select, InputNumber } from "antd"
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -32,8 +32,19 @@ const DoctorPrescription = ({userInfo}) => {
         }
     }, [location.state])
 
-    const onFinish = async (value) => {
-        
+    const onFinish = async (values) => {
+        const pillId = values.prescription;
+        const quantity = values.Quantity;
+
+        const body = {
+            Patient_ID: location.state.patient_id,
+            Doctor_ID: userInfo.doctor_id,
+            Pill_ID: pillId,
+            Quantity: quantity,
+            Pharm_ID: patientName.Pharm_ID
+        }
+        console.log(body)
+        await axios.post("http://localhost:3000/sendPrescription", body)
         navigate("/DoctorPortal/")
     }
 
@@ -49,7 +60,12 @@ const DoctorPrescription = ({userInfo}) => {
         }}>
             <h1>Select Prescription for {`${patientName?.First_Name} ${patientName?.Last_Name}`}</h1>
             <Form form={form} layout="vertical" autoComplete="off" style={{width: "90%"}} onFinish={onFinish}>
-                <Form.Item>
+                <Form.Item name="prescription" label="Prescriptions" rules={[
+                    {
+                        required: true,
+                        message: "Please select a Prescription!"
+                    }
+                ]}>
                     <Select
                         showSearch
                         placeholder="Select a prescription"
@@ -70,6 +86,14 @@ const DoctorPrescription = ({userInfo}) => {
                             </Option>
                         ))}
                     </Select>
+                </Form.Item>
+                <Form.Item name="Quantity" label="Quantity" rules={[
+                    {
+                        required: true,
+                        message: "Please select a Quantity!"
+                    }
+                ]}>
+                    <InputNumber min={1} max={100} style={{ width: "100%" }} />
                 </Form.Item>
                 <Form.Item>
                     <Button type="primary" htmlType="submit" 
