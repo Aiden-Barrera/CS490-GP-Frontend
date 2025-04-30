@@ -12,10 +12,11 @@ import {
 } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { DownOutlined, MedicineBoxTwoTone } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 const PharmacySignUpModal = (props) => {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
   useEffect(() => {
     if (props.open) {
       form.resetFields();
@@ -30,7 +31,6 @@ const PharmacySignUpModal = (props) => {
   const onFinish = async (value) => {
     try {
       value.Address = JSON.stringify(value.Address);
-      console.log(value.Address);
       console.log(value);
       const res = await axios.post("http://localhost:3000/pharmacies", value);
       if (res.data.length === 0) {
@@ -38,21 +38,23 @@ const PharmacySignUpModal = (props) => {
       } else {
         const enrichedData = {
           ...res.data,
-          userType: props.userType
-      }
-        props.info(enrichedData)
-        props.auth(true)
+          userType: props.userType,
+        };
+        props.info(enrichedData);
+        props.auth(true);
+        props.setIsPharm(true);
 
         sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
         sessionStorage.setItem("userType", props.userType);
         sessionStorage.setItem("auth", true);
-        sessionStorage.setItem("isPharm", true)
+        sessionStorage.setItem("isPharm", true);
 
         console.log("Pharmacy Created");
+        navigate("/PharmacistPortal");
         handleClose();
       }
     } catch (err) {
-      console.log("Error Signing Pharmacy: ", err)
+      console.log("Error Signing Pharmacy: ", err);
     }
   };
 
@@ -88,7 +90,7 @@ const PharmacySignUpModal = (props) => {
         <Flex vertical style={{ width: "100%" }}>
           <Form
             form={form}
-            name="patientsignupform"
+            name="pharmacysignupform"
             layout="vertical"
             onFinish={onFinish}
             onFinishFailed={onFail}
@@ -238,4 +240,3 @@ const PharmacySignUpModal = (props) => {
 };
 
 export default PharmacySignUpModal;
-

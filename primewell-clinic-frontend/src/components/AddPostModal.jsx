@@ -1,9 +1,10 @@
-import { Flex, Modal, Form, message, Button, Input } from "antd"
+import { Flex, Modal, Form, message, Button, Input, notification } from "antd"
 import { useEffect, useState } from "react"
 import axios from "axios";
 
 const AddPostModal = (props) => {
     const [form] = Form.useForm()
+    const [api, contextHolder] = notification.useNotification();
 
     useEffect(() => {
         if (props.open) {
@@ -24,9 +25,19 @@ const AddPostModal = (props) => {
             const res = await axios.post("http://localhost:3000/forumPosts", newValue)
             console.log("Added Post: ", res.data)
             // props.onPostCreated(res.data);
+            props.postCreated(true)
             handleClose();
         } catch (err) {
-            console.log("Error Fetching Posts: ", err)
+            if (err.response) {
+                if (err.response.status === 400) {
+                    api.open({
+                    message: 'Invalid Credentials!',
+                    description: 'Must be Signed In to Make a Post.',
+                    });
+                } else {
+                    console.log("Error Fetching Comments: ", err);
+                }
+            }
         }
     };
 
@@ -41,6 +52,7 @@ const AddPostModal = (props) => {
 
     return (
         <Modal open={props.open} footer={null} onCancel={handleClose} centered className="style-modal" >
+            {contextHolder}
             <Flex
                 vertical justify="center"
                 align="center"
@@ -134,7 +146,7 @@ const AddPostModal = (props) => {
                                     backgroundColor: "#A3C3A4"
                                 }}
                             >
-                                Submit new exercise entry
+                                Create Discussion Post
                             </Button>
                         </Form.Item>
                     </Form>

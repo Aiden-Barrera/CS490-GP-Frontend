@@ -2,20 +2,13 @@ import { Modal, Flex, Button, message } from "antd";
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
-
-const AddCalendar = ({ open, selectedPatient, handleClose, selectedRows, exerciseInfo, patientInfo, appt_id }) => {
-
+const AddCalendar = ({ open, handleClose, selectedRows, exerciseInfo, patientInfo, appt_id }) => {
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const [selectedDays, setSelectedDays] = useState([]);
   const navigate = useNavigate()
-
   useEffect(() => {
     console.log("Selected days:", selectedDays);
   }, [selectedDays]);
-  console.log("Doctor's submitted patient attempt: ", selectedPatient?.Patient_ID); //where i stop last night 
-                                                                                  //current error facing: Uncaught TypeError: Cannot read properties of null (reading 'Patient_ID')
-
   const handleDayClick = useCallback((day) => {
     setSelectedDays((prevDays) =>
       prevDays.includes(day)
@@ -23,15 +16,12 @@ const AddCalendar = ({ open, selectedPatient, handleClose, selectedRows, exercis
         : [...prevDays, day]
     );
   }, []);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const regimentByDay = {};
     days.forEach(day => {
       regimentByDay[day] = [];
     });
-
     selectedDays.forEach(day => {
       selectedRows.forEach((exerciseId) => {
         const exercise = exerciseInfo.find(ex => ex.Exercise_ID === exerciseId);
@@ -40,31 +30,19 @@ const AddCalendar = ({ open, selectedPatient, handleClose, selectedRows, exercis
         }
       });
     });
-
-    if (!patientInfo?.patient_id && !selectedPatient?.Patient_ID) {
-      message.error("No patient selected!");
-      return;
-    }
-    
     try {
-
       console.log("Before sending to backend: ", regimentByDay)
-      await axios.patch(`http://localhost:3000/regiments/${patientInfo?.patient_id ?? selectedPatient?.Patient_ID}`, {
+      await axios.patch(`http://localhost:3000/regiments/${patientInfo}`, {
         Regiment: regimentByDay,
-        Patient_ID: patientInfo?.patient_id ?? selectedPatient?.Patient_ID
-
+        Patient_ID: patientInfo
       });
       message.success("Regiment successfully created!");
       console.log("Submitted:", regimentByDay);
     } catch (error) {
       console.error("Error submitting regiment:", error);
-      message.error("Failed to create regiment.");
     }
-    
-
     if (handleClose) handleClose();
   };
-
   return (
     <Modal
       open={open}
@@ -79,7 +57,6 @@ const AddCalendar = ({ open, selectedPatient, handleClose, selectedRows, exercis
         <Flex justify="center" align="center" style={{ marginBottom: '20px' }}>
           Select what day(s) to schedule your exercise
         </Flex>
-
         <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#ccc' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             {days.map((day, index) => (
@@ -119,5 +96,4 @@ const AddCalendar = ({ open, selectedPatient, handleClose, selectedRows, exercis
     </Modal>
   );
 };
-
 export default AddCalendar;

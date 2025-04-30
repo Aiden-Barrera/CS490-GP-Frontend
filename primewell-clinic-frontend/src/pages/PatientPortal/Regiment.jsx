@@ -8,17 +8,22 @@ const Regiment = ({ info }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        console.log(info)
         const fetchRegimentInfo = async () => {
             try {
                 const res = await axios.get(`http://localhost:3000/regiment/${info.patient_id}`);
 
                 const regiment = res.data[0]?.Regiment;
 
-                const formattedData = Object.entries(regiment).map(([day, exercises]) => ({
-                    key: day,
-                    day,
-                    exercises: exercises.join(', ') || 'Rest',
-                }));
+                const weekdayOrder = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+                const formattedData = Object.entries(regiment)
+                    .map(([day, exercises]) => ({
+                        key: day,
+                        day,
+                        exercises: exercises.join(', ') || 'Rest',
+                    }))
+                    .sort((a, b) => weekdayOrder.indexOf(a.day) - weekdayOrder.indexOf(b.day));
                 console.log("Patient Regiment: ", formattedData)
                 setRegimentData(formattedData)
             } catch (err) {

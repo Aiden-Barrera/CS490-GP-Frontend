@@ -35,10 +35,10 @@ const CreatePillModal = (props) => {
         try {
           const formattedValues = {
             ...values,
-            Pill_ID: Number(values.Pill_ID),
             Dosage: Number(values.Dosage),
             Cost: Number(values.Cost),
-            Pharm_ID: props.info?.pharm_id  
+            Pharm_ID: props.info?.pharm_id, 
+            Quantity: Number(values.Quantity)  
           };
       
           await axios.post("http://localhost:3000/pillbank", formattedValues);
@@ -98,15 +98,6 @@ const CreatePillModal = (props) => {
                         >
                             <Input placeholder="Pill Name" style={{height: "45px"}}/>
                         </Form.Item>
-                        <Form.Item name="Pill_ID" label="Pill ID" rules={[
-                            {
-                                required: true,
-                                message: "Pill ID Required"
-                            },
-                        ]}
-                        >
-                            <Input placeholder="Pill ID" style={{height: "45px"}}/>
-                        </Form.Item>
                         <Form.Item name="Dosage" label="Dosage" rules={[
                             {
                                 required: true,
@@ -115,6 +106,15 @@ const CreatePillModal = (props) => {
                         ]}
                         >
                             <Input placeholder="Dosage" style={{height: "45px"}}/>
+                        </Form.Item>
+                        <Form.Item name="Quantity" label="Quantity" rules={[
+                            {
+                                required: true,
+                                message: "Quantity Required"
+                            },
+                        ]}
+                        >
+                            <Input placeholder="Quantity" style={{height: "45px"}}/>
                         </Form.Item>
                         <Form.Item name="Cost" label="Cost" rules={[
                             {

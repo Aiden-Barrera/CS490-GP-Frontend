@@ -8,6 +8,7 @@ const Posts = (props) => {
     const [postInfo, setPostInfo] = useState(null)
     const [searchedValue, setSearchedValue] = useState("")
     const [isAddPostModalOpen, setIsAddPostModalOpen] = useState(false);
+    const [postCreated, setPostCreated] = useState(false)
 
     const showAddPostModal = () => {
         setIsAddPostModalOpen(true);
@@ -28,8 +29,9 @@ const Posts = (props) => {
     }
 
     useEffect(() => {
-        fetchPosts()
-    }, [])
+        fetchPosts() 
+        setPostCreated(false)
+    }, [postCreated])
 
     // const handleNewPost = (newPost) => {
     //     setPostInfo((prevPosts) => [newPost, ...prevPosts]);
@@ -68,7 +70,7 @@ const Posts = (props) => {
                     <Button type="primary" style={{
                         width: "40%", borderRadius: "24px", padding: "22px 0px", backgroundColor: "#f09c96", marginBottom: "40px", fontSize: "22px", fontWeight: "700", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
                     }} onClick={() => { showAddPostModal() }}>Start a Discussion</Button>
-                    <AddPostModal open={isAddPostModalOpen} handleClose={handleAddPostCancel} info={props.info} /*onPostCreated={handleNewPost}*/ />
+                    <AddPostModal open={isAddPostModalOpen} handleClose={handleAddPostCancel} postCreated={setPostCreated} info={props.info} /*onPostCreated={handleNewPost}*/ />
                     <Flex vertical gap="30px" style={{
                         width: "100%",
                     }}>

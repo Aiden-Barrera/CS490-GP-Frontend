@@ -17,6 +17,7 @@ const PillFilter = ({info}) => {
     const fetchPillsInfo = async () => {
       try {
         const res = await axios.get("http://localhost:3000/pillbank");
+        console.log(res.data)
         setPillsInfo(res.data);
       } catch (error) {
         console.error("Error fetching pill data:", error);
@@ -98,6 +99,12 @@ const PillFilter = ({info}) => {
       title: 'Cost',
       dataIndex: 'Cost',
       sorter: (a, b) => parseFloat(a.Cost) - parseFloat(b.Cost),
+      width: 150,
+    },
+    {
+      title: 'Quantity',
+      dataIndex: 'Quantity',
+      sorter: (a, b) => parseFloat(a.Quantity) - parseFloat(b.Quantity),
       width: 150,
     },
     {

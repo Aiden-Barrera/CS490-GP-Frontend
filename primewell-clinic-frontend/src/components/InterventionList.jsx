@@ -1,14 +1,11 @@
-// components/InterventionList.jsx
 import { Button, Flex } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
-
 const InterventionList = ({ info }) => {
     const [interventions, setInterventions] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
-
     useEffect(() => {
         const fetchInterventionInfo = async () => {
             try {
@@ -23,34 +20,32 @@ const InterventionList = ({ info }) => {
         };
         fetchInterventionInfo();
     }, []);
-
     const current = interventions[currentIndex];
     if (!current) return null;
-
     const formattedDate = dayjs(current.Appt_Date).format("MMMM D");
-
     return (
         <Flex
             vertical
             style={{
                 background: "#ffffff",
                 borderRadius: "12px",
-                padding: "10px 10px",
+                padding: "12px 10px",
                 width: "100%",
-                height: "200px",
-                overflow: "hidden",
+                height: "500px",
                 boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
                 display: "flex",
+                flexDirection: "column",
             }}
         >
             <Flex
                 justify="center"
                 align="center"
                 style={{
-                    width: "100%",
-                    height: "30px",
+                    width: "600px",
+                    height: "auto",
                     fontWeight: "bold",
-                    fontSize: "16px",
+                    fontSize: "32px",
+                    padding: "5px",
                     background: "#F09C96",
                     color: "#ffffff",
                     borderRadius: "2px",
@@ -59,15 +54,15 @@ const InterventionList = ({ info }) => {
             >
                 Intervention List
             </Flex>
-            <Flex style={{ fontWeight: "bold", marginBottom: "5px" }}>
-                Appointment Date: {formattedDate}
+            <Flex vertical style={{ fontWeight: "bold", fontSize: "21px", marginTop: "10px", paddingLeft: "5px" }} gap="5px">
+                <p style={{margin: 0}}>Appointment Date: {formattedDate}</p>
+                <p style={{margin: 0}}>Doctor: {current.Doctor}</p>
+                <p style={{margin: 0}}>{current.Doctors_Feedback}</p>
             </Flex>
-            <Flex style={{ fontWeight: "bold", marginBottom: "5px" }}>
-                Doctor: {current.Doctor}
+            {/* <Flex style={{ fontWeight: "bold", }}>
             </Flex>
-            <Flex style={{ fontWeight: "bold", marginBottom: "5px", flex: 1 }}>
-                Doctor Feedback: {current.Doctors_Feedback}
-            </Flex>
+            <Flex style={{ fontWeight: "bold", flex: 1 }}>
+            </Flex> */}
     
             <Flex
                 justify="end"
@@ -85,13 +80,17 @@ const InterventionList = ({ info }) => {
                         color: "#ffffff",
                         fontWeight: "bold",
                         width: "50%",
-                        height: "30px",
-                        borderRadius: "2px",
+                        height: "35px",
+                        borderRadius: "8px",
                         boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
                     }}
                     icon={<LeftOutlined />}
-                    disabled={currentIndex === 0}
-                    onClick={() => setCurrentIndex((i) => i - 1)}
+                    onClick={() => {
+                        if (currentIndex === 0){
+                            return
+                        }
+                        setCurrentIndex((i) => i - 1)
+                    }}
                 />
     
                 <Button
@@ -100,17 +99,21 @@ const InterventionList = ({ info }) => {
                         color: "#ffffff",
                         fontWeight: "bold",
                         width: "50%",
-                        height: "30px",
-                        borderRadius: "2px",
+                        height: "35px",
+                        borderRadius: "8px",
                         boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
                     }}
                     icon={<RightOutlined />}
                     disabled={currentIndex === interventions.length - 1}
-                    onClick={() => setCurrentIndex((i) => i + 1)}
+                    onClick={() => {
+                        if (currentIndex > interventions.length) {
+                            return
+                        }
+                        setCurrentIndex((i) => i + 1)}
+                    }
                 />
             </Flex>
         </Flex>
     );
 };
-
 export default InterventionList;    
