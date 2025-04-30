@@ -1,4 +1,4 @@
-import { Flex, Modal, Form, message, Button, Input, notification } from "antd"
+import { Flex, Modal, Form, message, Button, Input, notification, Select } from "antd";
 import { useEffect, useState } from "react"
 import axios from "axios";
 
@@ -90,14 +90,24 @@ const AddPostModal = (props) => {
                         >
                             <Input placeholder="Muscle Group" style={{ height: "45px" }} />
                         </Form.Item>
-                        <Form.Item name="Exercise_Class" label="Exercise Class" rules={[
-                            {
-                                required: true,
-                                message: "Exercise Class Required"
-                            },
-                        ]}
+                        <Form.Item
+                            name="Exercise_Class"
+                            label="Exercise Class"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Exercise Class Required"
+                                },
+                            ]}
                         >
-                            <Input placeholder="Exercise Class" style={{ height: "45px" }} />
+                            <Select placeholder="Select Exercise Class" style={{ height: "45px" }}>
+                                <Select.Option value="Upper Body">Upper Body</Select.Option>
+                                <Select.Option value="Lower Body">Lower Body</Select.Option>
+                                <Select.Option value="Core">Core</Select.Option>
+                                <Select.Option value="Full-Body & HIIT">Full-Body & HIIT</Select.Option>
+                                <Select.Option value="Endurance & Cardio">Endurance & Cardio</Select.Option>
+                                <Select.Option value="Flexibility & Yoga">Flexibility & Yoga</Select.Option>
+                            </Select>
                         </Form.Item>
                         <Form.Item name="Sets" label="Sets" rules={[
                             {
