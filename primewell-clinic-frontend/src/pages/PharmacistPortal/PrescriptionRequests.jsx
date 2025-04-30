@@ -52,7 +52,7 @@ const PrescriptionRequests = ({info}) => {
                 // overflow: "auto"
             }}>
                 {prescriptions?.map((prescription, index) => (
-                    <PrescriptionCard key={index} prescription={prescription} />
+                    <PrescriptionCard key={index} prescription={prescription} fetchPrescriptions={fetchPrescriptions}/>
                 ))}
             </Flex>
         </Flex>
