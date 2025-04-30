@@ -17,7 +17,7 @@ import { setDay } from "date-fns";
 import { startOfWeek, endOfWeek, eachDayOfInterval, format } from "date-fns";
 import "./calendar.css";
 
-const PatientSignUpModal = (props) => {
+const WorkHoursFormModal = (props) => {
   const [form] = Form.useForm();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [schedule, setSchedule] = useState({});
@@ -278,4 +278,4 @@ const PatientSignUpModal = (props) => {
   );
 };
 
-export default PatientSignUpModal;
+export default WorkHoursFormModal;
