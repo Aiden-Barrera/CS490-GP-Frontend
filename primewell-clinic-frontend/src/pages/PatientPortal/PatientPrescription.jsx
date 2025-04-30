@@ -8,12 +8,12 @@ const { Title, Text } = Typography;
 const PatientPrescription = ({ userInfo }) => {
   const [prescriptionData, setPrescriptionData] = useState([]);
   const [loading, setLoading] = useState(true);
-
   // Fetch prescription data
   useEffect(() => {
     const fetchPrescriptions = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/prescriptionsByPatient/${userInfo?.Patient_ID}`);
+        const res = await axios.get(`http://localhost:3000/fetchPrescriptionAccepted/${userInfo?.patient_id}`);
+        console.log("Patient Prescription: ", res.data)
         setPrescriptionData(res.data);
       } catch (error) {
         console.error("Failed to fetch prescription data:", error);
@@ -22,10 +22,10 @@ const PatientPrescription = ({ userInfo }) => {
       }
     };
 
-    if (userInfo?.Patient_ID) {
+    if (userInfo?.patient_id) {
       fetchPrescriptions();
     }
-  }, [userInfo?.Patient_ID]);
+  }, [userInfo?.patient_id]);
 
   const columns = [
     {
