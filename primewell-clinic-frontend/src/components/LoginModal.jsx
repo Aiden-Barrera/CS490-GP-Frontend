@@ -1,4 +1,4 @@
-import { Flex, Modal, Form, message, Button, Input, Divider } from "antd"
+import { Flex, Modal, Form, message, Button, Input, Divider, notification } from "antd"
 import { useNavigate } from "react-router-dom";
 import axios from "axios"
 import { useEffect, useState } from "react"
@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 const LoginModal = (props) => {
     const [form] = Form.useForm()
     const navigate = useNavigate();
+    const [api, contextHolder] = notification.useNotification();
 
     useEffect(() => {
         if (props.open) {
@@ -15,68 +16,57 @@ const LoginModal = (props) => {
     }, [props.open])
 
     const onFinish = async (value) => {
-        if (props.userType === "Patient") { // If they clicked Patient button, this will run for login
-            const res = await axios.post("http://localhost:3000/passAuthPatient", value)
-            if (res.data.length === 0){
-                console.log("Couldn't log in")
-            } else {
-                console.log("Logged In")
-                const enrichedData = {
-                    ...res.data,
-                    userType: props.userType
-                }
-                props.info(enrichedData) // This passes down the user info to Navbar
-                props.auth(true) // This passes down that the user has been authenticated to Navbar
-
-                sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
-                sessionStorage.setItem("userType", props.userType);
-                sessionStorage.setItem("auth", true);
-
-                handleClose()
+        const loginEndpoints = {
+            Patient: "http://localhost:3000/passAuthPatient",
+            Doctor: "http://localhost:3000/passAuthDoctor",
+            Pharmacist: "http://localhost:3000/passAuthPharm",
+        };
+    
+        const endpoint = loginEndpoints[props.userType];
+    
+        try {
+            const res = await axios.post(endpoint, value);
+    
+            if (res.data.length === 0) {
+                api.open({
+                    message: 'Invalid Credentials',
+                    description: 'Please check your email and password.',
+                    type: 'error',
+                });
+                return;
             }
-        } else if (props.userType === "Doctor") {
-            const res = await axios.post("http://localhost:3000/passAuthDoctor", value)
-            if (res.data.length === 0){
-                console.log("Couldn't log in")
-            } else {
-                console.log("Logged In")
-                const enrichedData = {
-                    ...res.data,
-                    userType: props.userType
-                }
-                props.info(enrichedData) // This passes down the user info to Navbar
-                props.auth(true) // This passes down that the user has been authenticated to Navbar
-
-                sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
-                sessionStorage.setItem("userType", props.userType);
-                sessionStorage.setItem("auth", true);
-
-                handleClose()
+    
+            const enrichedData = {
+                ...res.data,
+                userType: props.userType
+            };
+    
+            props.info(enrichedData);
+            props.auth(true);
+            sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
+            sessionStorage.setItem("userType", props.userType);
+            sessionStorage.setItem("auth", true);
+    
+            if (props.userType === "Pharmacist") {
+                props.setIsPharm(true);
+                sessionStorage.setItem("isPharm", true);
+                navigate('/PharmacistPortal');
             }
-        } else {
-            const res = await axios.post("http://localhost:3000/passAuthPharm", value)
-            if (res.data.length === 0){
-                console.log("Couldn't log in")
+    
+            handleClose();
+        } catch (err) {
+            if (err.response && err.response.data.error === "Invalid credentials") {
+                api.open({
+                    message: 'Invalid Credentials',
+                    description: 'Please check your email and password.',
+                    type: 'error',
+                });
             } else {
-                console.log("Logged In")
-                const enrichedData = {
-                    ...res.data,
-                    userType: props.userType
-                }
-                props.info(enrichedData) // This passes down the user info to Navbar
-                props.auth(true) // This passes down that the user has been authenticated to Navbar
-                props.setIsPharm(true)
-
-                sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
-                sessionStorage.setItem("userType", props.userType);
-                sessionStorage.setItem("auth", true);
-                sessionStorage.setItem("isPharm", true)
-
-                navigate('/PharmacistPortal')
-                handleClose()
+                console.error("Login Error:", err);
             }
         }
-    }
+    };
+    
 
     const onFail = () => {
         message.error("Submit Failed!")
@@ -89,6 +79,7 @@ const LoginModal = (props) => {
 
     return (
         <Modal open={props.open} footer={null} onCancel={handleClose} centered className="style-modal">
+            {contextHolder}
             <Flex vertical justify="center" align="center" style={{border: "1px solid #999999", borderRadius: "16px", padding: "25px"}}>
                 <h1 style={{fontSize: "64px", color: "#333333"}}>Login</h1>
                 <Flex vertical style={{width: "100%"}}>
