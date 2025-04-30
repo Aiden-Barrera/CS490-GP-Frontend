@@ -70,13 +70,31 @@ const WeightChart = (props) => {
                             borderColor: "#4ade80",
                             backgroundColor: "rgba(74, 222, 128, 0.2)",
                             borderWidth: 2,
-                            tension: 0.4,
-                        },
-                    ],
+                            tension: 0.5,
+                            segment: {
+                            borderDash: ctx => {
+                                const { p0, p1 } = ctx;
+                                if (p0.skip || p1.skip || p0.parsed.y === null || p1.parsed.y === null) {
+                                return [6, 6]; // dashed line
+                                }
+                                return undefined;
+                            },
+                            borderColor: ctx => {
+                                const { p0, p1 } = ctx;
+                                if (p0.parsed.y === null || p1.parsed.y === null) {
+                                return "rgba(0,0,0,0.2)"; // faint gray line
+                                }
+                                return undefined;
+                            }
+                            },
+                            spanGaps: true
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    spanGaps: true,
                     plugins: {
                         legend: {
                             display: false,
