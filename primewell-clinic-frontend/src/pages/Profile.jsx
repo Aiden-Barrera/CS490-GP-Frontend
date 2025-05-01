@@ -56,12 +56,12 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
 
     useEffect(() => {
         fetchUserProfile()
-    }, [userInfo])
+    }, [userInfo, editProfileModalOpen])
 
     const handleClose = () => {
         message.destroy();
         form.resetFields();
-        setEditProfileModalOpen(false);
+        setEditProfileModalOpen(!editProfileModalOpen);
     };
 
     const onFail = () => {
@@ -163,7 +163,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
 
         }
         console.log(value);
-        fetchUserProfile()
+        await fetchUserProfile()
         handleClose();
     };
 
@@ -237,7 +237,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                             marginBottom: "10px",
                         }}
                         onClick={() => {
-                            setEditProfileModalOpen(true);
+                            setEditProfileModalOpen(!editProfileModalOpen);
                         }}
                     >
                         Edit profile
