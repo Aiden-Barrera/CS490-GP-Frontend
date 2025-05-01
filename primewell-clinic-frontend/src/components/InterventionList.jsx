@@ -29,8 +29,8 @@ const InterventionList = ({ info }) => {
             style={{
                 background: "#ffffff",
                 borderRadius: "12px",
-                padding: "12px 10px",
-                width: "100%",
+                padding: "12px 12px",
+                width: "550px",
                 height: "500px",
                 boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
                 display: "flex",
@@ -41,11 +41,11 @@ const InterventionList = ({ info }) => {
                 justify="center"
                 align="center"
                 style={{
-                    width: "600px",
+                    width: "100%",
                     height: "auto",
                     fontWeight: "bold",
                     fontSize: "32px",
-                    padding: "5px",
+                    // padding: "5px",
                     background: "#F09C96",
                     color: "#ffffff",
                     borderRadius: "2px",

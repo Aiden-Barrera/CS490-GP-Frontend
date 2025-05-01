@@ -2,7 +2,7 @@ import { Flex, Modal, Form, message, Button, Input, Divider } from "antd"
 import { useState, useEffect } from "react"
 import axios from "axios"
 
-const Profile = ({ userInfo }) => {
+const Profile = ({ userInfo, fetchUserInfo }) => {
     const [userProfile, setUserProfile] = useState(null)
     const [userType, setUserType] = useState("")
     const [assignedPharm, setAssignedPharm] = useState(null)
@@ -96,9 +96,8 @@ const Profile = ({ userInfo }) => {
                     console.log("Couldn't update patient info");
                 } else {
 
-                    // props.info(enrichedData);
-
-                    sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
+                    fetchUserInfo()
+                    // sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
 
                     console.log("Patient info Updated");
                 }
@@ -122,15 +121,16 @@ const Profile = ({ userInfo }) => {
                 value.Phone = userProfile.Phone;
             }
             try {
-                const res = await axios.patch(`http://localhost:3000//doctor/${userInfo.doctor_id}`, value);
+                console.log("DoctorID: ", userInfo.doctor_id)
+                const res = await axios.patch(`http://localhost:3000/doctor/${userInfo.doctor_id}`, value);
                 if (res.data.length === 0) {
                     console.log("Couldn't update doctor info");
                 } else {
 
                     // props.info(enrichedData);
 
-                    sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
-
+                    // sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
+                    fetchUserInfo()
                     console.log("Doctor info Updated");
                 }
             } catch (err) {
@@ -147,21 +147,20 @@ const Profile = ({ userInfo }) => {
             if (value.Zip === undefined) {
                 value.Zip = userProfile.Zip;
             }
-            // try {
-            //     const res = await axios.patch(`http://localhost:3000//doctor/${userInfo.doctor_id}`, value);
-            //     if (res.data.length === 0) {
-            //         console.log("Couldn't update doctor info");
-            //     } else {
+            try {
+                const res = await axios.patch(`http://localhost:3000/doctor/${userInfo.doctor_id}`, value);
+                if (res.data.length === 0) {
+                    console.log("Couldn't update doctor info");
+                } else {
 
-            //         // props.info(enrichedData);
+                    // sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
+                    fetchUserInfo()
+                    console.log("Doctor info Updated");
+                }
+            } catch (err) {
+                console.log("Error Updating Doctor: ", err);
+            }
 
-            //         sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
-
-            //         console.log("Doctor info Updated");
-            //     }
-            // } catch (err) {
-            //     console.log("Error Updating Doctor: ", err);
-            // }
         }
         console.log(value);
         fetchUserProfile()

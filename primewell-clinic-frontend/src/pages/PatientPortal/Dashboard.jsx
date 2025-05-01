@@ -18,12 +18,23 @@ const Dashboard = (props) => {
             <Flex justify="center" align="center" style={{ height: "100vh", margin: "25% 0" }}>
                 <h1 style={{ color: "#333333", marginBottom: 0, marginTop: 0 }}>Welcome {props.info?.First_Name} to your Dashboard!</h1>
             </Flex>
-            <Flex vertical justify="center" align="center" gap="50px" style={{ marginTop: "100px", maxWidth: "400px" }}>
+            <Flex vertical justify="center" align="center" gap="50px" style={{ marginTop: "100px", width: "100%" }}>
                 <h1 style={{ color: "#333333", marginBottom: 0, marginTop: 0 }}>Daily Progress</h1>
-                <Flex gap="50px" style={{marginBottom: "100px"}}>
-                    <CalorieChart info={props.info} />
-                    <WeightChart info={props.info} />
-                    <InterventionList info={props.info} />
+                <Flex gap="100px" justify="center" style={{marginBottom: "100px", width: "100%"}}>
+
+                    <Flex vertical justify="center" align="center" style={{ maxWidth: "500px" }}>
+                        <h2 style={{ textAlign: "center", marginBottom: "16px" }}>Caloric Intake Trends</h2>
+                        <CalorieChart info={props.info} />
+                    </Flex>
+                    <Flex vertical gap="25px" justify="center" align="center">
+                        <Flex vertical align="center" justify="center" style={{ maxWidth: "500px" }}>
+                            <h2 style={{ textAlign: "center", marginBottom: "16px" }}>Weekly Weight Trends</h2>
+                            <WeightChart info={props.info} />
+                        </Flex>
+                        <Flex vertical style={{ width: "100%" }}>
+                            <InterventionList info={props.info} />
+                        </Flex>
+                    </Flex>
                 </Flex>
             </Flex>
         </Flex>
