@@ -175,6 +175,7 @@ const LoginModal = (props) => {
                             </Form.Item>
                             <Form.Item>
                                 <Button
+                                    id="login-button"
                                     type="primary"
                                     htmlType="submit"
                                     style={{

@@ -32,7 +32,6 @@ import PatientPrescription from './pages/PatientPortal/PatientPrescription'
 function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
   const [surveyCompleted, setSurveyCompleted] = useState(false); // shared state
-  const [headers, setHeaders] = useState(JSON.parse(import.meta.env.VITE_HEADERS))
   const [isUserInfoLoaded, setIsUserInfoLoaded] = useState(false);
 
   useEffect(() => {
@@ -57,7 +56,7 @@ function App() {
       <div className='App'>
         <Navbar userInfo={userInfo} info={setUserInfo} />
         <Routes>
-          <Route path='/' element={<Home headers={headers}/>}/>
+          <Route path='/' element={<Home />}/>
           <Route path='/Posts' element={<Posts info={userInfo}/>}/>
           <Route path='/PharmacistPortal' element={<PharmacistPortal />}/>
           <Route path='/Exercise' element={<Exercise info={userInfo}/>} />

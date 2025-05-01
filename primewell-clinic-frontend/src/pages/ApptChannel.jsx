@@ -219,14 +219,15 @@ const ApptChannel = ({userInfo}) => {
         </div>
         <Flex justify="center" align="center" gap="15px" style={{marginTop: "30px"}}>
           <Input
+          id="message"
             disabled={appt_end}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Type your message"
             style={{fontSize: "24px", width: "700px", }}
           />
-          <Button disabled={appt_end} type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}}  onClick={sendMessage}>Send</Button>
-          {userInfo?.doctor_id && (<Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "rgb(239, 71, 111)", color: "#ffffff", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={endAppointment}>End Appointment</Button>)}
+          <Button id="send-btn" disabled={appt_end} type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}}  onClick={sendMessage}>Send</Button>
+          {userInfo?.doctor_id && (<Button id="end-appt-btn" type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "rgb(239, 71, 111)", color: "#ffffff", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={endAppointment}>End Appointment</Button>)}
         </Flex>
       </div>
 

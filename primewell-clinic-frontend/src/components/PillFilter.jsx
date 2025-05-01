@@ -112,7 +112,7 @@ const PillFilter = ({info}) => {
       dataIndex: 'action',
       width: 150,
       render: (_, record) => (
-        <Button danger onClick={() => deletePill(record.Pill_ID)}>
+        <Button id="delete-medicine-15" danger onClick={() => deletePill(record.Pill_ID)}>
           Delete
         </Button>
       ),
@@ -131,7 +131,9 @@ const PillFilter = ({info}) => {
       />}
       />
       <Tooltip title="Add Medicine">
-        <Button 
+        <Button
+          type="primary"
+          id="create-medicine" 
           style={{marginLeft:"5px"}} 
           backgroundcolor="red" 
           icon={<PlusOutlined />}

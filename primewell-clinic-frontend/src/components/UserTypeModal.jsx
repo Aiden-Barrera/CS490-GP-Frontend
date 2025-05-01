@@ -82,6 +82,7 @@ const UserTypeModal = (props) => {
               <Button
                 type="primary"
                 htmlType="submit"
+                id="patient-btn"
                 className="custom-btn"
                 style={{
                   width: "150px",
@@ -97,6 +98,7 @@ const UserTypeModal = (props) => {
               <Button
                 type="primary"
                 htmlType="submit"
+                id="doctor-btn"
                 className="custom-btn"
                 style={{
                   width: "150px",
@@ -111,6 +113,7 @@ const UserTypeModal = (props) => {
               </Button>
               <Button
                 type="primary"
+                id="pharm-btn"
                 htmlType="submit"
                 className="custom-btn"
                 style={{
