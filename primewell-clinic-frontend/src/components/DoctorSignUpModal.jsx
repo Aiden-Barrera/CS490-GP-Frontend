@@ -19,6 +19,7 @@ const DoctorSignUpModal = (props) => {
   const [form] = Form.useForm();
   const [isPreliminaryFormModalOpen, setIsPreliminaryFormModalOpen] =
     useState(false);
+  const [workHoursSubmitted, setWorkHoursSubmitted] = useState(false);
   const [schedule, setSchedule] = useState({});
   const [days, setDays] = useState({
     Sun: "false",
@@ -305,19 +306,22 @@ const DoctorSignUpModal = (props) => {
               </Button>
             </Form.Item>
             <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                style={{
-                  width: "100%",
-                  border: "1px solid #999999",
-                  borderRadius: "18px",
-                  padding: "22px 0px",
-                  backgroundColor: "#f09c96",
-                }}
-              >
-                Create an account
-              </Button>
+              <Tooltip title="Please submit your work hours before creating an account.">
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  disabled={!workHoursSubmitted}
+                  style={{
+                    width: "100%",
+                    border: "1px solid #999999",
+                    borderRadius: "18px",
+                    padding: "22px 0px",
+                    backgroundColor: "#f09c96",
+                  }}
+                >
+                  Create an account
+                </Button>
+              </Tooltip>
             </Form.Item>
           </Form>
         </Flex>
@@ -326,7 +330,10 @@ const DoctorSignUpModal = (props) => {
         open={isPreliminaryFormModalOpen}
         handleClose={() => setIsPreliminaryFormModalOpen(false)}
         schedule={schedule}
-        onSubmitSchedule={(data) => setSchedule(data)}
+        onSubmitSchedule={(data) => {
+          setSchedule(data);
+          setWorkHoursSubmitted(true); // Mark as submitted
+        }}
         days={days}
         onSubmitDays={(data) => setDays(data)}
         shift1={shift1}
