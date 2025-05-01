@@ -77,7 +77,7 @@ const DoctorSignUpModal = (props) => {
         const enrichedData = {
           ...res.data,
           userType: props.userType
-      }
+        }
         props.info(enrichedData)
         props.auth(true)
 

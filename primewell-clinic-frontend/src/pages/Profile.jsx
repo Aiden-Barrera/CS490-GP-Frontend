@@ -147,23 +147,24 @@ const Profile = ({ userInfo }) => {
             if (value.Zip === undefined) {
                 value.Zip = userProfile.Zip;
             }
-            try {
-                const res = await axios.patch(`http://localhost:3000//doctor/${userInfo.doctor_id}`, value);
-                if (res.data.length === 0) {
-                    console.log("Couldn't update doctor info");
-                } else {
+            // try {
+            //     const res = await axios.patch(`http://localhost:3000//doctor/${userInfo.doctor_id}`, value);
+            //     if (res.data.length === 0) {
+            //         console.log("Couldn't update doctor info");
+            //     } else {
 
-                    // props.info(enrichedData);
+            //         // props.info(enrichedData);
 
-                    sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
+            //         sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
 
-                    console.log("Doctor info Updated");
-                }
-            } catch (err) {
-                console.log("Error Updating Doctor: ", err);
-            }
+            //         console.log("Doctor info Updated");
+            //     }
+            // } catch (err) {
+            //     console.log("Error Updating Doctor: ", err);
+            // }
         }
         console.log(value);
+        fetchUserProfile()
         handleClose();
     };
 
@@ -269,10 +270,10 @@ const Profile = ({ userInfo }) => {
                             onFinish={onFinish}
                             onFinishFailed={onFail}
                             autoComplete="off"
+                        // initialValues={userProfile}
                         >
                             {userType === 'Patient' && (
                                 <>
-
                                     <Form.Item
                                         name="First_Name"
                                         label="First Name"
