@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Flex } from 'antd'
+import axios from 'axios'
 import './App.css'
 import Home from './pages/Home'
 import Posts from './pages/Posts'
@@ -49,6 +50,43 @@ function App() {
     }
     setIsUserInfoLoaded(true)
   }, [])
+  console.log("Info from App.jsx: ", userInfo)
+
+  const fetchUserInfo = async () => {
+    if (userInfo.patient_id){
+      const res = await axios.get(`http://localhost:3000/fetchPatient/${userInfo.patient_id}`)
+      const enrichedData = {
+        ...res.data,
+        userType: "Patient",
+      };
+      setUserInfo(enrichedData)
+      console.log("Updated Data: ", enrichedData)
+      
+      sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
+
+    } else if (userInfo.doctor_id) {
+      const res = await axios.get(`http://localhost:3000/fetchDoctor/${userInfo.doctor_id}`)
+      const enrichedData = {
+        ...res.data,
+        userType: "Doctor",
+      };
+      setUserInfo(enrichedData)
+      console.log("Updated Data: ", enrichedData)
+
+      
+      sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
+    } else if (userInfo.pharm_id) {
+      const res = await axios.get(`http://localhost:3000/fetchPharmacy/${userInfo.pharm_id}`)
+      const enrichedData = {
+        ...res.data,
+        userType: "Pharmacist",
+      };
+      setUserInfo(enrichedData)
+      console.log("Updated Data: ", enrichedData)
+      
+      sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));  
+    }
+  }
 
   if (!isUserInfoLoaded) return <Flex justify='center' align='center' style={{color: "#ffffff", width: "100vw", fontSize: "48px"}}>Loading...</Flex>;
 
@@ -61,7 +99,7 @@ function App() {
           <Route path='/Posts' element={<Posts info={userInfo}/>}/>
           <Route path='/PharmacistPortal' element={<PharmacistPortal />}/>
           <Route path='/Exercise' element={<Exercise info={userInfo}/>} />
-          <Route path='/viewProfile' element={<Profile userInfo={userInfo}/>} />
+          <Route path='/viewProfile' element={<Profile userInfo={userInfo} fetchUserInfo={fetchUserInfo}/>}/>
           {/* Patient Portal with Nested Routes */}
           <Route path="/PatientPortal" element={<SideBarMenu info={userInfo} surveyCompleted={surveyCompleted} />}>
             <Route index element={<Dashboard info={userInfo} />} />
