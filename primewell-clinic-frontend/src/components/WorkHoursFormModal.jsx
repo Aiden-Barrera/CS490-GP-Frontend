@@ -16,8 +16,9 @@ import { useEffect, useState } from "react";
 import { setDay } from "date-fns";
 import { startOfWeek, endOfWeek, eachDayOfInterval, format } from "date-fns";
 import "./calendar.css";
+import { ProgressTypes } from "antd/es/progress/progress";
 
-const PatientSignUpModal = (props) => {
+const WorkHoursFormModal = (props) => {
   const [form] = Form.useForm();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [schedule, setSchedule] = useState({});
@@ -102,12 +103,7 @@ const PatientSignUpModal = (props) => {
           let nextHour = currentHour + 1;
 
           while (currentHour != endHour) {
-            if (currentHour > 12) {
-              currentHour = currentHour - 12;
-            }
-            if (nextHour > 12) {
-              nextHour = nextHour - 12;
-            }
+            // console.log(currentHour);
             let timestr =
               currentHour.toString() +
               ":" +
@@ -128,6 +124,12 @@ const PatientSignUpModal = (props) => {
             timeArray.push(timestr);
             currentHour++;
             nextHour++;
+            if (currentHour > 12) {
+              currentHour = currentHour - 12;
+            }
+            if (nextHour > 12) {
+              nextHour = nextHour - 12;
+            }
           }
         }
 
@@ -278,4 +280,4 @@ const PatientSignUpModal = (props) => {
   );
 };
 
-export default PatientSignUpModal;
+export default WorkHoursFormModal;

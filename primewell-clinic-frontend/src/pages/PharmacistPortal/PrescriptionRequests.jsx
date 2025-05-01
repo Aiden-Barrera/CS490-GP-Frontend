@@ -11,7 +11,7 @@ const PrescriptionRequests = ({info}) => {
     const fetchPrescriptions = async () => {
         try {
             const res = await axios.get(`http://localhost:3000/fetchPrescriptions/${info?.pharm_id}`)
-            console.log(res.data)
+            console.log('Fetched prescriptions: ', res.data)
             setPrescriptions(res.data)
         } catch (err) {
             console.log("Error Fetching Prescriptions: ", err)
@@ -27,7 +27,7 @@ const PrescriptionRequests = ({info}) => {
 
         const handleNewPrescription = (prescription) => {
             console.log("New prescription received:", prescription);
-            setPrescriptions(prev => [...prev, prescription]);
+            setPrescriptions(prev => [prescription, ...prev]);
         };
     
         socket.on("new_prescription", handleNewPrescription);
