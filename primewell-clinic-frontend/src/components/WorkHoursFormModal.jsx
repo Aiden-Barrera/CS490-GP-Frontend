@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { setDay } from "date-fns";
 import { startOfWeek, endOfWeek, eachDayOfInterval, format } from "date-fns";
 import "./calendar.css";
+import { ProgressTypes } from "antd/es/progress/progress";
 
 const WorkHoursFormModal = (props) => {
   const [form] = Form.useForm();
@@ -102,12 +103,7 @@ const WorkHoursFormModal = (props) => {
           let nextHour = currentHour + 1;
 
           while (currentHour != endHour) {
-            if (currentHour > 12) {
-              currentHour = currentHour - 12;
-            }
-            if (nextHour > 12) {
-              nextHour = nextHour - 12;
-            }
+            // console.log(currentHour);
             let timestr =
               currentHour.toString() +
               ":" +
@@ -128,6 +124,12 @@ const WorkHoursFormModal = (props) => {
             timeArray.push(timestr);
             currentHour++;
             nextHour++;
+            if (currentHour > 12) {
+              currentHour = currentHour - 12;
+            }
+            if (nextHour > 12) {
+              nextHour = nextHour - 12;
+            }
           }
         }
 
