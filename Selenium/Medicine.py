@@ -24,23 +24,45 @@ driver.get("http://localhost:5173")
 wait_and_click(driver, By.ID, "loginButton")
 
 WebDriverWait(driver, 60).until(
-    EC.presence_of_element_located((By.ID, "doctor-btn")),
+    EC.presence_of_element_located((By.ID, "pharm-btn")),
 )
 
-wait_and_click(driver, By.ID, "doctor-btn")
+wait_and_click(driver, By.ID, "pharm-btn")
 
 WebDriverWait(driver, 60).until(
     EC.presence_of_element_located((By.ID, "email")),
 )
 
 patient_email = driver.find_element(By.ID, "email")
-patient_email.send_keys("hknath8@foxnews.com")
+patient_email.send_keys("nmacgeaney1@sun.com")
 
 patient_password = driver.find_element(By.ID, "pw")
-patient_password.send_keys('sF6(#ehzE7')
+patient_password.send_keys('sP2,G0%E/j!c!')
 
 wait_and_click(driver, By.ID, "login-button")
 
-#Navigate to Request
-wait_and_click(driver, By.PARTIAL_LINK_TEXT, "DOCTOR PORTAL")
-wait_and_click(driver, By.PARTIAL_LINK_TEXT, "Incoming Requests")
+wait_and_click(driver, By.ID, "create-medicine")
+
+wait_and_click(driver, By.ID, "Pill_Name")
+
+pill_name = driver.find_element(By.ID, "Pill_Name")
+pill_name.send_keys("Test Medicine")
+
+wait_and_click(driver, By.ID, "Pill_ID")
+
+pill_id = driver.find_element(By.ID, "Pill_ID")
+pill_id.send_keys("24")
+
+wait_and_click(driver, By.ID, "Dosage")
+
+pill_dosage = driver.find_element(By.ID, "Dosage")
+pill_dosage.send_keys("4")
+
+wait_and_click(driver, By.ID, "Cost")
+
+pill_cost = driver.find_element(By.ID, "Cost")
+pill_cost.send_keys("34.67")
+
+wait_and_click(driver, By.ID, "submit-new-pill")
+
+wait_and_click(driver, By.ID, "delete-medicine-15")
