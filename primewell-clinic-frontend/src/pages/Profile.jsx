@@ -1,4 +1,4 @@
-import { Flex, Modal, Form, message, Button, Input, Divider } from "antd"
+import { Flex, Modal, Form, message, Button, Input, Switch } from "antd"
 import { useState, useEffect } from "react"
 import axios from "axios"
 
@@ -97,6 +97,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                 } else {
 
                     fetchUserInfo()
+                    await fetchUserProfile()
                     // sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
 
                     console.log("Patient info Updated");
@@ -121,7 +122,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                 value.Phone = userProfile.Phone;
             }
             try {
-                console.log("DoctorID: ", userInfo.doctor_id)
+                console.log("DoctorID: ", userInfo.doctor_id, " New Info: ", value)
                 const res = await axios.patch(`http://localhost:3000/doctor/${userInfo.doctor_id}`, value);
                 if (res.data.length === 0) {
                     console.log("Couldn't update doctor info");
@@ -163,7 +164,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
 
         }
         console.log(value);
-        await fetchUserProfile()
+        // await fetchUserProfile()
         handleClose();
     };
 
@@ -236,7 +237,12 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                             color: "#000000",
                             marginBottom: "10px",
                         }}
-                        onClick={() => {
+                        onClick={async () => {
+                            await fetchUserProfile();
+                            form.setFieldsValue({
+                                ...userProfile,
+                                Availability: userProfile?.Availability === 1, // convert 1/0 to true/false for Switch
+                            });
                             setEditProfileModalOpen(!editProfileModalOpen);
                         }}
                     >
@@ -276,7 +282,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                                     <Form.Item
                                         name="First_Name"
                                         label="First Name"
-                                        initialValue={userProfile?.First_Name}
+                                        // initialValue={userProfile?.First_Name}
                                         rules={[
                                             {
                                                 required: false,
@@ -297,7 +303,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                                     <Form.Item
                                         name="Last_Name"
                                         label="Last Name"
-                                        initialValue={userProfile?.Last_Name}
+                                        // initialValue={userProfile?.Last_Name}
                                         rules={[
                                             {
                                                 required: false,
@@ -318,7 +324,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                                     <Form.Item
                                         name="Email"
                                         label="Email"
-                                        initialValue={userProfile?.Email}
+                                        // initialValue={userProfile?.Email}
                                         rules={[
                                             {
                                                 required: false,
@@ -339,7 +345,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                                     <Form.Item
                                         name="Phone"
                                         label="Phone Number"
-                                        initialValue={userProfile?.Phone}
+                                        // initialValue={userProfile?.Phone}
                                         rules={[
                                             {
                                                 required: false,
@@ -360,7 +366,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                                     <Form.Item
                                         name="Address"
                                         label="Address"
-                                        initialValue={userProfile?.Address}
+                                        // initialValue={userProfile?.Address}
                                         rules={[
                                             {
                                                 required: false,
@@ -381,7 +387,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                                     <Form.Item
                                         name="Zip"
                                         label="Zip Code"
-                                        initialValue={userProfile?.Zip}
+                                        // initialValue={userProfile?.Zip}
                                         rules={[
                                             {
                                                 required: false,
@@ -406,7 +412,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                                     <Form.Item
                                         name="First_Name"
                                         label="First Name"
-                                        initialValue={userProfile?.First_Name}
+                                        // initialValue={userProfile?.First_Name}
                                         rules={[
                                             {
                                                 required: false,
@@ -427,7 +433,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                                     <Form.Item
                                         name="Last_Name"
                                         label="Last Name"
-                                        initialValue={userProfile?.Last_Name}
+                                        // initialValue={userProfile?.Last_Name}
                                         rules={[
                                             {
                                                 required: false,
@@ -448,7 +454,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                                     <Form.Item
                                         name="Email"
                                         label="Email"
-                                        initialValue={userProfile?.Email}
+                                        // initialValue={userProfile?.Email}
                                         rules={[
                                             {
                                                 required: false,
@@ -469,7 +475,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                                     <Form.Item
                                         name="Phone"
                                         label="Phone Number"
-                                        initialValue={userProfile?.Phone}
+                                        // initialValue={userProfile?.Phone}
                                         rules={[
                                             {
                                                 required: false,
@@ -487,6 +493,17 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                                             style={{ height: "45px" }}
                                         />
                                     </Form.Item>
+                                    <Form.Item
+                                        name="Availability"
+                                        label="Availability"
+                                        valuePropName="checked"  // This maps `true/false` to the `checked` prop of Switch
+                                        // initialValue={userProfile?.Availability === 1}  // convert 1/0 to boolean
+                                    >
+                                        <Switch
+                                            checkedChildren="Available"
+                                            unCheckedChildren="Not Available"
+                                        />
+                                    </Form.Item>
                                 </>
                             )}
                             {userType === 'Pharmacy' && (
@@ -494,7 +511,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                                     <Form.Item
                                         name="Company_Name"
                                         label="Pharmacy Name"
-                                        initialValue={userProfile?.Company_Name}
+                                        // initialValue={userProfile?.Company_Name}
                                         rules={[
                                             {
                                                 required: false,
@@ -515,7 +532,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                                     <Form.Item
                                         name="Address"
                                         label="Pharmacy Address"
-                                        initialValue={userProfile?.Address}
+                                        // initialValue={userProfile?.Address}
                                         rules={[
                                             {
                                                 required: false,
@@ -536,7 +553,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                                     <Form.Item
                                         name="Zip"
                                         label="Pharmacy Zip Code"
-                                        initialValue={userProfile?.Zip}
+                                        // initialValue={userProfile?.Zip}
                                         rules={[
                                             {
                                                 required: false,
