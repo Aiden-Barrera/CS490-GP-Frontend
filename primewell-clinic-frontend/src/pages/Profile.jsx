@@ -137,7 +137,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                 console.log("Error Updating Doctor: ", err);
             }
         }
-        else if (userType === "Pharmacist") {
+        else if (userType === "Pharmacy") {
             if (value.Company_Name === undefined) {
                 value.Company_Name = userProfile.Company_Name;
             }
@@ -148,17 +148,17 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                 value.Zip = userProfile.Zip;
             }
             try {
-                const res = await axios.patch(`http://localhost:3000/doctor/${userInfo.doctor_id}`, value);
+                const res = await axios.patch(`http://localhost:3000//pharmacy/${userInfo.Pharm_ID}`, value);
                 if (res.data.length === 0) {
-                    console.log("Couldn't update doctor info");
+                    console.log("Couldn't update pharmacy info");
                 } else {
 
                     // sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
                     fetchUserInfo()
-                    console.log("Doctor info Updated");
+                    console.log("Pharmacy info Updated");
                 }
             } catch (err) {
-                console.log("Error Updating Doctor: ", err);
+                console.log("Error Updating Pharmacy: ", err);
             }
 
         }
@@ -489,7 +489,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                                     </Form.Item>
                                 </>
                             )}
-                            {userType === 'Pharmacist' && (
+                            {userType === 'Pharmacy' && (
                                 <>
                                     <Form.Item
                                         name="Company_Name"
