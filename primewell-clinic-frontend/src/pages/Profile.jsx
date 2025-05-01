@@ -147,23 +147,12 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
             if (value.Zip === undefined) {
                 value.Zip = userProfile.Zip;
             }
-<<<<<<< HEAD
             try {
                 const res = await axios.patch(`http://localhost:3000/doctor/${userInfo.doctor_id}`, value);
                 if (res.data.length === 0) {
                     console.log("Couldn't update doctor info");
                 } else {
-=======
-            // try {
-            //     const res = await axios.patch(`http://localhost:3000//doctor/${userInfo.doctor_id}`, value);
-            //     if (res.data.length === 0) {
-            //         console.log("Couldn't update doctor info");
-            //     } else {
->>>>>>> 260d32681a6369cce8d2f39c3d63ed26abc8971d
 
-            //         // props.info(enrichedData);
-
-<<<<<<< HEAD
                     // sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
                     fetchUserInfo()
                     console.log("Doctor info Updated");
@@ -171,15 +160,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
             } catch (err) {
                 console.log("Error Updating Doctor: ", err);
             }
-=======
-            //         sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
 
-            //         console.log("Doctor info Updated");
-            //     }
-            // } catch (err) {
-            //     console.log("Error Updating Doctor: ", err);
-            // }
->>>>>>> 260d32681a6369cce8d2f39c3d63ed26abc8971d
         }
         console.log(value);
         fetchUserProfile()
