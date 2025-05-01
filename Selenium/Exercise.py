@@ -88,6 +88,8 @@ submit_ex = WebDriverWait(driver, 60).until(
 )
 
 submit_ex.click() 
+modal = WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CLASS_NAME, "ant-modal")))
+time.sleep(1)
 ActionChains(driver).send_keys(Keys.ESCAPE).perform()
 
 # Now it's safe to click

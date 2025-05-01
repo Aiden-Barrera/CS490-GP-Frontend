@@ -44,3 +44,17 @@ wait_and_click(driver, By.ID, "login-button")
 #Navigate to Request
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "DOCTOR PORTAL")
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "Incoming Requests")
+wait_and_click(driver, By.ID, "accept-button")
+
+#Navigate to appointments
+wait_and_click(driver, By.PARTIAL_LINK_TEXT, "Dashboard")
+wait_and_click(driver, By.ID, "start-appt")
+wait_and_click(driver, By.ID, "message")
+
+#Type,send,end
+ActionChains(driver).send_keys("Testing").perform()
+wait_and_click(driver, By.ID, "send-btn")
+wait_and_click(driver, By.ID, "end-appt-btn")
+wait_and_click(driver, By.ID, "doctor_feedback")
+ActionChains(driver).send_keys("Testing").perform()
+wait_and_click(driver, By.ID, "send-feedback")

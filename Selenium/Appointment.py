@@ -48,13 +48,9 @@ wait_and_click(driver, By.ID, "doctor-request-dropdown")
 wait_and_click(driver, By.ID, "slot-card-0")
 wait_and_click(driver, By.CSS_SELECTOR, '[data-testid="tier-select"]')
 
-search_inputs = driver.find_elements(By.CLASS_NAME, "ant-select ant-select-outlined css-dev-only-do-not-override-1d4w9r2 ant-select-single ant-select-show-arrow")
+ActionChains(driver).send_keys(Keys.ENTER).perform()
 
-# Find the one that is currently visible and interactable
-for input_field in search_inputs:
-    if input_field.is_displayed() and input_field.is_enabled():
-        input_field.send_keys(Keys.ENTER)
-        break
+wait_and_click(driver, By.ID, "send-request-button")
 
 time.sleep(5)  # let user see the result for a bit
 driver.quit()
