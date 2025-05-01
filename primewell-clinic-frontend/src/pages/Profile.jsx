@@ -148,7 +148,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                 value.Zip = userProfile.Zip;
             }
             try {
-                const res = await axios.patch(`http://localhost:3000//pharmacy/${userInfo.Pharm_ID}`, value);
+                const res = await axios.patch(`http://localhost:3000/pharmacy/${userInfo.pharm_id}`, value);
                 if (res.data.length === 0) {
                     console.log("Couldn't update pharmacy info");
                 } else {
