@@ -1,8 +1,8 @@
-import { Flex, Modal, Form, message, Button, Input, Divider } from "antd"
+import { Flex, Modal, Form, message, Button, Input, Switch } from "antd"
 import { useState, useEffect } from "react"
 import axios from "axios"
 
-const Profile = ({ userInfo }) => {
+const Profile = ({ userInfo, fetchUserInfo }) => {
     const [userProfile, setUserProfile] = useState(null)
     const [userType, setUserType] = useState("")
     const [assignedPharm, setAssignedPharm] = useState(null)
@@ -56,12 +56,12 @@ const Profile = ({ userInfo }) => {
 
     useEffect(() => {
         fetchUserProfile()
-    }, [userInfo])
+    }, [userInfo, editProfileModalOpen])
 
     const handleClose = () => {
         message.destroy();
         form.resetFields();
-        setEditProfileModalOpen(false);
+        setEditProfileModalOpen(!editProfileModalOpen);
     };
 
     const onFail = () => {
@@ -96,9 +96,9 @@ const Profile = ({ userInfo }) => {
                     console.log("Couldn't update patient info");
                 } else {
 
-                    // props.info(enrichedData);
-
-                    sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
+                    fetchUserInfo()
+                    await fetchUserProfile()
+                    // sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
 
                     console.log("Patient info Updated");
                 }
@@ -122,22 +122,23 @@ const Profile = ({ userInfo }) => {
                 value.Phone = userProfile.Phone;
             }
             try {
-                const res = await axios.patch(`http://localhost:3000//doctor/${userInfo.doctor_id}`, value);
+                console.log("DoctorID: ", userInfo.doctor_id, " New Info: ", value)
+                const res = await axios.patch(`http://localhost:3000/doctor/${userInfo.doctor_id}`, value);
                 if (res.data.length === 0) {
                     console.log("Couldn't update doctor info");
                 } else {
 
                     // props.info(enrichedData);
 
-                    sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
-
+                    // sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
+                    fetchUserInfo()
                     console.log("Doctor info Updated");
                 }
             } catch (err) {
                 console.log("Error Updating Doctor: ", err);
             }
         }
-        else if (userType === "Pharmacist") {
+        else if (userType === "Pharmacy") {
             if (value.Company_Name === undefined) {
                 value.Company_Name = userProfile.Company_Name;
             }
@@ -148,22 +149,22 @@ const Profile = ({ userInfo }) => {
                 value.Zip = userProfile.Zip;
             }
             try {
-                const res = await axios.patch(`http://localhost:3000//doctor/${userInfo.doctor_id}`, value);
+                const res = await axios.patch(`http://localhost:3000/pharmacy/${userInfo.pharm_id}`, value);
                 if (res.data.length === 0) {
-                    console.log("Couldn't update doctor info");
+                    console.log("Couldn't update pharmacy info");
                 } else {
 
-                    // props.info(enrichedData);
-
-                    sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
-
-                    console.log("Doctor info Updated");
+                    // sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
+                    fetchUserInfo()
+                    console.log("Pharmacy info Updated");
                 }
             } catch (err) {
-                console.log("Error Updating Doctor: ", err);
+                console.log("Error Updating Pharmacy: ", err);
             }
+
         }
         console.log(value);
+        // await fetchUserProfile()
         handleClose();
     };
 
@@ -236,8 +237,13 @@ const Profile = ({ userInfo }) => {
                             color: "#000000",
                             marginBottom: "10px",
                         }}
-                        onClick={() => {
-                            setEditProfileModalOpen(true);
+                        onClick={async () => {
+                            await fetchUserProfile();
+                            form.setFieldsValue({
+                                ...userProfile,
+                                Availability: userProfile?.Availability === 1, // convert 1/0 to true/false for Switch
+                            });
+                            setEditProfileModalOpen(!editProfileModalOpen);
                         }}
                     >
                         Edit profile
@@ -269,14 +275,14 @@ const Profile = ({ userInfo }) => {
                             onFinish={onFinish}
                             onFinishFailed={onFail}
                             autoComplete="off"
+                        // initialValues={userProfile}
                         >
                             {userType === 'Patient' && (
                                 <>
-
                                     <Form.Item
                                         name="First_Name"
                                         label="First Name"
-                                        initialValue={userProfile?.First_Name}
+                                        // initialValue={userProfile?.First_Name}
                                         rules={[
                                             {
                                                 required: false,
@@ -297,7 +303,7 @@ const Profile = ({ userInfo }) => {
                                     <Form.Item
                                         name="Last_Name"
                                         label="Last Name"
-                                        initialValue={userProfile?.Last_Name}
+                                        // initialValue={userProfile?.Last_Name}
                                         rules={[
                                             {
                                                 required: false,
@@ -318,7 +324,7 @@ const Profile = ({ userInfo }) => {
                                     <Form.Item
                                         name="Email"
                                         label="Email"
-                                        initialValue={userProfile?.Email}
+                                        // initialValue={userProfile?.Email}
                                         rules={[
                                             {
                                                 required: false,
@@ -339,7 +345,7 @@ const Profile = ({ userInfo }) => {
                                     <Form.Item
                                         name="Phone"
                                         label="Phone Number"
-                                        initialValue={userProfile?.Phone}
+                                        // initialValue={userProfile?.Phone}
                                         rules={[
                                             {
                                                 required: false,
@@ -360,7 +366,7 @@ const Profile = ({ userInfo }) => {
                                     <Form.Item
                                         name="Address"
                                         label="Address"
-                                        initialValue={userProfile?.Address}
+                                        // initialValue={userProfile?.Address}
                                         rules={[
                                             {
                                                 required: false,
@@ -381,7 +387,7 @@ const Profile = ({ userInfo }) => {
                                     <Form.Item
                                         name="Zip"
                                         label="Zip Code"
-                                        initialValue={userProfile?.Zip}
+                                        // initialValue={userProfile?.Zip}
                                         rules={[
                                             {
                                                 required: false,
@@ -406,7 +412,7 @@ const Profile = ({ userInfo }) => {
                                     <Form.Item
                                         name="First_Name"
                                         label="First Name"
-                                        initialValue={userProfile?.First_Name}
+                                        // initialValue={userProfile?.First_Name}
                                         rules={[
                                             {
                                                 required: false,
@@ -427,7 +433,7 @@ const Profile = ({ userInfo }) => {
                                     <Form.Item
                                         name="Last_Name"
                                         label="Last Name"
-                                        initialValue={userProfile?.Last_Name}
+                                        // initialValue={userProfile?.Last_Name}
                                         rules={[
                                             {
                                                 required: false,
@@ -448,7 +454,7 @@ const Profile = ({ userInfo }) => {
                                     <Form.Item
                                         name="Email"
                                         label="Email"
-                                        initialValue={userProfile?.Email}
+                                        // initialValue={userProfile?.Email}
                                         rules={[
                                             {
                                                 required: false,
@@ -469,7 +475,7 @@ const Profile = ({ userInfo }) => {
                                     <Form.Item
                                         name="Phone"
                                         label="Phone Number"
-                                        initialValue={userProfile?.Phone}
+                                        // initialValue={userProfile?.Phone}
                                         rules={[
                                             {
                                                 required: false,
@@ -487,14 +493,25 @@ const Profile = ({ userInfo }) => {
                                             style={{ height: "45px" }}
                                         />
                                     </Form.Item>
+                                    <Form.Item
+                                        name="Availability"
+                                        label="Availability"
+                                        valuePropName="checked"  // This maps `true/false` to the `checked` prop of Switch
+                                        // initialValue={userProfile?.Availability === 1}  // convert 1/0 to boolean
+                                    >
+                                        <Switch
+                                            checkedChildren="Available"
+                                            unCheckedChildren="Not Available"
+                                        />
+                                    </Form.Item>
                                 </>
                             )}
-                            {userType === 'Pharmacist' && (
+                            {userType === 'Pharmacy' && (
                                 <>
                                     <Form.Item
                                         name="Company_Name"
                                         label="Pharmacy Name"
-                                        initialValue={userProfile?.Company_Name}
+                                        // initialValue={userProfile?.Company_Name}
                                         rules={[
                                             {
                                                 required: false,
@@ -515,7 +532,7 @@ const Profile = ({ userInfo }) => {
                                     <Form.Item
                                         name="Address"
                                         label="Pharmacy Address"
-                                        initialValue={userProfile?.Address}
+                                        // initialValue={userProfile?.Address}
                                         rules={[
                                             {
                                                 required: false,
@@ -536,7 +553,7 @@ const Profile = ({ userInfo }) => {
                                     <Form.Item
                                         name="Zip"
                                         label="Pharmacy Zip Code"
-                                        initialValue={userProfile?.Zip}
+                                        // initialValue={userProfile?.Zip}
                                         rules={[
                                             {
                                                 required: false,

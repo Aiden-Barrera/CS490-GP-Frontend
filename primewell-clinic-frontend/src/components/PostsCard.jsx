@@ -139,6 +139,7 @@ const PostsCard = ({ postInfo, info }) => {
         <Flex gap="50px" justify="flex-start" align="flex-start">
           <Flex vertical gap="10px" style={{ maxWidth: "auto", flex: 1 }}>
             <CommentOutlined
+              style={{ fontSize: 20 }}
               onClick={() => {
                 getComments();
                 setCommentClicked(!commentClicked);
@@ -154,20 +155,20 @@ const PostsCard = ({ postInfo, info }) => {
         >
           {/* Pink Comment Boxes */}
           {commentClicked && comments.length > 0 ? (
-              <Flex
-                style={{
-                  background: "#f5b5af",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  width: "99%",
-                  height: "auto",
-                  border: "1px solid #666666",
-                  borderRadius: "8px",
-                  padding: "20px",
-                  gap: "10px",
-                }}
-              >
+            <Flex
+              style={{
+                background: "#f5b5af",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                width: "99%",
+                height: "auto",
+                border: "1px solid #666666",
+                borderRadius: "8px",
+                padding: "20px",
+                gap: "10px",
+              }}
+            >
               {comments?.map((comment, index) => (
                 <Flex
                   vertical
@@ -221,9 +222,9 @@ const PostsCard = ({ postInfo, info }) => {
                       {dayjs(comment.Date_Created).format("MMM DD,")}
                     </Text>
                   )}
-            </Flex>))}
+                </Flex>))}
             </Flex>
-            ) : commentClicked ? (
+          ) : commentClicked ? (
             <Flex
               style={{
                 background: "#f5b5af",

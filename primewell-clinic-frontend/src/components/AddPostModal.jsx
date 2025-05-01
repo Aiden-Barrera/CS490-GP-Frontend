@@ -31,8 +31,8 @@ const AddPostModal = (props) => {
             if (err.response) {
                 if (err.response.status === 400) {
                     api.open({
-                    message: 'Invalid Credentials!',
-                    description: 'Must be Signed In to Make a Post.',
+                        message: 'Invalid Credentials!',
+                        description: 'Must be Signed In to Make a Post.',
                     });
                 } else {
                     console.log("Error Fetching Comments: ", err);
@@ -62,7 +62,7 @@ const AddPostModal = (props) => {
                     padding: "25px"
                 }}
             >
-                <h1 style={{ fontSize: "50px", color: "#333333" }}>Create Discussion Post</h1>
+                <h1 style={{ fontSize: "39px", color: "#333333" }}>Create Discussion Post</h1>
                 <Flex
                     vertical style={{ width: "100%" }}
                 >

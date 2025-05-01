@@ -19,14 +19,16 @@ driver.get("http://localhost:5173/") # Open Primewell Cliniic Website
 def click_button(XPATH_LINK):
     WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, XPATH_LINK)))
     element = driver.find_element(By.XPATH, XPATH_LINK)
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
     element.click()
-    driver.execute_script("arguments[0].scrollIntoView(true);", element)
+    # driver.execute_script("arguments[0].scrollIntoView(true);", element)
     time.sleep(time_to_wait_between_inputs)
 
 def enter_input(XPATH_LINK, input):
     WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, XPATH_LINK)))
     element = driver.find_element(By.XPATH, XPATH_LINK)
-    driver.execute_script("arguments[0].scrollIntoView(true);", element)
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
+    # driver.execute_script("arguments[0].scrollIntoView(true);", element)
     element.clear()
     element.send_keys(input)
     time.sleep(time_to_wait_between_inputs)
@@ -100,9 +102,16 @@ muscle_groups = [
 enter_input(muscle_group_XPATH, random.choice(muscle_groups))
 
 # Enter Excercise Class
+# # exercise_class_XPATH = "//*[@id=\"Exercise_Class\"]"
+# exercise_class = fake.random_element(elements=('Upper Body', 'Lower Body', 'Core', 'Full-Body & HIIT', 'Endurance & Cardio', 'Flexibility & Yoga'))
+# enter_input(exercise_class_XPATH, exercise_class)
+
 exercise_class_XPATH = "//*[@id=\"Exercise_Class\"]"
-exercise_class = fake.random_element(elements=('Upper Body', 'Lower Body', 'Core', 'Full-Body & HIIT', 'Endurance & Cardio', 'Flexibility & Yoga'))
-enter_input(exercise_class_XPATH, exercise_class)
+# exercise_class_dropdown_XPATH = "/html/body/div[2]/div/div[2]/div/div[1]/div/div/div/div/form/div[3]/div/div[2]/div/div/div/div/span/span[1]/input"
+click_button(exercise_class_XPATH)
+
+upper_body_XPATH = "//div[@class='ant-select-item-option-content'][text()='Core']"
+click_button(upper_body_XPATH)
 
 # Enter Sets
 sets_XPATH = "//*[@id=\"Sets\"]"

@@ -20,13 +20,13 @@ def click_button(XPATH_LINK):
     WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, XPATH_LINK)))
     element = driver.find_element(By.XPATH, XPATH_LINK)
     element.click()
-    driver.execute_script("arguments[0].scrollIntoView(true);", element)
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
     time.sleep(time_to_wait_between_inputs)
 
 def enter_input(XPATH_LINK, input):
     WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, XPATH_LINK)))
     element = driver.find_element(By.XPATH, XPATH_LINK)
-    driver.execute_script("arguments[0].scrollIntoView(true);", element)
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
     element.clear()
     element.send_keys(input)
     time.sleep(time_to_wait_between_inputs)
@@ -74,5 +74,5 @@ add_a_comment_button_XPATH = "/html/body/div[4]/div/div[2]/div/div[1]/div/div/di
 click_button(add_a_comment_button_XPATH)
 
 
-time.sleep(10)
+time.sleep(5)
 driver.quit()
