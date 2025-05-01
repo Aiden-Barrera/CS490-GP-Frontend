@@ -44,7 +44,7 @@ wait_and_click(driver, By.ID, "login-button")
 #Navigate to Request
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "DOCTOR PORTAL")
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "Incoming Requests")
-wait_and_click(driver, By.ID, "accept-button")
+#wait_and_click(driver, By.ID, "accept-button")
 
 #Navigate to appointments
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "Dashboard")
@@ -55,6 +55,9 @@ wait_and_click(driver, By.ID, "message")
 ActionChains(driver).send_keys("Testing").perform()
 wait_and_click(driver, By.ID, "send-btn")
 wait_and_click(driver, By.ID, "end-appt-btn")
-wait_and_click(driver, By.ID, "doctor_feedback")
+WebDriverWait(driver, 30).until(
+    EC.presence_of_element_located((By.ID, "doctor_feedback_text"))
+)
+wait_and_click(driver, By.ID, "doctor_feedback_text")
 ActionChains(driver).send_keys("Testing").perform()
 wait_and_click(driver, By.ID, "send-feedback")
