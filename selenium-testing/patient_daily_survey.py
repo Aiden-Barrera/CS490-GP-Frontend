@@ -21,14 +21,16 @@ driver.get("http://localhost:5173/") # Open Primewell Cliniic Website
 def click_button(XPATH_LINK):
     WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, XPATH_LINK)))
     element = driver.find_element(By.XPATH, XPATH_LINK)
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
     element.click()
-    driver.execute_script("arguments[0].scrollIntoView(true);", element)
+    # driver.execute_script("arguments[0].scrollIntoView(true);", element)
     time.sleep(time_to_wait_between_inputs)
 
 def enter_input(XPATH_LINK, input):
     WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, XPATH_LINK)))
     element = driver.find_element(By.XPATH, XPATH_LINK)
-    driver.execute_script("arguments[0].scrollIntoView(true);", element)
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
+    # driver.execute_script("arguments[0].scrollIntoView(true);", element)
     element.clear()
     element.send_keys(input)
     time.sleep(time_to_wait_between_inputs)
