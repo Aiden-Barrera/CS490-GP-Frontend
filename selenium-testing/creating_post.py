@@ -110,7 +110,7 @@ exercise_class_XPATH = "//*[@id=\"Exercise_Class\"]"
 # exercise_class_dropdown_XPATH = "/html/body/div[2]/div/div[2]/div/div[1]/div/div/div/div/form/div[3]/div/div[2]/div/div/div/div/span/span[1]/input"
 click_button(exercise_class_XPATH)
 
-upper_body_XPATH = "/html/body/div[4]/div/div/div[2]/div/div/div/div[1]/div"
+upper_body_XPATH = "//div[@class='ant-select-item-option-content'][text()='Core']"
 click_button(upper_body_XPATH)
 
 # Enter Sets
