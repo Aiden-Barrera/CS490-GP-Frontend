@@ -1,7 +1,7 @@
 import { Flex, Modal, Form, message, Button, Input, notification, Select } from "antd";
 import { useEffect, useState } from "react"
 import axios from "axios";
-import api from './../api.js';
+import apiDB from './../api.js';
 
 const AddPostModal = (props) => {
     const [form] = Form.useForm()
@@ -23,7 +23,7 @@ const AddPostModal = (props) => {
         };
         // console.log(newValue);
         try {
-            const res = await api.post("/forumPosts", newValue)
+            const res = await apiDB.post("/forumPosts", newValue)
             console.log("Added Post: ", res.data)
             // props.onPostCreated(res.data);
             props.postCreated(true)

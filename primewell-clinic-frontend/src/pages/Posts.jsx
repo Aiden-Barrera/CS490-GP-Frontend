@@ -3,6 +3,7 @@ import axios from "axios";
 import { Flex, Input, Button } from "antd"
 import PostsCard from "../components/PostsCard";
 import AddPostModal from "../components/AddPostModal"
+import apiDB from './../api.js';
 
 const Posts = (props) => {
     const [postInfo, setPostInfo] = useState(null)
@@ -20,7 +21,7 @@ const Posts = (props) => {
 
     const fetchPosts = async () => {
         try {
-            const res = await axios.get("http://localhost:3000/forumPosts")
+            const res = await apiDB.get("forumPosts")
             console.log("Fetched Posts: ", res.data)
             setPostInfo(res.data)
         } catch (err) {
