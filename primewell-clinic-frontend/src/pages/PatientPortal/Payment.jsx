@@ -2,19 +2,20 @@ import { Flex, Modal, message, Button, Input, Rate, notification } from "antd"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import PaymentCard from "../../components/PaymentCard"
+import apiDB from "../../api"
 
 const Payment = ({userInfo}) => {
     const [paymentApptInfo, setPaymentApptInfo] = useState(null)
     const [paymentPrescInfo, setPaymentPrescInfo] = useState(null)
 
     const fetchApptPayments = async () => {
-        const res = await axios.get(`http://localhost:3000/paymentAppointments/${userInfo?.patient_id}`)
+        const res = await apiDB.get(`/paymentAppointments/${userInfo?.patient_id}`)
         console.log("Appt PaymentInfo: ", res.data)
         setPaymentApptInfo(res.data)
     }
 
     const fetchPrescriptionPayments = async () => {
-        const res = await axios.get(`http://localhost:3000/paymentPrescriptions/${userInfo?.patient_id}`)
+        const res = await apiDB.get(`/paymentPrescriptions/${userInfo?.patient_id}`)
         console.log("Prescription PaymentInfo: ", res.data)
         setPaymentPrescInfo(res.data)
     }

@@ -12,6 +12,7 @@ import {
     Tooltip,
     Legend,
 } from "chart.js";
+import apiDB from "../api";
 
 ChartJS.register(LineController, LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -22,8 +23,8 @@ const WeightChart = (props) => {
 
     const getPatientSurveyData = async () => {
         try {
-            const res = await axios.get(
-                `http://localhost:3000/patientsurvey/${props.info.patient_id}`
+            const res = await apiDB.get(
+                `/patientsurvey/${props.info.patient_id}`
             );
             console.log("Survey Data for Weight: ", res.data);
             setPatientSurveyData(res.data);

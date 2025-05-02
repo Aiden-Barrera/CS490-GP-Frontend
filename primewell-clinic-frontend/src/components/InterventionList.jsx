@@ -3,6 +3,8 @@ import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
+import apiDB from "../api";
+
 const InterventionList = ({ info }) => {
     const [interventions, setInterventions] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -10,7 +12,7 @@ const InterventionList = ({ info }) => {
         const fetchInterventionInfo = async () => {
             try {
                 console.log("Passed info: ", info);
-                const res = await axios.get(`http://localhost:3000/appointmentInfo/${info?.patient_id}`);
+                const res = await apiDB.get(`/appointmentInfo/${info?.patient_id}`);
                 setInterventions(Array.isArray(res.data) ? res.data : [res.data]);
                 setCurrentIndex(0); //for shifting through feedbacks
                 console.log("API info: ", res.data);

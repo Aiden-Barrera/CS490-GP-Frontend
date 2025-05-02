@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Flex, Table } from "antd";
 import "./../../App.css"
+import apiDB from "../../api";
 
 const Regiment = ({ info }) => {
     const [regimentData, setRegimentData] = useState(null);
@@ -11,7 +12,7 @@ const Regiment = ({ info }) => {
         console.log(info)
         const fetchRegimentInfo = async () => {
             try {
-                const res = await axios.get(`http://localhost:3000/regiment/${info.patient_id}`);
+                const res = await apiDB.get(`/regiment/${info.patient_id}`);
 
                 const regiment = res.data[0]?.Regiment;
 

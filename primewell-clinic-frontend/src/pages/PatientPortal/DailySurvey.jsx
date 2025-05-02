@@ -2,6 +2,7 @@ import { Flex, Modal, Form, message, Button, Input, Rate, notification } from "a
 import { FrownOutlined, MehOutlined, SmileOutlined } from '@ant-design/icons';
 import axios from "axios"
 import { useEffect, useState } from "react"
+import apiDB from "../../api";
 
 const desc = ['Very Sad', 'Somewhat Sad', 'Neutral', 'Somewhat Happy', 'Very Happy']
 const customIcons = {
@@ -34,7 +35,7 @@ const DailySurvey = ({info, setSurveyCompleted}) => {
             }
     
             console.log(body)
-            const res2 = await axios.post(`http://localhost:3000/patientsurvey`, body, JSON.parse(import.meta.env.VITE_HEADERS))
+            const res2 = await apiDB.post(`/patientsurvey`, body, JSON.parse(import.meta.env.VITE_HEADERS))
             setSurveyCompleted(true)
             api.open({
                 message: 'Success!',

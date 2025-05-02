@@ -4,6 +4,7 @@ import {DownOutlined} from "@ant-design/icons"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import RequestCard from "../../components/RequestCard"
+import apiDB from "../../api"
 
 const Request = ({userInfo}) => {
     const [doctorInfo, setDoctorInfo] = useState([])
@@ -12,9 +13,9 @@ const Request = ({userInfo}) => {
 
     const fetchDoctorInfo = async () => {
         try {
-            const res = await axios.get("http://localhost:3000/doctor/listAll")
+            const res = await apiDB.get("/doctor/listAll")
             const allDoctors = res.data
-            const res2 = await axios.get(`http://localhost:3000/patientDoc/${userInfo.patient_id}`)
+            const res2 = await apiDB.get(`/patientDoc/${userInfo.patient_id}`)
             if (res2) {
                 const assignedDoctor = res2.data
                 setPatientDoctor(assignedDoctor)

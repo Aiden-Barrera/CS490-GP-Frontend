@@ -4,6 +4,7 @@ import { MenuOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 import "./../../App.css"
 import axios from "axios";
+import apiDB from "../../api";
 
 const SideBarMenu = ({info, surveyCompleted}) => {
     const [surveyNeeded, setSurveyNeeded] = useState(false)
@@ -13,7 +14,7 @@ const SideBarMenu = ({info, surveyCompleted}) => {
             patient_id: info?.patient_id,
         }
         
-        const res = await axios.post("http://localhost:3000/patientsurvey/date", body)
+        const res = await apiDB.post("/patientsurvey/date", body)
         if (res.data === false){
             setSurveyNeeded(true)
         } else {

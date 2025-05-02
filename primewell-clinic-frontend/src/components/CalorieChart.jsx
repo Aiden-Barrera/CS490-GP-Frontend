@@ -9,6 +9,7 @@ import {
     Tooltip,
     Legend,
 } from "chart.js";
+import apiDB from "../api";
 
 ChartJS.register(BarElement, BarController, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -19,8 +20,8 @@ const CalorieChart = (props) => {
 
     const getPatientSurveyData = async () => {
         try {
-            const res = await axios.get(
-                `http://localhost:3000/patientsurvey/${props.info.patient_id}`
+            const res = await apiDB.get(
+                `/patientsurvey/${props.info.patient_id}`
             );
             console.log("Survey Data: ", res.data);
             setPatientSurveyData(res.data);
