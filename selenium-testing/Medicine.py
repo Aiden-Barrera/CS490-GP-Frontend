@@ -63,4 +63,4 @@ pill_cost.send_keys("34.67")
 
 wait_and_click(driver, By.ID, "submit-new-pill")
 
-wait_and_click(driver, By.ID, "delete-medicine-17")
+wait_and_click(driver, By.ID, "delete-medicine-20")
