@@ -4,6 +4,8 @@ import AddCommentModal from "../components/AddCommentModal";
 import { CommentOutlined } from "@ant-design/icons";
 import axios from "axios";
 import dayjs from "dayjs";
+import apiDB from './../api.js';
+
 
 const { Title, Text, Paragraph } = Typography;
 const PostsCard = ({ postInfo, info }) => {
@@ -26,8 +28,8 @@ const PostsCard = ({ postInfo, info }) => {
 
   const fetchUserName = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:3000/patient/${postInfo?.Patient_ID}`
+      const res = await apiDB.get(
+        `/patient/${postInfo?.Patient_ID}`
       );
       const fetchedInfo = res.data;
       console.log("Fetched UserName: ", fetchedInfo);
@@ -39,8 +41,8 @@ const PostsCard = ({ postInfo, info }) => {
 
   const getComments = async () => {
     try {
-      const res2 = await axios.get(
-        `http://localhost:3000/comments/${postInfo.Forum_ID}`
+      const res2 = await api.get(
+        `/comments/${postInfo.Forum_ID}`
       );
       const fetchedComments = res2.data;
       console.log("Fetched Comments: ", fetchedComments);
