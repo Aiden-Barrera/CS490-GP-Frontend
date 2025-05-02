@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import PatientSignUpModal from "./PatientSignUpModal";
 import DoctorSignUpModal from "./DoctorSignUpModal";
 import PharmacySignUpModal from "./PharmacySignUpModal";
+import apiDB from "../api";
 
 const LoginModal = (props) => {
     const [form] = Form.useForm();
@@ -25,8 +26,8 @@ const LoginModal = (props) => {
     const onFinish = async (value) => {
         if (props.userType === "Patient") {
             // If they clicked Patient button, this will run for login
-            const res = await axios.post(
-                "http://localhost:3000/passAuthPatient",
+            const res = await apiDB.post(
+                "/passAuthPatient",
                 value
             );
             if (res.data.length === 0) {
@@ -47,8 +48,8 @@ const LoginModal = (props) => {
                 handleClose();
             }
         } else if (props.userType === "Doctor") {
-            const res = await axios.post(
-                "http://localhost:3000/passAuthDoctor",
+            const res = await apiDB.post(
+                "/passAuthDoctor",
                 value
             );
             if (res.data.length === 0) {
@@ -69,8 +70,8 @@ const LoginModal = (props) => {
                 handleClose();
             }
         } else {
-            const res = await axios.post(
-                "http://localhost:3000/passAuthPharm",
+            const res = await apiDB.post(
+                "/passAuthPharm",
                 value
             );
             if (res.data.length === 0) {
