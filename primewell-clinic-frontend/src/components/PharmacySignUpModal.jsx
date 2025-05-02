@@ -13,6 +13,7 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import apiDB from "../api";
 
 const PharmacySignUpModal = (props) => {
   const [form] = Form.useForm();
@@ -32,7 +33,7 @@ const PharmacySignUpModal = (props) => {
     try {
       value.Address = JSON.stringify(value.Address);
       console.log(value);
-      const res = await axios.post("http://localhost:3000/pharmacies", value);
+      const res = await apiDB.post("/pharmacies", value);
       if (res.data.length === 0) {
         console.log("Couldn't create pharmacy");
       } else {

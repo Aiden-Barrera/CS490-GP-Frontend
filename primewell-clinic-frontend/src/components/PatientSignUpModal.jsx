@@ -14,6 +14,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { DownOutlined, MedicineBoxTwoTone } from "@ant-design/icons";
 import PreliminaryFormModal from "./PreliminaryFormModal";
+import apiDB from "../api";
 
 const PatientSignUpModal = (props) => {
   const [form] = Form.useForm();
@@ -46,12 +47,12 @@ const PatientSignUpModal = (props) => {
     // console.log(symptoms);
     try {
       console.log("Patient Sign up info: ", value)
-      const res = await axios.post("http://localhost:3000/patient", value);
+      const res = await apiDB.post("/patient", value);
       if (res.data.length === 0) {
         console.log("Couldn't create patient");
       } else {
         console.log("Patient Created");
-        const prelim = await axios.post("http://localhost:3000/preliminaries", {
+        const prelim = await apiDB.post("/preliminaries", {
           Patient_ID: res.data.patient_id,
           Symptoms: JSON.stringify(symptoms),
         });
@@ -89,7 +90,7 @@ const PatientSignUpModal = (props) => {
       const body = {
         Zip: zipCode
       }
-      const res = await axios.post("http://localhost:3000/getPharmByZip", body)
+      const res = await apiDB.post("/getPharmByZip", body)
       setPharmacyOptions(res.data)
       console.log("Fetched Nearest Pharmacies: ", res.data)
     } catch (err) {

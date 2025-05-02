@@ -14,6 +14,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { DownOutlined, MedicineBoxTwoTone } from "@ant-design/icons";
 import WorkHoursFormModal from "./WorkHoursFormModal";
+import apiDB from "../api";
 
 const DoctorSignUpModal = (props) => {
   const [form] = Form.useForm();
@@ -65,13 +66,13 @@ const DoctorSignUpModal = (props) => {
 
     // console.log(schedule);
     try {
-      const res = await axios.post("http://localhost:3000/doctor", value);
+      const res = await apiDB.post("/doctor", value);
       if (res.data.length === 0) {
         console.log("Couldn't create doctor");
       } else {
         console.log("Doctor Created: ", res.data);
         // console.log(res.data.insertId);
-        const prelim = await axios.post("http://localhost:3000/doctorSchedule", {
+        const prelim = await apiDB.post("/doctorSchedule", {
           Doctor_ID: res.data.doctor_id,
           Doctor_Schedule: JSON.stringify(schedule),
         });
