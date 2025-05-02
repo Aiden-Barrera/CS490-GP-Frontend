@@ -79,6 +79,7 @@ const ApptChannel = ({userInfo}) => {
       Payment_Type: "Appointment",
       Payment_Status: 'Pending'
     }
+    console.log(paymentBody)
     await axios.post("http://localhost:3000/payment", paymentBody)
     const body = {
       Appointment_ID: appt_id,
