@@ -11,7 +11,7 @@ const Home = (props) => {
 
     const fetchTopDoctors = async () => {
         console.log(JSON.parse(import.meta.env.VITE_HEADERS))
-        const res = await apiDB.get("/reviewsTop", JSON.parse(import.meta.env.VITE_HEADERS))
+        const res = await apiDB.get("/reviewsTop")
         setTopDoctors(res.data)
         console.log(res.data)
     }
