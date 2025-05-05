@@ -63,8 +63,7 @@ wait_and_click(driver, By.ID, "clear-regiment")
 #assert notif_msg.is_displayed()
 
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "PATIENT PORTAL")
-wait_and_click(driver, By.ID, "intervention-list")
-wait_and_click(driver, By.ID, "next-button")
+
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "Regiment")
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "EXERCISES")
 
@@ -75,6 +74,8 @@ wait_and_click(driver, By.ID, "category-Upper Body")
 
 # Select an exercise
 wait_and_click(driver, By.ID, "select-button-2")
+wait_and_click(driver, By.ID, "select-button-4")
+
 
 # Schedule
 wait_and_click(driver, By.ID, "schedule-button")

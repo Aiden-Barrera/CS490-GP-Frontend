@@ -49,15 +49,13 @@ wait_and_click(driver, By.ID, "Pill_Name")
 pill_name = driver.find_element(By.ID, "Pill_Name")
 pill_name.send_keys("Test Medicine")
 
-wait_and_click(driver, By.ID, "Pill_ID")
-
-pill_id = driver.find_element(By.ID, "Pill_ID")
-pill_id.send_keys("24")
-
 wait_and_click(driver, By.ID, "Dosage")
 
 pill_dosage = driver.find_element(By.ID, "Dosage")
 pill_dosage.send_keys("4")
+
+quantity = driver.find_element(By.ID, "Quantity")
+quantity.send_keys("10")
 
 wait_and_click(driver, By.ID, "Cost")
 
@@ -66,4 +64,4 @@ pill_cost.send_keys("34.67")
 
 wait_and_click(driver, By.ID, "submit-new-pill")
 
-wait_and_click(driver, By.ID, "delete-medicine-15")
+wait_and_click(driver, By.ID, "delete-medicine-20")
