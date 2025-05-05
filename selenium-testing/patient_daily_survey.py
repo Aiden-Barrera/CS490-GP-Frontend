@@ -181,5 +181,5 @@ enter_input(notes_XPATH, "Lower back hurts")
 submit_XPATH = "//*[@id=\"root\"]/div/div/div/div[2]/div/div/form/div[6]/div/div/div/div/button"
 click_button(submit_XPATH)
 
-time.sleep(5)
+time.sleep(60)
 driver.quit()

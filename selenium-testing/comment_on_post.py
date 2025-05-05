@@ -76,5 +76,5 @@ add_a_comment_button_XPATH = "/html/body/div[4]/div/div[2]/div/div[1]/div/div/di
 click_button(add_a_comment_button_XPATH)
 
 
-time.sleep(5)
+time.sleep(60)
 driver.quit()

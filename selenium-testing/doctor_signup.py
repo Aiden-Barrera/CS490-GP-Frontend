@@ -105,5 +105,5 @@ click_button(submit_work_hours_form_XPATH)
 create_an_account_submission_button_XPATH = "//*[@id=\"doctorsignupform\"]/div[9]/div/div/div/div/button"
 click_button(create_an_account_submission_button_XPATH)
 
-time.sleep(5)
+time.sleep(60)
 driver.quit()

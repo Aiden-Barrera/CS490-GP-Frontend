@@ -53,5 +53,5 @@ ActionChains(driver).send_keys(Keys.ENTER).perform()
 
 wait_and_click(driver, By.ID, "send-request-button")
 
-time.sleep(5)  # let user see the result for a bit
+time.sleep(60)  # let user see the result for a bit
 driver.quit()

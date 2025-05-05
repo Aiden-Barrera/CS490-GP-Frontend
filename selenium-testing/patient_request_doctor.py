@@ -180,5 +180,5 @@ click_button(second_tier_XPATH)
 send_request_XPATH = "//*[@id=\"root\"]/div/div/div/div[2]/div/div/div[1]/div[2]/div[2]/div[2]/button"
 click_button(send_request_XPATH)
 
-time.sleep(5)
+time.sleep(60)
 driver.quit()

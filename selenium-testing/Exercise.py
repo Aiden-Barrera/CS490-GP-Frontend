@@ -102,5 +102,5 @@ wait_and_click(driver, By.PARTIAL_LINK_TEXT, "PATIENT PORTAL")
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "Regiment")
 
 
-time.sleep(5)  # let user see the result for a bit
+time.sleep(60)  # let user see the result for a bit
 driver.quit()

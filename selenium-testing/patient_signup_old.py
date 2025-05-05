@@ -208,5 +208,5 @@ click_button(create_an_account_submission_button_XPATH)
 # create_an_account_submission_button = driver.find_element(By.XPATH, create_an_account_submission_button_XPATH)
 # create_an_account_submission_button.click()
 
-time.sleep(5)
+time.sleep(60)
 # driver.quit()

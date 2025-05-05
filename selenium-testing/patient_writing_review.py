@@ -83,5 +83,5 @@ enter_input(review_text_XPATH, "Okay doctor, sometimes too loud")
 submit_XPATH = "//button[@type='submit']/span[text()='Submit']"
 click_button(submit_XPATH)
 
-time.sleep(5)
+time.sleep(60)
 driver.quit()

@@ -63,5 +63,5 @@ login_as_user()
 search_medicine_XPATH = "//*[@id=\"root\"]/div/div/div/div[2]/div/div[2]/div/div[1]/span/input"
 enter_input(search_medicine_XPATH, "Witch Hazel")
 
-time.sleep(5)
+time.sleep(60)
 driver.quit()

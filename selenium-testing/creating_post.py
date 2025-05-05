@@ -136,5 +136,5 @@ enter_input(feedback_XPATH, "Use lower weights" + Keys.ENTER) # also submits the
 # click_button(create_discussion_post_button_XPATH)
 
 
-time.sleep(5)
+time.sleep(60)
 driver.quit()
