@@ -11,7 +11,6 @@ import {
   Tooltip,
   Checkbox,
 } from "antd";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { DownOutlined, MedicineBoxTwoTone } from "@ant-design/icons";
 

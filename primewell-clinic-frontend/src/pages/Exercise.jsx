@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import ExerciseListModal from "../components/ExerciseListModal";
 import AddCalendar from "../components/AddCalendar";
 import axios from "axios";
+import apiDB from '../api';
 
 const categories = [
   {
@@ -101,8 +102,8 @@ const Exercise = ({ info }) => {
 
   const clearRegiment = async () => {
     try {
-      const res = await axios.patch(
-        `http://localhost:3000/regimentClear/${
+      const res = await apiDB.patch(
+        `/regimentClear/${
           appt_id !== "" ? patientID : info?.patient_id
         }`
       );

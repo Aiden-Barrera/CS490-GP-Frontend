@@ -3,14 +3,14 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import socket from "./../../Socket";
 import PrescriptionCard from "../../components/PrescriptionCard";
-
+import apiDB from '../../api'
 
 const PrescriptionRequests = ({info}) => {
     const [prescriptions, setPrescriptions] = useState([]);
 
     const fetchPrescriptions = async () => {
         try {
-            const res = await axios.get(`http://localhost:3000/fetchPrescriptions/${info?.pharm_id}`)
+            const res = await apiDB.get(`/fetchPrescriptions/${info?.pharm_id}`)
             console.log('Fetched prescriptions: ', res.data)
             setPrescriptions(res.data)
         } catch (err) {

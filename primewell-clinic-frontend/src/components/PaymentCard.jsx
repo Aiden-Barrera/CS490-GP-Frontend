@@ -2,7 +2,7 @@ import { Button, Flex, Modal, Form, Input, message } from "antd";
 import dayjs from 'dayjs';
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-
+import apiDB from '../api.js'
 
 const PaymentCard = ({ paymentInfo, fetchPayments, userName, isAppt }) => {
     const createDate = dayjs(paymentInfo?.Create_Date);
@@ -22,7 +22,7 @@ const PaymentCard = ({ paymentInfo, fetchPayments, userName, isAppt }) => {
             Payment_ID: paymentInfo?.Payment_ID,
             Card_Number: value.cardNumber
         }
-        await axios.patch("http://localhost:3000/makePayment", body)
+        await apiDB.post("/makePayment", body)
         fetchPayments()
         setIsModalOpen(false)
         

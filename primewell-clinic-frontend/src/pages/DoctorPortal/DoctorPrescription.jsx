@@ -2,6 +2,7 @@ import { Button, Flex, Form, Input, Select, InputNumber } from "antd"
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import apiDB from '../../api';
 const {Option} = Select
 
 const DoctorPrescription = ({userInfo}) => {
@@ -17,10 +18,10 @@ const DoctorPrescription = ({userInfo}) => {
     }, [])
 
     const fecthPatientName = async () => {
-        const res = await axios.get(`http://localhost:3000/patientInfo/${location.state.patient_id}`)
+        const res = await apiDB.get(`/patientInfo/${location.state.patient_id}`)
         console.log("Fetched Patient Info for Prescription: ", res.data)
         setPatientName(res.data[0])
-        const res2 = await axios.get(`http://localhost:3000/pharmacyPills/${res.data[0].Pharm_ID}`)
+        const res2 = await apiDB.get(`/pharmacyPills/${res.data[0].Pharm_ID}`)
         console.log("Fetched Pharm Pills by Patient's: ", res2.data)
         setPharmInfo(res2.data)
 
@@ -44,7 +45,7 @@ const DoctorPrescription = ({userInfo}) => {
             Pharm_ID: patientName.Pharm_ID
         }
         console.log(body)
-        await axios.post("http://localhost:3000/sendPrescription", body)
+        await apiDB.post("/sendPrescription", body)
         navigate("/DoctorPortal/")
     }
 

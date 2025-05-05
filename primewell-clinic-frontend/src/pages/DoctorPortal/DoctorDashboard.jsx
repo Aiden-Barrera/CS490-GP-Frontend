@@ -3,7 +3,7 @@ import PatientCard from "../../components/PatientCard";
 import UpcomingAptsCards from "../../components/UpcomingAptsCards";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import apiDB from '../../api';
 const DoctorDashboard = (props) => {
   const [doctorPatients, setDoctorPatients] = useState([]);
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
@@ -11,7 +11,7 @@ const DoctorDashboard = (props) => {
 
   const getDoctorPatients = async () => {
     try {
-      const res = await axios.post("http://localhost:3000/doctorPatients", {
+      const res = await apiDB.post("/doctorPatients", {
         Doctor_ID: props.info.doctor_id,
       });
       // console.log(res.data);
@@ -23,8 +23,8 @@ const DoctorDashboard = (props) => {
 
   const getUpcomingPatients = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:3000/appointment/doctor/${props.info.doctor_id}`
+      const res = await apiDB.get(
+        `/appointment/doctor/${props.info.doctor_id}`
       );
       console.log("Upcoming Appt: ", res.data);
       setUpcomingAppointments(res.data);

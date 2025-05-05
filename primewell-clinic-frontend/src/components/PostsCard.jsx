@@ -41,7 +41,7 @@ const PostsCard = ({ postInfo, info }) => {
 
   const getComments = async () => {
     try {
-      const res2 = await api.get(
+      const res2 = await apiDB.get(
         `/comments/${postInfo.Forum_ID}`
       );
       const fetchedComments = res2.data;

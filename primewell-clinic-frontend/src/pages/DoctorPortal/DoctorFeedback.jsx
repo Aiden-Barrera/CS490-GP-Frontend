@@ -2,6 +2,8 @@ import { Button, Flex, Form, Input } from "antd"
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import apiDB from '../../api';
+
 const {TextArea} = Input
 
 const DoctorFeedback = ({userInfo}) => {
@@ -16,7 +18,7 @@ const DoctorFeedback = ({userInfo}) => {
     }, [])
 
     const fecthPatientName = async () => {
-        const res = await axios.get(`http://localhost:3000/patient/${location.state.patient_id}`)
+        const res = await apiDB.get(`/patient/${location.state.patient_id}`)
         console.log("Fetched Patient Name for Feedback: ", res.data)
         setPatientName(res.data)
     }
@@ -32,7 +34,7 @@ const DoctorFeedback = ({userInfo}) => {
             doctor_feedback: trimmedFeedback,
             doctor_id: userInfo.doctor_id
         }
-        await axios.patch('http://localhost:3000/giveFeedback', body)
+        await apiDB.patch('/giveFeedback', body)
         navigate("/DoctorPortal/DoctorPrescription", {
             state: {
               patient_id: location.state.patient_id,
