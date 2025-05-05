@@ -1,7 +1,8 @@
 import { Modal, Flex, Button, message } from "antd";
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import apiDB from './../api.js';
+
 const AddCalendar = ({ open, handleClose, selectedRows, exerciseInfo, patientInfo, appt_id }) => {
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const [selectedDays, setSelectedDays] = useState([]);
@@ -32,7 +33,8 @@ const AddCalendar = ({ open, handleClose, selectedRows, exerciseInfo, patientInf
     });
     try {
       console.log("Before sending to backend: ", regimentByDay)
-      await axios.patch(`http://localhost:3000/regiments/${patientInfo}`, {
+      // await axios.patch(`http://localhost:3000/regiments/${patientInfo}`, {
+      await apiDB.patch(`/regiments/${patientInfo}`, {
         Regiment: regimentByDay,
         Patient_ID: patientInfo
       });

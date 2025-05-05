@@ -3,6 +3,8 @@ import { useState, useEffect } from "react"
 import axios from "axios";
 import dayjs from 'dayjs';
 import SlotCard from "./SlotCard";
+import apiDB from './../api.js';
+
 const disabledDate = (current) => {
     const today = dayjs().startOf('day');
     const maxDate = today.add(28, 'day');
@@ -49,7 +51,8 @@ const RequestCard = (props) => {
             day: selectDate.format("dddd"),
             date: selectDate.format("YYYY-MM-DD")
         }
-        const res = await axios.post("http://localhost:3000/getDoctorSchedule", body)
+        // const res = await axios.post("http://localhost:3000/getDoctorSchedule", body)
+        const res = await apiDB.post("/getDoctorSchedule", body)
         setDaySchedule(res.data)
     }
 
@@ -87,7 +90,8 @@ const RequestCard = (props) => {
         }
 
         try {
-            const res = await axios.post("http://localhost:3000/request", body)
+            // const res = await axios.post("http://localhost:3000/request", body)
+            const res = await apiDB.post("/request", body)
             api.open({
                 message: 'Request Sent!',
                 description:
@@ -122,7 +126,8 @@ const RequestCard = (props) => {
             Doctor_ID: props.info.doctor_id
         }
         try {
-            const res = await axios.patch(`http://localhost:3000/patientDropDoctor/removeDoc`, body)
+            // const res = await axios.patch(`http://localhost:3000/patientDropDoctor/removeDoc`, body)
+            const res = await apiDB.patch(`/patientDropDoctor/removeDoc`, body)
             api.open({
                 message: "Doctor Dropped!",
                 description: 

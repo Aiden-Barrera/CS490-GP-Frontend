@@ -1,6 +1,7 @@
 import { Flex, Modal, Form, message, Button, Input, notification } from "antd";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import apiDB from './../api.js';
+
 
 const { TextArea } = Input;
 
@@ -23,7 +24,8 @@ const AddCommentModal = (props) => {
     };
     console.log(newValue);
     try {
-      const res = await axios.post("http://localhost:3000/comments", newValue);
+      // const res = await axios.post("http://localhost:3000/comments", newValue);
+      const res = await apiDB.post("/comments", newValue);
       console.log("Added Comment: ", res.data);
       props.commentCreated(true);
       handleClose();

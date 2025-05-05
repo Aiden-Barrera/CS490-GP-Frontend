@@ -3,6 +3,7 @@ import { UserOutlined, CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
+import apiDB from './../api.js';
 
 const { Content } = Layout;
 
@@ -23,7 +24,8 @@ const IncomingRequestCard = (props) => {
     try {
       console.log("Patient " + props.Fname + " " + props.Lname + " accepted");
       // props.Appt_Date = props.Appt_Date.substring(0, 10);
-      const response = await axios.post('http://localhost:3000/appointment', {
+      // const response = await axios.post('http://localhost:3000/appointment', {
+      const response = await apiDB.post('/appointment', {
         Patient_ID: props.Patient_ID,
         Doctor_ID: props.Doctor_ID,
         Appt_Date: props.Appt_Date,
@@ -55,7 +57,8 @@ const IncomingRequestCard = (props) => {
     try {
       console.log("Patient " + props.Fname + " " + props.Lname + " Declined");
 
-      const response = await axios.patch('http://localhost:3000/rejectRequest', {
+      // const response = await axios.patch('http://localhost:3000/rejectRequest', {
+      const response = await apiDB.patch('/rejectRequest', {
         Patient_ID: props.Patient_ID,
         Doctor_ID: props.Doctor_ID,
         Appt_Date: props.Appt_Date,

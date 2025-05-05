@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import dayjs from 'dayjs';
 import axios from "axios";
-
+import apiDB from './../api.js';
 
 const AppointmentCard = ({apptInfo}) => {
     const [btnClicked, setBtnClicked] = useState(false)
@@ -17,7 +17,8 @@ const AppointmentCard = ({apptInfo}) => {
         const body = {
             Appointment_ID: apptInfo.Appointment_ID
         }
-        const res1 = await axios.post("http://localhost:3000/fetchApptEndStatus", body)
+        // const res1 = await axios.post("http://localhost:3000/fetchApptEndStatus", body)
+        const res1 = await apiDB.post("/fetchApptEndStatus", body)
         setAppt_end(res1.data.Appt_End)
     }
 
@@ -31,7 +32,8 @@ const AppointmentCard = ({apptInfo}) => {
         const body = {
             Appointment_ID: apptInfo.Appointment_ID
         }
-        const res = await axios.post("http://localhost:3000/fetchApptStartStatus", body)
+        // const res = await axios.post("http://localhost:3000/fetchApptStartStatus", body)
+        const res = await apiDB.post("/fetchApptStartStatus", body)
         console.log("Start:", res.data)        
         if (res.data.Appt_Start === 1){
             navigate("/PatientPortal/ApptChannel", {

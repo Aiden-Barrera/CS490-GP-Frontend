@@ -1,6 +1,7 @@
 import { Flex, Modal, message, Button, Input, Form} from "antd"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import apiDB from './../api.js';
 
 {/* Discuss how to properly add new Pill back to database 
         Currently backend has Pharm_ID: 339
@@ -22,7 +23,8 @@ const CreatePillModal = (props) => {
     useEffect(() => {
         const fetchPillsInfo = async () => {
           try {
-            const res = await axios.get("http://localhost:3000/pillbank");
+            // const res = await axios.get("http://localhost:3000/pillbank");
+            const res = await apiDB.get("/pillbank");
             setPillsInfo(res.data);
           } catch (error) {
             console.error("Error fetching pill data:", error);
@@ -41,7 +43,8 @@ const CreatePillModal = (props) => {
             Quantity: Number(values.Quantity)  
           };
       
-          await axios.post("http://localhost:3000/pillbank", formattedValues);
+        //   await axios.post("http://localhost:3000/pillbank", formattedValues);
+          await apiDB.post("/pillbank", formattedValues);
           message.success("New Pill Added!");
           props.sent(true)
           form.resetFields();

@@ -2,6 +2,8 @@ import { Flex, Modal, Form, message, Button, Input} from "antd"
 import { useEffect, useState } from "react"
 import EIModal from "./Exercise_ImageUpload"
 import axios from "axios"
+import apiDB from './../api.js';
+
 const CreateExerciseModal = (props) => {
     const [form] = Form.useForm()
 
@@ -26,7 +28,7 @@ const CreateExerciseModal = (props) => {
             };
             console.log(formattedValues);
 
-            await axios.post("http://localhost:3000/exercisebank", formattedValues);
+            await apiDB.post("/exercisebank", formattedValues);
             message.success("New Exercise Added!")
             props.sent(true)
             form.resetFields();

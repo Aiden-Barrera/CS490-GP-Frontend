@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import AddCalendar from "./AddCalendar";
+import apiDB from './../api.js';
 
 const ExerciseListModal = ({info, selectedPatient, open, handleClose: handleListCancel, categoryName, appt_id}) => {
 
@@ -18,7 +19,8 @@ const ExerciseListModal = ({info, selectedPatient, open, handleClose: handleList
               Exercise_Class: categoryName
             };
             console.log("Fetching with body:", body);
-            const res = await axios.post("http://localhost:3000/exerciseByClass", body);
+            // const res = await axios.post("http://localhost:3000/exerciseByClass", body);
+            const res = await apiDB.post("/exerciseByClass", body);
             console.log("Fetched data: ", res.data);
             setExerciseInfo(res.data);
           } catch (error) {
