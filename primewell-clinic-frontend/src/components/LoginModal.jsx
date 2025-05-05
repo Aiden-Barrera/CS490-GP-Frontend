@@ -71,7 +71,7 @@ const LoginModal = (props) => {
             if (
                 error.response &&
                 error.response.status === 401 &&
-                error.response.data === "Invalid credentials"
+                error.response.data.error === "Invalid credentials"
             ) {
                 api.error({
                     message: "Login Failed",
