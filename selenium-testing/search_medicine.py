@@ -16,7 +16,8 @@ fake = Faker()
 time_to_wait_between_inputs = 0.2
 patient_created = False
 
-driver.get("http://localhost:5173/") # Open Primewell Cliniic Website
+# driver.get("http://localhost:5173/") # Open Primewell Cliniic Website
+driver.get("https://cs490-gp-frontend-production.up.railway.app/") # Open Primewell Cliniic Website
 
 def click_button(XPATH_LINK):
     WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, XPATH_LINK)))

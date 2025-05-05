@@ -18,7 +18,8 @@ def wait_and_click(driver, by, value, timeout=20):
 service = Service(excutable_path="chromedriver.exe")
 driver = webdriver.Chrome(service=service)
 
-driver.get("http://localhost:5173")
+# driver.get("http://localhost:5173")
+driver.get("https://cs490-gp-frontend-production.up.railway.app/") # Open Primewell Cliniic Website
 
 # Login page
 wait_and_click(driver, By.ID, "loginButton")
