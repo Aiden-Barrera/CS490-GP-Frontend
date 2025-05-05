@@ -15,6 +15,7 @@ const LoginModal = (props) => {
     const [isPharmacySignUpModalOpen, setIsPharmacySignUpModalOpen] =
         useState(false);
     const navigate = useNavigate();
+    const [api, contextHolder] = notification.useNotification();
 
     useEffect(() => {
         if (props.open) {
@@ -24,75 +25,66 @@ const LoginModal = (props) => {
     }, [props.open]);
 
     const onFinish = async (value) => {
-        if (props.userType === "Patient") {
-            // If they clicked Patient button, this will run for login
-            const res = await apiDB.post(
-                "/passAuthPatient",
-                value
-            );
-            if (res.data.length === 0) {
-                console.log("Couldn't log in");
+        try {
+            let res;
+    
+            if (props.userType === "Patient") {
+                res = await apiDB.post("/passAuthPatient", value);
+            } else if (props.userType === "Doctor") {
+                res = await apiDB.post("/passAuthDoctor", value);
             } else {
-                console.log("Logged In");
-                const enrichedData = {
-                    ...res.data,
-                    userType: props.userType,
-                };
-                props.info(enrichedData); // This passes down the user info to Navbar
-                props.auth(true); // This passes down that the user has been authenticated to Navbar
-
-                sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
-                sessionStorage.setItem("userType", props.userType);
-                sessionStorage.setItem("auth", true);
-
-                handleClose();
+                res = await apiDB.post("/passAuthPharm", value);
             }
-        } else if (props.userType === "Doctor") {
-            const res = await apiDB.post(
-                "/passAuthDoctor",
-                value
-            );
+    
             if (res.data.length === 0) {
                 console.log("Couldn't log in");
-            } else {
-                console.log("Logged In");
-                const enrichedData = {
-                    ...res.data,
-                    userType: props.userType,
-                };
-                props.info(enrichedData); // This passes down the user info to Navbar
-                props.auth(true); // This passes down that the user has been authenticated to Navbar
-
-                sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
-                sessionStorage.setItem("userType", props.userType);
-                sessionStorage.setItem("auth", true);
-
-                handleClose();
+                api.error({
+                    message: "Login Failed",
+                    description: "Invalid credentials",
+                    placement: "topRight",
+                });
+                return;
             }
-        } else {
-            const res = await apiDB.post(
-                "/passAuthPharm",
-                value
-            );
-            if (res.data.length === 0) {
-                console.log("Couldn't log in");
-            } else {
-                console.log("Logged In");
-                const enrichedData = {
-                    ...res.data,
-                    userType: props.userType,
-                };
-                props.info(enrichedData); // This passes down the user info to Navbar
-                props.auth(true); // This passes down that the user has been authenticated to Navbar
+    
+            console.log("Logged In");
+    
+            const enrichedData = {
+                ...res.data,
+                userType: props.userType,
+            };
+    
+            props.info(enrichedData);
+            props.auth(true);
+    
+            sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
+            sessionStorage.setItem("userType", props.userType);
+            sessionStorage.setItem("auth", true);
+    
+            if (props.userType === "Pharmacist") {
                 props.setIsPharm(true);
-
-                sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
-                sessionStorage.setItem("userType", props.userType);
-                sessionStorage.setItem("auth", true);
                 sessionStorage.setItem("isPharm", true);
-
                 navigate("/PharmacistPortal");
-                handleClose();
+            }
+    
+            handleClose();
+        } catch (error) {
+            if (
+                error.response &&
+                error.response.status === 401 &&
+                error.response.data === "Invalid credentials"
+            ) {
+                api.error({
+                    message: "Login Failed",
+                    description: "Invalid credentials",
+                    placement: "topRight",
+                });
+            } else {
+                console.error("Login error:", error);
+                api.error({
+                    message: "Login Error",
+                    description: "Something went wrong. Please try again.",
+                    placement: "topRight",
+                });
             }
         }
     };
@@ -115,6 +107,7 @@ const LoginModal = (props) => {
                 centered
                 className="style-modal"
             >
+            {contextHolder}
                 <Flex
                     vertical
                     justify="center"
