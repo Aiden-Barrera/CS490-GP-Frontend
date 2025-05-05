@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {Flex, Input, Layout} from "antd"
 import ReviewCard from "../components/ReviewCard"
 import './../App.css'
-import axios from "axios"
+import apiDB from './../api.js';
 
 const Reviews = () => {
     const [reviewInfo, setReviewInfo] = useState([])
@@ -11,7 +11,7 @@ const Reviews = () => {
     const [filteredInfo, setFilteredInfo] = useState([])
     
     const fetchReviewInfo = async () => {
-        const res = await axios.get("http://localhost:3000/reviews")
+        const res = await apiDB.get("/reviews")
         setReviewInfo(res.data)
     }
     
