@@ -5,6 +5,7 @@ import { Flex, Input, Button, Popover, Modal, Form, Checkbox, message, Table } f
 import axios from "axios";
 import dayjs from "dayjs";
 import socket from "../Socket";
+import apiDB from '../api'
 
 const ApptChannel = ({userInfo}) => {
   const [message, setMessage] = useState("");
@@ -25,7 +26,7 @@ const ApptChannel = ({userInfo}) => {
       Appointment_ID: location.state.appt_id
     }
 
-    const res = await axios.post("http://localhost:3000/fetchApptMessages", body)
+    const res = await apiDB.post("/fetchApptMessages", body)
 
     setChatLog(res.data)
     console.log("Message Sent to DB: ", res.data)
@@ -80,12 +81,12 @@ const ApptChannel = ({userInfo}) => {
       Payment_Status: 'Pending'
     }
     console.log(paymentBody)
-    await axios.post("http://localhost:3000/payment", paymentBody)
+    await apiDB.post("/payment", paymentBody)
     const body = {
       Appointment_ID: appt_id,
       Doctor_ID: userInfo.doctor_id
     }
-    await axios.patch("http://localhost:3000/endAppointment", body)
+    await apiDB.patch("/endAppointment", body)
     navigate("/DoctorPortal/DoctorFeedback", {
       state: {
         patient_id: patientID,
@@ -96,7 +97,7 @@ const ApptChannel = ({userInfo}) => {
   }
 
   const openModal = async () => {
-    const res = await axios.get(`http://localhost:3000/preliminaries/${patientID}`)
+    const res = await apiDB.get(`/preliminaries/${patientID}`)
     console.log("Preliminary Data: ", res.data)
     const patientData = res.data[0]; // since the data is in an array
     setSymptoms(patientData?.Symptoms || {});
@@ -105,7 +106,7 @@ const ApptChannel = ({userInfo}) => {
 
   const fetchRegiment = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/regiment/${patientID}`);
+      const res = await apiDB.get(`/regiment/${patientID}`);
       const regiment = res.data[0]?.Regiment;
 
       const weekdayOrder = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];

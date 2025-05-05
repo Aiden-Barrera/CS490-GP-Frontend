@@ -5,7 +5,7 @@ import { Flex, Layout, Button } from "antd";
 const {Content, Sider} = Layout
 import ReviewCommentCard from "./ReviewCommentCard";
 import ReviewModal from "./ReviewModal";
-
+import apiDB from './../api'
 const ReviewDetail = ({userInfo}) => {
     const { id } = useParams(); // Get the review ID from the URL
     const [reviews, setReviews] = useState(null);
@@ -16,10 +16,10 @@ const ReviewDetail = ({userInfo}) => {
 
     const fetchDoctorInfo = async () => {
         try {
-            const res1 = await axios.get(`http://localhost:3000/reviews/comments/${id}`)
+            const res1 = await apiDB.get(`/reviews/comments/${id}`)
             setReviews(res1.data)
     
-            const res2 = await axios.get(`http://localhost:3000/reviews/${id}`)
+            const res2 = await apiDB.get(`/reviews/${id}`)
             setDoctorInfo(res2.data)
             setRating(parseFloat(res2.data[0]?.rating).toFixed(1))
         } catch (err) {

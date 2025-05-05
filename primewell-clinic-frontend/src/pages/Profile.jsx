@@ -1,6 +1,7 @@
 import { Flex, Modal, Form, message, Button, Input, Switch } from "antd"
 import { useState, useEffect } from "react"
 import axios from "axios"
+import apiDB from '../api'
 
 const Profile = ({ userInfo, fetchUserInfo }) => {
     const [userProfile, setUserProfile] = useState(null)
@@ -15,34 +16,33 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
         try {
             let endpoint = ""
             let type = ""
-
             if (!userInfo) return
             console.log("Fetch Profile: ", userInfo)
             if (userInfo.patient_id) {
-                endpoint = `http://localhost:3000/patientInfo/${userInfo.patient_id}`
+                endpoint = `/patientInfo/${userInfo.patient_id}`
                 type = "Patient"
                 setUserType('Patient')
             } else if (userInfo.doctor_id) {
-                endpoint = `http://localhost:3000/doctorInfo/${userInfo.doctor_id}`
+                endpoint = `/doctorInfo/${userInfo.doctor_id}`
                 type = "Doctor"
                 setUserType('Doctor')
             } else if (userInfo.pharm_id) {
-                endpoint = `http://localhost:3000/pharmInfo/${userInfo.pharm_id}`
+                endpoint = `/pharmInfo/${userInfo.pharm_id}`
                 type = "Pharmacy"
                 setUserType('Pharmacy')
             } else {
                 console.warn("No Valid User ID Found for Profile")
             }
 
-            const res = await axios.get(endpoint)
+            const res = await apiDB.get(endpoint)
             const info = res.data
             setUserProfile(info[0])
             if (type === "Patient") {
-                const pharmRes = await axios.get(`http://localhost:3000/pharmInfo/${info[0]?.Pharm_ID}`)
+                const pharmRes = await apiDB.get(`/pharmInfo/${info[0]?.Pharm_ID}`)
                 console.log("Pharm Fetched Data: ", pharmRes.data)
                 setAssignedPharm(pharmRes.data)
                 if (info[0].Doctor_ID) {
-                    const doctRes = await axios.get(`http://localhost:3000/doctorInfo/${info[0]?.Doctor_ID}`)
+                    const doctRes = await apiDB.get(`/doctorInfo/${info[0]?.Doctor_ID}`)
                     setAssignedDoct(doctRes.data)
                     console.log("Doctor Fetched Data:", doctRes.data)
                 }
@@ -91,7 +91,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                 value.Zip = userProfile.Zip;
             }
             try {
-                const res = await axios.patch(`http://localhost:3000/patient/${userInfo.patient_id}`, value);
+                const res = await apiDB.patch(`/patient/${userInfo.patient_id}`, value);
                 if (res.data.length === 0) {
                     console.log("Couldn't update patient info");
                 } else {
@@ -123,7 +123,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
             }
             try {
                 console.log("DoctorID: ", userInfo.doctor_id, " New Info: ", value)
-                const res = await axios.patch(`http://localhost:3000/doctor/${userInfo.doctor_id}`, value);
+                const res = await apiDB.patch(`/doctor/${userInfo.doctor_id}`, value);
                 if (res.data.length === 0) {
                     console.log("Couldn't update doctor info");
                 } else {
@@ -149,7 +149,7 @@ const Profile = ({ userInfo, fetchUserInfo }) => {
                 value.Zip = userProfile.Zip;
             }
             try {
-                const res = await axios.patch(`http://localhost:3000/pharmacy/${userInfo.pharm_id}`, value);
+                const res = await apiDB.patch(`/pharmacy/${userInfo.pharm_id}`, value);
                 if (res.data.length === 0) {
                     console.log("Couldn't update pharmacy info");
                 } else {

@@ -3,10 +3,9 @@ import { Flex, Table, Input, Button, Tooltip, message } from 'antd';
 import axios from 'axios';
 import { PlusOutlined } from '@ant-design/icons';
 import CreatePillModal from './CreatePillModal';
+import apiDB from './../api.js'
 
 const PillFilter = ({info}) => {
-  console.log("📦 info in PillFilter:", info);
-
   const [pillsInfo, setPillsInfo] = useState([]);
   const [searchedPill, setSearchedPill] = useState("");
 
@@ -16,7 +15,7 @@ const PillFilter = ({info}) => {
   useEffect(() => {
     const fetchPillsInfo = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/pillbank");
+        const res = await apiDB.get("/pillbank");
         console.log(res.data)
         setPillsInfo(res.data);
       } catch (error) {
@@ -56,7 +55,7 @@ const PillFilter = ({info}) => {
     if (!window.confirm("Are you sure you want to delete this Pill?")) return;
   
     try {
-      const res = await axios.delete("http://localhost:3000/pillbank", {
+      const res = await apiDB.delete("/pillbank", {
         headers: {
           "Content-Type": "application/json",
         },

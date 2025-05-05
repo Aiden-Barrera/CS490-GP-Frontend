@@ -1,7 +1,7 @@
 import { Flex, Modal, Form, message, notification, Button, Input, Rate } from "antd"
 import axios from "axios"
 import { useEffect, useState } from "react"
-
+import apiDB from '../api'
 const desc = ['Very Poor', 'Poor', 'Neutral', 'Good', 'Execellent']
 
 const ReviewModal = ({open, handleClose, userInfo, doctorInfo, sent}) => {
@@ -25,7 +25,7 @@ const ReviewModal = ({open, handleClose, userInfo, doctorInfo, sent}) => {
 
     const sendReview = async (body) => {
         try {
-            const res = await axios.post("http://localhost:3000/reviews", body)
+            const res = await apiDB.post("/reviews", body)
 
             sent(true)
             handleClose()

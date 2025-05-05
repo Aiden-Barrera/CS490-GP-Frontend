@@ -2,7 +2,7 @@ import { Button, Flex, Form, message, Input } from "antd";
 import IncomingRequestCard from "../../components/IncomingRequestCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import apiDB from '../../api';
 const DoctorIncomingRequests = (props) => {
   const [form] = Form.useForm();
   const [incomingRequests, setIncomingRequests] = useState([]);
@@ -14,8 +14,8 @@ const DoctorIncomingRequests = (props) => {
 
   const getIncomingRequests = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:3000/request/${props.info.doctor_id}`
+      const res = await apiDB.get(
+        `/request/${props.info.doctor_id}`
       );
       // console.log(props.info.doctor_id);
       console.log("All Request: ", res.data);
