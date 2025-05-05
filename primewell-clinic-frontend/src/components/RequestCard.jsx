@@ -80,6 +80,8 @@ const RequestCard = (props) => {
         }
 
         setRequestBtnClicked(true)
+        console.log(props.info.doctor_id)
+        console.log(props.info);
 
         const body = {
             Patient_ID: props?.patientInfo?.patient_id,
