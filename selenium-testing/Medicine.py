@@ -66,7 +66,7 @@ pill_cost.send_keys("24.99")
 
 wait_and_click(driver, By.ID, "submit-new-pill")
 
-wait_and_click(driver, By.ID, "delete-medicine-50")
+wait_and_click(driver, By.ID, "delete-medicine-53")
 
 # Handle confirmation alert
 WebDriverWait(driver, 10).until(EC.alert_is_present())
