@@ -180,6 +180,7 @@ const Exercise = ({ info }) => {
             </Button>
           )}
           <Button
+            id="clear-regiment"
             type="primary"
             style={{ backgroundColor: "#f09c96", borderColor: "#f09c96" }}
             onClick={clearRegiment}
@@ -223,6 +224,7 @@ const Exercise = ({ info }) => {
               style={{ display: "flex", justifyContent: "center" }}
             >
               <Card
+               id={`category-${category.name}`}
                 hoverable
                 style={{
                   textAlign: "center",

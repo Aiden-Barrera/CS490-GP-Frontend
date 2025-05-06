@@ -68,6 +68,7 @@ const DoctorPrescription = ({userInfo}) => {
                     }
                 ]}>
                     <Select
+                        id="prescription"
                         showSearch
                         placeholder="Select a prescription"
                         optionFilterProp="children"
@@ -88,16 +89,16 @@ const DoctorPrescription = ({userInfo}) => {
                         ))}
                     </Select>
                 </Form.Item>
-                <Form.Item name="Quantity" label="Quantity" rules={[
+                <Form.Item name="quantity" label="Quantity" rules={[
                     {
                         required: true,
                         message: "Please select a Quantity!"
                     }
                 ]}>
-                    <InputNumber min={1} max={100} style={{ width: "100%" }} />
+                    <InputNumber id="quantity" min={1} max={100} style={{ width: "100%" }} />
                 </Form.Item>
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" 
+                    <Button id="submit-prescription" type="primary" htmlType="submit" 
                                 style={{width: "100%", borderRadius: "18px", padding: "22px 0px", backgroundColor: "#f09c96", fontSize: "18px"}}>Submit</Button>
                 </Form.Item>
             </Form>

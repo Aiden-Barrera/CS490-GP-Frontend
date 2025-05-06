@@ -177,7 +177,7 @@ const RequestCard = (props) => {
                     </Flex>
                 </Flex>
                 {props.info.availability === 1 ? (
-                    <Button type="primary" style={{
+                    <Button id="doctor-request-dropdown" type="primary" style={{
                         borderRadius: "40%",  // Fully circular shape
                         width: "50px",        // Ensures the button remains a circle
                         height: "50px",
@@ -202,15 +202,15 @@ const RequestCard = (props) => {
                     <Flex vertical gap="50px" justify="center" align="flex-start">
                         <Flex gap="20px" justify="center" align="flex-start">
                             {daySchedule?.map((timeSlot, index) => (
-                                <SlotCard key={index} index={index} timeSlot={timeSlot} onClick={handleClick} isActive={index === activeIndex}/>
+                                <SlotCard id={`slot-card-${index}`} key={index} index={index} timeSlot={timeSlot} onClick={handleClick} isActive={index === activeIndex}/>
                             ))}
                         </Flex>
                         <Flex gap="10px">
-                            <Select placeholder="Select Tier" options={option} onChange={(value) => setTier(value)} style={{ 
+                            <Select data-testid="tier-select" placeholder="Select Tier" options={option} onChange={(value) => setTier(value)} style={{ 
                                 fontWeight: "700", fontSize: "24px", color: "#333333", height: "100%", minWidth: "100px",boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"
                             }}/>
                             {contextHolder}
-                            <Button type="primary" disabled={requestBtnClicked} style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={sendRequest}>
+                            <Button id="send-request-button"type="primary" disabled={requestBtnClicked} style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={sendRequest}>
                                 Send Request
                             </Button>
                             {props.dropDoctor && (

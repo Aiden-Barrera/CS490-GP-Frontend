@@ -70,6 +70,7 @@ const AddCalendar = ({ open, handleClose, selectedRows, exerciseInfo, patientInf
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             {days.map((day, index) => (
               <div
+                id={`day-${index}`}
                 key={index}
                 style={{
                   width: '14.28%',

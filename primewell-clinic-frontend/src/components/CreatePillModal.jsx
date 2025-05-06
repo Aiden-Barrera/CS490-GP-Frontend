@@ -131,6 +131,7 @@ const CreatePillModal = (props) => {
                         <Form.Item>
                             <Flex justify="center">
                             <Button
+                            id="submit-new-pill"
                             type="primary" 
                             htmlType="submit" 
                             justify="center" 

@@ -80,6 +80,7 @@ const UserTypeModal = (props) => {
               }}
             >
               <Button
+                id="patient-btn"
                 type="primary"
                 htmlType="submit"
                 className="custom-btn"
@@ -95,6 +96,7 @@ const UserTypeModal = (props) => {
                 Patient
               </Button>
               <Button
+                id="doctor-btn"
                 type="primary"
                 htmlType="submit"
                 className="custom-btn"
@@ -110,6 +112,7 @@ const UserTypeModal = (props) => {
                 Doctor
               </Button>
               <Button
+                id="pharm-btn"
                 type="primary"
                 htmlType="submit"
                 className="custom-btn"
