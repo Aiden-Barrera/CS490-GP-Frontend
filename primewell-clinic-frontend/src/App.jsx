@@ -29,6 +29,7 @@ import DoctorPrescription from './pages/DoctorPortal/DoctorPrescription'
 import Payment from './pages/PatientPortal/Payment'
 import PrescriptionRequests from './pages/PharmacistPortal/PrescriptionRequests'
 import PatientPrescription from './pages/PatientPortal/PatientPrescription'
+import apiDB from './api'
 
 function App() {
   const [userInfo, setUserInfo] = useState([]) // This will store the user Info for future queries
@@ -54,7 +55,7 @@ function App() {
 
   const fetchUserInfo = async () => {
     if (userInfo.patient_id){
-      const res = await axios.get(`http://localhost:3000/fetchPatient/${userInfo.patient_id}`)
+      const res = await apiDB.get(`/fetchPatient/${userInfo.patient_id}`)
       const enrichedData = {
         ...res.data,
         userType: "Patient",
@@ -65,7 +66,7 @@ function App() {
       sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
 
     } else if (userInfo.doctor_id) {
-      const res = await axios.get(`http://localhost:3000/fetchDoctor/${userInfo.doctor_id}`)
+      const res = await apiDB.get(`/fetchDoctor/${userInfo.doctor_id}`)
       const enrichedData = {
         ...res.data,
         userType: "Doctor",
@@ -76,7 +77,7 @@ function App() {
       
       sessionStorage.setItem("userInfo", JSON.stringify(enrichedData));
     } else if (userInfo.pharm_id) {
-      const res = await axios.get(`http://localhost:3000/fetchPharmacy/${userInfo.pharm_id}`)
+      const res = await apiDB.get(`/fetchPharmacy/${userInfo.pharm_id}`)
       const enrichedData = {
         ...res.data,
         userType: "Pharmacist",
