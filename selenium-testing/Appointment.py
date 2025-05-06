@@ -47,7 +47,7 @@ wait_and_click(driver, By.PARTIAL_LINK_TEXT, "PATIENT PORTAL")
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "Request")
 wait_and_click(driver, By.ID, "doctor-request-dropdown")
 wait_and_click(driver, By.ID, "slot-card-0")
-wait_and_click(driver, By.CSS_SELECTOR, '[data-testid="tier-select"]')
+wait_and_click(driver, By.XPATH, "(//div[contains(@class, 'ant-select-selector')])[3]")
 
 ActionChains(driver).send_keys(Keys.ENTER).perform()
 
