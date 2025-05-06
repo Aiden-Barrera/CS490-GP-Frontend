@@ -90,7 +90,7 @@ wait_and_click(driver, By.ID, "category-Upper Body")
 
 # Select an exercise
 wait_and_click(driver, By.ID, "select-button-2")
-wait_and_click(driver, By.ID, "select-button-4")
+wait_and_click(driver, By.ID, "select-button-8")
 
 
 # Schedule
