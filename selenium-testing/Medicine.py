@@ -42,18 +42,36 @@ patient_password.send_keys('sP2,G0%E/j!c!')
 
 wait_and_click(driver, By.ID, "login-button")
 
+wait_and_click(driver, By.ID, "create-medicine")
 
-WebDriverWait(driver, 10).until(
-    EC.invisibility_of_element_located((By.CLASS_NAME, "ant-modal-wrap"))
-)
+wait_and_click(driver, By.ID, "Pill_Name")
 
-rows = driver.find_elements(By.CSS_SELECTOR, ".ant-table-tbody > tr")
+pill_name = driver.find_element(By.ID, "Pill_Name")
+pill_name.send_keys("Test Pill")
 
-# Select the last row
-last_row = rows[-1]
+wait_and_click(driver, By.ID, "Dosage")
 
-delete_button = last_row.find_element(By.TAG_NAME, "button")
+pill_type = driver.find_element(By.ID, "Dosage")
+pill_type.send_keys("7")
 
-# Scroll into view and click
-driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", delete_button)
-delete_button.click()
+wait_and_click(driver, By.ID, "Quantity")
+
+pill_description = driver.find_element(By.ID, "Quantity")
+pill_description.send_keys("45")
+
+wait_and_click(driver, By.ID, "Cost")
+
+pill_cost = driver.find_element(By.ID, "Cost")
+pill_cost.send_keys("24.99")
+
+wait_and_click(driver, By.ID, "submit-new-pill")
+
+wait_and_click(driver, By.ID, "delete-medicine-50")
+
+# Handle confirmation alert
+WebDriverWait(driver, 10).until(EC.alert_is_present())
+alert = driver.switch_to.alert
+alert.accept()
+
+time.sleep(60)  # let user see the result for a bit
+driver.quit()
