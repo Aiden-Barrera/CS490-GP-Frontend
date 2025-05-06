@@ -53,5 +53,12 @@ ActionChains(driver).send_keys(Keys.ENTER).perform()
 
 wait_and_click(driver, By.ID, "send-request-button")
 
+wait_and_click(driver, By.PARTIAL_LINK_TEXT, "Appointments")
+wait_and_click(driver, By.ID, "appt-btn")
+
+wait_and_click(driver, By.ID, "message")
+ActionChains(driver).send_keys("Testing").perform()
+wait_and_click(driver, By.ID, "send-btn")
+
 time.sleep(60)  # let user see the result for a bit
 driver.quit()

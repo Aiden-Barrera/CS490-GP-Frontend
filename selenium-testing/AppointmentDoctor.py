@@ -62,3 +62,13 @@ WebDriverWait(driver, 30).until(
 wait_and_click(driver, By.ID, "doctor_feedback_text")
 ActionChains(driver).send_keys("Testing").perform()
 wait_and_click(driver, By.ID, "send-feedback")
+
+wait_and_click(driver, By.ID, "prescription")
+ActionChains(driver).send_keys(Keys.ENTER).perform()
+
+wait_and_click(driver, By.ID, "quantity")
+quantity = driver.find_element(By.ID, "quantity")
+quantity.send_keys("2")
+
+wait_and_click(driver, By.ID, "submit-prescription")
+
