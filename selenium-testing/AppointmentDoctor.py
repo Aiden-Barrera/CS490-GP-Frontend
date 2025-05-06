@@ -35,17 +35,17 @@ WebDriverWait(driver, 60).until(
 )
 
 patient_email = driver.find_element(By.ID, "email")
-patient_email.send_keys("wgouldbourn0@facebook.com")
+patient_email.send_keys("hknath8@foxnews.com")
 
 patient_password = driver.find_element(By.ID, "pw")
-patient_password.send_keys('dU0/Ib46m#9d')
+patient_password.send_keys('sF6(#ehzE7')
 
 wait_and_click(driver, By.ID, "login-button")
 
 #Navigate to Request
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "DOCTOR PORTAL")
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "Incoming Requests")
-#wait_and_click(driver, By.ID, "accept-button")
+wait_and_click(driver, By.ID, "accept-button")
 
 #Navigate to appointments
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "Dashboard")
