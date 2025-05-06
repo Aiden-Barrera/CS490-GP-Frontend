@@ -64,4 +64,13 @@ pill_cost.send_keys("34.67")
 
 wait_and_click(driver, By.ID, "submit-new-pill")
 
-wait_and_click(driver, By.ID, "delete-medicine-20")
+rows = driver.find_elements(By.CSS_SELECTOR, ".ant-table-tbody > tr")
+
+# Select the last row
+last_row = rows[-1]
+
+delete_button = last_row.find_element(By.TAG_NAME, "button")
+
+# Scroll into view and click
+driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", delete_button)
+delete_button.click()
