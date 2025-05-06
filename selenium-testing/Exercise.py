@@ -10,6 +10,22 @@ import time
 def wait_and_click(driver, by, value, timeout=20):
     wait = WebDriverWait(driver, timeout)
     element = wait.until(EC.element_to_be_clickable((by, value)))
+    
+    # Dismiss notification if present
+    try:
+        notif = WebDriverWait(driver, 2).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "ant-notification"))
+        )
+        close_btn = notif.find_element(By.CLASS_NAME, "ant-notification-notice-close")
+        driver.execute_script("arguments[0].click();", close_btn)
+        time.sleep(0.5)
+        # wait until the notification disappears
+        WebDriverWait(driver, 10).until(
+            EC.invisibility_of_element(notif)
+        )
+    except:
+        pass  # Notification not present or already closed
+
     driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
     element.click()
     time.sleep(1)
