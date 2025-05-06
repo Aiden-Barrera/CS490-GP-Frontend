@@ -42,27 +42,10 @@ patient_password.send_keys('sP2,G0%E/j!c!')
 
 wait_and_click(driver, By.ID, "login-button")
 
-wait_and_click(driver, By.ID, "create-medicine")
 
-wait_and_click(driver, By.ID, "Pill_Name")
-
-pill_name = driver.find_element(By.ID, "Pill_Name")
-pill_name.send_keys("Test Medicine")
-
-wait_and_click(driver, By.ID, "Dosage")
-
-pill_dosage = driver.find_element(By.ID, "Dosage")
-pill_dosage.send_keys("4")
-
-quantity = driver.find_element(By.ID, "Quantity")
-quantity.send_keys("10")
-
-wait_and_click(driver, By.ID, "Cost")
-
-pill_cost = driver.find_element(By.ID, "Cost")
-pill_cost.send_keys("34.67")
-
-wait_and_click(driver, By.ID, "submit-new-pill")
+WebDriverWait(driver, 10).until(
+    EC.invisibility_of_element_located((By.CLASS_NAME, "ant-modal-wrap"))
+)
 
 rows = driver.find_elements(By.CSS_SELECTOR, ".ant-table-tbody > tr")
 
