@@ -61,10 +61,10 @@ const DoctorFeedback = ({userInfo}) => {
                         message: "Please input your Feedback!"
                     } 
                 ]} validateTrigger="onSubmit">
-                    <TextArea rows={4} placeholder="Enter any feedback you have for the Patient!"/>
+                    <TextArea id="doctor_feedback" rows={4} placeholder="Enter any feedback you have for the Patient!"/>
                 </Form.Item>
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" 
+                    <Button id="send-feedback" type="primary" htmlType="submit" 
                                 style={{width: "100%", borderRadius: "18px", padding: "22px 0px", backgroundColor: "#f09c96", fontSize: "18px"}}>Submit</Button>
                 </Form.Item>
             </Form>
