@@ -173,6 +173,7 @@ const Navbar = (props) => {
                 {!auth ? (
                   <>
                     <Button
+                    id="loginButton"
                       className="custom-btn"
                       // style={{ marginLeft: "5px" }}
                       onClick={() => {
