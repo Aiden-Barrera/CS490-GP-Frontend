@@ -2,6 +2,7 @@ import { Flex, Button, Modal, Form } from "antd";
 import axios from "axios";
 import dayjs from "dayjs";
 import { useState, useEffect } from "react";
+import apiDB from "../api";
 
 const PrescriptionCard = ({ prescription, fetchPrescriptions }) => {
     const createDate = dayjs(prescription?.Create_Date);
@@ -111,7 +112,7 @@ const PrescriptionCard = ({ prescription, fetchPrescriptions }) => {
                         disabled={prescription?.Prescription_Status === "Accepted"}
                         onClick={async () => {
                             console.log("Clicked: ", prescription);
-                            const res = await axios.get(`http://localhost:3000/fetchPrescriptionPaid/${prescription?.Prescription_ID}`)
+                            const res = await apiDB.get(`/fetchPrescriptionPaid/${prescription?.Prescription_ID}`)
                             
                             if (res.data.Payment_Status === "Paid"){
                                 setIsPaid(true)
@@ -175,7 +176,7 @@ const PrescriptionCard = ({ prescription, fetchPrescriptions }) => {
                         const body = {
                             Prescription_ID: prescription?.Prescription_ID
                         }
-                        const res = await axios.patch(`http://localhost:3000/acceptPrescription/`, body);
+                        const res = await apiDB.patch(`/acceptPrescription/`, body);
                         fetchPrescriptions()
                         setIsModalOpen(false);
                     }}
