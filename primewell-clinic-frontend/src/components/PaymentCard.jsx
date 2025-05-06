@@ -22,7 +22,7 @@ const PaymentCard = ({ paymentInfo, fetchPayments, userName, isAppt }) => {
             Payment_ID: paymentInfo?.Payment_ID,
             Card_Number: value.cardNumber
         }
-        await apiDB.post("/makePayment", body)
+        await apiDB.patch("/makePayment", body)
         fetchPayments()
         setIsModalOpen(false)
         
