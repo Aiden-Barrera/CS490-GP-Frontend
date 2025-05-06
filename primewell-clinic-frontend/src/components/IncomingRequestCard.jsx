@@ -135,7 +135,7 @@ const IncomingRequestCard = (props) => {
         </Flex>
         <Flex gap="10px">
         {contextHolder}
-          <Button disabled={btnClicked}
+          <Button id="accept-button"disabled={btnClicked}
             style={{
               backgroundColor: "#a2c3a4",
               color: "white",

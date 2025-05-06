@@ -75,6 +75,7 @@ const ExerciseListModal = ({info, selectedPatient, open, handleClose: handleList
                 <Space size="middle">
                     <Tooltip title="Select Exercise">
                         <Button
+                            id={`select-button-${props.Exercise_ID}`}
                             shape="circle"
                             icon={<PlusOutlined />}
                             onClick={() => handleButtonClick(props)}
