@@ -111,7 +111,7 @@ const PillFilter = ({info}) => {
       dataIndex: 'action',
       width: 150,
       render: (_, record) => (
-        <Button id="delete-medicine-15" danger onClick={() => deletePill(record.Pill_ID)}>
+        <Button id={`delete-medicine-${record.Pill_ID}`} danger onClick={() => deletePill(record.Pill_ID)}>
           Delete
         </Button>
       ),
