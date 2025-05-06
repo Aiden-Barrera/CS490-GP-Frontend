@@ -35,10 +35,10 @@ WebDriverWait(driver, 60).until(
 )
 
 patient_email = driver.find_element(By.ID, "email")
-patient_email.send_keys("hknath8@foxnews.com")
+patient_email.send_keys("pokroy6@aol.com")
 
 patient_password = driver.find_element(By.ID, "pw")
-patient_password.send_keys('sF6(#ehzE7')
+patient_password.send_keys('lS7./|.Wvr1*4/qX')
 
 wait_and_click(driver, By.ID, "login-button")
 
