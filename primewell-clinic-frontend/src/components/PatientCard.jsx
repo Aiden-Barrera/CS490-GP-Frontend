@@ -17,7 +17,7 @@ const PatientCard = (props) => {
   const openModal = async () => {
     console.log(props)
     setPatientID(props.patient_id)
-    const res = await apiDB.get(`http://localhost:3000/preliminaries/${props.patient_id}`)
+    const res = await apiDB.get(`/preliminaries/${props.patient_id}`)
     console.log("Preliminary Data: ", res.data)
     const patientData = res.data[0]; // since the data is in an array
     setSymptoms(patientData?.Symptoms || {});

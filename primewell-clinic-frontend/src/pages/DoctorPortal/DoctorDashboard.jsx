@@ -12,7 +12,7 @@ const DoctorDashboard = (props) => {
 
   const getDoctorPatients = async () => {
     try {
-      const res = await apiDB.post("http://localhost:3000/doctorPatients", {
+      const res = await apiDB.post("/doctorPatients", {
         Doctor_ID: props.info.doctor_id,
       });
       console.log(res.data);
@@ -25,7 +25,7 @@ const DoctorDashboard = (props) => {
   const getUpcomingPatients = async () => {
     try {
       const res = await apiDB.get(
-        `http://localhost:3000/appointment/doctor/${props.info.doctor_id}`
+        `/appointment/doctor/${props.info.doctor_id}`
       );
       console.log("Upcoming Appt: ", res.data);
       setUpcomingAppointments(res.data);
