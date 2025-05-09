@@ -134,7 +134,7 @@ const ExerciseListModal = ({info, selectedPatient, open, handleClose: handleList
                     </h3>
                     {selectedRows.size > 0 && (
                     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                        <Button type="primary" htmlType="submit" style={{ backgroundColor: '#A2C3A4'}} onClick={() => setSelectedModalVisible(true)}>
+                        <Button id="schedule-button" type="primary" htmlType="submit" style={{ backgroundColor: '#A2C3A4'}} onClick={() => setSelectedModalVisible(true)}>
                             Schedule Exercise(s)
                         </Button>
                     </div>
