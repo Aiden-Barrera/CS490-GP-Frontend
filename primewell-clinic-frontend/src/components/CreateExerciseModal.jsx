@@ -1,4 +1,4 @@
-import { Flex, Modal, Form, message, Button, Input} from "antd"
+import { Flex, Modal, Form, message, Button, Input, Select} from "antd"
 import { useEffect, useState } from "react"
 import EIModal from "./Exercise_ImageUpload"
 import axios from "axios"
@@ -6,6 +6,7 @@ import apiDB from './../api.js';
 
 const CreateExerciseModal = (props) => {
     const [form] = Form.useForm()
+    const { categories, open,  info } = props;
 
     useEffect(() => {
         if (props.open) {
@@ -87,14 +88,14 @@ const CreateExerciseModal = (props) => {
                         >
                             <Input placeholder="Muscle Group" style={{height: "45px"}}/>
                         </Form.Item>
-                        <Form.Item name="Exercise Class" label="Exercise Class" rules={[
-                            {
-                                required: true,
-                                message: "Exercise Class Required"
-                            },
-                        ]}
-                        >
-                            <Input placeholder="Exercise Class" style={{height: "45px"}}/>
+                        <Form.Item name="Exercise Class" label="Exercise Class" rules={[{ required: true, message: "Exercise Class Required" }]}>
+                            <Select placeholder="Select an Exercise Class" style={{ height: "45px" }}>
+                                {categories?.map((category, index) => (
+                                    <Select.Option key={index} value={category.name}>
+                                        {category.name}
+                                    </Select.Option>
+                                ))}
+                            </Select>
                         </Form.Item>
                         <Form.Item name="Sets" label="Sets" rules={[
                             {
@@ -124,7 +125,6 @@ const CreateExerciseModal = (props) => {
                             <Input placeholder="Description" style={{height: "45px"}}/>
                         </Form.Item>
                         <Form.Item>
-                            <EIModal />
                             <Button 
                             type="primary" 
                             htmlType="submit" 

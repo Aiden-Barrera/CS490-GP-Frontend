@@ -207,6 +207,8 @@ const Exercise = ({ info }) => {
           handleClose={handleCalendarCancel}
         />
         <CreateExerciseModal
+          info={info}
+          categories={categories}
           open={isCreateModalOpen}
           handleClose={handleCreateCancel}
         />
