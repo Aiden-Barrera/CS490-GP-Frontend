@@ -1,4 +1,4 @@
-import { Flex, Modal, Form, message, Button, Input} from "antd"
+import { Flex, Modal, Form, message, Button, Input, Select} from "antd"
 import { useEffect, useState } from "react"
 import EIModal from "./Exercise_ImageUpload"
 import axios from "axios"
@@ -124,7 +124,6 @@ const CreateExerciseModal = (props) => {
                             <Input placeholder="Description" style={{height: "45px"}}/>
                         </Form.Item>
                         <Form.Item>
-                            <EIModal />
                             <Button 
                             type="primary" 
                             htmlType="submit" 
