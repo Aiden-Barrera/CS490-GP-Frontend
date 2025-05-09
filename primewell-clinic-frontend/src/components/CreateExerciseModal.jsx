@@ -87,14 +87,14 @@ const CreateExerciseModal = (props) => {
                         >
                             <Input placeholder="Muscle Group" style={{height: "45px"}}/>
                         </Form.Item>
-                        <Form.Item name="Exercise Class" label="Exercise Class" rules={[
-                            {
-                                required: true,
-                                message: "Exercise Class Required"
-                            },
-                        ]}
-                        >
-                            <Input placeholder="Exercise Class" style={{height: "45px"}}/>
+                        <Form.Item name="Exercise Class" label="Exercise Class" rules={[{ required: true, message: "Exercise Class Required" }]}>
+                            <Select placeholder="Select an Exercise Class" style={{ height: "45px" }}>
+                                {categories?.map((category, index) => (
+                                    <Select.Option key={index} value={category.name}>
+                                        {category.name}
+                                    </Select.Option>
+                                ))}
+                            </Select>
                         </Form.Item>
                         <Form.Item name="Sets" label="Sets" rules={[
                             {
