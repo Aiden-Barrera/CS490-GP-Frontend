@@ -81,6 +81,7 @@ const PatientCard = (props) => {
 
           <Flex vertical gap="15px">
             <Button
+              id="view-dashboard"
               style={{
                 backgroundColor: "#FFE6E2",
                 color: "black",
@@ -94,6 +95,7 @@ const PatientCard = (props) => {
               <h2>View Dashboard</h2>
             </Button>
             <Button
+              id="view-forum"
               style={{
                 backgroundColor: "#a2c3a4",
                 color: "white",
