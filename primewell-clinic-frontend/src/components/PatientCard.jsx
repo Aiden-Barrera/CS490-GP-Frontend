@@ -128,7 +128,7 @@ const PatientCard = (props) => {
               autoComplete="off"
             >
               <Form.Item>
-                <div>
+                <Flex>
                   <table style={{ textAlign: "left", width: "100%" }}>
                     <thead>
                       <tr>
@@ -149,20 +149,25 @@ const PatientCard = (props) => {
                             "Arm Pain",
                             "Joint Pain",
                           ].map((symptom) => (
-                            <div key={symptom}>
+                            <Flex key={symptom}>
                               <Checkbox
-                                disabled
                                 checked={
                                   symptoms["Muscle/Joint/Bone"]?.includes(
                                     symptom
                                   ) || false
                                 }
-
+                                onChange={(e) =>
+                                  handleSymptomChange(
+                                    e.target.checked,
+                                    symptom,
+                                    "Muscle/Joint/Bone"
+                                  )
+                                }
                               >
                                 {symptom}
                               </Checkbox>
                               <br />
-                            </div>
+                            </Flex>
                           ))}
                         </td>
                         <td style={{ padding: "0px 11px" }}>
@@ -173,20 +178,25 @@ const PatientCard = (props) => {
                             "Sinus Problems",
                             "Strep Throat",
                           ].map((symptom) => (
-                            <div key={symptom}>
+                            <Flex key={symptom}>
                               <Checkbox
-                                disabled
                                 checked={
                                   symptoms["Eyes/Ears/Nose/Throat"]?.includes(
                                     symptom
                                   ) || false
                                 }
-
+                                onChange={(e) =>
+                                  handleSymptomChange(
+                                    e.target.checked,
+                                    symptom,
+                                    "Eyes/Ears/Nose/Throat"
+                                  )
+                                }
                               >
                                 {symptom}
                               </Checkbox>
                               <br />
-                            </div>
+                            </Flex>
                           ))}
                         </td>
                         <td style={{ padding: "0px 11px" }}>
@@ -197,19 +207,24 @@ const PatientCard = (props) => {
                             "Memory Loss",
                             "Depression",
                           ].map((symptom) => (
-                            <div key={symptom}>
+                            <Flex key={symptom}>
                               <Checkbox
-                                disabled
                                 checked={
                                   symptoms["Neurologic"]?.includes(symptom) ||
                                   false
                                 }
-
+                                onChange={(e) =>
+                                  handleSymptomChange(
+                                    e.target.checked,
+                                    symptom,
+                                    "Neurologic"
+                                  )
+                                }
                               >
                                 {symptom}
                               </Checkbox>
                               <br />
-                            </div>
+                            </Flex>
                           ))}
                         </td>
                       </tr>
@@ -219,20 +234,25 @@ const PatientCard = (props) => {
                         <th style={{ padding: "0px 11px" }}>CARDIOVASCULAR</th>
                       </tr>
                       <tr>
-                        <td style={{ padding: "0px 11px" }}>
+                        <td style={{ padding: "0px 11px", paddingBottom: "20px" }}>
                           {["Itching", "Rash", "Callus"].map((symptom) => (
-                            <div key={symptom}>
+                            <Flex key={symptom}>
                               <Checkbox
-                                disabled
                                 checked={
                                   symptoms["Skin"]?.includes(symptom) || false
                                 }
-
+                                onChange={(e) =>
+                                  handleSymptomChange(
+                                    e.target.checked,
+                                    symptom,
+                                    "Skin"
+                                  )
+                                }
                               >
                                 {symptom}
                               </Checkbox>
                               <br />
-                            </div>
+                            </Flex>
                           ))}
                         </td>
                         <td style={{ padding: "0px 11px" }}>
@@ -242,18 +262,23 @@ const PatientCard = (props) => {
                             "Asthma",
                             "Sleep Apnea",
                           ].map((symptom) => (
-                            <div key={symptom}>
+                            <Flex key={symptom}>
                               <Checkbox
-                                disabled
                                 checked={
                                   symptoms["Lungs"]?.includes(symptom) || false
                                 }
-
+                                onChange={(e) =>
+                                  handleSymptomChange(
+                                    e.target.checked,
+                                    symptom,
+                                    "Lungs"
+                                  )
+                                }
                               >
                                 {symptom}
                               </Checkbox>
                               <br />
-                            </div>
+                            </Flex>
                           ))}
                         </td>
                         <td style={{ padding: "0px 11px" }}>
@@ -263,25 +288,45 @@ const PatientCard = (props) => {
                             "Heart Attack",
                             "Heart Disease",
                           ].map((symptom) => (
-                            <div key={symptom}>
+                            <Flex key={symptom}>
                               <Checkbox
-                                disabled
                                 checked={
                                   symptoms["Cardiovascular"]?.includes(symptom) ||
                                   false
                                 }
-
+                                onChange={(e) =>
+                                  handleSymptomChange(
+                                    e.target.checked,
+                                    symptom,
+                                    "Cardiovascular"
+                                  )
+                                }
                               >
                                 {symptom}
                               </Checkbox>
                               <br />
-                            </div>
+                            </Flex>
                           ))}
                         </td>
                       </tr>
                     </tbody>
                   </table>
-                </div>
+                </Flex>
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{
+                    width: "100%",
+                    border: "1px solid #999999",
+                    borderRadius: "18px",
+                    padding: "22px 0px",
+                    backgroundColor: "#f09c96",
+                  }}
+                >
+                  Submit Preliminary Form
+                </Button>
               </Form.Item>
             </Form>
           </Flex>
