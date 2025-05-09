@@ -1,3 +1,13 @@
+#This script involves viewing, clearing, and adding to regiment 
+#1) Log in as a patient
+#2) Navigate to PATIENT PORTAL, then to regiment tab to see intial regiment
+#3) Navigate to EXERCISE, clear regiment, then see regiment is cleared
+#4) Start adding exercises to new regimet
+#5) Navigate to PATIENT PORTAL, then to regiment tab to see updated regiment
+#PREP FOR VID: If you want, before testing, sign into the patient info provided
+#within the code and make a custom regiment. Then run the code, this will better
+#protray the difference between the intial regiment and final regiment (OPTIONAL)
+
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -65,18 +75,13 @@ wait_and_click(driver, By.PARTIAL_LINK_TEXT, "Regiment")
 #Navigate to Exercises to edit Regiment
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "EXERCISES")
 
+
 WebDriverWait(driver, 60).until(
     EC.presence_of_element_located((By.CLASS_NAME, "ant-card-body")),
 )
 
 wait_and_click(driver, By.ID, "clear-regiment")
 
-#notif_msg = WebDriverWait(driver, 60).until(
-#    EC.presence_of_element_located((By.XPATH, "//div[@class='ant-notification-notice-message']"))
-#)
-
-#assert notif_msg.is_displayed()
-#assert notif_msg.is_displayed()
 
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "PATIENT PORTAL")
 
@@ -94,11 +99,14 @@ wait_and_click(driver, By.ID, "select-button-8")
 
 
 # Schedule
+click_schedule = WebDriverWait(driver, 60).until(
+    EC.presence_of_element_located((By.ID, "schedule-button"))
+)
 wait_and_click(driver, By.ID, "schedule-button")
 
 # Pick days
-wait_and_click(driver, By.ID, "day-Wednesday")
-wait_and_click(driver, By.ID, "day-Friday")
+wait_and_click(driver, By.ID, "day-2")
+wait_and_click(driver, By.ID, "day-4")
 
 # Find the ant-modal-close element
 submit_ex = WebDriverWait(driver, 60).until(
@@ -117,6 +125,8 @@ WebDriverWait(driver, 60).until(
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "PATIENT PORTAL")
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "Regiment")
 
+wait_and_click(driver, By.ID, "profileButton")
 
+wait_and_click(driver, By.ID, "signOut")
 time.sleep(60)  # let user see the result for a bit
 driver.quit()

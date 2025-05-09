@@ -1,3 +1,12 @@
+#This script involves naavigating the appointment process on the doctor side
+#1) Log in as a doctor
+#2) Navigate to DOCTOR PORTAL, then to appointment tab and accept recent request
+#3) View the patient's info and start appointment
+#4) Chat and end appointment
+#5) Prompted to give feedback and prescription
+#
+
+
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -35,24 +44,29 @@ WebDriverWait(driver, 60).until(
 )
 
 patient_email = driver.find_element(By.ID, "email")
-patient_email.send_keys("pokroy6@aol.com")
+patient_email.send_keys("wgouldbourn0@facebook.com")
 
 patient_password = driver.find_element(By.ID, "pw")
-patient_password.send_keys('lS7./|.Wvr1*4/qX')
+patient_password.send_keys('dU0/Ib46m#9d')
 
 wait_and_click(driver, By.ID, "login-button")
 
-#Navigate to Request
+#Navigate to Request and accept most recent one
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "DOCTOR PORTAL")
 wait_and_click(driver, By.PARTIAL_LINK_TEXT, "Incoming Requests")
 wait_and_click(driver, By.ID, "accept-button")
 
-#Navigate to appointments
-wait_and_click(driver, By.PARTIAL_LINK_TEXT, "Dashboard")
+#Look at patient info
+wait_and_click(driver, By.ID, "view-dashboard")
+driver.switch_to.active_element.send_keys(Keys.ESCAPE)
+wait_and_click(driver, By.ID, "view-forum")
+driver.switch_to.active_element.send_keys(Keys.ESCAPE)
+
+#Start appointment
 wait_and_click(driver, By.ID, "start-appt")
 wait_and_click(driver, By.ID, "message")
 
-#Type,send,end
+#Type,send,end appointmeent, and send feedback/precription
 ActionChains(driver).send_keys("Testing").perform()
 wait_and_click(driver, By.ID, "send-btn")
 wait_and_click(driver, By.ID, "end-appt-btn")
