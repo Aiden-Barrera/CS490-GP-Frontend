@@ -9,6 +9,8 @@ import time
 import random
 from faker import Faker
 
+# Patient Creates Account then Requests a doctor then edits their profile
+
 service = Service(excutable_path="chromedriver.exe")
 driver = webdriver.Chrome(service=service)
 # driver.maximize_window()
@@ -146,39 +148,64 @@ def create_new_patient():
     global patient_created
     patient_created = True
 
-# login_as_user()
-create_new_patient()
+def request_doctor():
+    # Click Patient Portal link in navbar
+    patient_portal_link_XPATH = "//*[@id=\"root\"]/div/div/header/ul/li[3]/span/a"
+    click_button(patient_portal_link_XPATH)
 
-# Click Patient Portal link in navbar
-patient_portal_link_XPATH = "//*[@id=\"root\"]/div/div/header/ul/li[3]/span/a"
-click_button(patient_portal_link_XPATH)
+    # Click Request link on side bar
+    request_link_XPATH = "//*[@id=\"root\"]/div/div/div/div[1]/ul/li[2]/span/a"
+    click_button(request_link_XPATH)
 
-# Click Request link on side bar
-request_link_XPATH = "//*[@id=\"root\"]/div/div/div/div[1]/ul/li[2]/span/a"
-click_button(request_link_XPATH)
+    # Click first doctors dropdown button 
+    request_doctor_dropdown_button_XPATH = "//*[@id=\"root\"]/div/div/div/div[2]/div/div/div[1]/div/button"
+    click_button(request_doctor_dropdown_button_XPATH)
 
-# Click first doctors dropdown button 
-request_doctor_dropdown_button_XPATH = "//*[@id=\"root\"]/div/div/div/div[2]/div/div/div[1]/div/button"
-click_button(request_doctor_dropdown_button_XPATH)
+    # Click first time slot
+    first_time_slot_button_XPATH = "//*[@id=\"root\"]/div/div/div/div[2]/div/div/div[1]/div[2]/div[2]/div[1]/div[1]"
+    click_button(first_time_slot_button_XPATH)
 
-# Click first time slot
-first_time_slot_button_XPATH = "//*[@id=\"root\"]/div/div/div/div[2]/div/div/div[1]/div[2]/div[2]/div[1]/div[1]"
-click_button(first_time_slot_button_XPATH)
+    # Click Tier dropdown
+    tier_dropdown_XPATH = "//*[@id=\"root\"]/div/div/div/div[2]/div/div/div[1]/div[2]/div[2]/div[2]/div/div"
+    click_button(tier_dropdown_XPATH)
 
-# Click Tier dropdown
-tier_dropdown_XPATH = "//*[@id=\"root\"]/div/div/div/div[2]/div/div/div[1]/div[2]/div[2]/div[2]/div/div"
-click_button(tier_dropdown_XPATH)
+    # Click second tier
+    if patient_created == True:
+        second_tier_XPATH = "/html/body/div[6]/div/div/div[2]/div/div/div/div[1]/div"
+    else:
+        second_tier_XPATH = "/html/body/div[4]/div/div/div[2]/div/div/div/div[2]"
+    click_button(second_tier_XPATH)
 
-# Click second tier
-if patient_created == True:
-    second_tier_XPATH = "/html/body/div[6]/div/div/div[2]/div/div/div/div[1]/div"
-else:
-    second_tier_XPATH = "/html/body/div[4]/div/div/div[2]/div/div/div/div[2]"
-click_button(second_tier_XPATH)
+    # Click Send Request
+    send_request_XPATH = "//*[@id=\"root\"]/div/div/div/div[2]/div/div/div[1]/div[2]/div[2]/div[2]/button"
+    click_button(send_request_XPATH)
 
-# Click Send Request
-send_request_XPATH = "//*[@id=\"root\"]/div/div/div/div[2]/div/div/div[1]/div[2]/div[2]/div[2]/button"
-click_button(send_request_XPATH)
+def edit_profile():
+    # Click Profile Icon
+    profile_icon_XPATH = "//*[@id=\"root\"]/div/div/header/button"
+    click_button(profile_icon_XPATH)
+
+    # Click View Profile
+    view_profile_XPATH = "//li/span[text()='View Profile']"
+    click_button(view_profile_XPATH)
+
+    # Click Edit profile Button
+    edit_profile_XPATH = "//*[@id=\"root\"]/div/div/div/div/button"
+    click_button(edit_profile_XPATH)
+
+    # Insert first name 
+    first_name_XPATH = "//*[@id=\"First_Name\"]"
+    enter_input(first_name_XPATH, "aaaaaaa")
+
+    # Click Confirm Edit Button
+    confirm_edit_XPATH = "//button/span[text()='Confirm Edit']"
+    click_button(confirm_edit_XPATH)
+    
+
+login_as_user()
+# create_new_patient()
+# request_doctor()
+edit_profile()
 
 time.sleep(60)
 driver.quit()
