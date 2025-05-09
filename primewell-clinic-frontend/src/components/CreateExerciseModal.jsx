@@ -6,6 +6,7 @@ import apiDB from './../api.js';
 
 const CreateExerciseModal = (props) => {
     const [form] = Form.useForm()
+    const { categories, open,  info } = props;
 
     useEffect(() => {
         if (props.open) {
