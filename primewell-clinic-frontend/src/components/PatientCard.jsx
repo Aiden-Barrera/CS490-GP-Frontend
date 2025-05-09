@@ -289,7 +289,7 @@ const PatientCard = (props) => {
       </Modal>
       <Modal open={isDashboardModalOpen} onCancel={() => setIsDashboardModalOpen(false)} footer={false} centered className="style-modal" width={1200}>
         <Flex justify="center" align="center" style={{ height: "100vh", margin: "25% 0" }}>
-          <h1 style={{ color: "#333333", marginBottom: 0, marginTop: 0 }}>Welcome {props.info?.First_Name} to your Dashboard!</h1>
+          <h1 style={{ color: "#333333", marginBottom: 0, marginTop: 0 }}>{props.Fname}{props.Lname} Data</h1>
         </Flex>
         <Flex vertical justify="center" align="center" gap="50px" style={{ marginTop: "100px", width: "100%" }}>
           <h1 style={{ color: "#333333", marginBottom: 0, marginTop: 0 }}>Daily Progress</h1>
