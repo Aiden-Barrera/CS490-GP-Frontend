@@ -297,12 +297,12 @@ const PatientCard = (props) => {
 
             <Flex vertical justify="center" align="center" style={{ maxWidth: "500px" }}>
               <h2 style={{ textAlign: "center", marginBottom: "16px" }}>Caloric Intake Trends</h2>
-              <CalorieChart info={props.info} />
+              <CalorieChart info={props.patient_id} />
             </Flex>
             <Flex vertical gap="25px" justify="center" align="center">
               <Flex vertical align="center" justify="center" style={{ maxWidth: "500px" }}>
                 <h2 style={{ textAlign: "center", marginBottom: "16px" }}>Weekly Weight Trends</h2>
-                <WeightChart info={props.info} />
+                <WeightChart info={props.patient_id} />
               </Flex>
             </Flex>
           </Flex>
