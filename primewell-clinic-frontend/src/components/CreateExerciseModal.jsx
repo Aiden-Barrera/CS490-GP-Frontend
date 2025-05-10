@@ -31,7 +31,7 @@ const CreateExerciseModal = (props) => {
 
             await apiDB.post("/exercisebank", formattedValues);
             message.success("New Exercise Added!")
-            props.sent(true)
+            //props.sent(true)
             form.resetFields();
             props.handleClose();
         } catch (error) {

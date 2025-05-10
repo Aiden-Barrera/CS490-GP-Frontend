@@ -90,7 +90,7 @@ const AddCalendar = ({ open, handleClose, selectedRows, exerciseInfo, patientInf
         </div>
         {selectedDays.length > 0 && (
           <Flex justify="center" style={{ marginTop: '30px' }}>
-            <Button htmlType="submit" type="primary" style={{ backgroundColor: "#A8C4A2" }}>
+            <Button id="submit-exercises"htmlType="submit" type="primary" style={{ backgroundColor: "#A8C4A2" }}>
               Submit Schedule
             </Button>
           </Flex>
