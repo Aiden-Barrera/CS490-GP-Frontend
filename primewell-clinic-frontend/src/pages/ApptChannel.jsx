@@ -1,4 +1,4 @@
-import { useEffect, useState,  } from "react";
+import { useEffect, useState, } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import { Flex, Input, Button, Popover, Modal, Form, Checkbox, message, Table } from "antd";
@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import socket from "../Socket";
 import apiDB from '../api'
 
-const ApptChannel = ({userInfo}) => {
+const ApptChannel = ({ userInfo }) => {
   const [message, setMessage] = useState("");
   const [chatLog, setChatLog] = useState([]);
   const [appt_id, setAppt_ID] = useState("")
@@ -93,7 +93,7 @@ const ApptChannel = ({userInfo}) => {
         appt_id: appt_id
       }
     })
-    
+
   }
 
   const openModal = async () => {
@@ -112,12 +112,12 @@ const ApptChannel = ({userInfo}) => {
       const weekdayOrder = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
       const formattedData = Object.entries(regiment)
-          .map(([day, exercises]) => ({
-              key: day,
-              day,
-              exercises: exercises.join(', ') || 'Rest',
-          }))
-          .sort((a, b) => weekdayOrder.indexOf(a.day) - weekdayOrder.indexOf(b.day));
+        .map(([day, exercises]) => ({
+          key: day,
+          day,
+          exercises: exercises.join(', ') || 'Rest',
+        }))
+        .sort((a, b) => weekdayOrder.indexOf(a.day) - weekdayOrder.indexOf(b.day));
       console.log("Patient Regiment: ", formattedData)
       setPatientRegiment(formattedData);
       setIsRegimentModalOpen(true)
@@ -134,12 +134,12 @@ const ApptChannel = ({userInfo}) => {
       }
     })
   }
-  
+
 
   const content = (
     <Flex vertical gap="10px">
-      <Button type="primary" style={{fontWeight: "700", fontSize: "18px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={openModal}>Patient Forum</Button>
-      {userInfo?.doctor_id && (<Button type="primary" style={{fontWeight: "700", fontSize: "18px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={fetchRegiment}>View Regiment</Button>)}
+      <Button type="primary" style={{ fontWeight: "700", fontSize: "18px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)" }} onClick={openModal}>Patient Forum</Button>
+      {userInfo?.doctor_id && (<Button type="primary" style={{ fontWeight: "700", fontSize: "18px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)" }} onClick={fetchRegiment}>View Regiment</Button>)}
     </Flex>
   )
 
@@ -159,7 +159,7 @@ const ApptChannel = ({userInfo}) => {
   return (
     <>
 
-      <div style={{display: "flex", flexDirection: "column", width: "100%", backgroundColor: "#ffffff", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)", borderRadius: "12px", padding: "33px 40px"}}>
+      <div style={{ display: "flex", flexDirection: "column", width: "100%", backgroundColor: "#ffffff", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)", borderRadius: "12px", padding: "33px 40px" }}>
         <h2>Room: {appt_id}</h2>
         <div style={{ overflowY: "scroll", width: "100%", height: "90%", display: "flex", flexDirection: "column", justifyContent: "flex-start", gap: "10px", marginTop: "20px" }}>
           {chatLog.map((msg, index) => {
@@ -188,17 +188,17 @@ const ApptChannel = ({userInfo}) => {
                       />
                     </Popover>
                   ) : (
-                      <img
-                        src={msg.senderType === "Patient" ? `https://ui-avatars.com/api/?name=${encodeURIComponent(msg.senderName)}&background=random&color=fff&size=42` : `https://ui-avatars.com/api/?name=${encodeURIComponent(msg.senderName)}&background=random&color=fff&size=42`}
-                        alt="Message Icon"
-                        title={msg.senderName}
-                        style={{
-                          width: "42px",
-                          height: "auto",
-                          borderRadius: "50%",
-                          objectFit: "cover",
-                        }}
-                      />
+                    <img
+                      src={msg.senderType === "Patient" ? `https://ui-avatars.com/api/?name=${encodeURIComponent(msg.senderName)}&background=random&color=fff&size=42` : `https://ui-avatars.com/api/?name=${encodeURIComponent(msg.senderName)}&background=random&color=fff&size=42`}
+                      alt="Message Icon"
+                      title={msg.senderName}
+                      style={{
+                        width: "42px",
+                        height: "auto",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                      }}
+                    />
 
                   )}
                   <div
@@ -219,17 +219,17 @@ const ApptChannel = ({userInfo}) => {
             );
           })}
         </div>
-        <Flex justify="center" align="center" gap="15px" style={{marginTop: "30px"}}>
+        <Flex justify="center" align="center" gap="15px" style={{ marginTop: "30px" }}>
           <Input
-          id="message"
+            id="message"
             disabled={appt_end}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Type your message"
-            style={{fontSize: "24px", width: "700px", }}
+            style={{ fontSize: "24px", width: "700px", }}
           />
-          <Button id="send-btn" disabled={appt_end} type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}}  onClick={sendMessage}>Send</Button>
-          {userInfo?.doctor_id && (<Button id="end-appt-btn" type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "rgb(239, 71, 111)", color: "#ffffff", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={endAppointment}>End Appointment</Button>)}
+          <Button id="send-btn" disabled={appt_end} type="primary" style={{ fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)" }} onClick={sendMessage}>Send</Button>
+          {userInfo?.doctor_id && (<Button id="end-appt-btn" type="primary" style={{ fontWeight: "700", fontSize: "24px", backgroundColor: "rgb(239, 71, 111)", color: "#ffffff", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)" }} onClick={endAppointment}>End Appointment</Button>)}
         </Flex>
       </div>
 
@@ -281,7 +281,7 @@ const ApptChannel = ({userInfo}) => {
                                     symptom
                                   ) || false
                                 }
-                                
+
                               >
                                 {symptom}
                               </Checkbox>
@@ -305,7 +305,7 @@ const ApptChannel = ({userInfo}) => {
                                     symptom
                                   ) || false
                                 }
-                                
+
                               >
                                 {symptom}
                               </Checkbox>
@@ -328,7 +328,7 @@ const ApptChannel = ({userInfo}) => {
                                   symptoms["Neurologic"]?.includes(symptom) ||
                                   false
                                 }
-                                
+
                               >
                                 {symptom}
                               </Checkbox>
@@ -343,7 +343,7 @@ const ApptChannel = ({userInfo}) => {
                         <th style={{ padding: "0px 11px" }}>CARDIOVASCULAR</th>
                       </tr>
                       <tr>
-                        <td style={{ padding: "0px 11px" }}>
+                        <td style={{ padding: "0px 11px", paddingBottom: "20px" }}>
                           {["Itching", "Rash", "Callus"].map((symptom) => (
                             <div key={symptom}>
                               <Checkbox
@@ -351,7 +351,7 @@ const ApptChannel = ({userInfo}) => {
                                 checked={
                                   symptoms["Skin"]?.includes(symptom) || false
                                 }
-                                
+
                               >
                                 {symptom}
                               </Checkbox>
@@ -372,7 +372,7 @@ const ApptChannel = ({userInfo}) => {
                                 checked={
                                   symptoms["Lungs"]?.includes(symptom) || false
                                 }
-                                
+
                               >
                                 {symptom}
                               </Checkbox>
@@ -394,7 +394,7 @@ const ApptChannel = ({userInfo}) => {
                                   symptoms["Cardiovascular"]?.includes(symptom) ||
                                   false
                                 }
-                                
+
                               >
                                 {symptom}
                               </Checkbox>
@@ -412,9 +412,9 @@ const ApptChannel = ({userInfo}) => {
         </Flex>
       </Modal>
       <Modal open={isRegimentModalOpen} onCancel={() => setIsRegimentModalOpen(false)} footer={false} centered className="style-modal" width={650}>
-        <Table columns={columns} dataSource={patientRegiment} pagination={false} bordered/>
-        <Flex justify="center" align="center" style={{marginTop: "25px"}}>
-          <Button type="primary" style={{fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)"}} onClick={makeNewPatientRegiment}>Make New Regiment</Button>
+        <Table columns={columns} dataSource={patientRegiment} pagination={false} bordered />
+        <Flex justify="center" align="center" style={{ marginTop: "25px" }}>
+          <Button type="primary" style={{ fontWeight: "700", fontSize: "24px", backgroundColor: "#ffe6e2", color: "#333333", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)" }} onClick={makeNewPatientRegiment}>Make New Regiment</Button>
         </Flex>
       </Modal>
     </>
