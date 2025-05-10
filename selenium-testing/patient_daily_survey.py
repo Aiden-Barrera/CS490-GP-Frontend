@@ -1,3 +1,4 @@
+# Login in as a patient or create a account, then fill out the daily survey
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -146,8 +147,8 @@ def create_new_patient():
     global patient_created
     patient_created = True
 
-# login_as_user()
-create_new_patient()
+login_as_user()
+# create_new_patient()
 
 # Click Patient Portal link in navbar
 patient_portal_link_XPATH = "//*[@id=\"root\"]/div/div/header/ul/li[3]/span/a"
