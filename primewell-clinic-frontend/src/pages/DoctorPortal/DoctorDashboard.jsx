@@ -43,6 +43,10 @@ const DoctorDashboard = (props) => {
     getUpcomingPatients();
   }, []);
 
+  if (!props.info.doctor_id) {
+    return <>Loading...</>
+  }
+
   return (
     <Flex
       justify="start"
