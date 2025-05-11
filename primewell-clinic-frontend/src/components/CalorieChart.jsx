@@ -19,6 +19,7 @@ const CalorieChart = (props) => {
     const chartInstanceRef = useRef(null);
 
     const getPatientSurveyData = async () => {
+        console.log(props)
         try {
             const res = await apiDB.get(
                 `/patientsurvey/${props.info.patient_id}`

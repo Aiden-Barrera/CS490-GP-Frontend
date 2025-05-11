@@ -3,7 +3,8 @@ import PatientCard from "../../components/PatientCard";
 import UpcomingAptsCards from "../../components/UpcomingAptsCards";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import apiDB from '../../api';
+import apiDB from "../../api";
+
 const DoctorDashboard = (props) => {
   const [doctorPatients, setDoctorPatients] = useState([]);
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
@@ -14,7 +15,7 @@ const DoctorDashboard = (props) => {
       const res = await apiDB.post("/doctorPatients", {
         Doctor_ID: props.info.doctor_id,
       });
-      // console.log(res.data);
+      console.log(res.data);
       setDoctorPatients(res.data);
     } catch (error) {
       console.error("Error fetching doctor patient data:", error);
@@ -77,10 +78,10 @@ const DoctorDashboard = (props) => {
       >
         <h1 style={{ color: "#333333" }}>Patients</h1>
 
-        <Flex vertical gap="10px" style={{width: "100%", overflow: "auto", padding: "10px"}}>
+        <Flex vertical gap="10px" style={{ width: "100%", overflow: "auto", padding: "10px" }}>
           {doctorPatients.length > 0 ?
             doctorPatients.map((patient) => (
-              <PatientCard Fname={patient.First_Name} Lname={patient.Last_Name} />
+              <PatientCard Fname={patient.First_Name} Lname={patient.Last_Name} patient_id={patient.Patient_ID} />
             )) : (
               <p style={{ margin: 0, color: "#333333", fontSize: "24px" }}>No Patients</p>
             )}
@@ -104,7 +105,7 @@ const DoctorDashboard = (props) => {
       >
         <h1 style={{ color: "#333333", marginBottom: "20px" }}>Upcoming Appointments</h1>
 
-        <Flex vertical gap="10px" style={{width: "100%", overflow: "auto", padding: "10px"}}>
+        <Flex vertical gap="10px" style={{ width: "100%", overflow: "auto", padding: "10px" }}>
           {upcomingAppointments.length > 0 ? (
             upcomingAppointments.map((patient, index) => (
               <UpcomingAptsCards

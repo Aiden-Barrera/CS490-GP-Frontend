@@ -51,6 +51,7 @@ const Navbar = (props) => {
     },
     {
       key: '3',
+      id: 'signOut',
       label: 'Sign Out',
     },
   ]
@@ -194,7 +195,7 @@ const Navbar = (props) => {
                   </>
                 ) : (
                 <Dropdown menu={{ items, onClick: handleMenuClick }} placement="bottomRight" trigger={['click']}>
-                  <Button style={{ 
+                  <Button id="profileButton"style={{ 
                     width: "48px", 
                     height: "48px",
                     padding: 0,         
