@@ -35,7 +35,7 @@ const DoctorPrescription = ({userInfo}) => {
 
     const onFinish = async (values) => {
         const pillId = values.prescription;
-        const quantity = values.Quantity;
+        const quantity = values.quantity;
 
         const body = {
             Patient_ID: location.state.patient_id,
