@@ -43,6 +43,7 @@ def wait_and_click(driver, by, value, timeout=20):
 
 service = Service(excutable_path="chromedriver.exe")
 driver = webdriver.Chrome(service=service)
+driver.maximize_window()
 
 # driver.get("http://localhost:5173")
 driver.get("https://cs490-gp-frontend-production.up.railway.app/") # Open Primewell Cliniic Website

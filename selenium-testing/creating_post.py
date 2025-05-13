@@ -12,6 +12,7 @@ from faker import Faker
 service = Service(excutable_path="chromedriver.exe")
 # service = Service(executable_path="")
 driver = webdriver.Chrome(service=service)
+driver.maximize_window()
 fake = Faker()
 time_to_wait_between_inputs = 1
 
