@@ -14,7 +14,7 @@ service = Service(excutable_path="chromedriver.exe")
 driver = webdriver.Chrome(service=service)
 # driver.maximize_window()
 fake = Faker()
-time_to_wait_between_inputs = 0.2
+time_to_wait_between_inputs = 1
 patient_created = False
 
 # driver.get("http://localhost:5173/") # Open Primewell Cliniic Website
@@ -188,6 +188,7 @@ def edit_profile():
     view_profile_XPATH = "//li/span[text()='View Profile']"
     click_button(view_profile_XPATH)
 
+    time.sleep(10)
     # Click Edit profile Button
     edit_profile_XPATH = "//*[@id=\"root\"]/div/div/div/div/button"
     click_button(edit_profile_XPATH)

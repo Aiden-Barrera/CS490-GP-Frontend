@@ -12,7 +12,7 @@ from faker import Faker
 service = Service(excutable_path="chromedriver.exe")
 driver = webdriver.Chrome(service=service)
 fake = Faker()
-time_to_wait_between_inputs = 0.2
+time_to_wait_between_inputs = 1
 
 # driver.get("http://localhost:5173/") # Open Primewell Cliniic Website
 driver.get("https://cs490-gp-frontend-production.up.railway.app/") # Open Primewell Cliniic Website

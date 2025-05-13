@@ -12,9 +12,9 @@ from faker import Faker
 
 service = Service(excutable_path="chromedriver.exe")
 driver = webdriver.Chrome(service=service)
-# driver.maximize_window()
+driver.maximize_window()
 fake = Faker()
-time_to_wait_between_inputs = 0.2
+time_to_wait_between_inputs = 1
 patient_created = False
 
 # driver.get("http://localhost:5173/") # Open Primewell Cliniic Website
@@ -153,6 +153,12 @@ login_as_user()
 # Click Patient Portal link in navbar
 patient_portal_link_XPATH = "//*[@id=\"root\"]/div/div/header/ul/li[3]/span/a"
 click_button(patient_portal_link_XPATH)
+
+time.sleep(2)
+chart_xpath = "//*[@id=\"root\"]/div/div/div/div[2]/div/div[2]/div/div[1]/div"
+chart = driver.find_element(By.XPATH, chart_xpath)
+driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", chart)
+time.sleep(5)
 
 # Click Daily Survey link on side bar
 daily_survey_XPATH = "//*[@id=\"root\"]/div/div/div/div[1]/ul/li[5]/span/a"
